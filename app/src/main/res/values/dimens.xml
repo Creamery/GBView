@@ -10,7 +10,7 @@
 
     <dimen name="small_label_text_size">15sp</dimen>
 
-    <dimen name="text_box_padding">8dp</dimen>
+    <dimen name="text_box_padding">3dp</dimen>
     <dimen name="context_padding">10dp</dimen>
     <dimen name="small_context_padding">5dp</dimen>
     <dimen name="context_margin">3dp</dimen>
