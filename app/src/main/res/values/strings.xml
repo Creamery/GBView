@@ -1,0 +1,129 @@
+<resources>
+    <string name="app_name">GeeBeeView</string>
+    <string name="username">Username: </string>
+    <string name="password">Password: </string>
+
+    <string name="dataset_title">Dataset List</string>
+    <string name="school">School</string>
+    <string name="dateCreated">Date</string>
+
+    <string name="data_visualization">Data Visualization</string>
+    <string name="dataset">Dataset/s:</string>
+    <string name="filter">Filter/s:</string>
+    <string name="chart">Chart: </string>
+    <string name="displayed_data">Health Test: </string>
+    <string name="right_chart_content">Right Chart Content: </string>
+
+    <!-- BUTTONS -->
+    <string name="login">LOGIN</string>
+    <string name="signup">SIGN UP</string>
+
+    <string name="download">DOWNLOAD</string>
+    <string name="visualize">VISUALIZE</string>
+
+    <string name="add_dataset">ADD DATASET</string>
+    <string name="add_filter">ADD FILTER</string>
+    <string name="view_patient_list">PATIENT LIST</string>
+
+    <string name="name">Name</string>
+    <string name="gender">Gender</string>
+    <string name="age">Age</string>
+    <string name="view_record">VIEW RECORD</string>
+
+    <string name="birthday">Birthday: </string>
+    <string name="gender_r">Gender: </string>
+    <string name="dominant_hand">Dominant Hand: </string>
+    <string name="last_record">Last Check Up: </string>
+    <string name="bmi">BMI</string>
+    <string name="remarks">Remarks: </string>
+    <string name="record_date">Record Date:</string>
+
+    <string name="grade_level">Grade Level</string>
+    <string name="height">Height</string>
+    <string name="weight">Weight</string>
+    <string name="visual_acuity">Visual Acuity</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="color_vision">Color Vision</string>
+    <string name="hearing">Hearing</string>
+    <string name="gross_motor">Gross Motor</string>
+    <string name="fine_motor">Fine Motor</string>
+    <string name="dominant">Dominant</string>
+    <string name="non_dominant">Non-Dominant</string>
+    <string name="hold">Hold</string>
+
+    <string name="view_hpi">CONSULTATION RECORDS</string>
+    <string name="view_immunization">IMMUNIZATION RECORDS</string>
+    <string name="refresh_dataset_list">REFRESH</string>
+
+    <string name="immunization_records">IMMUNIZATION:</string>
+
+    <string name="view_HPI_list">CONSULTATION LIST</string>
+    <string name="case_impression">Case Impression</string>
+    <string name="default_hpi">No HPI Text</string>
+    <string name="btn_back">&lt;</string>
+
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
+    <string name="na">N/A</string>
+    <string name="close">X</string>
+
+    <string name="no_immunizaiton">Patient has no immunization records!</string>
+
+    <string-array name="record_column_array">
+        <item>BMI</item>
+        <item>Visual Acuity Left</item>
+        <item>Visual Acuity Right</item>
+        <item>Color Vision</item>
+        <item>Hearing Left</item>
+        <item>Hearing Right</item>
+        <item>Gross Motor</item>
+        <item>Fine Motor (Dominant Hand)</item>
+        <item>Fine Motor (Non-Dominant Hand)</item>
+        <item>Fine Motor (Hold)</item>
+    </string-array>
+
+    <string-array name="record_column_array_num">
+        <item>BMI</item>
+        <item>Height (in cm)</item>
+        <item>Weight (in kg)</item>
+        <item>Visual Acuity Left</item>
+        <item>Visual Acuity Right</item>
+        <item>Color Vision</item>
+        <item>Hearing Left</item>
+        <item>Hearing Right</item>
+        <item>Gross Motor</item>
+        <item>Fine Motor (Dominant Hand)</item>
+        <item>Fine Motor (Non-Dominant Hand)</item>
+        <item>Fine Motor (Hold)</item>
+    </string-array>
+
+    <string-array name="chart_type_array">
+        <item>Pie Chart</item>
+        <item>Bar Chart</item>
+        <item>Scatter Chart</item>
+        <item>Bubble Chart</item>
+    </string-array>
+
+    <string-array name="right_chart_content_array">
+        <item>National Profile</item>
+        <item>Region</item>
+        <item>Province</item>
+        <item>Municipality</item>
+    </string-array>
+
+    <string-array name="age_filter_array">
+        <item>&lt;</item>
+        <item>&lt;=</item>
+        <item>=</item>
+        <item>&gt;</item>
+        <item>&gt;=</item>
+    </string-array>
+
+    <string-array name="gender_filter_array">
+        <item>N/A</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+</resources>

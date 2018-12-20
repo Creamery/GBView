@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="5">
+    <TextView
+        android:id="@+id/tv_patient_name"
+        style="@style/DefaultText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="@string/name"/>
+    <TextView
+        android:id="@+id/tv_patient_gender"
+        style="@style/DefaultText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/gender"/>
+    <TextView
+        android:id="@+id/tv_patient_age"
+        style="@style/DefaultText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/age"/>
+    <Button
+        android:id="@+id/btn_view_record"
+        style="@style/DefaultButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/view_record" />
+</LinearLayout>
