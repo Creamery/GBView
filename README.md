@@ -1,2 +1,2 @@
-# GeeBeeView
-Thesis Undergraduate Project
+# GBView
+R.A. Updates for GeeBeeView.
