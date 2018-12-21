@@ -12,7 +12,7 @@
     <string name="filter">Filter/s:</string>
     <string name="chart">Chart: </string>
     <string name="displayed_data">Health Test: </string>
-    <string name="right_chart_content">Right Chart Content: </string>
+    <string name="right_chart_content">Right Chart: </string>
 
     <!-- BUTTONS -->
     <string name="login">LOGIN</string>

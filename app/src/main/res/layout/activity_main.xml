@@ -145,10 +145,11 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.7"
+
+                    android:autoSizeTextType="uniform"
                     android:autoSizeMaxTextSize="100sp"
                     android:autoSizeMinTextSize="12sp"
                     android:autoSizeStepGranularity="2sp"
-                    android:autoSizeTextType="uniform"
 
                     android:autoText="false"
                     android:background="@color/white"

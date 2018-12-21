@@ -103,6 +103,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         setContentView(R.layout.activity_data_visualization);
         // lock orientation of activity to landscape
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         // get extras (schoolName & date)
         schoolName = getIntent().getStringExtra(School.C_SCHOOLNAME);
         schoolID = getIntent().getIntExtra(School.C_SCHOOL_ID, 0);
@@ -248,7 +249,6 @@ public class DataVisualizationActivity extends AppCompatActivity
                     // adjust size of layout
                     paramsLeft = pieChartLeft.getLayoutParams();
                     paramsRight = pieChartRight.getLayoutParams();
-
                     paramsRight.height = ViewGroup.LayoutParams.MATCH_PARENT;
                     paramsRight.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 } else if(position == 1) {
@@ -516,6 +516,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         l.setXEntrySpace(7);
         l.setYEntrySpace(5);
 
+        pieChart.getLegend().setEnabled(false); // TODO Temporarily removed legends
         return pieChart;
     }
 
