@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <!-- SeeBee specified colors -->
-    <color name="white">#FFFFFF</color>
-    <color name="yellow">#FFFF33</color>
-    <color name="grey">#D3D3D3</color>
-    <color name="green">#008000</color>
+    <color name="white">#ffffff</color>
+    <color name="yellow">#ffff33</color>
+    <color name="grey">#cdcdcd</color>
+    <color name="green">#06b5a6</color>
     <color name="black">#000000</color>
 </resources>
