@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/DefaultBackground"
     android:layout_width="match_parent"
@@ -23,14 +24,16 @@
             android:layout_weight="0.3"
 
 
-            android:autoSizeTextType="uniform"
-
             android:autoSizeMaxTextSize="100sp"
+
             android:autoSizeMinTextSize="12sp"
             android:autoSizeStepGranularity="2sp"
-            android:text="@string/data_visualization"
+            android:autoSizeTextType="uniform"
+            android:autoText="false"
 
-            android:textAppearance="@style/DefaultText" />
+            android:text="@string/data_visualization"
+            android:textAppearance="@style/DefaultText"
+            app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
         <TextView
             android:id="@+id/tv_dv_right_chart"
@@ -44,12 +47,14 @@
             android:autoSizeStepGranularity="2sp"
 
             android:autoSizeTextType="uniform"
+            android:autoText="false"
             android:gravity="right|center_vertical"
             android:includeFontPadding="false"
-            android:text="@string/right_chart_content"
 
+            android:text="@string/right_chart_content"
             android:textAlignment="center"
-            android:textAppearance="@style/DefaultText" />
+            android:textAppearance="@style/DefaultText"
+            app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
         <Spinner
             android:id="@id/sp_right_chart_content"
@@ -85,7 +90,7 @@
             android:gravity="left|center_vertical"
             android:includeFontPadding="false"
             android:text="@string/chart"
-            />
+            app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
         <Spinner
             android:id="@+id/sp_chart_type"
@@ -172,31 +177,97 @@
                     android:orientation="vertical"
                     android:weightSum="1">
 
-                    <Button
-                        android:id="@+id/btn_add_dataset"
-                        style="@style/DefaultButton"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="0.5"
-                        android:autoSizeMaxTextSize="100sp"
-                        android:autoSizeMinTextSize="12sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
+                        android:layout_weight="0.5">
 
-                        android:text="@string/add_dataset" />
+                        <TextView
+                            android:id="@+id/tv_add_dataset_overlay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:autoText="false"
+                            android:clickable="false"
+                            android:editable="false"
+                            android:elevation="100dp"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:linksClickable="false"
+                            android:longClickable="false"
+                            android:text="@string/add_dataset"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/DefaultText"
+                            android:textColor="@color/yellow"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
-                    <Button
-                        android:id="@+id/btn_add_filter"
-                        style="@style/DefaultButton"
+                        <Button
+                            android:id="@+id/btn_add_dataset"
+                            style="@style/DefaultButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+
+                            android:autoSizeMaxTextSize="100sp"
+                            android:autoSizeMinTextSize="5sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+
+
+                            android:autoText="false"
+                            android:textAlignment="center"
+
+                            android:textAllCaps="false"
+
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        android:layout_weight="0.5"
-                        android:autoSizeMaxTextSize="100sp"
-                        android:autoSizeMinTextSize="12sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
+                        android:layout_weight="0.5">
 
-                        android:text="@string/add_filter" />
+                        <TextView
+                            android:id="@+id/tv_add_filter_overlay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_marginBottom="10dp"
+                            android:autoText="false"
+                            android:clickable="false"
+                            android:editable="false"
+                            android:elevation="100dp"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:linksClickable="false"
+                            android:longClickable="false"
+                            android:text="@string/add_filter"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/DefaultText"
+                            android:textColor="@color/yellow"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+                        <Button
+                            android:id="@+id/btn_add_filter"
+                            style="@style/DefaultButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.5"
+                            android:autoSizeMaxTextSize="100sp"
+                            android:autoSizeMinTextSize="12sp"
+                            android:autoSizeStepGranularity="2sp"
+                            android:autoSizeTextType="uniform"
+
+                            />
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -212,6 +283,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="0.2"
+
                         android:autoSizeMaxTextSize="100sp"
                         android:autoSizeMinTextSize="12sp"
                         android:autoSizeStepGranularity="2sp"
@@ -240,12 +312,13 @@
                         android:layout_height="0dp"
                         android:layout_weight="0.2"
 
-                        android:autoSizeTextType="uniform"
                         android:autoSizeMaxTextSize="100sp"
                         android:autoSizeMinTextSize="12sp"
                         android:autoSizeStepGranularity="2sp"
+                        android:autoSizeTextType="uniform"
 
-                        android:text="@string/displayed_data" />
+                        android:text="@string/displayed_data"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
                     <Spinner
                         android:id="@+id/sp_record_column"
@@ -270,6 +343,13 @@
             android:layout_height="match_parent"
             android:layout_weight="0.8">
 
+            <RelativeLayout
+                android:id="@+id/graph_container_center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="top"></RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -282,7 +362,9 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:gravity="top"></RelativeLayout>
+                    android:gravity="top">
+
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/graph_container_right"

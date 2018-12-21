@@ -21,7 +21,7 @@
     <string name="download">DOWNLOAD</string>
     <string name="visualize">VISUALIZE</string>
 
-    <string name="add_dataset">ADD DATASET</string>
+    <string name="add_dataset">ADD DATA</string>
     <string name="add_filter">ADD FILTER</string>
     <string name="view_patient_list">PATIENT LIST</string>
 

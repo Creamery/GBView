@@ -78,6 +78,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     RecyclerView rvDataset, rvFilter;
     Button btnAddDataset, btnAddFilter, btnViewPatientList, btnViewHPIList;
     RelativeLayout graphLayoutLeft, graphLayoutRight; /* space where graph will be set on */
+    RelativeLayout graphLayoutCenter; // added
     int schoolID;
     String schoolName, date;
     PieChart pieChartLeft, pieChartRight;
@@ -123,6 +124,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         rvFilter = (RecyclerView) findViewById(R.id.rv_dv_filter);
         graphLayoutLeft = (RelativeLayout) findViewById(R.id.graph_container_left);
         graphLayoutRight = (RelativeLayout) findViewById(R.id.graph_container_right);
+        graphLayoutCenter = (RelativeLayout) findViewById(R.id.graph_container_center); // Added
         spRecordColumn = (Spinner) findViewById(R.id.sp_record_column);
         spChartType = (Spinner) findViewById(R.id.sp_chart_type);
         spRightChart = (Spinner) findViewById(R.id.sp_right_chart_content);
@@ -243,6 +245,7 @@ public class DataVisualizationActivity extends AppCompatActivity
                 ViewGroup.LayoutParams paramsLeft, paramsRight;
                 graphLayoutLeft.removeAllViews();
                 graphLayoutRight.removeAllViews();
+                graphLayoutCenter.removeAllViews();
                 if(position == 0){
                     graphLayoutLeft.addView(pieChartLeft);
                     graphLayoutRight.addView(pieChartRight);
@@ -253,7 +256,11 @@ public class DataVisualizationActivity extends AppCompatActivity
                     paramsRight.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 } else if(position == 1) {
                     /* add bar chart to layout */
-                    graphLayoutLeft.addView(barChart);
+                    //graphLayoutLeft.addView(barChart);
+
+                    // TODO
+                    graphLayoutCenter.addView(barChart);
+
                     /* adjust the size of the bar chart */
                     paramsLeft = barChart.getLayoutParams();
                 } else if (position == 2) {
@@ -481,9 +488,9 @@ public class DataVisualizationActivity extends AppCompatActivity
     private void createBarChart() {
         /* create bar chart */
         barChart = new BarChart(this);
-
         // set a chart value selected listener
         barChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
+        // barChart.fitScreen(); // TODO added
     }
 
     /* prepare values specifically for piechart only */
