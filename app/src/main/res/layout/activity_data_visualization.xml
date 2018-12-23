@@ -414,7 +414,7 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <RelativeLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/relativeLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -425,6 +425,42 @@
         app:layout_constraintStart_toEndOf="@+id/sidebar"
         app:layout_constraintTop_toBottomOf="@+id/topbar"
         app:layout_constraintVertical_weight="9.2">
+
+        <TextView
+            android:id="@+id/tv_dv_right_chart"
+            style="@style/LabelText"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_toLeftOf="@+id/sp_right_chart_content"
+            android:autoSizeMaxTextSize="100sp"
+
+            android:autoSizeMinTextSize="12sp"
+            android:autoSizeStepGranularity="2sp"
+            android:autoSizeTextType="uniform"
+
+            android:autoText="false"
+            android:editable="false"
+            android:gravity="right|center_vertical"
+            android:includeFontPadding="false"
+            android:padding="0dp"
+            android:text="@string/right_chart_content"
+            android:textAlignment="center"
+            android:textAppearance="@style/DefaultText"
+            app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+        <Spinner
+            android:id="@id/sp_right_chart_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:clipToPadding="false"
+
+            android:elevation="100dp"
+            android:entries="@array/right_chart_content_array"
+            android:gravity="start|center_vertical"
+            android:padding="0dp"></Spinner>
 
         <RelativeLayout
             android:id="@+id/graph_container_center"
@@ -451,53 +487,15 @@
 
             <RelativeLayout
                 android:id="@+id/graph_container_right"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
                 android:gravity="top">
 
-                <Spinner
-                    android:id="@id/sp_right_chart_content"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:layout_weight="0.3"
-                    android:autoSizeMaxTextSize="100sp"
-
-
-                    android:autoSizeMinTextSize="12sp"
-                    android:autoSizeStepGranularity="2sp"
-                    android:autoSizeTextType="uniform"
-                    android:clipToPadding="false"
-
-                    android:entries="@array/right_chart_content_array"
-                    android:gravity="left|center_vertical"
-                    android:padding="0dp"></Spinner>
-
-                <TextView
-                    android:id="@+id/tv_dv_right_chart"
-                    style="@style/LabelText"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@+id/sp_right_chart_content"
-                    android:layout_weight="0.1"
-                    android:autoSizeMaxTextSize="100sp"
-                    android:autoSizeMinTextSize="12sp"
-                    android:autoSizeStepGranularity="2sp"
-
-                    android:autoSizeTextType="uniform"
-                    android:autoText="false"
-                    android:gravity="right|center_vertical"
-                    android:includeFontPadding="false"
-
-                    android:padding="0dp"
-                    android:text="@string/right_chart_content"
-                    android:textAlignment="center"
-                    android:textAppearance="@style/DefaultText"
-                    app:autoSizePresetSizes="@array/autosize_text_sizes" />
             </RelativeLayout>
+
         </LinearLayout>
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 
 
 </android.support.constraint.ConstraintLayout>
