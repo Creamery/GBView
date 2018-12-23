@@ -66,44 +66,32 @@
             app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
         <TextView
-            android:id="@+id/tv_dv_right_chart"
+            android:id="@+id/tv_dv_data"
             style="@style/LabelText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_toLeftOf="@+id/sp_right_chart_content"
-            android:layout_weight="0.1"
+            android:layout_weight="0.2"
+
             android:autoSizeMaxTextSize="100sp"
             android:autoSizeMinTextSize="12sp"
             android:autoSizeStepGranularity="2sp"
-
             android:autoSizeTextType="uniform"
-            android:autoText="false"
-            android:gravity="right|center_vertical"
-            android:includeFontPadding="false"
 
-            android:padding="0dp"
-            android:text="@string/right_chart_content"
-            android:textAlignment="center"
-            android:textAppearance="@style/DefaultText"
+            android:text="@string/displayed_data"
             app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
         <Spinner
-            android:id="@id/sp_right_chart_content"
+            android:id="@+id/sp_record_column"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_weight="0.3"
+            android:layout_weight="0.2"
+
             android:autoSizeMaxTextSize="100sp"
-
-
             android:autoSizeMinTextSize="12sp"
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
-            android:clipToPadding="false"
 
-            android:entries="@array/right_chart_content_array"
-            android:gravity="left|center_vertical"
-            android:padding="0dp"></Spinner>
+            android:entries="@array/record_column_array"></Spinner>
 
         <TextView
             android:id="@+id/tv_dv_chart"
@@ -483,33 +471,6 @@
                     android:orientation="vertical"
                     android:weightSum="1">
 
-                    <TextView
-                        android:id="@+id/tv_dv_data"
-                        style="@style/LabelText"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.2"
-
-                        android:autoSizeMaxTextSize="100sp"
-                        android:autoSizeMinTextSize="12sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-
-                        android:text="@string/displayed_data"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
-
-                    <Spinner
-                        android:id="@+id/sp_record_column"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.2"
-
-                        android:autoSizeMaxTextSize="100sp"
-                        android:autoSizeMinTextSize="12sp"
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-
-                        android:entries="@array/record_column_array"></Spinner>
                 </LinearLayout>
 
             </LinearLayout>
@@ -549,7 +510,48 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:gravity="top"></RelativeLayout>
+                    android:gravity="top">
+
+                    <Spinner
+                        android:id="@id/sp_right_chart_content"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_weight="0.3"
+                        android:autoSizeMaxTextSize="100sp"
+
+
+                        android:autoSizeMinTextSize="12sp"
+                        android:autoSizeStepGranularity="2sp"
+                        android:autoSizeTextType="uniform"
+                        android:clipToPadding="false"
+
+                        android:entries="@array/right_chart_content_array"
+                        android:gravity="left|center_vertical"
+                        android:padding="0dp"></Spinner>
+
+                    <TextView
+                        android:id="@+id/tv_dv_right_chart"
+                        style="@style/LabelText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_toLeftOf="@+id/sp_right_chart_content"
+                        android:layout_weight="0.1"
+                        android:autoSizeMaxTextSize="100sp"
+                        android:autoSizeMinTextSize="12sp"
+                        android:autoSizeStepGranularity="2sp"
+
+                        android:autoSizeTextType="uniform"
+                        android:autoText="false"
+                        android:gravity="right|center_vertical"
+                        android:includeFontPadding="false"
+
+                        android:padding="0dp"
+                        android:text="@string/right_chart_content"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/DefaultText"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+                </RelativeLayout>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
