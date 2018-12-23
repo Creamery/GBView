@@ -12,6 +12,25 @@
     android:weightSum="1"
     tools:context="seebee.geebeeview.layout.DataVisualizationActivity">
 
+    <RelativeLayout
+        android:id="@+id/topitem"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/sidebar"
+        app:layout_constraintEnd_toStartOf="@+id/topbar"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"
+            app:srcCompat="@drawable/img_templogo" />
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/topbar"
         android:layout_width="0dp"
@@ -20,9 +39,10 @@
         android:weightSum="1"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sidebar"
+        app:layout_constraintHorizontal_weight="9"
+        app:layout_constraintStart_toEndOf="@+id/topitem"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="0.8">
+        app:layout_constraintVertical_weight="1">
 
         <TextView
             android:id="@+id/tv_data_visualization_title"
@@ -124,7 +144,8 @@
         app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/topitem"
+        app:layout_constraintVertical_weight="9">
 
         <RelativeLayout
             android:id="@+id/hidden_dataset_list"
@@ -182,24 +203,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_weight="7">
 
-            <RelativeLayout
-                android:id="@+id/topitem"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/buttonitems"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="1.5">
-
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorPrimaryDark"
-                    app:srcCompat="@drawable/img_templogo" />
-            </RelativeLayout>
-
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/buttonitems"
                 android:layout_width="0dp"
@@ -207,7 +210,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/topitem"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_weight="5.5">
 
                 <RelativeLayout
