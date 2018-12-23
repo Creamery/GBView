@@ -59,6 +59,7 @@
             android:autoSizeTextType="uniform"
             android:autoText="false"
 
+            android:padding="0dp"
             android:text="@string/data_visualization"
             android:textAppearance="@style/DefaultText"
             app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -79,6 +80,7 @@
             android:gravity="right|center_vertical"
             android:includeFontPadding="false"
 
+            android:padding="0dp"
             android:text="@string/right_chart_content"
             android:textAlignment="center"
             android:textAppearance="@style/DefaultText"
@@ -100,7 +102,8 @@
 
 
             android:entries="@array/right_chart_content_array"
-            android:gravity="left|center_vertical"></Spinner>
+            android:gravity="left|center_vertical"
+            android:padding="0dp"></Spinner>
 
         <TextView
             android:id="@+id/tv_dv_chart"
@@ -117,6 +120,7 @@
             android:autoText="false"
             android:gravity="left|center_vertical"
             android:includeFontPadding="false"
+            android:padding="0dp"
             android:text="@string/chart"
             app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
@@ -131,7 +135,8 @@
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
 
-            android:entries="@array/chart_type_array"></Spinner>
+            android:entries="@array/chart_type_array"
+            android:padding="0dp"></Spinner>
     </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
