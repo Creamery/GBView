@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout4"
     style="@style/DefaultBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:orientation="vertical"
     android:weightSum="1"
     tools:context="seebee.geebeeview.layout.DataVisualizationActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/topbar"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="0.15"
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:weightSum="1"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sidebar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="0.8">
 
         <TextView
             android:id="@+id/tv_data_visualization_title"
@@ -106,77 +113,108 @@
             android:entries="@array/chart_type_array"></Spinner>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/sidebar"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="0.85"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:layout_weight="0.2"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/hidden_dataset_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cont_buttons">
+
+            <TextView
+                android:id="@+id/tv_dv_dataset"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/dataset" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_dv_dataset"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/hidden_filter_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/cont_buttons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cont_buttons"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_dv_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_dv_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/sidebar"
+            android:id="@+id/cont_buttons"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2">
+            android:layout_height="0dp"
+            android:background="@color/grey"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/space2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="7">
 
             <RelativeLayout
-                android:id="@+id/hidden_dataset_list"
+                android:id="@+id/topitem"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cont_buttons">
-
-                <TextView
-                    android:id="@+id/tv_dv_dataset"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/dataset" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_dv_dataset"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                </android.support.v7.widget.RecyclerView>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/hidden_filter_list"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/cont_buttons"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cont_buttons"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <TextView
-                    android:id="@+id/tv_dv_filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/filter" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_dv_filter"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                </android.support.v7.widget.RecyclerView>
-            </RelativeLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/cont_buttons"
-                android:layout_width="0dp"
-                android:layout_height="213dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/buttonitems"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0">
+                app:layout_constraintVertical_weight="1.5">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimaryDark"
+                    app:srcCompat="@drawable/img_templogo" />
+            </RelativeLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/buttonitems"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/topitem"
+                app:layout_constraintVertical_weight="5.5">
 
                 <RelativeLayout
                     android:id="@+id/item1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
                     app:layout_constraintBottom_toTopOf="@+id/item2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -201,12 +239,11 @@
                         android:text="@string/add_dataset"
                         android:textAlignment="center"
                         android:textAppearance="@style/DefaultText"
-                        android:textColor="@color/yellow"
                         app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
                     <Button
                         android:id="@+id/btn_add_dataset"
-                        style="@style/DefaultButton"
+                        style="@style/ClearButton"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -218,10 +255,11 @@
 
 
                         android:autoText="false"
+                        android:background="@color/colorPrimaryDark"
+
                         android:textAlignment="center"
 
                         android:textAllCaps="false"
-
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </RelativeLayout>
@@ -230,6 +268,7 @@
                     android:id="@+id/item2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
                     app:layout_constraintBottom_toTopOf="@+id/item3"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -254,12 +293,11 @@
                         android:text="@string/add_filter"
                         android:textAlignment="center"
                         android:textAppearance="@style/DefaultText"
-                        android:textColor="@color/yellow"
                         app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
                     <Button
                         android:id="@+id/btn_add_filter"
-                        style="@style/DefaultButton"
+                        style="@style/ClearButton"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.5"
@@ -268,13 +306,14 @@
                         android:autoSizeStepGranularity="2sp"
                         android:autoSizeTextType="uniform"
 
-                        />
+                        android:background="@color/colorPrimaryDark" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/item3"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
                     app:layout_constraintBottom_toTopOf="@+id/item4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -282,7 +321,7 @@
 
                     <Button
                         android:id="@+id/btn_view_hpi_list"
-                        style="@style/DefaultButton"
+                        style="@style/ClearButton"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
@@ -292,13 +331,35 @@
                         android:autoSizeStepGranularity="2sp"
                         android:autoSizeTextType="uniform"
 
-                        android:text="@string/view_HPI_list" />
+                        android:background="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:id="@+id/tv_view_hpi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:autoText="false"
+                        android:clickable="false"
+                        android:editable="false"
+                        android:elevation="100dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="@string/view_HPI_list"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/DefaultText"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/item4"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -306,7 +367,7 @@
 
                     <Button
                         android:id="@+id/btn_view_patient_list"
-                        style="@style/DefaultButton"
+                        style="@style/ClearButton"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.2"
@@ -316,17 +377,63 @@
                         android:autoSizeStepGranularity="2sp"
                         android:autoSizeTextType="uniform"
 
-                        android:text="@string/view_patient_list" />
+                        android:background="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:id="@+id/tv_view_patient"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:autoText="false"
+                        android:clickable="false"
+                        android:editable="false"
+                        android:elevation="100dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="@string/view_patient_list"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/DefaultText"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
                 </RelativeLayout>
 
             </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
 
+        <Space
+            android:id="@+id/space2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cont_buttons"
+            app:layout_constraintVertical_weight="3" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="9"
+        app:layout_constraintStart_toEndOf="@+id/sidebar"
+        app:layout_constraintTop_toBottomOf="@+id/topbar"
+        app:layout_constraintVertical_weight="9.2">
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0"
+            android:layout_weight="0.2"
             android:orientation="vertical"
             android:weightSum="1">
 
@@ -439,4 +546,4 @@
     </LinearLayout>
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
