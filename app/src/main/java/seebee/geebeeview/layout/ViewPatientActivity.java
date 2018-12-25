@@ -133,8 +133,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvData.setTypeface(chalkFont);
         tvDate.setTypeface(chalkFont);
         tvBMI.setTypeface(chalkFont);
-        tvHeight.setTypeface(chalkFont);
-        tvWeight.setTypeface(chalkFont);
+//        tvHeight.setTypeface(chalkFont);
+//        tvWeight.setTypeface(chalkFont);
         tvVisualLeft.setTypeface(chalkFont);
         tvVisualRight.setTypeface(chalkFont);
         tvColorVision.setTypeface(chalkFont);
