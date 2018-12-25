@@ -387,510 +387,532 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
+            android:padding="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/patient_chart_container"
             app:layout_constraintHorizontal_weight="3.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
-                android:id="@+id/linearLayout7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_patient_about"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/tv_name_r"
-                    style="@style/TitleText"
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cont_patient_about">
+
+                <ScrollView
+                    android:id="@+id/scrollView2"
                     android:layout_width="wrap_content"
-                    android:layout_height="31dp"
-                    android:text="@string/name"
-                    app:layout_constraintStart_toStartOf="@+id/linearLayout5"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/iv_patient"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/no_photo" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/bmi" />
+
+                            <TextView
+                                android:id="@+id/tv_bmi"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/bmi" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/height" />
+
+                            <TextView
+                                android:id="@+id/tv_height"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/height" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/weight" />
+
+                            <TextView
+                                android:id="@+id/tv_weight"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/weight" />
+                        </LinearLayout>
+
+                        <TextView
+                            style="@style/SmallLabelText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/visual_acuity" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/context_padding"
+                                android:text="@string/left" />
+
+                            <TextView
+                                android:id="@+id/tv_visual_acuity_left"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/left" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/context_padding"
+                                android:text="@string/right" />
+
+                            <TextView
+                                android:id="@+id/tv_visual_acuity_right"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/right" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/color_vision" />
+
+                            <TextView
+                                android:id="@+id/tv_color_vision"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/color_vision" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/textView"
+                            style="@style/SmallLabelText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/hearing" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/context_padding"
+                                android:text="@string/left" />
+
+                            <TextView
+                                android:id="@+id/tv_hearing_left"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/left" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/context_padding"
+                                android:text="@string/right" />
+
+                            <TextView
+                                android:id="@+id/tv_hearing_right"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/right" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/gross_motor" />
+
+                            <TextView
+                                android:id="@+id/tv_gross_motor"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/gross_motor" />
+                        </LinearLayout>
+
+                        <TextView
+                            style="@style/SmallLabelText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/fine_motor" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/context_padding"
+                                android:text="@string/dominant" />
+
+                            <TextView
+                                android:id="@+id/tv_fine_motor_d"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/dominant" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/context_padding"
+                                android:text="@string/non_dominant" />
+
+                            <TextView
+                                android:id="@+id/tv_fine_motor_nd"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/non_dominant" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:paddingStart="@dimen/context_padding"
+                                android:text="@string/hold" />
+
+                            <TextView
+                                android:id="@+id/tv_fine_motor_hold"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/hold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/remarks" />
+
+                            <TextView
+                                android:id="@+id/tv_record_remark"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/remarks" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </ScrollView>
 
                 <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:id="@+id/linearLayout10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tv_vp_data"
+                        style="@style/LabelText"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal">
+                        android:text="@string/displayed_data" />
 
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/birthday" />
-
-                        <TextView
-                            android:id="@+id/tv_birthday"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/dateCreated"
-                            android:textAlignment="viewStart" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/gender_r" />
-
-                        <TextView
-                            android:id="@+id/tv_gender"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/gender" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/dominant_hand" />
-
-                        <TextView
-                            android:id="@+id/tv_dominant_hand"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/right" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/age" />
-
-                        <TextView
-                            android:id="@+id/tv_patient_age"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/age" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/grade_level" />
-
-                        <TextView
-                            android:id="@+id/tv_grade_level"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/grade_level" />
-                    </LinearLayout>
+                    <Spinner
+                        android:id="@+id/sp_vp_record_column"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/record_column_array_num"
+                        android:textAlignment="viewEnd"></Spinner>
                 </LinearLayout>
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/linearLayout8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                <RelativeLayout
+                    android:id="@+id/relativeLayout2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    style="@style/SmallLabelText"
+                    <TextView
+                        android:id="@+id/tv_vp_date"
+                        style="@style/LabelText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/record_date" />
+
+                    <Spinner
+                        android:id="@+id/sp_record_date"
+                        style="@style/DefaultSpinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"></Spinner>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/view"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/remarks" />
-
-                <TextView
-                    android:id="@+id/tv_patient_remark"
-                    style="@style/SmallContextText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/remarks" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linearLayout10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_vp_data"
-                    style="@style/LabelText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/displayed_data" />
-
-                <Spinner
-                    android:id="@+id/sp_vp_record_column"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/record_column_array_num"
-                    android:textAlignment="viewEnd"></Spinner>
-            </LinearLayout>
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/yellow"
-                android:padding="@dimen/context_margin" />
-
-            <RelativeLayout
-                android:id="@+id/relativeLayout2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_vp_date"
-                    style="@style/LabelText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/record_date" />
-
-                <Spinner
-                    android:id="@+id/sp_record_date"
-                    style="@style/DefaultSpinner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"></Spinner>
-            </RelativeLayout>
-
-            <ScrollView
-                android:id="@+id/scrollView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                    android:background="@color/yellow"
+                    android:padding="@dimen/context_margin" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/linearLayout7"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/bmi" />
-
-                        <TextView
-                            android:id="@+id/tv_bmi"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/bmi" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/height" />
-
-                        <TextView
-                            android:id="@+id/tv_height"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/height" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/weight" />
-
-                        <TextView
-                            android:id="@+id/tv_weight"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/weight" />
-                    </LinearLayout>
+                    android:orientation="horizontal">
 
                     <TextView
-                        style="@style/SmallLabelText"
-                        android:layout_width="match_parent"
+                        android:id="@+id/tv_name_r"
+                        style="@style/TitleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="31dp"
+                        android:text="@string/name"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout5"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_patient"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/no_photo" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/visual_acuity" />
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingStart="@dimen/context_padding"
-                            android:text="@string/left" />
+                            android:gravity="center_horizontal">
 
-                        <TextView
-                            android:id="@+id/tv_visual_acuity_left"
-                            style="@style/SmallContextText"
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/birthday" />
+
+                            <TextView
+                                android:id="@+id/tv_birthday"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/dateCreated"
+                                android:textAlignment="viewStart" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/left" />
-                    </LinearLayout>
+                            android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/gender_r" />
 
-                        <TextView
-                            style="@style/SmallLabelText"
+                            <TextView
+                                android:id="@+id/tv_gender"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/gender" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingStart="@dimen/context_padding"
-                            android:text="@string/right" />
+                            android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/tv_visual_acuity_right"
-                            style="@style/SmallContextText"
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/dominant_hand" />
+
+                            <TextView
+                                android:id="@+id/tv_dominant_hand"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/right" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/right" />
-                    </LinearLayout>
+                            android:layout_height="wrap_content">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/age" />
 
-                        <TextView
-                            style="@style/SmallLabelText"
+                            <TextView
+                                android:id="@+id/tv_patient_age"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/age" />
+                        </LinearLayout>
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/color_vision" />
+                            android:layout_height="wrap_content">
 
-                        <TextView
-                            android:id="@+id/tv_color_vision"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/color_vision" />
-                    </LinearLayout>
+                            <TextView
+                                style="@style/SmallLabelText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/grade_level" />
 
-                    <TextView
-                        android:id="@+id/textView"
-                        style="@style/SmallLabelText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/hearing" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingStart="@dimen/context_padding"
-                            android:text="@string/left" />
-
-                        <TextView
-                            android:id="@+id/tv_hearing_left"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/left" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingStart="@dimen/context_padding"
-                            android:text="@string/right" />
-
-                        <TextView
-                            android:id="@+id/tv_hearing_right"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/right" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/gross_motor" />
-
-                        <TextView
-                            android:id="@+id/tv_gross_motor"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/gross_motor" />
-                    </LinearLayout>
-
-                    <TextView
-                        style="@style/SmallLabelText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/fine_motor" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingStart="@dimen/context_padding"
-                            android:text="@string/dominant" />
-
-                        <TextView
-                            android:id="@+id/tv_fine_motor_d"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/dominant" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingStart="@dimen/context_padding"
-                            android:text="@string/non_dominant" />
-
-                        <TextView
-                            android:id="@+id/tv_fine_motor_nd"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/non_dominant" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:paddingStart="@dimen/context_padding"
-                            android:text="@string/hold" />
-
-                        <TextView
-                            android:id="@+id/tv_fine_motor_hold"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/hold" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/SmallLabelText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/remarks" />
-
-                        <TextView
-                            android:id="@+id/tv_record_remark"
-                            style="@style/SmallContextText"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="@string/remarks" />
+                            <TextView
+                                android:id="@+id/tv_grade_level"
+                                style="@style/SmallContextText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/grade_level" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-            </ScrollView>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/SmallLabelText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/remarks" />
+
+                    <TextView
+                        android:id="@+id/tv_patient_remark"
+                        style="@style/SmallContextText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/remarks" />
+                </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
 
