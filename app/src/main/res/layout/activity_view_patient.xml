@@ -415,7 +415,7 @@
                         android:layout_height="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/iv_patient"
-                        app:layout_constraintHorizontal_weight="2"
+                        app:layout_constraintHorizontal_weight="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -425,7 +425,7 @@
                         android:layout_height="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="2"
+                        app:layout_constraintHorizontal_weight="0.5"
                         app:layout_constraintStart_toEndOf="@+id/iv_patient"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
@@ -446,7 +446,7 @@
                             android:layout_height="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/cont_center_overlay"
-                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintHorizontal_weight="0.5"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -456,7 +456,7 @@
                             android:layout_height="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/overlay_right_space"
-                            app:layout_constraintHorizontal_weight="8"
+                            app:layout_constraintHorizontal_weight="9"
                             app:layout_constraintStart_toEndOf="@+id/overlay_left_space"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_bias="0.0">
@@ -467,7 +467,7 @@
                                 android:layout_height="0dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toStartOf="@+id/cont_circle_item1"
-                                app:layout_constraintHorizontal_weight="7.5"
+                                app:layout_constraintHorizontal_weight="7"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -478,13 +478,26 @@
                                 android:layout_marginTop="5dp"
                                 app:layout_constraintBottom_toTopOf="@+id/cont_circle_item2"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_weight="2.5"
+                                app:layout_constraintHorizontal_weight="3"
                                 app:layout_constraintStart_toEndOf="@+id/space_75"
                                 app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_weight="3.33">
+                                app:layout_constraintVertical_weight="3.5">
 
                                 <ImageView
                                     android:id="@+id/circleItem1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:adjustViewBounds="false"
+                                    android:cropToPadding="false"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_weight="8"
+                                    app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+
+                                <ImageView
+                                    android:id="@+id/img_gender_circle"
                                     android:layout_width="0dp"
                                     android:layout_height="0dp"
                                     android:adjustViewBounds="false"
@@ -503,11 +516,36 @@
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginTop="5dp"
-                                app:layout_constraintBottom_toTopOf="@+id/space4"
+                                app:layout_constraintBottom_toTopOf="@+id/tv_patient_age_label"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_weight="3"
                                 app:layout_constraintStart_toEndOf="@+id/space_75"
                                 app:layout_constraintTop_toBottomOf="@+id/cont_circle_item1"
-                                app:layout_constraintVertical_weight="3.33">
+                                app:layout_constraintVertical_weight="3.5">
+
+                                <TextView
+                                    android:id="@+id/tv_patient_age"
+                                    style="@style/SmallContextText"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:layout_weight="1"
+                                    android:autoText="false"
+                                    android:elevation="100dp"
+                                    android:gravity="center"
+                                    android:includeFontPadding="false"
+                                    android:padding="0dp"
+                                    android:text="@string/age"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                                    app:layout_constraintBottom_toBottomOf="@+id/circle_item2"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
                                 <ImageView
                                     android:id="@+id/circle_item2"
@@ -524,15 +562,39 @@
 
                             </android.support.constraint.ConstraintLayout>
 
+                            <TextView
+                                android:id="@+id/tv_patient_age_label"
+                                style="@style/SmallContextText"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_weight="1"
+                                android:autoText="false"
+                                android:elevation="100dp"
+                                android:gravity="top|center_horizontal"
+                                android:includeFontPadding="false"
+                                android:padding="0dp"
+                                android:text="@string/patient_circle_yrs"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorPrimaryDark"
+                                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                                app:layout_constraintBottom_toTopOf="@+id/space4"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_weight="3"
+                                app:layout_constraintStart_toEndOf="@+id/space_75"
+                                app:layout_constraintTop_toBottomOf="@+id/cont_circle_item2"
+                                app:layout_constraintVertical_weight="1.5" />
+
                             <Space
                                 android:id="@+id/space4"
                                 android:layout_width="0dp"
-                                android:layout_height="0dp"
+                                android:layout_height="23dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_weight="3"
                                 app:layout_constraintStart_toEndOf="@+id/space_75"
-                                app:layout_constraintTop_toBottomOf="@+id/cont_circle_item2"
-                                app:layout_constraintVertical_weight="3.33" />
+                                app:layout_constraintTop_toBottomOf="@+id/tv_patient_age_label"
+                                app:layout_constraintVertical_weight="1.5" />
 
                         </android.support.constraint.ConstraintLayout>
 
@@ -542,13 +604,11 @@
                             android:layout_height="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintHorizontal_weight="0.5"
                             app:layout_constraintStart_toEndOf="@+id/cont_center_overlay"
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </android.support.constraint.ConstraintLayout>
-
-
 
 
                     <ImageView
@@ -560,7 +620,7 @@
                         android:src="@drawable/no_photo"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/space"
-                        app:layout_constraintHorizontal_weight="8"
+                        app:layout_constraintHorizontal_weight="9"
                         app:layout_constraintStart_toEndOf="@+id/space3"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
@@ -1162,13 +1222,6 @@
                                 android:layout_weight="1"
                                 android:text="@string/age" />
 
-                            <TextView
-                                android:id="@+id/tv_patient_age"
-                                style="@style/SmallContextText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/age" />
                         </LinearLayout>
 
                         <LinearLayout

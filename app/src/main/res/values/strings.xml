@@ -33,7 +33,8 @@
 
     <!-- PATIENT CIRCLE ITEMS -->
     <string name="patient_circle_age">AGE</string>
-    <string name="patient_circle_SEX">SEX</string>
+    <string name="patient_circle_yrs">YRS</string>
+    <string name="patient_circle_sex">SEX</string>
 
     <string name="name">Name</string>
     <string name="gender">Gender</string>

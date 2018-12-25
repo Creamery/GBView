@@ -142,7 +142,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvBirthday.setTypeface(chalkFont);
         tvGender.setTypeface(chalkFont);
         tvDominantHand.setTypeface(chalkFont);
-        tvAge.setTypeface(chalkFont);
+//        tvAge.setTypeface(chalkFont);
         tvGradeLevel.setTypeface(chalkFont);
         tvPatientRemark.setTypeface(chalkFont);
         tvData.setTypeface(chalkFont);
@@ -304,7 +304,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvFineMotorHold.setText(record.getFineMotorString(record.getFineMotorHold()));
         tvRecordRemark.setText(record.getRemarksString());
         /* display age and grade level according to recordDate */
-        tvAge.setText(patient.getAge(recordDate)+" years old");
+        tvAge.setText(patient.getAge(recordDate)+"");
         tvGradeLevel.setText(record.getGradeLevel());
     }
 
