@@ -401,12 +401,22 @@
                     android:id="@+id/cont_top_details"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:background="@color/white"
                     android:clipToPadding="false"
                     app:layout_constraintBottom_toTopOf="@+id/cont_bottom_details"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_weight="6">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:adjustViewBounds="false"
+                        android:cropToPadding="false"
+                        app:layout_constraintHorizontal_weight="2"
+                        app:srcCompat="@drawable/img_circle_trans" />
 
                     <ImageView
                         android:id="@+id/iv_patient"
@@ -427,42 +437,58 @@
                     android:id="@+id/cont_bottom_details"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:background="@color/lightGrey"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cont_top_details"
                     app:layout_constraintVertical_weight="4">
 
-                    <TextView
-                        android:id="@+id/tv_name_r"
-                        style="@style/TitleText"
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayout3"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:autoText="false"
-                        android:includeFontPadding="false"
-                        android:padding="5dp"
-                        android:text="@string/name"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/DefaultText"
-                        android:textColor="@color/greenHighlight"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:layout_marginBottom="1dp"
+                        android:background="@color/white"
                         app:layout_constraintBottom_toTopOf="@+id/cont_patient_details"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_weight="5" />
+                        app:layout_constraintVertical_weight="4">
+
+                        <TextView
+                            android:id="@+id/tv_name_r"
+                            style="@style/TitleText"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:autoText="false"
+                            android:gravity="center"
+                            android:includeFontPadding="false"
+                            android:padding="5dp"
+                            android:text="@string/name"
+                            android:textAlignment="center"
+                            android:textAppearance="@style/DefaultText"
+                            android:textColor="@color/greenHighlight"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="8"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/cont_patient_details"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:background="@color/lightGrey"
-                        android:elevation="100dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_name_r"
-                        app:layout_constraintVertical_weight="5">
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+                        app:layout_constraintVertical_weight="6">
 
                         <android.support.constraint.ConstraintLayout
                             android:id="@+id/cont_height"
@@ -501,9 +527,10 @@
 
                             <TextView
                                 android:id="@+id/tv_height_label"
-                                style="@style/SmallContextText"
+                                style="@style/SmallLabelText"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
+                                android:layout_marginBottom="2dp"
                                 android:layout_weight="1"
                                 android:autoText="false"
                                 android:gravity="top"
@@ -523,7 +550,6 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:background="@color/white"
-                            android:elevation="100dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/cont_weight"
                             app:layout_constraintHorizontal_weight="3.33"
@@ -547,7 +573,7 @@
 
                             <TextView
                                 android:id="@+id/tv_weight"
-                                style="@style/SmallContextText"
+                                style="@style/SmallLabelText"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 android:layout_marginStart="5dp"
@@ -571,6 +597,7 @@
                                 style="@style/SmallLabelText"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
+                                android:layout_marginBottom="2dp"
                                 android:layout_weight="1"
                                 android:autoText="false"
                                 android:gravity="top"

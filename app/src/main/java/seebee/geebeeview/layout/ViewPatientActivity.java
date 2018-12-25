@@ -75,6 +75,21 @@ public class ViewPatientActivity extends AppCompatActivity {
     private String recordColumn = "BMI";
     private String chartType = "Line Chart";
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+
+        super.onWindowFocusChanged(hasFocus);
+        adjustDetailFontSize();
+    }
+
+    public void adjustDetailFontSize() {
+        if(tvWeight.getTextSize() > tvHeight.getTextSize()) {
+            tvWeight.setTextSize(tvHeight.getTextSize());
+        }
+        else {
+            tvHeight.setTextSize(tvWeight.getTextSize());
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -274,6 +289,10 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvBMI.setText(bmi);
         tvHeight.setText(record.getHeight()+" cm");
         tvWeight.setText(record.getWeight()+" kg");
+
+        // TODO added
+
+
         tvVisualLeft.setText(record.getVisualAcuityLeft());
         tvVisualRight.setText(record.getVisualAcuityRight());
         tvColorVision.setText(record.getColorVision());
