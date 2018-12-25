@@ -76,6 +76,11 @@ public class DataVisualizationActivity extends AppCompatActivity
     public static final float AXIS_TEXT_SIZE = 14f;
     public static final float LEGEND_TEXT_SIZE = 16f;
 
+    public static final int CHART_AXIS_TEXT_COLOR = Color.GRAY;
+    public static final int CHART_LEGEND_TEXT_COLOR = Color.GRAY;
+    public static final int CHART_DESC_TEXT_COLOR = Color.GRAY;
+    public static final int CHART_VALUE_TEXT_COLOR = Color.GRAY;
+
     ArrayList<String> datasetList, filterList;
     TextHolderAdapter datasetAdapter;
     FilterAdapter filterAdapter;
@@ -579,7 +584,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
         l.setWordWrapEnabled(true);
         l.setTextSize(R.dimen.context_text_size);
-        l.setTextColor(Color.WHITE);
+        l.setTextColor(CHART_LEGEND_TEXT_COLOR);
         l.setXEntrySpace(7);
         l.setYEntrySpace(5);
 
@@ -952,7 +957,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         pieChart.setDescription(recordColumn);
         pieChart.setDescriptionTextSize(DESCRIPTION_TEXT_SIZE);
-        pieChart.setDescriptionColor(Color.WHITE);
+        pieChart.setDescriptionColor(CHART_DESC_TEXT_COLOR);
 //        Description description = new Description();
 //        description.setText(recordColumn);
 //        description.setTextSize(20f);
@@ -973,7 +978,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        chart.setDescription(description);
         chart.setDescription(recordColumn);
         chart.setDescriptionTextSize(DESCRIPTION_TEXT_SIZE);
-        chart.setDescriptionColor(Color.WHITE);
+        chart.setDescriptionColor(CHART_DESC_TEXT_COLOR);
         chart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
 
         ChartData chartData = chart.getData();
@@ -981,12 +986,12 @@ public class DataVisualizationActivity extends AppCompatActivity
         /* customize value lable for each dataset */
         for(int i = 0; i < iDataSetList.size(); i++) {
             iDataSetList.get(i).setValueTextSize(VALUE_TEXT_SIZE); // TODO Value text size
-            iDataSetList.get(i).setValueTextColor(Color.WHITE);
+            iDataSetList.get(i).setValueTextColor(CHART_VALUE_TEXT_COLOR);
         }
         /* customize axis labels */
         XAxis xAxis = chart.getXAxis();
         xAxis.setTextSize(AXIS_TEXT_SIZE);
-        xAxis.setTextColor(Color.WHITE);
+        xAxis.setTextColor(CHART_AXIS_TEXT_COLOR);
 //        xAxis.setValueFormatter(new IAxisValueFormatter() {
 //            @Override
 //            public String getFormattedValue(float v, AxisBase axisBase) {
@@ -995,11 +1000,11 @@ public class DataVisualizationActivity extends AppCompatActivity
 //            }
 //        });
         yAxis.setTextSize(AXIS_TEXT_SIZE);
-        yAxis.setTextColor(Color.WHITE);
+        yAxis.setTextColor(CHART_AXIS_TEXT_COLOR);
         /* customize legend */
         Legend legend = chart.getLegend();
         legend.setTextSize(LEGEND_TEXT_SIZE);
-        legend.setTextColor(Color.WHITE);
+        legend.setTextColor(CHART_LEGEND_TEXT_COLOR);
     }
 
     @Override

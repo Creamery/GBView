@@ -9,4 +9,5 @@
     <color name="grey">#cdcdcd</color>
     <color name="green">#06b5a6</color>
     <color name="black">#000000</color>
+    <color name="sidebarText">#ffffff</color>
 </resources>

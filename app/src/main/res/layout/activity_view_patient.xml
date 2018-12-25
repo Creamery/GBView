@@ -181,6 +181,7 @@
                         android:text="@string/patient_about"
                         android:textAlignment="center"
                         android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/sidebarText"
                         app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
                     <Button
@@ -244,6 +245,7 @@
                         android:text="@string/patient_consultation"
                         android:textAlignment="center"
                         android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/sidebarText"
                         app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
                 </RelativeLayout>
@@ -289,6 +291,7 @@
                         android:text="@string/patient_immunization"
                         android:textAlignment="center"
                         android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/sidebarText"
                         app:autoSizePresetSizes="@array/autosize_text_sizes" />
                 </RelativeLayout>
 
@@ -336,7 +339,8 @@
                         android:textAlignment="center"
                         android:textAppearance="@style/DefaultText"
                         android:visibility="invisible"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        android:textColor="@color/sidebarText" />
                 </RelativeLayout>
 
             </android.support.constraint.ConstraintLayout>
