@@ -59,7 +59,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     private TextView tvName, tvBirthday, tvGender, tvDominantHand, tvAge, tvGradeLevel, tvBMI, tvPatientRemark;
     private TextView tvData, tvDate, tvHeight, tvWeight, tvVisualLeft, tvVisualRight, tvColorVision, tvHearingLeft,
             tvHearingRight, tvGrossMotor, tvFineMotorD, tvFineMotorND, tvFineMotorHold, tvRecordRemark;
-    private ImageView ivPatient;
+    private ImageView ivPatient, ivGender;
     private Button btnViewHPI, btnViewImmunization;
     private Spinner spRecordDate;
 
@@ -103,6 +103,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         patientID = getIntent().getIntExtra(Patient.C_PATIENT_ID, 0);
         /* connect views in layout here */
         ivPatient = (ImageView) findViewById(R.id.iv_patient);
+        ivGender = (ImageView) findViewById(R.id.iv_gender);
         tvName = (TextView) findViewById(R.id.tv_name_r);
         tvBirthday = (TextView) findViewById(R.id.tv_birthday);
         tvGender = (TextView) findViewById(R.id.tv_gender);
@@ -198,6 +199,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         /* fill up the patient data */
         if(patient != null) {
             ivPatient.setImageDrawable(getDefaultImage(patient.getGender())); // TODO added default image
+            ivGender.setImageDrawable(getGenderImage(patient.getGender()));
             tvName.setText(patient.getLastName()+", "+patient.getFirstName());
             tvBirthday.setText(patient.getBirthday());
             tvGender.setText(patient.getGenderString());
@@ -264,6 +266,16 @@ public class ViewPatientActivity extends AppCompatActivity {
             return getResources().getDrawable(R.drawable.no_photo_female);
         }
     }
+
+    private Drawable getGenderImage(int gender) {
+        if(gender == 0) {
+            return getResources().getDrawable(R.drawable.img_gender_circle_male);
+        }
+        else {
+            return getResources().getDrawable(R.drawable.img_gender_circle_female);
+        }
+    }
+
     private void displayRecord(Record record) {
         String recordDate = record.getDateCreated();
 

@@ -432,7 +432,7 @@
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/cont_overlay_details"
-                        android:elevation="100dp"
+                        android:elevation="90dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -488,6 +488,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="0dp"
                                     android:adjustViewBounds="false"
+                                    android:contentDescription="@string/gender"
                                     android:cropToPadding="false"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -497,17 +498,23 @@
                                     app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
 
                                 <ImageView
-                                    android:id="@+id/img_gender_circle"
+                                    android:id="@+id/iv_gender"
                                     android:layout_width="0dp"
                                     android:layout_height="0dp"
+                                    android:layout_marginStart="2dp"
+                                    android:layout_marginTop="2dp"
+                                    android:layout_marginEnd="2dp"
+                                    android:layout_marginBottom="2dp"
                                     android:adjustViewBounds="false"
+                                    android:contentDescription="@string/gender"
                                     android:cropToPadding="false"
+                                    android:elevation="95dp"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintVertical_weight="8"
-                                    app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+                                    app:srcCompat="@drawable/img_gender_circle_male" />
 
                             </android.support.constraint.ConstraintLayout>
 
@@ -532,8 +539,6 @@
                                     android:layout_marginTop="5dp"
                                     android:layout_marginEnd="5dp"
                                     android:layout_marginBottom="5dp"
-                                    android:layout_weight="1"
-                                    android:autoText="false"
                                     android:elevation="100dp"
                                     android:gravity="center"
                                     android:includeFontPadding="false"
@@ -552,6 +557,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="0dp"
                                     android:adjustViewBounds="false"
+                                    android:contentDescription="@string/age"
                                     android:cropToPadding="false"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
@@ -569,7 +575,6 @@
                                 android:layout_height="0dp"
                                 android:layout_marginTop="2dp"
                                 android:layout_weight="1"
-                                android:autoText="false"
                                 android:elevation="100dp"
                                 android:gravity="top|center_horizontal"
                                 android:includeFontPadding="false"
