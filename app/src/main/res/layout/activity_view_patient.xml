@@ -450,8 +450,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:autoText="false"
-                                android:text="@string/bmi"
-                                android:textColor="@color/black" />
+                                android:text="@string/bmi" />
 
                             <TextView
                                 android:id="@+id/tv_bmi"
@@ -460,8 +459,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:autoText="false"
-                                android:text="@string/bmi"
-                                android:textColor="@color/black" />
+                                android:text="@string/bmi" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -806,6 +804,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:autoText="false"
                                 android:text="@string/birthday" />
 
                             <TextView
@@ -814,6 +813,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:autoText="false"
                                 android:text="@string/dateCreated"
                                 android:textAlignment="viewStart" />
                         </LinearLayout>
@@ -835,8 +835,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@string/gender"
-                                android:textColor="@color/black" />
+                                android:text="@string/gender" />
                         </LinearLayout>
 
                         <LinearLayout
