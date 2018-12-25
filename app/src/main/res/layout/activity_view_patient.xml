@@ -71,30 +71,46 @@
         <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.4" />
+            android:layout_weight="0.3" />
 
-        <RelativeLayout
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/cont_graph_spinner"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.7">
-
-            <Spinner
-                android:id="@+id/sp_vp_record_column"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:elevation="100dp"
-                android:entries="@array/record_column_array_num"
-                android:textAlignment="viewEnd"></Spinner>
+            android:layout_weight="0.4">
 
             <TextView
                 android:id="@+id/tv_vp_data"
                 style="@style/LabelText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:autoText="false"
                 android:elevation="100dp"
-                android:text="@string/displayed_data" />
-        </RelativeLayout>
+                android:entries="@array/record_column_array_num"
+                android:gravity="center"
+                android:text="@string/displayed_data"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/sp_vp_record_column"
+                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/sp_vp_record_column"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:elevation="100dp"
+                android:entries="@array/record_column_array_num"
+                android:gravity="center"
+                android:textAlignment="viewEnd"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="7"
+                app:layout_constraintStart_toEndOf="@+id/tv_vp_data"
+                app:layout_constraintTop_toTopOf="parent"></Spinner>
+
+        </android.support.constraint.ConstraintLayout>
 
     </LinearLayout>
 
