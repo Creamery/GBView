@@ -435,7 +435,7 @@
                             android:layout_height="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/cont_height"
-                            app:layout_constraintHorizontal_weight="2"
+                            app:layout_constraintHorizontal_weight="0.5"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -443,10 +443,10 @@
                             android:id="@+id/cont_height"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:background="@color/white"
+                            android:background="@color/transparentHighlight"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/space4"
-                            app:layout_constraintHorizontal_weight="5"
+                            app:layout_constraintHorizontal_weight="5.5"
                             app:layout_constraintStart_toEndOf="@+id/space5"
                             app:layout_constraintTop_toTopOf="parent">
 
@@ -498,7 +498,7 @@
                             android:layout_height="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_weight="3"
+                            app:layout_constraintHorizontal_weight="4"
                             app:layout_constraintStart_toEndOf="@+id/cont_height"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -536,7 +536,7 @@
                             android:layout_height="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/cont_weight"
-                            app:layout_constraintHorizontal_weight="3"
+                            app:layout_constraintHorizontal_weight="4"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -544,10 +544,10 @@
                             android:id="@+id/cont_weight"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:background="@color/white"
+                            android:background="@color/transparentHighlight"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/space7"
-                            app:layout_constraintHorizontal_weight="5"
+                            app:layout_constraintHorizontal_weight="5.5"
                             app:layout_constraintStart_toEndOf="@+id/space6"
                             app:layout_constraintTop_toTopOf="parent">
 
@@ -598,7 +598,7 @@
                             android:layout_height="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_weight="2"
+                            app:layout_constraintHorizontal_weight="0.5"
                             app:layout_constraintStart_toEndOf="@+id/cont_weight"
                             app:layout_constraintTop_toTopOf="parent" />
 

@@ -12,4 +12,5 @@
     <color name="sidebarText">#ffffff</color>
     <color name="lightGrey">#ebebeb</color>
     <color name="greenHighlight">#00c7a9</color>
+    <color name="transparentHighlight">#9e00c7a9</color>
 </resources>
