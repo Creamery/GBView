@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -181,6 +182,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         getPatientData();
         /* fill up the patient data */
         if(patient != null) {
+            ivPatient.setImageDrawable(getDefaultImage(patient.getGender())); // TODO added default image
             tvName.setText(patient.getLastName()+", "+patient.getFirstName());
             tvBirthday.setText(patient.getBirthday());
             tvGender.setText(patient.getGenderString());
@@ -239,6 +241,14 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     }
 
+    private Drawable getDefaultImage(int gender) {
+        if(gender == 0) {
+            return getResources().getDrawable(R.drawable.no_photo_male);
+        }
+        else {
+            return getResources().getDrawable(R.drawable.no_photo_female);
+        }
+    }
     private void displayRecord(Record record) {
         String recordDate = record.getDateCreated();
 
