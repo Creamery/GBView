@@ -42,90 +42,60 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="1.5">
 
-        <TextView
-            android:id="@+id/tv_patient_record_title"
-            style="@style/TitleText"
+        <RelativeLayout
+            android:id="@+id/cont_title"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.3"
+            android:layout_weight="0.3">
+
+            <TextView
+                android:id="@+id/tv_patient_record_title"
+                style="@style/TitleText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
 
 
-            android:autoSizeMaxTextSize="100sp"
+                android:autoSizeMaxTextSize="100sp"
 
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-            android:autoText="false"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
 
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="@string/patient_record"
-            android:textAppearance="@style/DefaultText"
-            app:autoSizePresetSizes="@array/autosize_text_sizes" />
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="@string/patient_record"
+                android:textAppearance="@style/DefaultText"
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_dv_data"
-            style="@style/LabelText"
+        <Space
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="0.4" />
 
-            android:autoSizeMaxTextSize="100sp"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-
-            android:gravity="center"
-            android:text="@string/displayed_data"
-            app:autoSizePresetSizes="@array/autosize_text_sizes" />
-
-        <Spinner
-            android:id="@+id/sp_record_column"
+        <RelativeLayout
+            android:id="@+id/cont_graph_spinner"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="0.7">
 
-            android:autoSizeMaxTextSize="100sp"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
+            <Spinner
+                android:id="@+id/sp_vp_record_column"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="100dp"
+                android:entries="@array/record_column_array_num"
+                android:textAlignment="viewEnd"></Spinner>
 
-            android:entries="@array/record_column_array"
-            android:gravity="center"></Spinner>
+            <TextView
+                android:id="@+id/tv_vp_data"
+                style="@style/LabelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="100dp"
+                android:text="@string/displayed_data" />
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_dv_chart"
-            style="@style/LabelText"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1"
-
-            android:autoSizeMaxTextSize="100sp"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-
-            android:autoText="false"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:padding="0dp"
-            android:text="@string/chart"
-            app:autoSizePresetSizes="@array/autosize_text_sizes" />
-
-        <Spinner
-            android:id="@+id/sp_chart_type"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-
-            android:autoSizeMaxTextSize="100sp"
-            android:autoSizeMinTextSize="12sp"
-            android:autoSizeStepGranularity="2sp"
-            android:autoSizeTextType="uniform"
-
-            android:entries="@array/chart_type_array"
-            android:gravity="center"
-            android:padding="0dp"></Spinner>
     </LinearLayout>
 
     <android.support.constraint.ConstraintLayout
@@ -739,28 +709,6 @@
                         </LinearLayout>
                     </LinearLayout>
                 </ScrollView>
-
-                <LinearLayout
-                    android:id="@+id/linearLayout10"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_vp_data"
-                        style="@style/LabelText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:elevation="100dp"
-                        android:text="@string/displayed_data" />
-
-                    <Spinner
-                        android:id="@+id/sp_vp_record_column"
-                        android:elevation="100dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/record_column_array_num"
-                        android:textAlignment="viewEnd"></Spinner>
-                </LinearLayout>
 
                 <RelativeLayout
                     android:id="@+id/relativeLayout2"
