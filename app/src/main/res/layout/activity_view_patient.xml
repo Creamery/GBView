@@ -389,6 +389,7 @@
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/patient_chart_container"
+            app:layout_constraintHorizontal_weight="3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -899,6 +900,7 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout6"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="7"
             app:layout_constraintStart_toEndOf="@+id/linearLayout6"
             app:layout_constraintTop_toTopOf="@+id/linearLayout6">
 
