@@ -409,6 +409,27 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_weight="6">
 
+                    <Space
+                        android:id="@+id/space3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/iv_patient"
+                        app:layout_constraintHorizontal_weight="2"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Space
+                        android:id="@+id/space"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="2"
+                        app:layout_constraintStart_toEndOf="@+id/iv_patient"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/cont_overlay_details"
                         android:elevation="100dp"
@@ -419,64 +440,116 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <android.support.constraint.ConstraintLayout
-                            android:id="@+id/cont_left_overlay"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/overlay_center_space"
-                            app:layout_constraintHorizontal_weight="2"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                        </android.support.constraint.ConstraintLayout>
-
                         <Space
-                            android:id="@+id/overlay_center_space"
+                            android:id="@+id/overlay_left_space"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/cont_right_overlay"
-                            app:layout_constraintHorizontal_weight="6"
-                            app:layout_constraintStart_toEndOf="@+id/cont_left_overlay"
+                            app:layout_constraintEnd_toStartOf="@+id/cont_center_overlay"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <android.support.constraint.ConstraintLayout
-                            android:id="@+id/cont_right_overlay"
+                            android:id="@+id/cont_center_overlay"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_weight="2"
-                            app:layout_constraintStart_toEndOf="@+id/overlay_center_space"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <ImageView
-                                android:id="@+id/imageView2"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:adjustViewBounds="false"
-                                android:cropToPadding="false"
-                                app:layout_constraintBottom_toTopOf="@+id/space5"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintVertical_weight="3"
-                                app:srcCompat="@drawable/img_circle_trans" />
+                            app:layout_constraintEnd_toStartOf="@+id/overlay_right_space"
+                            app:layout_constraintHorizontal_weight="8"
+                            app:layout_constraintStart_toEndOf="@+id/overlay_left_space"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0">
 
                             <Space
-                                android:id="@+id/space5"
+                                android:id="@+id/space_75"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toStartOf="@+id/cont_circle_item1"
+                                app:layout_constraintHorizontal_weight="7.5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <android.support.constraint.ConstraintLayout
+                                android:id="@+id/cont_circle_item1"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="5dp"
+                                app:layout_constraintBottom_toTopOf="@+id/cont_circle_item2"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_weight="2.5"
+                                app:layout_constraintStart_toEndOf="@+id/space_75"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_weight="3.33">
+
+                                <ImageView
+                                    android:id="@+id/circleItem1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:adjustViewBounds="false"
+                                    android:cropToPadding="false"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_weight="8"
+                                    app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+
+                            </android.support.constraint.ConstraintLayout>
+
+                            <android.support.constraint.ConstraintLayout
+                                android:id="@+id/cont_circle_item2"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_marginTop="5dp"
+                                app:layout_constraintBottom_toTopOf="@+id/space4"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/space_75"
+                                app:layout_constraintTop_toBottomOf="@+id/cont_circle_item1"
+                                app:layout_constraintVertical_weight="3.33">
+
+                                <ImageView
+                                    android:id="@+id/circle_item2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:adjustViewBounds="false"
+                                    android:cropToPadding="false"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_weight="8"
+                                    app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+
+                            </android.support.constraint.ConstraintLayout>
+
+                            <Space
+                                android:id="@+id/space4"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/imageView2"
-                                app:layout_constraintVertical_weight="7" />
+                                app:layout_constraintStart_toEndOf="@+id/space_75"
+                                app:layout_constraintTop_toBottomOf="@+id/cont_circle_item2"
+                                app:layout_constraintVertical_weight="3.33" />
 
                         </android.support.constraint.ConstraintLayout>
 
+                        <Space
+                            android:id="@+id/overlay_right_space"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toEndOf="@+id/cont_center_overlay"
+                            app:layout_constraintTop_toTopOf="parent" />
+
                     </android.support.constraint.ConstraintLayout>
+
+
+
 
                     <ImageView
                         android:id="@+id/iv_patient"
@@ -486,8 +559,9 @@
                         android:scaleType="fitCenter"
                         android:src="@drawable/no_photo"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/space"
+                        app:layout_constraintHorizontal_weight="8"
+                        app:layout_constraintStart_toEndOf="@+id/space3"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
 

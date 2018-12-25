@@ -31,6 +31,10 @@
     <string name="patient_consultation">CONSULTATION</string>
     <string name="patient_immunization">IMMUNIZATION</string>
 
+    <!-- PATIENT CIRCLE ITEMS -->
+    <string name="patient_circle_age">AGE</string>
+    <string name="patient_circle_SEX">SEX</string>
+
     <string name="name">Name</string>
     <string name="gender">Gender</string>
     <string name="age">Age</string>
