@@ -473,6 +473,7 @@
             android:autoSizeMinTextSize="12sp"
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
+            android:elevation="100dp"
             android:autoText="false"
             android:editable="false"
             android:gravity="center"
@@ -524,11 +525,15 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:weightSum="1">
+            android:weightSum="1"
+            app:layout_constraintBottom_toBottomOf="@+id/graph_container_center"
+            app:layout_constraintEnd_toEndOf="@+id/spaceright"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <RelativeLayout
                 android:id="@+id/graph_container_left"
@@ -541,9 +546,10 @@
 
             <RelativeLayout
                 android:id="@+id/graph_container_right"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.5"
+                android:clipToPadding="false"
                 android:gravity="top">
 
             </RelativeLayout>

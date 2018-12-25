@@ -99,6 +99,13 @@ public class DataVisualizationActivity extends AppCompatActivity
     private String provinceName, municipalityName;
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+
+        super.onWindowFocusChanged(hasFocus);
+        // Place layout width/height retrieval here to avoid returning 0
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_data_visualization);
@@ -242,7 +249,7 @@ public class DataVisualizationActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 chartType = parent.getItemAtPosition(position).toString();
-                ViewGroup.LayoutParams paramsLeft, paramsRight;
+                ViewGroup.LayoutParams paramsLeft, paramsRight, paramsCenter;
                 graphLayoutLeft.removeAllViews();
                 graphLayoutRight.removeAllViews();
                 graphLayoutCenter.removeAllViews();
@@ -251,39 +258,69 @@ public class DataVisualizationActivity extends AppCompatActivity
                     graphLayoutRight.addView(pieChartRight);
                     // adjust size of layout
                     paramsLeft = pieChartLeft.getLayoutParams();
+                    paramsLeft.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                    paramsLeft.width = graphLayoutLeft.getMeasuredWidth(); // ViewGroup.LayoutParams.MATCH_PARENT;
+
+
+//                    pieChartLeft.setScaleX(graphLayoutLeft.getWidth());
+//                    pieChartLeft.setScaleY(graphLayoutLeft.getHeight());
+
                     paramsRight = pieChartRight.getLayoutParams();
                     paramsRight.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                    paramsRight.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                    paramsRight.width = graphLayoutRight.getMeasuredWidth(); // ViewGroup.LayoutParams.MATCH_PARENT;
+
+//                    pieChartRight.setScaleX(graphLayoutRight.getWidth());
+//                    pieChartRight.setScaleY(graphLayoutRight.getHeight());
                 } else if(position == 1) {
                     /* add bar chart to layout */
                     //graphLayoutLeft.addView(barChart);
 
-                    // TODO
+                    // TODO edited
                     graphLayoutCenter.addView(barChart);
 
                     /* adjust the size of the bar chart */
-                    paramsLeft = barChart.getLayoutParams();
+                    // paramsLeft = barChart.getLayoutParams();
+                    paramsCenter = barChart.getLayoutParams();
+                    paramsCenter.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                    paramsCenter.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 } else if (position == 2) {
-                    graphLayoutLeft.addView(scatterChart);
+                    // TODO edited
+                    // graphLayoutLeft.addView(scatterChart);
+                    graphLayoutCenter.addView(scatterChart);
+
                     /* adjust the size of the bar chart */
-                    paramsLeft = scatterChart.getLayoutParams();
+                    // paramsLeft = scatterChart.getLayoutParams();
+                    paramsCenter = scatterChart.getLayoutParams();
+                    paramsCenter.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                    paramsCenter.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 } else {
-                    graphLayoutLeft.addView(bubbleChart);
+                    // TODO edited
+                    // graphLayoutLeft.addView(bubbleChart);
+                    graphLayoutCenter.addView(bubbleChart);
                     /* adjust the size of the bar chart */
-                    paramsLeft = bubbleChart.getLayoutParams();
+                    // paramsLeft = bubbleChart.getLayoutParams();
+                    paramsCenter = bubbleChart.getLayoutParams();
+                    paramsCenter.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                    paramsCenter.width = ViewGroup.LayoutParams.MATCH_PARENT;
                 }
 
-                if(!chartType.contains("Pie")) {
-                    graphLayoutRight.setLayoutParams(new LinearLayout.LayoutParams(0, 0, 0f));
-                } else {
-                    graphLayoutRight.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
-                }
+//                if(!chartType.contains("Pie")) {
+//                    graphLayoutRight.setLayoutParams(new LinearLayout.LayoutParams(0, 0, 0f));
+//                } else {
+//                    graphLayoutRight.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
+//                }
 
+                /*
                 paramsLeft.height = ViewGroup.LayoutParams.MATCH_PARENT;
                 paramsLeft.width = ViewGroup.LayoutParams.MATCH_PARENT;
 
+                paramsCenter.height = ViewGroup.LayoutParams.MATCH_PARENT;
+                paramsCenter.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                */
+
                 // hide control of right chart for scatter and bubble plot
-                if(chartType.contains("Scatter") || chartType.contains("Bubble")) {
+                // TODO edited (added bar)
+                if(chartType.contains("Scatter") || chartType.contains("Bubble") || chartType.contains("Bar")) {
                     spRightChart.setVisibility(View.GONE);
                     tvRightChart.setVisibility(View.GONE);
                 } else {
@@ -299,6 +336,7 @@ public class DataVisualizationActivity extends AppCompatActivity
                 /* Default chart is pie chart */
                 chartType = "Pie Chart";
                 graphLayoutLeft.addView(pieChartLeft);
+                // graphLayoutRight.addView(pieChartRight); // TODO added
                 // adjust size of layout
                 ViewGroup.LayoutParams params = pieChartLeft.getLayoutParams();
                 params.height = ViewGroup.LayoutParams.MATCH_PARENT;
