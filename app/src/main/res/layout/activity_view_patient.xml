@@ -376,12 +376,14 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/linearLayout6"
             style="@style/DefaultText"
-            android:layout_width="192dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/black"
+            android:layout_marginBottom="2dp"
+            android:background="@color/lightGrey"
             android:orientation="vertical"
             android:padding="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout2"
             app:layout_constraintHorizontal_weight="3.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -415,9 +417,12 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:autoText="false"
+                    android:includeFontPadding="false"
                     android:padding="5dp"
                     android:text="@string/name"
                     android:textAlignment="center"
+                    android:textAppearance="@style/DefaultText"
+                    android:textColor="@color/greenHighlight"
                     app:autoSizePresetSizes="@array/autosize_text_sizes"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -910,6 +915,7 @@
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/white"

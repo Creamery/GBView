@@ -123,7 +123,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
         Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
         /* set fonts to text */
-        tvName.setTypeface(chawpFont);
+        // tvName.setTypeface(chawpFont);
         tvBirthday.setTypeface(chalkFont);
         tvGender.setTypeface(chalkFont);
         tvDominantHand.setTypeface(chalkFont);
