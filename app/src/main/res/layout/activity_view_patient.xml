@@ -750,10 +750,12 @@
                         style="@style/LabelText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:elevation="100dp"
                         android:text="@string/displayed_data" />
 
                     <Spinner
                         android:id="@+id/sp_vp_record_column"
+                        android:elevation="100dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:entries="@array/record_column_array_num"
@@ -763,7 +765,8 @@
                 <RelativeLayout
                     android:id="@+id/relativeLayout2"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="23dp"
+                    android:visibility="invisible">
 
                     <TextView
                         android:id="@+id/tv_vp_date"
@@ -786,13 +789,36 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/yellow"
-                    android:padding="@dimen/context_margin" />
+                    android:padding="@dimen/context_margin"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayout8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
+
+                    <TextView
+                        style="@style/SmallLabelText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/remarks" />
+
+                    <TextView
+                        android:id="@+id/tv_patient_remark"
+                        style="@style/SmallContextText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/remarks" />
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/linearLayout7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="invisible">
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -904,25 +930,6 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:id="@+id/linearLayout8"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/SmallLabelText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/remarks" />
-
-                    <TextView
-                        android:id="@+id/tv_patient_remark"
-                        style="@style/SmallContextText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/remarks" />
-                </LinearLayout>
             </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
