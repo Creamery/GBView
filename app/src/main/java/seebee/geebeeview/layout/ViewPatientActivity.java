@@ -52,6 +52,8 @@ import seebee.geebeeview.model.monitoring.Record;
 public class ViewPatientActivity extends AppCompatActivity {
 
     private static final String TAG = "ViewPatientActivity";
+    private float LEGEND_TEXT_SIZE = 16f; // TODO make universal (see DataVisualization.java)
+    private float AXIS_TEXT_SIZE = 14f;
 
     private TextView tvName, tvBirthday, tvGender, tvDominantHand, tvAge, tvGradeLevel, tvBMI, tvPatientRemark;
     private TextView tvData, tvDate, tvHeight, tvWeight, tvVisualLeft, tvVisualRight, tvColorVision, tvHearingLeft,
@@ -532,13 +534,13 @@ public class ViewPatientActivity extends AppCompatActivity {
         // enable touch gestures
         chart.setTouchEnabled(true);
         // alternative background color
-        chart.setBackgroundColor(Color.LTGRAY);
+        chart.setBackgroundColor(Color.WHITE);
         // get legend object
         Legend l = chart.getLegend();
         // customize legend
         l.setForm(Legend.LegendForm.LINE);
         l.setTextColor(Color.BLACK);
-        l.setTextSize(25f);
+        l.setTextSize(LEGEND_TEXT_SIZE);
         // customize content of legend
         int color[] = {Color.BLUE, ColorTemplate.getHoloBlue()};
         String label[] = {"Patient", "Average"};
@@ -546,7 +548,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         // customize xAxis
         XAxis xl = chart.getXAxis();
         xl.setTextColor(Color.BLACK);
-        xl.setTextSize(R.dimen.context_text_size);
+        xl.setTextSize(AXIS_TEXT_SIZE);
         xl.setDrawGridLines(false);
         xl.setAvoidFirstLastClipping(true);
     }

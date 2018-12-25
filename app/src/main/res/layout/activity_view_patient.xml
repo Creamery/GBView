@@ -6,6 +6,7 @@
     style="@style/DefaultBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:clipToPadding="false"
     android:padding="0dp"
     tools:context="seebee.geebeeview.layout.ViewPatientActivity">
@@ -33,6 +34,7 @@
         android:id="@+id/topbar"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@color/white"
         android:orientation="horizontal"
         android:weightSum="1"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
@@ -65,6 +67,7 @@
                 android:padding="3dp"
                 android:text="@string/patient_record"
                 android:textAppearance="@style/DefaultText"
+                android:textColor="@color/colorPrimaryDark"
                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
         </RelativeLayout>
 
@@ -103,7 +106,6 @@
                 android:elevation="100dp"
                 android:entries="@array/record_column_array_num"
                 android:gravity="center"
-                android:textAlignment="viewEnd"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="7"
@@ -365,17 +367,17 @@
         app:layout_constraintHorizontal_weight="9"
         app:layout_constraintStart_toEndOf="@+id/sidebar"
         app:layout_constraintTop_toBottomOf="@+id/topbar"
-        app:layout_constraintVertical_weight="8.5">
+        app:layout_constraintVertical_weight="9">
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/linearLayout6"
             style="@style/DefaultText"
-            android:layout_width="0dp"
+            android:layout_width="192dp"
             android:layout_height="0dp"
+            android:background="@color/black"
             android:orientation="vertical"
             android:padding="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/patient_chart_container"
             app:layout_constraintHorizontal_weight="3.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -447,7 +449,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@string/bmi" />
+                                android:autoText="false"
+                                android:text="@string/bmi"
+                                android:textColor="@color/black" />
 
                             <TextView
                                 android:id="@+id/tv_bmi"
@@ -455,7 +459,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@string/bmi" />
+                                android:autoText="false"
+                                android:text="@string/bmi"
+                                android:textColor="@color/black" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -829,7 +835,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@string/gender" />
+                                android:text="@string/gender"
+                                android:textColor="@color/black" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -898,17 +905,29 @@
 
         </android.support.constraint.ConstraintLayout>
 
-        <RelativeLayout
-            android:id="@+id/patient_chart_container"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/linearLayout6"
+            android:layout_marginStart="2dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="6.5"
             app:layout_constraintStart_toEndOf="@+id/linearLayout6"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout6">
+            app:layout_constraintTop_toTopOf="parent">
 
-        </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/patient_chart_container"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="6.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </RelativeLayout>
+        </android.support.constraint.ConstraintLayout>
 
     </android.support.constraint.ConstraintLayout>
 
