@@ -8,6 +8,7 @@
     <string name="dateCreated">Date</string>
 
     <string name="data_visualization">Data Visualization</string>
+    <string name="patient_record">Patient Record</string>
     <string name="dataset">Dataset/s:</string>
     <string name="filter">Filter/s:</string>
     <string name="chart">Chart: </string>
