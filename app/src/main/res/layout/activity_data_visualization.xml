@@ -59,8 +59,8 @@
             android:autoSizeTextType="uniform"
             android:autoText="false"
 
-            android:gravity="center_vertical"
-            android:padding="0dp"
+            android:gravity="center"
+            android:padding="3dp"
             android:text="@string/data_visualization"
             android:textAppearance="@style/DefaultText"
             app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -77,6 +77,7 @@
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
 
+            android:gravity="center"
             android:text="@string/displayed_data"
             app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
@@ -91,7 +92,8 @@
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
 
-            android:entries="@array/record_column_array"></Spinner>
+            android:entries="@array/record_column_array"
+            android:gravity="center"></Spinner>
 
         <TextView
             android:id="@+id/tv_dv_chart"
@@ -106,7 +108,7 @@
             android:autoSizeTextType="uniform"
 
             android:autoText="false"
-            android:gravity="left|center_vertical"
+            android:gravity="center"
             android:includeFontPadding="false"
             android:padding="0dp"
             android:text="@string/chart"
@@ -124,6 +126,7 @@
             android:autoSizeTextType="uniform"
 
             android:entries="@array/chart_type_array"
+            android:gravity="center"
             android:padding="0dp"></Spinner>
     </LinearLayout>
 
@@ -472,7 +475,7 @@
             android:autoSizeTextType="uniform"
             android:autoText="false"
             android:editable="false"
-            android:gravity="right|center_vertical"
+            android:gravity="center"
             android:includeFontPadding="false"
             android:padding="0dp"
             android:text="@string/right_chart_content"
@@ -496,7 +499,7 @@
             android:clipToPadding="false"
             android:elevation="100dp"
             android:entries="@array/right_chart_content_array"
-            android:gravity="start|center_vertical"
+            android:gravity="center"
             android:padding="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
