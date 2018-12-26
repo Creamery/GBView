@@ -36,6 +36,9 @@
     <string name="patient_circle_yrs">YRS</string>
     <string name="patient_circle_sex">SEX</string>
 
+    <!-- PATIENT RECORD STRINGS -->
+    <string name="patient_medical_record">MEDICAL RECORD</string>
+
 
     <string name="cd_geebeeview">GeeBee View</string>
 
