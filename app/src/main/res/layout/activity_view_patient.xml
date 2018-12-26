@@ -364,6 +364,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="1dp"
+        android:background="@color/lightGrey"
         android:baselineAligned="false"
         android:weightSum="3"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -396,7 +397,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="6.5">
+                app:layout_constraintVertical_weight="6">
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/cont_top_details"
@@ -726,7 +727,6 @@
                                 style="@style/SmallLabelText"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
-                                android:layout_marginBottom="2dp"
                                 android:layout_weight="1"
                                 android:autoText="false"
                                 android:gravity="top"
@@ -793,7 +793,6 @@
                                 style="@style/SmallLabelText"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
-                                android:layout_marginBottom="2dp"
                                 android:layout_weight="1"
                                 android:autoText="false"
                                 android:gravity="top"
@@ -824,7 +823,109 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cont_patient_about"
-                app:layout_constraintVertical_weight="3.5">
+                app:layout_constraintVertical_weight="4">
+
+                <ScrollView
+                    android:id="@+id/scrollViewAbout"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/white"
+                    android:clipToPadding="false"
+                    android:fadeScrollbars="false"
+                    android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/view"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/lightGrey"
+                        android:orientation="vertical">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/cont_about_item1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/white"
+                            android:minHeight="40dp">
+
+                            <ImageView
+                                android:id="@+id/img_about_item1"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:background="@android:drawable/screen_background_light_transparent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@android:color/transparent" />
+                        </android.support.constraint.ConstraintLayout>
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/cont_about_item2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/white"
+                            android:minHeight="40dp">
+
+                            <ImageView
+                                android:id="@+id/img_about_item2"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:background="@android:drawable/screen_background_light_transparent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@android:color/transparent" />
+                        </android.support.constraint.ConstraintLayout>
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/cont_about_item3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/white"
+                            android:minHeight="40dp">
+
+                            <ImageView
+                                android:id="@+id/img_about_item3"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:background="@android:drawable/screen_background_light_transparent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@android:color/transparent" />
+                        </android.support.constraint.ConstraintLayout>
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/cont_about_item4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/white"
+                            android:minHeight="40dp">
+
+                            <ImageView
+                                android:id="@+id/img_about_item4"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:background="@android:drawable/screen_background_light_transparent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@android:color/transparent" />
+                        </android.support.constraint.ConstraintLayout>
+
+                    </LinearLayout>
+                </ScrollView>
 
                 <ScrollView
                     android:id="@+id/scrollView2"
@@ -832,6 +933,7 @@
                     android:layout_height="0dp"
                     android:background="@color/white"
                     android:clipToPadding="false"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/view"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1230,6 +1332,7 @@
             android:id="@+id/constraintLayout2"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginStart="1dp"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
