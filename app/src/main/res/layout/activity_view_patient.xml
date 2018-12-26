@@ -750,8 +750,121 @@
                             app:layout_constraintEnd_toStartOf="@+id/cont_weight"
                             app:layout_constraintHorizontal_weight="3.33"
                             app:layout_constraintStart_toEndOf="@+id/cont_height"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_weight="3">
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <Space
+                                android:id="@+id/space5"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toTopOf="@+id/tv_bmi"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_weight="1.5" />
+
+                            <TextView
+                                android:id="@+id/tv_bmi"
+                                style="@style/SmallContextText"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:elevation="105dp"
+                                android:gravity="center"
+                                android:padding="0dp"
+                                android:text="@string/bmi"
+                                android:textAlignment="gravity"
+                                android:visibility="invisible"
+                                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                                app:layout_constraintBottom_toTopOf="@+id/space6"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/space5"
+                                app:layout_constraintVertical_weight="5.5" />
+
+                            <Space
+                                android:id="@+id/space6"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/tv_bmi"
+                                app:layout_constraintVertical_weight="3" />
+
+                            <android.support.constraint.ConstraintLayout
+                                android:id="@+id/cont_bmi_image"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_weight="9">
+
+                                <Space
+                                    android:id="@+id/spacebottom"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/img_patient_bmi"
+                                    app:layout_constraintVertical_weight="3.5" />
+
+                                <Space
+                                    android:id="@+id/spacetop"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    app:layout_constraintBottom_toTopOf="@+id/tv_bmi_title"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_weight="6" />
+
+                                <TextView
+                                    android:id="@+id/tv_bmi_title"
+                                    style="@style/SmallContextText"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:elevation="105dp"
+                                    android:gravity="center_vertical|center_horizontal"
+                                    android:padding="0dp"
+                                    android:text="@string/bmi"
+                                    android:textAlignment="center"
+                                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/spacetop"
+                                    app:layout_constraintVertical_weight="4" />
+
+                                <ImageView
+                                    android:id="@+id/img_patient_bmi_color"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_marginTop="3dp"
+                                    app:layout_constraintBottom_toTopOf="@+id/spacebottom"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_weight="6.5"
+                                    app:srcCompat="@drawable/img_heart_overlay_normal" />
+
+                                <ImageView
+                                    android:id="@+id/img_patient_bmi"
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_marginTop="3dp"
+                                    android:elevation="100dp"
+                                    app:layout_constraintBottom_toTopOf="@+id/spacebottom"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/spacetop"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintVertical_weight="6.5"
+                                    app:srcCompat="@drawable/img_heart_overlay" />
+                            </android.support.constraint.ConstraintLayout>
 
                         </android.support.constraint.ConstraintLayout>
 
@@ -986,7 +1099,6 @@
                     android:layout_height="0dp"
                     android:background="@color/white"
                     android:clipToPadding="false"
-                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/view"
                     app:layout_constraintStart_toStartOf="parent"
@@ -1009,14 +1121,6 @@
                                 android:autoText="false"
                                 android:text="@string/bmi" />
 
-                            <TextView
-                                android:id="@+id/tv_bmi"
-                                style="@style/SmallContextText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:autoText="false"
-                                android:text="@string/bmi" />
                         </LinearLayout>
 
                         <TextView

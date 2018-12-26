@@ -146,7 +146,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvPatientRemark.setTypeface(chalkFont);
         tvData.setTypeface(chalkFont);
         tvDate.setTypeface(chalkFont);
-        tvBMI.setTypeface(chalkFont);
+//        tvBMI.setTypeface(chalkFont);
 //        tvHeight.setTypeface(chalkFont);
 //        tvWeight.setTypeface(chalkFont);
         tvVisualLeft.setTypeface(chalkFont);
@@ -295,7 +295,8 @@ public class ViewPatientActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        tvBMI.setText(bmi);
+
+        tvBMI.setText(getBMIText(bmi));
         tvHeight.setText(record.getHeight()+" cm");
         tvWeight.setText(record.getWeight()+" kg");
 
@@ -315,6 +316,12 @@ public class ViewPatientActivity extends AppCompatActivity {
         /* display age and grade level according to recordDate */
         tvAge.setText(patient.getAge(recordDate)+"");
         tvGradeLevel.setText(record.getGradeLevel());
+    }
+    private String getBMIText(String text) {
+        if(text.contains("N/A")) {
+            text = "";
+        }
+        return text;
     }
 
 //    private void prepareRadarChartData() {
