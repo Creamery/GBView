@@ -36,6 +36,9 @@
     <string name="patient_circle_yrs">YRS</string>
     <string name="patient_circle_sex">SEX</string>
 
+
+    <string name="cd_geebeeview">GeeBee View</string>
+
     <string name="name">Name</string>
     <string name="gender">Gender</string>
     <string name="age">Age</string>

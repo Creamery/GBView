@@ -27,6 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimaryDark"
+            android:contentDescription="@string/cd_geebeeview"
             app:srcCompat="@drawable/img_templogo" />
     </RelativeLayout>
 
@@ -495,16 +496,12 @@
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintVertical_weight="8"
-                                    app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+                                    app:srcCompat="@android:drawable/screen_background_light_transparent" />
 
                                 <ImageView
                                     android:id="@+id/iv_gender"
                                     android:layout_width="0dp"
                                     android:layout_height="0dp"
-                                    android:layout_marginStart="2dp"
-                                    android:layout_marginTop="2dp"
-                                    android:layout_marginEnd="2dp"
-                                    android:layout_marginBottom="2dp"
                                     android:adjustViewBounds="false"
                                     android:contentDescription="@string/gender"
                                     android:cropToPadding="false"
@@ -514,7 +511,7 @@
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintVertical_weight="8"
-                                    app:srcCompat="@drawable/img_gender_circle_male" />
+                                    app:srcCompat="@drawable/img_gender_circle_fill_male" />
 
                             </android.support.constraint.ConstraintLayout>
 
@@ -1192,26 +1189,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@string/gender_r" />
-
-                            <TextView
-                                android:id="@+id/tv_gender"
-                                style="@style/SmallContextText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/gender" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                style="@style/SmallLabelText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:text="@string/dominant_hand" />
 
                             <TextView
@@ -1221,19 +1198,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="@string/right" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                style="@style/SmallLabelText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="@string/age" />
-
                         </LinearLayout>
 
                         <LinearLayout

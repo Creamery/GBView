@@ -56,7 +56,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     private float LEGEND_TEXT_SIZE = 16f; // TODO make universal (see DataVisualization.java)
     private float AXIS_TEXT_SIZE = 14f;
 
-    private TextView tvName, tvBirthday, tvGender, tvDominantHand, tvAge, tvGradeLevel, tvBMI, tvPatientRemark;
+    private TextView tvName, tvBirthday, tvDominantHand, tvAge, tvGradeLevel, tvBMI, tvPatientRemark;
     private TextView tvData, tvDate, tvHeight, tvWeight, tvVisualLeft, tvVisualRight, tvColorVision, tvHearingLeft,
             tvHearingRight, tvGrossMotor, tvFineMotorD, tvFineMotorND, tvFineMotorHold, tvRecordRemark;
     private ImageView ivPatient, ivGender;
@@ -106,7 +106,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         ivGender = (ImageView) findViewById(R.id.iv_gender);
         tvName = (TextView) findViewById(R.id.tv_name_r);
         tvBirthday = (TextView) findViewById(R.id.tv_birthday);
-        tvGender = (TextView) findViewById(R.id.tv_gender);
         tvDominantHand = (TextView) findViewById(R.id.tv_dominant_hand);
         tvAge = (TextView) findViewById(R.id.tv_patient_age);
         tvGradeLevel = (TextView) findViewById(R.id.tv_grade_level);
@@ -141,7 +140,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         /* set fonts to text */
         // tvName.setTypeface(chawpFont);
         tvBirthday.setTypeface(chalkFont);
-        tvGender.setTypeface(chalkFont);
         tvDominantHand.setTypeface(chalkFont);
 //        tvAge.setTypeface(chalkFont);
         tvGradeLevel.setTypeface(chalkFont);
@@ -202,7 +200,6 @@ public class ViewPatientActivity extends AppCompatActivity {
             ivGender.setImageDrawable(getGenderImage(patient.getGender()));
             tvName.setText(patient.getLastName()+", "+patient.getFirstName());
             tvBirthday.setText(patient.getBirthday());
-            tvGender.setText(patient.getGenderString());
             tvDominantHand.setText(patient.getHandednessString());
             tvPatientRemark.setText(patient.getRemarksString());
             // todo: remove after testing
@@ -269,10 +266,10 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     private Drawable getGenderImage(int gender) {
         if(gender == 0) {
-            return getResources().getDrawable(R.drawable.img_gender_circle_male);
+            return getResources().getDrawable(R.drawable.img_gender_circle_fill_male);
         }
         else {
-            return getResources().getDrawable(R.drawable.img_gender_circle_female);
+            return getResources().getDrawable(R.drawable.img_gender_circle_fill_female);
         }
     }
 
