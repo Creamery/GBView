@@ -723,8 +723,14 @@ public class ViewPatientActivity extends AppCompatActivity {
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
                 R.layout.custom_spinner, recordDateList);
+
+
+
         spinnerAdapter.setDropDownViewResource(R.layout.custom_spinner);
         spRecordDate.setAdapter(spinnerAdapter);
+
+
+
         spRecordDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

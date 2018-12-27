@@ -36,7 +36,6 @@
     <style name="DefaultText" parent="android:TextAppearance.Widget.TextView">
         <item name="android:textColor">@color/grey</item>
         <item name="android:textSize">@dimen/context_text_size</item>
-        <item name="android:padding">@dimen/context_padding</item>
         <!--<item name="android:fontFamily">@font/rudiment</item>-->
     </style>
 
