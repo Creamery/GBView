@@ -969,9 +969,9 @@
                         app:layout_constraintStart_toEndOf="@id/spaceleft_title"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <android.support.constraint.ConstraintLayout
+                        <RelativeLayout
                             android:id="@+id/relativeLayout2"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_marginBottom="1dp"
                             android:background="@color/white"
@@ -983,32 +983,24 @@
 
                             <TextView
                                 android:id="@+id/tv_vp_date"
-                                style="@style/LabelText"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:background="@color/white"
                                 android:gravity="end"
                                 android:padding="1dp"
                                 android:text="@string/record_as_of"
-                                app:autoSizePresetSizes="@array/autosize_text_sizes"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/sp_record_date"
-                                app:layout_constraintHorizontal_weight="3"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                android:textColor="@color/grey" />
 
                             <Spinner
                                 android:id="@+id/sp_record_date"
-                                style="@style/DefaultSpinner"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_margin="0dp"
+                                android:layout_toEndOf="@+id/tv_vp_date"
+                                android:background="@color/colorAccent"
                                 android:clipToPadding="false"
-                                android:padding="0dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_weight="7"
-                                app:layout_constraintStart_toEndOf="@+id/tv_vp_date"
-                                app:layout_constraintTop_toTopOf="parent"></Spinner>
-                        </android.support.constraint.ConstraintLayout>
+                                android:padding="0dp"></Spinner>
+                        </RelativeLayout>
 
                         <TextView
                             android:id="@+id/tv_scrollbar_title"
