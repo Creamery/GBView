@@ -497,7 +497,7 @@
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintVertical_weight="8"
-                                    app:srcCompat="@android:drawable/screen_background_light_transparent" />
+                                    app:srcCompat="@android:color/transparent" />
 
                                 <ImageView
                                     android:id="@+id/iv_gender"
