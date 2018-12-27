@@ -54,6 +54,7 @@
     <string name="bmi">BMI</string>
     <string name="remarks">Remarks: </string>
     <string name="record_date">Record Date:</string>
+    <string name="record_as_of">as of </string>
 
     <string name="grade_level">Grade Level</string>
     <string name="height">Height</string>
