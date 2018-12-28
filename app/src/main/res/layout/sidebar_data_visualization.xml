@@ -1,6 +1,298 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/sidebar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.2"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="9">
+
+        <RelativeLayout
+            android:id="@+id/hidden_dataset_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cont_buttons">
+
+            <TextView
+                android:id="@+id/tv_dv_dataset"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/dataset" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_dv_dataset"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/hidden_filter_list"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/cont_buttons"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cont_buttons"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_dv_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/filter" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_dv_filter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            </android.support.v7.widget.RecyclerView>
+        </RelativeLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cont_buttons"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/grey"
+            android:visibility="visible"
+            app:layout_constraintBottom_toTopOf="@+id/space2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="7">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/buttonitems"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="5.5">
+
+                <RelativeLayout
+                    android:id="@+id/item1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toTopOf="@+id/item2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_add_dataset_overlay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:autoText="false"
+                        android:clickable="false"
+                        android:editable="false"
+                        android:elevation="100dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="@string/add_dataset"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/sidebarText"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+                    <Button
+                        android:id="@+id/btn_add_dataset"
+                        style="@style/ClearButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+
+                        android:autoSizeMaxTextSize="100sp"
+                        android:autoSizeMinTextSize="5sp"
+                        android:autoSizeStepGranularity="2sp"
+                        android:autoSizeTextType="uniform"
+
+
+                        android:autoText="false"
+                        android:background="@color/colorPrimaryDark"
+
+                        android:textAlignment="center"
+
+                        android:textAllCaps="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/item2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toTopOf="@+id/item3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item1">
+
+                    <TextView
+                        android:id="@+id/tv_add_filter_overlay"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:autoText="false"
+                        android:clickable="false"
+                        android:editable="false"
+                        android:elevation="100dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="@string/add_filter"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/sidebarText"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+                    <Button
+                        android:id="@+id/btn_add_filter"
+                        style="@style/ClearButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.5"
+                        android:autoSizeMaxTextSize="100sp"
+                        android:autoSizeMinTextSize="12sp"
+                        android:autoSizeStepGranularity="2sp"
+                        android:autoSizeTextType="uniform"
+
+                        android:background="@color/colorPrimaryDark" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/item3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toTopOf="@+id/item4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item2">
+
+                    <Button
+                        android:id="@+id/btn_view_hpi_list"
+                        style="@style/ClearButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+
+                        android:autoSizeMaxTextSize="100sp"
+                        android:autoSizeMinTextSize="12sp"
+                        android:autoSizeStepGranularity="2sp"
+                        android:autoSizeTextType="uniform"
+
+                        android:background="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:id="@+id/tv_view_hpi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:autoText="false"
+                        android:clickable="false"
+                        android:editable="false"
+                        android:elevation="100dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="@string/view_HPI_list"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/sidebarText"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/item4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item3">
+
+                    <Button
+                        android:id="@+id/btn_view_patient_list"
+                        style="@style/ClearButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.2"
+
+                        android:autoSizeMaxTextSize="100sp"
+                        android:autoSizeMinTextSize="12sp"
+                        android:autoSizeStepGranularity="2sp"
+                        android:autoSizeTextType="uniform"
+
+                        android:background="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:id="@+id/tv_view_patient"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:autoText="false"
+                        android:clickable="false"
+                        android:editable="false"
+                        android:elevation="100dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="@string/view_patient_list"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/sidebarText"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+                </RelativeLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <Space
+            android:id="@+id/space2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cont_buttons"
+            app:layout_constraintVertical_weight="3" />
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>
