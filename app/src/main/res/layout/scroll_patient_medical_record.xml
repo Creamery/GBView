@@ -46,7 +46,7 @@
                     <ImageView
                         android:id="@+id/img_about_item1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_weight="0.1"
@@ -59,6 +59,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_weight="0.9"
                         android:text="@string/visual_acuity"
                         android:textColor="@color/colorPrimaryDark" />

@@ -15,7 +15,7 @@
         android:id="@+id/topitem"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/sidebar"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
         app:layout_constraintEnd_toStartOf="@+id/topbar"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,7 +111,8 @@
 
     </LinearLayout>
 
-    <include android:id="@+id/sidebar"
+    <include
+        android:id="@+id/sidebar"
         layout="@layout/sidebar_patient"
 
         android:layout_width="0dp"
@@ -120,6 +121,7 @@
         android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/topbar"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topitem"

@@ -336,7 +336,10 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvAge.setText(patient.getAge(recordDate)+"");
         tvGradeLevel.setText(record.getGradeLevel());
     }
+
+    // Function for BMI text setting (complete if needed)
     private String getBMIText(String text) {
+        text = "";
         if(text.contains("N/A")) {
             text = "";
         }
