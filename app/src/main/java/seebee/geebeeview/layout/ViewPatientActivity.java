@@ -138,32 +138,38 @@ public class ViewPatientActivity extends AppCompatActivity {
         btnViewHPI = (Button) findViewById(R.id.btn_view_hpi);
         btnViewImmunization = (Button) findViewById(R.id.btn_view_immunization);
         /* get fonts from assets */
-        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
-        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
+//        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
+//        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
         /* set fonts to text */
         // tvName.setTypeface(chawpFont);
-        tvBirthday.setTypeface(chalkFont);
-        tvDominantHand.setTypeface(chalkFont);
+
+//        tvBirthday.setTypeface(chalkFont);
+//        tvDominantHand.setTypeface(chalkFont);
+
 //        tvAge.setTypeface(chalkFont);
-        tvGradeLevel.setTypeface(chalkFont);
-        tvPatientRemark.setTypeface(chalkFont);
-        tvData.setTypeface(chalkFont);
+
+//        tvGradeLevel.setTypeface(chalkFont);
+//        tvPatientRemark.setTypeface(chalkFont);
+//        tvData.setTypeface(chalkFont);
+
 //        tvDate.setTypeface(chalkFont);
 //        tvBMI.setTypeface(chalkFont);
 //        tvHeight.setTypeface(chalkFont);
 //        tvWeight.setTypeface(chalkFont);
-        tvVisualLeft.setTypeface(chalkFont);
-        tvVisualRight.setTypeface(chalkFont);
-        tvColorVision.setTypeface(chalkFont);
-        tvHearingLeft.setTypeface(chalkFont);
-        tvHearingRight.setTypeface(chalkFont);
-        tvGrossMotor.setTypeface(chalkFont);
-        tvFineMotorD.setTypeface(chalkFont);
-        tvFineMotorND.setTypeface(chalkFont);
-        tvFineMotorHold.setTypeface(chalkFont);
-        tvRecordRemark.setTypeface(chalkFont);
-        btnViewImmunization.setTypeface(chawpFont);
-        btnViewHPI.setTypeface(chawpFont);
+
+//        tvVisualLeft.setTypeface(chalkFont);
+//        tvVisualRight.setTypeface(chalkFont);
+//        tvColorVision.setTypeface(chalkFont);
+//        tvHearingLeft.setTypeface(chalkFont);
+//        tvHearingRight.setTypeface(chalkFont);
+//        tvGrossMotor.setTypeface(chalkFont);
+//        tvFineMotorD.setTypeface(chalkFont);
+//        tvFineMotorND.setTypeface(chalkFont);
+//        tvFineMotorHold.setTypeface(chalkFont);
+//        tvRecordRemark.setTypeface(chalkFont);
+//        btnViewImmunization.setTypeface(chawpFont);
+//        btnViewHPI.setTypeface(chawpFont);
+
         /* set button so that it will go to the HPIListActivity */
         btnViewHPI.setOnClickListener(new View.OnClickListener() {
             @Override
