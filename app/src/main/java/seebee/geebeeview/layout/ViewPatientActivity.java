@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -19,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -58,12 +58,14 @@ public class ViewPatientActivity extends AppCompatActivity {
     private float AXIS_TEXT_SIZE = 14f;
     private ConstraintLayout contRecordDate;
 
-    private TextView tvName, tvBirthday, tvDominantHand, tvAge, tvGradeLevel, tvBMI, tvPatientRemark;
+    private TextView tvName, tvBirthday, tvDominantHand, tvAge, tvGradeLevel, tvBMI, tvPatientRemark, tvMedicalRecordTitle, tvRecordDateTitle;
     private TextView tvData, tvDate, tvHeight, tvWeight, tvVisualLeft, tvVisualRight, tvColorVision, tvHearingLeft,
             tvHearingRight, tvGrossMotor, tvFineMotorD, tvFineMotorND, tvFineMotorHold, tvRecordRemark;
     private ImageView ivPatient, ivGender;
     private Button btnViewHPI, btnViewImmunization;
     private Spinner spRecordDate;
+    private LinearLayout llAbout1, llAbout2, llAbout3, llAbout4, llAboutTitle1, llAboutTitle2, llAboutTitle3, llAboutTitle4;
+    private TextView tvAboutTitle1, tvAboutTitle2, tvAboutTitle3, tvAboutTitle4;
 
     private int patientID;
     private Patient patient;
@@ -82,6 +84,43 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         super.onWindowFocusChanged(hasFocus);
         adjustDetailFontSize();
+
+        tvAboutTitle1 = (TextView) findViewById(R.id.tv_about_title1);
+        tvAboutTitle2 = (TextView) findViewById(R.id.tv_about_title2);
+        tvAboutTitle3 = (TextView) findViewById(R.id.tv_about_title3);
+        tvAboutTitle4 = (TextView) findViewById(R.id.tv_about_title4);
+
+        llAboutTitle1 = (LinearLayout) findViewById(R.id.cont_about_item1_image);
+        llAboutTitle2 = (LinearLayout) findViewById(R.id.cont_about_item2_image);
+        llAboutTitle3 = (LinearLayout) findViewById(R.id.cont_about_item3_image);
+        llAboutTitle4 = (LinearLayout) findViewById(R.id.cont_about_item4_image);
+
+
+        llAbout1 = (LinearLayout) findViewById(R.id.vg_item1);
+        llAbout2 = (LinearLayout) findViewById(R.id.vg_item2);
+        llAbout3 = (LinearLayout) findViewById(R.id.vg_item3);
+        llAbout4 = (LinearLayout) findViewById(R.id.vg_item4);
+
+        tvMedicalRecordTitle = (TextView) findViewById(R.id.tv_scrollbar_title);
+        tvRecordDateTitle = (TextView) findViewById(R.id.tv_vp_date);
+
+        TextView titleSizeReference = tvMedicalRecordTitle;
+        TextView sizeReference = tvRecordDateTitle;
+
+//        setTextViewHeightTo(tvAboutTitle1, titleSizeReference);
+//        setTextViewHeightTo(tvAboutTitle2, titleSizeReference);
+//        setTextViewHeightTo(tvAboutTitle3, titleSizeReference);
+//        setTextViewHeightTo(tvAboutTitle4, titleSizeReference);
+
+        setTextViewChildrenHeightTo(llAbout1, sizeReference);
+        setTextViewChildrenHeightTo(llAbout2, sizeReference);
+        setTextViewChildrenHeightTo(llAbout3, sizeReference);
+        setTextViewChildrenHeightTo(llAbout4, sizeReference);
+
+        setTextViewChildrenHeightTo(llAboutTitle1, titleSizeReference);
+        setTextViewChildrenHeightTo(llAboutTitle2, titleSizeReference);
+        setTextViewChildrenHeightTo(llAboutTitle3, titleSizeReference);
+        setTextViewChildrenHeightTo(llAboutTitle4, titleSizeReference);
     }
 
     public void adjustDetailFontSize() {
@@ -137,6 +176,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         /* connect buttons */
         btnViewHPI = (Button) findViewById(R.id.btn_view_hpi);
         btnViewImmunization = (Button) findViewById(R.id.btn_view_immunization);
+
+
         /* get fonts from assets */
 //        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
 //        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
@@ -272,6 +313,44 @@ public class ViewPatientActivity extends AppCompatActivity {
                 spRecordDate.performClick();
             }
         });
+
+//        tvAboutTitle1 = (TextView) findViewById(R.id.tv_about_title1);
+//        tvAboutTitle2 = (TextView) findViewById(R.id.tv_about_title2);
+//        tvAboutTitle3 = (TextView) findViewById(R.id.tv_about_title3);
+//        tvAboutTitle4 = (TextView) findViewById(R.id.tv_about_title4);
+
+//        llAboutTitle1 = (LinearLayout) findViewById(R.id.cont_about_item1_image);
+//        llAboutTitle2 = (LinearLayout) findViewById(R.id.cont_about_item2_image);
+//        llAboutTitle3 = (LinearLayout) findViewById(R.id.cont_about_item3_image);
+//        llAboutTitle4 = (LinearLayout) findViewById(R.id.cont_about_item4_image);
+
+
+//        llAbout1 = (LinearLayout) findViewById(R.id.vg_item1);
+//        llAbout2 = (LinearLayout) findViewById(R.id.vg_item2);
+//        llAbout3 = (LinearLayout) findViewById(R.id.vg_item3);
+//        llAbout4 = (LinearLayout) findViewById(R.id.vg_item4);
+
+//        tvMedicalRecordTitle = (TextView) findViewById(R.id.tv_scrollbar_title);
+//        tvRecordDateTitle = (TextView) findViewById(R.id.tv_vp_date);
+
+//        TextView titleSizeReference = tvMedicalRecordTitle;
+//        TextView sizeReference = tvRecordDateTitle;
+
+//        setTextViewHeightTo(tvAboutTitle1, titleSizeReference);
+//        setTextViewHeightTo(tvAboutTitle2, titleSizeReference);
+//        setTextViewHeightTo(tvAboutTitle3, titleSizeReference);
+//        setTextViewHeightTo(tvAboutTitle4, titleSizeReference);
+
+//        setTextViewChildrenHeightTo(llAbout1, sizeReference);
+//        setTextViewChildrenHeightTo(llAbout2, sizeReference);
+//        setTextViewChildrenHeightTo(llAbout3, sizeReference);
+//        setTextViewChildrenHeightTo(llAbout4, sizeReference);
+
+//        setTextViewChildrenHeightTo(llAboutTitle1, sizeReference);
+//        setTextViewChildrenHeightTo(llAboutTitle2, sizeReference);
+//        setTextViewChildrenHeightTo(llAboutTitle3, sizeReference);
+//        setTextViewChildrenHeightTo(llAboutTitle4, sizeReference);
+
     }
 
     private Drawable getDefaultImage(int gender) {
@@ -290,6 +369,26 @@ public class ViewPatientActivity extends AppCompatActivity {
         else {
             return getResources().getDrawable(R.drawable.img_gender_circle_fill_female);
         }
+    }
+
+    // Used to resize Medical Record entries
+    public void setTextViewChildrenHeightTo(LinearLayout vg, TextView reference) {
+        try {
+            for (int i = 0; i < vg.getChildCount(); i++) {
+                View child = vg.getChildAt(i);
+                // Recursive call
+                if(child instanceof TextView) {
+                    ((TextView) child).setMinHeight(reference.getHeight());
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setTextViewHeightTo(TextView vg, TextView reference) {
+        vg.setMinHeight(reference.getHeight());
     }
 
     private void displayRecord(Record record) {
