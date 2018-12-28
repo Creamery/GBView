@@ -111,8 +111,9 @@
 
     </LinearLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/sidebar"
+    <include android:id="@+id/sidebar"
+        layout="@layout/sidebar_patient"
+
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="0.2"
@@ -122,214 +123,7 @@
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/topitem"
-        app:layout_constraintVertical_weight="9">
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/cont_buttons"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/grey"
-            android:visibility="visible"
-            app:layout_constraintBottom_toTopOf="@+id/space2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_weight="7">
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/buttonitems"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="5.5">
-
-                <RelativeLayout
-                    android:id="@+id/item1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toTopOf="@+id/item2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/tv_patient_about"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
-                        android:clickable="false"
-                        android:elevation="100dp"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:linksClickable="false"
-                        android:longClickable="false"
-                        android:text="@string/patient_about"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/DefaultText"
-                        android:textColor="@color/sidebarText"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
-
-                    <Button
-                        android:id="@+id/btn_patient_about"
-                        style="@style/ClearButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
-
-                        android:background="@color/colorPrimaryDark"
-
-                        android:textAlignment="center"
-
-                        android:textAllCaps="false"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/item2"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toTopOf="@+id/item3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/item1">
-
-                    <Button
-                        android:id="@+id/btn_view_hpi"
-                        style="@style/DefaultButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="0dp"
-                        android:background="@color/colorPrimaryDark" />
-
-                    <TextView
-                        android:id="@+id/tv_patient_hpi"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
-                        android:clickable="false"
-                        android:elevation="100dp"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:linksClickable="false"
-                        android:longClickable="false"
-                        android:text="@string/patient_consultation"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/DefaultText"
-                        android:textColor="@color/sidebarText"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/item3"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toTopOf="@+id/item4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/item2">
-
-                    <Button
-                        android:id="@+id/btn_view_immunization"
-                        style="@style/DefaultButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="0dp"
-                        android:background="@color/colorPrimaryDark"
-                        android:includeFontPadding="false"
-                        android:padding="0dp" />
-
-                    <TextView
-                        android:id="@+id/tv_patient_immunization"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
-                        android:clickable="false"
-                        android:elevation="100dp"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:linksClickable="false"
-                        android:longClickable="false"
-                        android:text="@string/patient_immunization"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/DefaultText"
-                        android:textColor="@color/sidebarText"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/item4"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/item3">
-
-                    <Button
-                        android:id="@+id/btn_view_patient_list"
-                        style="@style/ClearButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
-
-                        android:background="@color/colorPrimaryDark" />
-
-                    <TextView
-                        android:id="@+id/tv_view_patient"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
-                        android:clickable="false"
-                        android:elevation="100dp"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:linksClickable="false"
-                        android:longClickable="false"
-                        android:text="@string/view_patient_list"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/DefaultText"
-                        android:visibility="invisible"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes"
-                        android:textColor="@color/sidebarText" />
-                </RelativeLayout>
-
-            </android.support.constraint.ConstraintLayout>
-
-        </android.support.constraint.ConstraintLayout>
-
-        <Space
-            android:id="@+id/space2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cont_buttons"
-            app:layout_constraintVertical_weight="3" />
-
-    </android.support.constraint.ConstraintLayout>
+        app:layout_constraintVertical_weight="9" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/linearLayout5"
@@ -387,9 +181,9 @@
                         android:id="@+id/space3"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:contentDescription="@string/cd_blank"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/iv_patient"
-                        android:contentDescription="@string/cd_blank"
                         app:layout_constraintHorizontal_weight="0.5"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -813,10 +607,10 @@
 
                                 <ImageView
                                     android:id="@+id/img_patient_bmi_color"
-                                    android:contentDescription="@string/cd_blank"
                                     android:layout_width="0dp"
                                     android:layout_height="0dp"
                                     android:layout_marginTop="3dp"
+                                    android:contentDescription="@string/cd_blank"
                                     app:layout_constraintBottom_toTopOf="@+id/spacebottom"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
