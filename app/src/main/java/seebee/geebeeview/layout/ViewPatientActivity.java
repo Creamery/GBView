@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -55,6 +56,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     private static final String TAG = "ViewPatientActivity";
     private float LEGEND_TEXT_SIZE = 16f; // TODO make universal (see DataVisualization.java)
     private float AXIS_TEXT_SIZE = 14f;
+    private ConstraintLayout contRecordDate;
 
     private TextView tvName, tvBirthday, tvDominantHand, tvAge, tvGradeLevel, tvBMI, tvPatientRemark;
     private TextView tvData, tvDate, tvHeight, tvWeight, tvVisualLeft, tvVisualRight, tvColorVision, tvHearingLeft,
@@ -131,6 +133,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         /* connect spinner here */
         spRecordColumn = (Spinner) findViewById(R.id.sp_vp_record_column);
         spRecordDate = (Spinner) findViewById(R.id.sp_record_date);
+        contRecordDate = (ConstraintLayout) findViewById(R.id.cont_record_date);
         /* connect buttons */
         btnViewHPI = (Button) findViewById(R.id.btn_view_hpi);
         btnViewImmunization = (Button) findViewById(R.id.btn_view_immunization);
@@ -191,6 +194,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         patient = null;
         getPatientData();
@@ -253,6 +257,15 @@ public class ViewPatientActivity extends AppCompatActivity {
         prepareLineChart();
         prepareLineChartData();
 
+
+        ImageView ivRecordButton = (ImageView) findViewById(R.id.iv_record_date_arrow);
+        ivRecordButton.setClickable(true);
+        ivRecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spRecordDate.performClick();
+            }
+        });
     }
 
     private Drawable getDefaultImage(int gender) {
@@ -744,6 +757,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 displayRecord(lastRecord);
             }
         });
+
     }
 
     private void convertBlobToFile(byte[] soundBytes) {
