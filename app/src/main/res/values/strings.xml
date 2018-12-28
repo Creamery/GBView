@@ -67,6 +67,7 @@
     <string name="color_vision">Color Vision</string>
     <string name="hearing">Hearing</string>
     <string name="gross_motor">Gross Motor</string>
+    <string name="motor">Motor</string>
     <string name="fine_motor">Fine Motor</string>
     <string name="dominant">Dominant</string>
     <string name="non_dominant">Non-Dominant</string>

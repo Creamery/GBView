@@ -1070,45 +1070,41 @@
                             app:layout_constraintStart_toEndOf="@+id/cont_about_item1_image"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <android.support.constraint.ConstraintLayout
+                            <LinearLayout
                                 android:id="@+id/cont_about_item1_image"
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/cont_about_item1_details"
-                                app:layout_constraintHorizontal_weight="1"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                android:orientation="horizontal"
+                                android:weightSum="1">
 
                                 <ImageView
                                     android:id="@+id/img_about_item1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_weight="0.1"
                                     android:adjustViewBounds="true"
                                     android:contentDescription="@string/cd_blank"
                                     android:cropToPadding="false"
                                     android:scaleType="fitCenter"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_weight="1.5"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
                                     app:srcCompat="@drawable/img_circle_trans" />
-                            </android.support.constraint.ConstraintLayout>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.9"
+                                    android:text="@string/visual_acuity"
+                                    android:textColor="@color/colorPrimaryDark" />
+
+                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/visual_acuity"
-                                android:textColor="@color/colorPrimaryDark"
-                                app:autoSizePresetSizes="@array/autosize_text_sizes" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_margin="0dp"
                                 android:layout_weight="1"
-                                android:paddingStart="@dimen/context_padding"
-                                android:paddingEnd="0dp"
+                                android:padding="0dp"
                                 android:text="@string/left"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1117,7 +1113,9 @@
                                 android:id="@+id/tv_visual_acuity_left"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="0dp"
                                 android:layout_weight="1"
+                                android:padding="0dp"
                                 android:text="@string/left"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1125,9 +1123,9 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="0dp"
                                 android:layout_weight="1"
-                                android:paddingStart="@dimen/context_padding"
-                                android:paddingEnd="0dp"
+                                android:padding="0dp"
                                 android:text="@string/right"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1136,7 +1134,9 @@
                                 android:id="@+id/tv_visual_acuity_right"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="0dp"
                                 android:layout_weight="1"
+                                android:padding="0dp"
                                 android:text="@string/right"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1145,7 +1145,9 @@
                                 style="@style/SmallLabelText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="0dp"
                                 android:layout_weight="1"
+                                android:padding="0dp"
                                 android:text="@string/color_vision"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1155,7 +1157,9 @@
                                 style="@style/SmallContextText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_margin="0dp"
                                 android:layout_weight="1"
+                                android:padding="0dp"
                                 android:text="@string/color_vision"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1174,38 +1178,31 @@
                             app:layout_constraintStart_toEndOf="@+id/cont_about_item2_image"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <android.support.constraint.ConstraintLayout
+                            <LinearLayout
                                 android:id="@+id/cont_about_item2_image"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/cont_about_item2_details"
-                                app:layout_constraintHorizontal_weight="1"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                android:orientation="horizontal"
+                                android:weightSum="1">
 
                                 <ImageView
                                     android:id="@+id/img_about_item2"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="0.1"
                                     android:adjustViewBounds="true"
                                     android:contentDescription="@string/cd_blank"
                                     android:cropToPadding="false"
-                                    android:scaleType="fitCenter"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_weight="1.5"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/img_circle_trans" />
+                                    android:scaleType="fitCenter" />
 
                                 <TextView
                                     android:id="@+id/textView"
-                                    style="@style/SmallLabelText"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:layout_weight="0.9"
+                                    android:padding="0dp"
                                     android:text="@string/hearing" />
-                            </android.support.constraint.ConstraintLayout>
+                            </LinearLayout>
 
                             <TextView
                                 style="@style/SmallLabelText"
@@ -1213,8 +1210,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="0dp"
-                                android:paddingStart="@dimen/context_padding"
-                                android:paddingEnd="0dp"
                                 android:text="@string/right"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1247,8 +1242,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:padding="0dp"
-                                android:paddingStart="@dimen/context_padding"
-                                android:paddingEnd="0dp"
                                 android:text="@string/left"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1266,36 +1259,38 @@
                             app:layout_constraintStart_toEndOf="@+id/cont_about_item3_image"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <android.support.constraint.ConstraintLayout
+                            <LinearLayout
                                 android:id="@+id/cont_about_item3_image"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toStartOf="@+id/cont_about_item3_details"
-                                app:layout_constraintHorizontal_weight="1"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                android:orientation="horizontal"
+                                android:weightSum="1">
 
                                 <ImageView
                                     android:id="@+id/img_about_item3"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="0dp"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.1"
                                     android:adjustViewBounds="true"
                                     android:contentDescription="@string/cd_blank"
                                     android:cropToPadding="false"
-                                    android:scaleType="fitCenter"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_weight="1.5"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:srcCompat="@drawable/img_circle_trans" />
-                            </android.support.constraint.ConstraintLayout>
+                                    android:scaleType="fitCenter" />
+
+                                <TextView
+                                    android:id="@+id/textView2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.9"
+                                    android:padding="0dp"
+                                    android:text="@string/motor"
+                                    android:textColor="@color/colorPrimaryDark" />
+                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:padding="0dp"
                                 android:text="@string/gross_motor"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1304,8 +1299,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:paddingStart="@dimen/context_padding"
-                                android:paddingEnd="0dp"
+                                android:padding="0dp"
                                 android:text="@string/non_dominant"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1315,6 +1309,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:padding="0dp"
                                 android:text="@string/dominant"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1322,6 +1317,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:padding="0dp"
                                 android:text="@string/fine_motor"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1331,6 +1327,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:padding="0dp"
                                 android:text="@string/non_dominant"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1340,6 +1337,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:padding="0dp"
                                 android:text="@string/hold"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1348,6 +1346,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:padding="0dp"
                                 android:paddingStart="@dimen/context_padding"
                                 android:paddingEnd="0dp"
                                 android:text="@string/dominant"
@@ -1358,8 +1357,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:paddingStart="@dimen/context_padding"
-                                android:paddingEnd="0dp"
+                                android:padding="0dp"
                                 android:text="@string/hold"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1369,6 +1367,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
+                                android:padding="0dp"
                                 android:text="@string/gross_motor"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -1386,48 +1385,40 @@
                             app:layout_constraintStart_toEndOf="@+id/cont_about_item4_image"
                             app:layout_constraintTop_toTopOf="parent">
 
-                            <android.support.constraint.ConstraintLayout
+                            <LinearLayout
                                 android:id="@+id/cont_about_item4_image"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_weight="1"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                android:orientation="horizontal"
+                                android:weightSum="1">
 
                                 <ImageView
                                     android:id="@+id/img_about_item4"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="0dp"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_weight="0.1"
                                     android:adjustViewBounds="true"
                                     android:contentDescription="@string/cd_blank"
                                     android:cropToPadding="false"
                                     android:scaleType="fitCenter"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent"
-                                    app:layout_constraintHorizontal_weight="1.5"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
                                     app:srcCompat="@drawable/img_circle_trans" />
-                            </android.support.constraint.ConstraintLayout>
 
-                            <TextView
-                                style="@style/SmallLabelText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:padding="0dp"
-                                android:text="@string/remarks"
-                                android:textColor="@color/colorPrimaryDark"
-                                app:autoSizePresetSizes="@array/autosize_text_sizes" />
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="0.9"
+                                    android:padding="0dp"
+                                    android:text="@string/remarks"
+                                    android:textColor="@color/colorPrimaryDark" />
+                            </LinearLayout>
 
                             <TextView
                                 android:id="@+id/tv_record_remark"
                                 style="@style/SmallContextText"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
                                 android:padding="0dp"
                                 android:text="@string/remarks"
                                 android:textColor="@color/colorPrimaryDark"
