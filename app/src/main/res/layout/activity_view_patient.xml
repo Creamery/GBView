@@ -11,13 +11,12 @@
     android:padding="0dp"
     tools:context="seebee.geebeeview.layout.ViewPatientActivity">
 
-
     <RelativeLayout
         android:id="@+id/topitem"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
-
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@+id/topbar"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +32,6 @@
             app:srcCompat="@drawable/img_templogo" />
     </RelativeLayout>
 
-
     <LinearLayout
         android:id="@+id/topbar"
         android:layout_width="0dp"
@@ -46,7 +44,7 @@
         app:layout_constraintHorizontal_weight="9"
         app:layout_constraintStart_toEndOf="@+id/topitem"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1.5">
+        app:layout_constraintVertical_weight="1">
 
         <RelativeLayout
             android:id="@+id/cont_title"
@@ -59,7 +57,6 @@
                 style="@style/TitleText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
 
 
                 android:gravity="center"
@@ -735,7 +732,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_margin="0dp"
-                            android:background="@color/colorPrimary"
                             android:clipToPadding="false"
                             android:padding="0dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -747,6 +743,7 @@
                                 android:id="@+id/sp_record_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
+                                android:layout_marginStart="1dp"
                                 android:background="@color/white"
                                 android:clipToPadding="false"
                                 android:dropDownWidth="match_parent"
@@ -762,6 +759,10 @@
                                 android:id="@+id/relativeLayout2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
+                                android:layout_marginStart="3dp"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginEnd="3dp"
+                                android:layout_marginBottom="3dp"
                                 android:clipToPadding="false"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
@@ -806,6 +807,7 @@
                             android:id="@+id/tv_vp_date"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
+                            android:layout_marginEnd="1dp"
                             android:background="@color/white"
                             android:gravity="center_vertical|end"
                             android:includeFontPadding="false"
@@ -922,12 +924,6 @@
 
         </android.support.constraint.ConstraintLayout>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    </android.support.constraint.ConstraintLayout>
-=======
-=======
->>>>>>> parent of 4d6d16e... Partial checkpoint
         <android.support.constraint.ConstraintLayout
             android:id="@+id/constraintLayout2"
             android:layout_width="0dp"
@@ -939,21 +935,6 @@
             app:layout_constraintHorizontal_weight="6.5"
             app:layout_constraintStart_toEndOf="@+id/linearLayout6"
             app:layout_constraintTop_toTopOf="parent">
-<<<<<<< HEAD
-
-            <RelativeLayout
-                android:id="@+id/patient_chart_container"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="6.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
->>>>>>> parent of 3f80e2a... Checkpoint
-=======
->>>>>>> parent of 4d6d16e... Partial checkpoint
 
             <RelativeLayout
                 android:id="@+id/patient_chart_container"
