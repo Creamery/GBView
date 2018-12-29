@@ -16,12 +16,13 @@
         android:id="@+id/topitem"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/sidebar"
-        app:layout_constraintEnd_toStartOf="@+id/topbar"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@id/topbar"
         app:layout_constraintHorizontal_weight="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1.5">
+        app:layout_constraintVertical_weight="1">
 
         <ImageView
             android:id="@+id/imageView"
@@ -43,7 +44,7 @@
         app:layout_constraintHorizontal_weight="9"
         app:layout_constraintStart_toEndOf="@+id/topitem"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1.5">
+        app:layout_constraintVertical_weight="1">
 
         <TextView
             android:id="@+id/tv_data_visualization_title"
@@ -109,7 +110,6 @@
             android:autoSizeStepGranularity="2sp"
             android:autoSizeTextType="uniform"
 
-            android:autoText="false"
             android:gravity="center"
             android:includeFontPadding="false"
             android:padding="0dp"
@@ -158,7 +158,7 @@
         app:layout_constraintHorizontal_weight="9"
         app:layout_constraintStart_toEndOf="@+id/sidebar"
         app:layout_constraintTop_toBottomOf="@+id/topbar"
-        app:layout_constraintVertical_weight="9.2">
+        app:layout_constraintVertical_weight="9">
 
         <Space
             android:id="@+id/spaceright"

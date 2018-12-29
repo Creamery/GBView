@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,7 +22,7 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cont_buttons"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:background="@color/grey"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/space2"
@@ -30,35 +31,28 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_weight="7">
 
-            <android.support.constraint.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/buttonitems"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_weight="5.5">
 
-                <RelativeLayout
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/item1"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toTopOf="@+id/item2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_marginBottom="0dp">
 
                     <TextView
                         android:id="@+id/tv_patient_about"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
                         android:clickable="false"
                         android:elevation="100dp"
                         android:gravity="center"
@@ -69,50 +63,72 @@
                         android:textAlignment="center"
                         android:textAppearance="@style/DefaultText"
                         android:textColor="@color/sidebarText"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+                        android:visibility="gone"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
                         android:id="@+id/btn_patient_about"
                         style="@style/ClearButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
-
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
                         android:background="@color/colorPrimaryDark"
+
 
                         android:textAlignment="center"
 
                         android:textAllCaps="false"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-                </RelativeLayout>
 
-                <RelativeLayout
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="false"
+                        android:contentDescription="@string/cd_blank"
+                        android:cropToPadding="false"
+                        android:elevation="102dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/item2"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toTopOf="@+id/item3"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/item1">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="0dp">
 
                     <Button
                         android:id="@+id/btn_view_hpi"
                         style="@style/DefaultButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_margin="0dp"
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorPrimaryDark"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_patient_hpi"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
                         android:clickable="false"
                         android:elevation="100dp"
                         android:gravity="center"
@@ -123,38 +139,57 @@
                         android:textAlignment="center"
                         android:textAppearance="@style/DefaultText"
                         android:textColor="@color/sidebarText"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+                        android:visibility="gone"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="false"
+                        android:contentDescription="@string/cd_blank"
+                        android:cropToPadding="false"
+                        android:elevation="102dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
 
-                <RelativeLayout
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/item3"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toTopOf="@+id/item4"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/item2">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="0dp">
 
                     <Button
                         android:id="@+id/btn_view_immunization"
                         style="@style/DefaultButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_margin="0dp"
                         android:background="@color/colorPrimaryDark"
                         android:includeFontPadding="false"
-                        android:padding="0dp" />
+                        android:padding="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_patient_immunization"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
                         android:clickable="false"
                         android:elevation="100dp"
                         android:gravity="center"
@@ -165,36 +200,55 @@
                         android:textAlignment="center"
                         android:textAppearance="@style/DefaultText"
                         android:textColor="@color/sidebarText"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
-                </RelativeLayout>
+                        android:visibility="gone"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <RelativeLayout
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:adjustViewBounds="false"
+                        android:contentDescription="@string/cd_blank"
+                        android:cropToPadding="false"
+                        android:elevation="102dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/item4"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/item3">
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp">
 
                     <Button
                         android:id="@+id/btn_view_patient_list"
                         style="@style/ClearButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
 
 
-                        android:background="@color/colorPrimaryDark" />
+                        android:background="@color/colorPrimaryDark"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_view_patient"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="15dp"
-                        android:layout_marginBottom="10dp"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
                         android:clickable="false"
                         android:elevation="100dp"
                         android:gravity="center"
@@ -206,10 +260,14 @@
                         android:textAppearance="@style/DefaultText"
                         android:textColor="@color/sidebarText"
                         android:visibility="invisible"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
-                </RelativeLayout>
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
 
-            </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
 
         </android.support.constraint.ConstraintLayout>
 
