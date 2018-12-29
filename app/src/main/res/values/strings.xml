@@ -55,10 +55,6 @@
     <string name="last_record">Last Check Up: </string>
     <string name="bmi">BMI</string>
     <string name="remarks">Remarks: </string>
-
-    <string name="patient_remarks">Patient</string>
-    <string name="record_remarks">Record</string>
-
     <string name="record_date">Record Date:</string>
     <string name="record_as_of">as of </string>
 

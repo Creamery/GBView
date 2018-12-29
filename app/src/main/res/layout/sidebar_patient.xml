@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,18 +16,22 @@
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cont_buttons"
             android:layout_width="0dp"
+<<<<<<< HEAD
             android:layout_height="wrap_content"
+=======
+            android:layout_height="0dp"
+            android:background="@color/grey"
+>>>>>>> parent of 3f80e2a... Checkpoint
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@+id/space2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/buttonitems"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
+                android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,6 +42,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="0.1" />
 
+<<<<<<< HEAD
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -66,6 +70,44 @@
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
+=======
+                <RelativeLayout
+                    android:id="@+id/item1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toTopOf="@+id/item2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_patient_about"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:clickable="false"
+                        android:elevation="100dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="@string/patient_about"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/sidebarText"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+                    <Button
+                        android:id="@+id/btn_patient_about"
+                        style="@style/ClearButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+>>>>>>> parent of 3f80e2a... Checkpoint
 
                         <TextView
                             android:id="@+id/tv_patient_about"
@@ -88,6 +130,7 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
+<<<<<<< HEAD
                         <Button
                             android:id="@+id/btn_patient_about"
                             style="@style/ClearButton"
@@ -357,6 +400,140 @@
                     android:layout_weight="0.5" />
 
             </LinearLayout>
+=======
+                        android:background="@color/colorPrimaryDark"
+
+                        android:textAlignment="center"
+
+                        android:textAllCaps="false"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/item2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toTopOf="@+id/item3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item1">
+
+                    <Button
+                        android:id="@+id/btn_view_hpi"
+                        style="@style/DefaultButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="0dp"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:id="@+id/tv_patient_hpi"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:clickable="false"
+                        android:elevation="100dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="@string/patient_consultation"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/sidebarText"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/item3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toTopOf="@+id/item4"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item2">
+
+                    <Button
+                        android:id="@+id/btn_view_immunization"
+                        style="@style/DefaultButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="0dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:includeFontPadding="false"
+                        android:padding="0dp" />
+
+                    <TextView
+                        android:id="@+id/tv_patient_immunization"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:clickable="false"
+                        android:elevation="100dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="@string/patient_immunization"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/sidebarText"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/item4"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item3">
+
+                    <Button
+                        android:id="@+id/btn_view_patient_list"
+                        style="@style/ClearButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+
+
+                        android:background="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:id="@+id/tv_view_patient"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="10dp"
+                        android:clickable="false"
+                        android:elevation="100dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:linksClickable="false"
+                        android:longClickable="false"
+                        android:text="@string/view_patient_list"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/sidebarText"
+                        android:visibility="invisible"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+                </RelativeLayout>
+
+            </android.support.constraint.ConstraintLayout>
+>>>>>>> parent of 3f80e2a... Checkpoint
 
         </android.support.constraint.ConstraintLayout>
 
