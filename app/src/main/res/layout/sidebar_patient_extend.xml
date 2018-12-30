@@ -165,8 +165,7 @@
                 android:id="@+id/sidebar_extend_body_bg"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="9"
-                android:visibility="invisible">
+                android:layout_weight="9">
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/constraintLayout12"
@@ -302,7 +301,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/constraintLayout4"
+                        app:layout_constraintEnd_toStartOf="@+id/cont_about_extend"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -367,7 +366,7 @@
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraintLayout4"
+                        android:id="@+id/cont_about_extend"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:background="@android:color/transparent"
@@ -392,6 +391,19 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
+                            <TextView
+                                android:id="@+id/tv_about_patient_extend"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:gravity="center_vertical"
+                                android:text="@string/patient_sidebar_extend_about"
+                                android:textColor="@color/colorPrimaryDark"
+                                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
                         </android.support.constraint.ConstraintLayout>
 
                         <Space
@@ -422,7 +434,7 @@
                         android:layout_height="0dp"
                         android:clipToPadding="false"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/constraintLayout6"
+                        app:layout_constraintEnd_toStartOf="@+id/cont_hpi_extend"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -482,7 +494,7 @@
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraintLayout6"
+                        android:id="@+id/cont_hpi_extend"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:background="@android:color/transparent"
@@ -491,6 +503,45 @@
                         app:layout_constraintHorizontal_weight="9"
                         app:layout_constraintStart_toEndOf="@+id/item2"
                         app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraintLayout4"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/space11"
+                            app:layout_constraintHorizontal_weight="2.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/tv_patient_hpi_extend"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:gravity="center_vertical"
+                                android:text="@string/patient_sidebar_extend_hpi"
+                                android:textColor="@color/colorPrimaryDark"
+                                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </android.support.constraint.ConstraintLayout>
+
+                        <Space
+                            android:id="@+id/space11"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="7.5"
+                            app:layout_constraintStart_toEndOf="@+id/constraintLayout4"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </android.support.constraint.ConstraintLayout>
 
@@ -511,7 +562,7 @@
                         android:layout_height="0dp"
                         android:clipToPadding="false"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/constraintLayout7"
+                        app:layout_constraintEnd_toStartOf="@+id/cont_immunization_extend"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -571,7 +622,7 @@
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraintLayout7"
+                        android:id="@+id/cont_immunization_extend"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:background="@android:color/transparent"
@@ -580,6 +631,45 @@
                         app:layout_constraintHorizontal_weight="9"
                         app:layout_constraintStart_toEndOf="@+id/item3"
                         app:layout_constraintTop_toTopOf="parent">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraintLayout6"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/space12"
+                            app:layout_constraintHorizontal_weight="2.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/tv_patient_immunization_extend"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:gravity="center_vertical"
+                                android:text="@string/patient_sidebar_extend_immnuization"
+                                android:textColor="@color/colorPrimaryDark"
+                                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.0"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </android.support.constraint.ConstraintLayout>
+
+                        <Space
+                            android:id="@+id/space12"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="7.5"
+                            app:layout_constraintStart_toEndOf="@+id/constraintLayout6"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                     </android.support.constraint.ConstraintLayout>
 
