@@ -162,10 +162,12 @@
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/sidebar_extend_body_bg"
+                android:id="@+id/sidebar_extend_body_bg_hide"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="9">
+                android:layout_weight="9"
+                android:animateLayoutChanges="true"
+                android:visibility="invisible">
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/constraintLayout12"
@@ -301,7 +303,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/cont_about_extend"
+                        app:layout_constraintEnd_toStartOf="@+id/cont_about_extend_hide"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -366,11 +368,12 @@
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/cont_about_extend"
+                        android:id="@+id/cont_about_extend_hide"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:animateLayoutChanges="true"
                         android:background="@android:color/transparent"
-                        android:visibility="visible"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="9"
@@ -434,7 +437,7 @@
                         android:layout_height="0dp"
                         android:clipToPadding="false"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/cont_hpi_extend"
+                        app:layout_constraintEnd_toStartOf="@+id/cont_hpi_extend_hide"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -494,10 +497,12 @@
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/cont_hpi_extend"
+                        android:id="@+id/cont_hpi_extend_hide"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:animateLayoutChanges="true"
                         android:background="@android:color/transparent"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="9"
@@ -562,7 +567,7 @@
                         android:layout_height="0dp"
                         android:clipToPadding="false"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/cont_immunization_extend"
+                        app:layout_constraintEnd_toStartOf="@+id/cont_immunization_extend_hide"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -622,10 +627,12 @@
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/cont_immunization_extend"
+                        android:id="@+id/cont_immunization_extend_hide"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:animateLayoutChanges="true"
                         android:background="@android:color/transparent"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="9"
