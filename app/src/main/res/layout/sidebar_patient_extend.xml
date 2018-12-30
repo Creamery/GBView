@@ -17,7 +17,7 @@
             android:id="@+id/sidebar_bg"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:background="@color/greenHighlight"
+            android:background="@color/lightGrey"
             android:orientation="vertical"
             android:weightSum="10"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -25,26 +25,20 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/constraintLayout9"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@android:color/transparent"
+                android:background="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/constraintLayout10"
-                app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/item_filler"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintDimensionRatio="1:1"
@@ -55,8 +49,8 @@
 
                     <ImageView
                         android:id="@+id/imageFiller"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
                         android:adjustViewBounds="false"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
@@ -72,10 +66,13 @@
 
             </android.support.constraint.ConstraintLayout>
 
-            <Space
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="9" />
+                android:layout_weight="9"
+                android:background="@color/white">
+
+            </android.support.constraint.ConstraintLayout>
 
         </LinearLayout>
 
@@ -84,7 +81,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
-            android:visibility="visible"
             android:weightSum="10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -179,21 +175,23 @@
                     <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:background="@color/grey"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/imageView5"
+                            android:id="@+id/change_extend_fill"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:layout_marginEnd="1dp"
+                            android:background="@color/white"
                             android:contentDescription="@string/cd_blank"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@color/transparentBlack" />
+                            app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
 
                 </android.support.constraint.ConstraintLayout>
@@ -355,18 +353,17 @@
                             android:contentDescription="@string/cd_blank"
                             android:cropToPadding="false"
                             android:elevation="102dp"
-                            android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+                            app:srcCompat="@drawable/img_sidebar_filler_greenhighlight" />
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/constraintLayout4"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="0dp"
                         android:background="@android:color/transparent"
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -375,6 +372,31 @@
                         app:layout_constraintStart_toEndOf="@+id/item1"
                         app:layout_constraintTop_toTopOf="parent">
 
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraintLayout15"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/space10"
+                            app:layout_constraintHorizontal_weight="2.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                        </android.support.constraint.ConstraintLayout>
+
+                        <Space
+                            android:id="@+id/space10"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="7.5"
+                            app:layout_constraintStart_toEndOf="@+id/constraintLayout15"
+                            app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
 
                 </android.support.constraint.ConstraintLayout>
@@ -445,12 +467,11 @@
                             android:contentDescription="@string/cd_blank"
                             android:cropToPadding="false"
                             android:elevation="102dp"
-                            android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+                            app:srcCompat="@drawable/img_sidebar_filler_greenhighlight" />
 
                     </android.support.constraint.ConstraintLayout>
 
@@ -540,8 +561,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/img_circle_trans_greenhighlight"
-                            android:visibility="invisible" />
+                            app:srcCompat="@drawable/img_sidebar_filler_greenhighlight" />
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
