@@ -6,7 +6,7 @@
     style="@style/DefaultBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
+    android:background="@color/lightGrey"
     android:clipToPadding="false"
     android:padding="0dp"
     tools:context="seebee.geebeeview.layout.ViewPatientActivity">
@@ -956,7 +956,6 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/sidebar_extend_start"
         app:layout_constraintStart_toStartOf="parent"
@@ -968,7 +967,6 @@
         android:id="@+id/sidebar_extend_start"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/sidebar_space"
         app:layout_constraintHorizontal_weight="3"
