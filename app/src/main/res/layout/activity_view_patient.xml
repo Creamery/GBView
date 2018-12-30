@@ -710,10 +710,12 @@
                         android:id="@+id/tv_scrollbar_title"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:layout_marginTop="5dp"
                         android:background="@color/white"
                         android:gravity="bottom|center_horizontal"
                         android:text="@string/patient_medical_record"
                         android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
                         app:autoSizePresetSizes="@array/autosize_text_sizes"
                         app:layout_constraintBottom_toTopOf="@+id/cont_record_date"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -840,86 +842,6 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/topbar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        android:visibility="invisible"
-        android:weightSum="1"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="9"
-        app:layout_constraintStart_toEndOf="@+id/topitem"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_weight="1">
-
-        <RelativeLayout
-            android:id="@+id/cont_title"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3">
-
-            <TextView
-                android:id="@+id/tv_patient_record_title"
-                style="@style/TitleText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-
-                android:gravity="center"
-                android:padding="3dp"
-                android:text="@string/patient_record"
-                android:textAppearance="@style/DefaultText"
-                android:textColor="@color/colorPrimaryDark"
-                app:autoSizePresetSizes="@array/autosize_text_sizes" />
-        </RelativeLayout>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.3" />
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/cont_graph_spinner"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.4">
-
-            <TextView
-                android:id="@+id/tv_vp_data"
-                style="@style/LabelText"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:elevation="100dp"
-                android:entries="@array/record_column_array_num"
-                android:gravity="center"
-                android:text="@string/displayed_data"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/sp_vp_record_column"
-                app:layout_constraintHorizontal_weight="3"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Spinner
-                android:id="@+id/sp_vp_record_column"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:elevation="100dp"
-                android:entries="@array/record_column_array_num"
-                android:gravity="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="7"
-                app:layout_constraintStart_toEndOf="@+id/tv_vp_data"
-                app:layout_constraintTop_toTopOf="parent"></Spinner>
-
-        </android.support.constraint.ConstraintLayout>
-
-    </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/topitem"
         android:layout_width="0dp"
@@ -987,5 +909,84 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="9" />
+
+    <LinearLayout
+        android:id="@+id/topbar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="9"
+        app:layout_constraintStart_toEndOf="@+id/topitem"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="1">
+
+        <RelativeLayout
+            android:id="@+id/cont_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25">
+
+            <TextView
+                android:id="@+id/tv_patient_record_title"
+                style="@style/TitleText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+
+                android:layout_margin="5dp"
+                android:gravity="center_vertical|start"
+                android:padding="3dp"
+                android:text="@string/patient_record"
+                android:textAppearance="@style/DefaultText"
+                android:textColor="@color/colorPrimaryDark"
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
+        </RelativeLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.35" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cont_graph_spinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4">
+
+            <TextView
+                android:id="@+id/tv_vp_data"
+                style="@style/LabelText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:elevation="100dp"
+                android:entries="@array/record_column_array_num"
+                android:gravity="center"
+                android:text="@string/displayed_data"
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/sp_vp_record_column"
+                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/sp_vp_record_column"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:elevation="100dp"
+                android:entries="@array/record_column_array_num"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="7"
+                app:layout_constraintStart_toEndOf="@+id/tv_vp_data"
+                app:layout_constraintTop_toTopOf="parent"></Spinner>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

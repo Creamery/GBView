@@ -51,13 +51,15 @@
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/img_circle_trans" />
+                        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
 
                     <TextView
                         android:id="@+id/tv_about_title1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginTop="2.5dp"
+                        android:layout_marginBottom="2.5dp"
                         android:layout_weight="0.9"
                         android:gravity="center_vertical|start"
                         android:includeFontPadding="false"
@@ -253,13 +255,15 @@
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/img_circle_trans" />
+                        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
 
                     <TextView
                         android:id="@+id/tv_about_title2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginTop="2.5dp"
+                        android:layout_marginBottom="2.5dp"
                         android:layout_weight="0.9"
                         android:gravity="center_vertical|start"
                         android:includeFontPadding="false"
@@ -407,13 +411,15 @@
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/img_circle_trans" />
+                        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
 
                     <TextView
                         android:id="@+id/tv_about_title3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginTop="2.5dp"
+                        android:layout_marginBottom="2.5dp"
                         android:layout_weight="0.9"
                         android:gravity="center_vertical|start"
                         android:includeFontPadding="false"
@@ -683,13 +689,15 @@
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         android:scaleType="fitCenter"
-                        app:srcCompat="@drawable/img_circle_trans" />
+                        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
 
                     <TextView
                         android:id="@+id/tv_about_title4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:layout_marginTop="2.5dp"
+                        android:layout_marginBottom="2.5dp"
                         android:layout_weight="0.9"
                         android:gravity="center_vertical|start"
                         android:includeFontPadding="false"
