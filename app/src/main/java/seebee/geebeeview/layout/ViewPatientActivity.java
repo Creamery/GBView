@@ -50,6 +50,7 @@ import seebee.geebeeview.model.monitoring.BMICalculator;
 import seebee.geebeeview.model.monitoring.IdealValue;
 import seebee.geebeeview.model.monitoring.LineChartValueFormatter;
 import seebee.geebeeview.model.monitoring.Record;
+import seebee.geebeeview.sidebar.PatientSidebar;
 
 public class ViewPatientActivity extends AppCompatActivity {
 
@@ -66,6 +67,11 @@ public class ViewPatientActivity extends AppCompatActivity {
     private Spinner spRecordDate;
     private LinearLayout llAbout1, llAbout2, llAbout3, llAbout4, llAboutTitle1, llAboutTitle2, llAboutTitle3, llAboutTitle4;
     private TextView tvAboutTitle1, tvAboutTitle2, tvAboutTitle3, tvAboutTitle4;
+
+
+    private PatientSidebar sidebarManager;
+
+
 
     private int patientID;
     private Patient patient;
@@ -84,6 +90,8 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         super.onWindowFocusChanged(hasFocus);
         adjustDetailFontSize();
+
+
 
         tvAboutTitle1 = (TextView) findViewById(R.id.tv_about_title1);
         tvAboutTitle2 = (TextView) findViewById(R.id.tv_about_title2);
@@ -313,45 +321,36 @@ public class ViewPatientActivity extends AppCompatActivity {
                 spRecordDate.performClick();
             }
         });
-
-//        tvAboutTitle1 = (TextView) findViewById(R.id.tv_about_title1);
-//        tvAboutTitle2 = (TextView) findViewById(R.id.tv_about_title2);
-//        tvAboutTitle3 = (TextView) findViewById(R.id.tv_about_title3);
-//        tvAboutTitle4 = (TextView) findViewById(R.id.tv_about_title4);
-
-//        llAboutTitle1 = (LinearLayout) findViewById(R.id.cont_about_item1_image);
-//        llAboutTitle2 = (LinearLayout) findViewById(R.id.cont_about_item2_image);
-//        llAboutTitle3 = (LinearLayout) findViewById(R.id.cont_about_item3_image);
-//        llAboutTitle4 = (LinearLayout) findViewById(R.id.cont_about_item4_image);
-
-
-//        llAbout1 = (LinearLayout) findViewById(R.id.vg_item1);
-//        llAbout2 = (LinearLayout) findViewById(R.id.vg_item2);
-//        llAbout3 = (LinearLayout) findViewById(R.id.vg_item3);
-//        llAbout4 = (LinearLayout) findViewById(R.id.vg_item4);
-
-//        tvMedicalRecordTitle = (TextView) findViewById(R.id.tv_scrollbar_title);
-//        tvRecordDateTitle = (TextView) findViewById(R.id.tv_vp_date);
-
-//        TextView titleSizeReference = tvMedicalRecordTitle;
-//        TextView sizeReference = tvRecordDateTitle;
-
-//        setTextViewHeightTo(tvAboutTitle1, titleSizeReference);
-//        setTextViewHeightTo(tvAboutTitle2, titleSizeReference);
-//        setTextViewHeightTo(tvAboutTitle3, titleSizeReference);
-//        setTextViewHeightTo(tvAboutTitle4, titleSizeReference);
-
-//        setTextViewChildrenHeightTo(llAbout1, sizeReference);
-//        setTextViewChildrenHeightTo(llAbout2, sizeReference);
-//        setTextViewChildrenHeightTo(llAbout3, sizeReference);
-//        setTextViewChildrenHeightTo(llAbout4, sizeReference);
-
-//        setTextViewChildrenHeightTo(llAboutTitle1, sizeReference);
-//        setTextViewChildrenHeightTo(llAboutTitle2, sizeReference);
-//        setTextViewChildrenHeightTo(llAboutTitle3, sizeReference);
-//        setTextViewChildrenHeightTo(llAboutTitle4, sizeReference);
+        setupSidebarFunctionality();
 
     }
+
+    public void setupSidebarFunctionality () {
+        sidebarManager = new PatientSidebar(
+                (Button) findViewById(R.id.btn_show_sidebar),
+                (Button) findViewById(R.id.btn_patient_about),
+                (Button) findViewById(R.id.btn_view_hpi),
+                (Button) findViewById(R.id.btn_view_immunization));
+
+        sidebarManager.setItemsSidebarExtend(new ArrayList<ConstraintLayout>());
+        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.sidebar_extend_body_bg_hide));
+        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_about_extend_hide));
+        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_hpi_extend_hide));
+        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_immunization_extend_hide));
+        this.sidebarManager.getBtnOpenSidebar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sidebarManager.toggleSidebar();
+
+                // Setting of Visibility has to be done here (not in PatientSidebar or SidebarParent class, or it won't appear
+                for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
+                    sidebarManager.getItemsSidebarExtend().get(i).setVisibility(sidebarManager.getSidebarVisibility(sidebarManager.isSidebarOpen()));
+                }
+                // Toast.makeText(ViewPatientActivity.this, sidebarManager.isSidebarOpen()+" "+sidebarManager.getItemsSidebarExtend().size()+" "+sidebarManager.getItemsSidebarExtend().get(0).getVisibility(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private Drawable getDefaultImage(int gender) {
         if(gender == 0) {

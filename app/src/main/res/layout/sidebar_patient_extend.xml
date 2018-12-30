@@ -268,8 +268,9 @@
                         android:id="@+id/imageView"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:background="@android:color/transparent"
+                        android:background="@color/greenHighlight"
                         android:contentDescription="@string/cd_geebeeview"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toStartOf="@+id/constraintLayout5"
@@ -277,6 +278,35 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/img_templogo" />
+
+                    <ImageView
+                        android:id="@+id/iv_show_sidebar_color"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:contentDescription="@string/cd_blank"
+                        app:layout_constraintBottom_toBottomOf="@+id/btn_show_sidebar"
+                        app:layout_constraintEnd_toEndOf="@+id/btn_show_sidebar"
+                        app:layout_constraintStart_toStartOf="@+id/btn_show_sidebar"
+                        app:layout_constraintTop_toTopOf="@+id/btn_show_sidebar"
+                        app:srcCompat="@drawable/img_scroll_greenhighlight" />
+
+                    <Button
+                        android:id="@+id/btn_show_sidebar"
+                        style="@style/DefaultButton"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@drawable/img_menu_hollow"
+                        android:clickable="true"
+                        android:includeFontPadding="false"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                        app:layout_constraintEnd_toStartOf="@+id/constraintLayout5"
+                        app:layout_constraintStart_toStartOf="@+id/imageView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:focusable="true" />
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/constraintLayout5"
