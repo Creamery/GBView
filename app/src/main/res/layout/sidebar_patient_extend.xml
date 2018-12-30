@@ -55,13 +55,18 @@
 
                     <ImageView
                         android:id="@+id/imageFiller"
-                        android:layout_width="53dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="false"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         android:elevation="102dp"
                         android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
                 </android.support.constraint.ConstraintLayout>
 
