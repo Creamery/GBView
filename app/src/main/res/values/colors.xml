@@ -13,4 +13,7 @@
     <color name="lightGrey">#ebebeb</color>
     <color name="greenHighlight">#00c7a9</color>
     <color name="transparentHighlight">#9e00c7a9</color>
+    <color name="transparentBlack">#c8000000</color>
+    <color name="transparentSidebarExtend">#c821c700</color>
+    <color name="brightGreenHighlight">#21c700</color>
 </resources>
