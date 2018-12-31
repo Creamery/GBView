@@ -71,6 +71,15 @@ public class DataVisualizationActivity extends AppCompatActivity
         implements AddFilterDialogFragment.AddFilterDialogListener,
         AddDatasetDialogFragment.AddDatasetDialogListener, FilterAdapter.FilterAdapterListener, TextHolderAdapter.TextListener {
     private static final String TAG = "DataVisualActivity";
+    public static final float VALUE_TEXT_SIZE = 14f;
+    public static final float DESCRIPTION_TEXT_SIZE = 16f;
+    public static final float AXIS_TEXT_SIZE = 14f;
+    public static final float LEGEND_TEXT_SIZE = 16f;
+
+    public static final int CHART_AXIS_TEXT_COLOR = Color.GRAY;
+    public static final int CHART_LEGEND_TEXT_COLOR = Color.GRAY;
+    public static final int CHART_DESC_TEXT_COLOR = Color.GRAY;
+    public static final int CHART_VALUE_TEXT_COLOR = Color.GRAY;
 
     ArrayList<String> datasetList, filterList;
     TextHolderAdapter datasetAdapter;
@@ -78,6 +87,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     RecyclerView rvDataset, rvFilter;
     Button btnAddDataset, btnAddFilter, btnViewPatientList, btnViewHPIList;
     RelativeLayout graphLayoutLeft, graphLayoutRight; /* space where graph will be set on */
+    RelativeLayout graphLayoutCenter; // added
     int schoolID;
     String schoolName, date;
     PieChart pieChartLeft, pieChartRight;
@@ -95,7 +105,51 @@ public class DataVisualizationActivity extends AppCompatActivity
     private String recordColumn = "BMI", rightChartContent = "National Profile";
     private String chartType = "Pie Chart";
 
+    private ViewGroup.LayoutParams paramsLeft, paramsRight, paramsCenter;
+    private int offsetTopBottom;
+    private int offsetLeftRight;
+    private float offsetPercent = 0.1f;
+
+    private float offsetYDivider = 8f;
     private String provinceName, municipalityName;
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+
+        super.onWindowFocusChanged(hasFocus);
+        // Place layout width/height retrieval here to avoid returning 0
+    }
+
+    private int computePercent(float value, float percent) {
+        return Math.round(value*percent);
+    }
+
+    private int computePercentHalf(float value, float percent) {
+        return Math.round(value*percent/2f);
+    }
+    private void refreshChartParams() {
+        if(paramsLeft != null) {
+            offsetTopBottom = computePercent(graphLayoutLeft.getHeight(), offsetPercent);
+            offsetLeftRight = computePercent(graphLayoutLeft.getWidth(), offsetPercent);
+
+            paramsLeft.height = graphLayoutLeft.getHeight()-offsetTopBottom; // ViewGroup.LayoutParams.MATCH_PARENT;
+            paramsLeft.width = graphLayoutLeft.getWidth()-offsetLeftRight; // ViewGroup.LayoutParams.MATCH_PARENT;
+        }
+        if(paramsRight != null) {
+            offsetTopBottom = computePercent(graphLayoutRight.getHeight(), offsetPercent);
+            offsetLeftRight = computePercent(graphLayoutRight.getWidth(), offsetPercent);
+
+            paramsRight.height = graphLayoutRight.getHeight()-offsetTopBottom; // ViewGroup.LayoutParams.MATCH_PARENT;
+            paramsRight.width = graphLayoutRight.getWidth()-offsetLeftRight; // ViewGroup.LayoutParams.MATCH_PARENT;
+        }
+        if(paramsCenter != null) {
+            offsetTopBottom = computePercent(graphLayoutCenter.getHeight(), offsetPercent);
+            offsetLeftRight = computePercent(graphLayoutCenter.getWidth(), offsetPercent);
+
+            paramsCenter.height = graphLayoutCenter.getHeight()-offsetTopBottom; // ViewGroup.LayoutParams.MATCH_PARENT;
+            paramsCenter.width = graphLayoutCenter.getWidth()-offsetLeftRight; //ViewGroup.LayoutParams.MATCH_PARENT;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +157,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         setContentView(R.layout.activity_data_visualization);
         // lock orientation of activity to landscape
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         // get extras (schoolName & date)
         schoolName = getIntent().getStringExtra(School.C_SCHOOLNAME);
         schoolID = getIntent().getIntExtra(School.C_SCHOOL_ID, 0);
@@ -122,6 +177,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         rvFilter = (RecyclerView) findViewById(R.id.rv_dv_filter);
         graphLayoutLeft = (RelativeLayout) findViewById(R.id.graph_container_left);
         graphLayoutRight = (RelativeLayout) findViewById(R.id.graph_container_right);
+        graphLayoutCenter = (RelativeLayout) findViewById(R.id.graph_container_center); // Added
         spRecordColumn = (Spinner) findViewById(R.id.sp_record_column);
         spChartType = (Spinner) findViewById(R.id.sp_chart_type);
         spRightChart = (Spinner) findViewById(R.id.sp_right_chart_content);
@@ -232,6 +288,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         prepareChartData();
         createCharts();
 
+
         ArrayAdapter<String> spChartAdapter = new ArrayAdapter<>(this,
                 R.layout.custom_spinner, getResources().getStringArray(R.array.chart_type_array));
         spChartType.setAdapter(spChartAdapter);
@@ -239,51 +296,67 @@ public class DataVisualizationActivity extends AppCompatActivity
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 chartType = parent.getItemAtPosition(position).toString();
-                ViewGroup.LayoutParams paramsLeft, paramsRight;
+
                 graphLayoutLeft.removeAllViews();
                 graphLayoutRight.removeAllViews();
+                graphLayoutCenter.removeAllViews();
                 if(position == 0){
                     graphLayoutLeft.addView(pieChartLeft);
                     graphLayoutRight.addView(pieChartRight);
                     // adjust size of layout
                     paramsLeft = pieChartLeft.getLayoutParams();
-                    paramsRight = pieChartRight.getLayoutParams();
+                    pieChartLeft.setX(computePercentHalf(graphLayoutLeft.getWidth(), offsetPercent));
+                    pieChartLeft.setY(computePercentHalf(graphLayoutLeft.getHeight(), offsetPercent)/offsetYDivider);
 
-                    paramsRight.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                    paramsRight.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                    paramsRight = pieChartRight.getLayoutParams();
+                    pieChartRight.setX(computePercentHalf(graphLayoutRight.getWidth(), offsetPercent));
+                    pieChartRight.setY(computePercentHalf(graphLayoutRight.getHeight(), offsetPercent)/offsetYDivider);
+
+//                    paramsLeft.height = graphLayoutLeft.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
+//                    paramsLeft.width = graphLayoutLeft.getWidth(); // ViewGroup.LayoutParams.MATCH_PARENT;
+
+//                    paramsRight.height = graphLayoutRight.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
+//                    paramsRight.width = graphLayoutRight.getWidth(); // ViewGroup.LayoutParams.MATCH_PARENT;
+
                 } else if(position == 1) {
                     /* add bar chart to layout */
-                    graphLayoutLeft.addView(barChart);
+                    graphLayoutCenter.addView(barChart); // TODO edited
                     /* adjust the size of the bar chart */
-                    paramsLeft = barChart.getLayoutParams();
+                    paramsCenter = barChart.getLayoutParams();
+                    barChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+                    barChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
+//                    paramsCenter.height = graphLayoutCenter.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
+//                    paramsCenter.width = graphLayoutCenter.getWidth(); // ViewGroup.LayoutParams.MATCH_PARENT;
                 } else if (position == 2) {
-                    graphLayoutLeft.addView(scatterChart);
-                    /* adjust the size of the bar chart */
-                    paramsLeft = scatterChart.getLayoutParams();
-                } else {
-                    graphLayoutLeft.addView(bubbleChart);
-                    /* adjust the size of the bar chart */
-                    paramsLeft = bubbleChart.getLayoutParams();
-                }
+                    graphLayoutCenter.addView(scatterChart); // TODO edited
 
-                if(!chartType.contains("Pie")) {
-                    graphLayoutRight.setLayoutParams(new LinearLayout.LayoutParams(0, 0, 0f));
+                    /* adjust the size of the bar chart */
+                    paramsCenter = scatterChart.getLayoutParams();
+                    scatterChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+                    scatterChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
+//                    paramsCenter.height = graphLayoutCenter.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
+//                    paramsCenter.width = graphLayoutCenter.getWidth(); //ViewGroup.LayoutParams.MATCH_PARENT;
                 } else {
-                    graphLayoutRight.setLayoutParams(new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1f));
-                }
+                    graphLayoutCenter.addView(bubbleChart); // TODO edited
 
-                paramsLeft.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                paramsLeft.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                    /* adjust the size of the bar chart */
+                    paramsCenter = bubbleChart.getLayoutParams();
+                    bubbleChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+                    bubbleChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
+//                    paramsCenter.height = graphLayoutCenter.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
+//                    paramsCenter.width = graphLayoutCenter.getWidth(); //ViewGroup.LayoutParams.MATCH_PARENT;
+                }
 
                 // hide control of right chart for scatter and bubble plot
-                if(chartType.contains("Scatter") || chartType.contains("Bubble")) {
+                // TODO edited (added "Bar" constraint)
+                if(chartType.contains("Scatter") || chartType.contains("Bubble") || chartType.contains("Bar")) {
                     spRightChart.setVisibility(View.GONE);
                     tvRightChart.setVisibility(View.GONE);
                 } else {
                     spRightChart.setVisibility(View.VISIBLE);
                     tvRightChart.setVisibility(View.VISIBLE);
                 }
-
+                refreshChartParams();
                 addDataSet();
             }
 
@@ -481,9 +554,9 @@ public class DataVisualizationActivity extends AppCompatActivity
     private void createBarChart() {
         /* create bar chart */
         barChart = new BarChart(this);
-
         // set a chart value selected listener
         barChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
+        // barChart.fitScreen(); // TODO added
     }
 
     /* prepare values specifically for piechart only */
@@ -503,7 +576,6 @@ public class DataVisualizationActivity extends AppCompatActivity
         // enable rotation of the chart by touch
         pieChart.setRotationAngle(0);
         pieChart.setRotationEnabled(true);
-
         // set a chart value selected listener
         pieChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
 
@@ -512,10 +584,11 @@ public class DataVisualizationActivity extends AppCompatActivity
         l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
         l.setWordWrapEnabled(true);
         l.setTextSize(R.dimen.context_text_size);
-        l.setTextColor(Color.WHITE);
+        l.setTextColor(CHART_LEGEND_TEXT_COLOR);
         l.setXEntrySpace(7);
         l.setYEntrySpace(5);
 
+        pieChart.getLegend().setEnabled(false); // TODO Temporarily removed legends
         return pieChart;
     }
 
@@ -876,14 +949,15 @@ public class DataVisualizationActivity extends AppCompatActivity
         // instantiate pie data object now
         PieData data = new PieData(xData, dataSet);
         data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(20f);
+        data.setValueTextSize(VALUE_TEXT_SIZE); // TODO Pie chart label size
+
         data.setValueTextColor(Color.GRAY);
 
         pieChart.setData(data);
 
         pieChart.setDescription(recordColumn);
-        pieChart.setDescriptionTextSize(20f);
-        pieChart.setDescriptionColor(Color.WHITE);
+        pieChart.setDescriptionTextSize(DESCRIPTION_TEXT_SIZE);
+        pieChart.setDescriptionColor(CHART_DESC_TEXT_COLOR);
 //        Description description = new Description();
 //        description.setText(recordColumn);
 //        description.setTextSize(20f);
@@ -903,21 +977,21 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        description.setTextColor(Color.WHITE);
 //        chart.setDescription(description);
         chart.setDescription(recordColumn);
-        chart.setDescriptionTextSize(20f);
-        chart.setDescriptionColor(Color.WHITE);
+        chart.setDescriptionTextSize(DESCRIPTION_TEXT_SIZE);
+        chart.setDescriptionColor(CHART_DESC_TEXT_COLOR);
         chart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
 
         ChartData chartData = chart.getData();
         List<IDataSet> iDataSetList = chartData.getDataSets();
         /* customize value lable for each dataset */
         for(int i = 0; i < iDataSetList.size(); i++) {
-            iDataSetList.get(i).setValueTextSize(20f);
-            iDataSetList.get(i).setValueTextColor(Color.WHITE);
+            iDataSetList.get(i).setValueTextSize(VALUE_TEXT_SIZE); // TODO Value text size
+            iDataSetList.get(i).setValueTextColor(CHART_VALUE_TEXT_COLOR);
         }
         /* customize axis labels */
         XAxis xAxis = chart.getXAxis();
-        xAxis.setTextSize(20f);
-        xAxis.setTextColor(Color.WHITE);
+        xAxis.setTextSize(AXIS_TEXT_SIZE);
+        xAxis.setTextColor(CHART_AXIS_TEXT_COLOR);
 //        xAxis.setValueFormatter(new IAxisValueFormatter() {
 //            @Override
 //            public String getFormattedValue(float v, AxisBase axisBase) {
@@ -925,12 +999,12 @@ public class DataVisualizationActivity extends AppCompatActivity
 //                return xData[(int) v];
 //            }
 //        });
-        yAxis.setTextSize(20f);
-        yAxis.setTextColor(Color.WHITE);
+        yAxis.setTextSize(AXIS_TEXT_SIZE);
+        yAxis.setTextColor(CHART_AXIS_TEXT_COLOR);
         /* customize legend */
         Legend legend = chart.getLegend();
-        legend.setTextSize(20f);
-        legend.setTextColor(Color.WHITE);
+        legend.setTextSize(LEGEND_TEXT_SIZE);
+        legend.setTextColor(CHART_LEGEND_TEXT_COLOR);
     }
 
     @Override

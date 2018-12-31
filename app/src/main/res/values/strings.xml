@@ -8,11 +8,12 @@
     <string name="dateCreated">Date</string>
 
     <string name="data_visualization">Data Visualization</string>
+    <string name="patient_record">Patient Record</string>
     <string name="dataset">Dataset/s:</string>
     <string name="filter">Filter/s:</string>
     <string name="chart">Chart: </string>
     <string name="displayed_data">Health Test: </string>
-    <string name="right_chart_content">Right Chart Content: </string>
+    <string name="right_chart_content">Right Chart: </string>
 
     <!-- BUTTONS -->
     <string name="login">LOGIN</string>
@@ -21,9 +22,33 @@
     <string name="download">DOWNLOAD</string>
     <string name="visualize">VISUALIZE</string>
 
-    <string name="add_dataset">ADD DATASET</string>
+    <string name="add_dataset">ADD DATA</string>
     <string name="add_filter">ADD FILTER</string>
     <string name="view_patient_list">PATIENT LIST</string>
+
+    <!-- PATIENT RECORD SIDEBAR -->
+    <string name="patient_about">ABOUT</string>
+    <string name="patient_consultation">CONSULTATION</string>
+    <string name="patient_immunization">IMMUNIZATION</string>
+
+    <!-- PATIENT CIRCLE ITEMS -->
+    <string name="patient_circle_age">AGE</string>
+    <string name="patient_circle_yrs">AGE</string>
+    <string name="patient_circle_sex">SEX</string>
+
+    <!-- PATIENT SIDEBAR EXTEND -->
+    <string name="patient_sidebar_extend_about">Personal Information</string>
+    <string name="patient_sidebar_extend_hpi">View HPI</string>
+    <string name="patient_sidebar_extend_immnuization">Immunization</string>
+
+
+    <!-- PATIENT RECORD STRINGS -->
+    <string name="patient_medical_record">Medical Record</string>
+
+
+    <string name="cd_blank">content</string>
+
+    <string name="cd_geebeeview">GeeBee View</string>
 
     <string name="name">Name</string>
     <string name="gender">Gender</string>
@@ -36,7 +61,12 @@
     <string name="last_record">Last Check Up: </string>
     <string name="bmi">BMI</string>
     <string name="remarks">Remarks: </string>
+
+    <string name="patient_remarks">Patient</string>
+    <string name="record_remarks">Record</string>
+
     <string name="record_date">Record Date:</string>
+    <string name="record_as_of">as of </string>
 
     <string name="grade_level">Grade Level</string>
     <string name="height">Height</string>
@@ -47,6 +77,7 @@
     <string name="color_vision">Color Vision</string>
     <string name="hearing">Hearing</string>
     <string name="gross_motor">Gross Motor</string>
+    <string name="motor">Motor</string>
     <string name="fine_motor">Fine Motor</string>
     <string name="dominant">Dominant</string>
     <string name="non_dominant">Non-Dominant</string>

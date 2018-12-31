@@ -5,18 +5,22 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,17 +52,29 @@ import seebee.geebeeview.model.monitoring.BMICalculator;
 import seebee.geebeeview.model.monitoring.IdealValue;
 import seebee.geebeeview.model.monitoring.LineChartValueFormatter;
 import seebee.geebeeview.model.monitoring.Record;
+import seebee.geebeeview.sidebar.General;
+import seebee.geebeeview.sidebar.PatientSidebar;
 
 public class ViewPatientActivity extends AppCompatActivity {
 
     private static final String TAG = "ViewPatientActivity";
+    private float LEGEND_TEXT_SIZE = 16f; // TODO make universal (see DataVisualization.java)
+    private float AXIS_TEXT_SIZE = 14f;
+    private ConstraintLayout contRecordDate;
 
-    private TextView tvName, tvBirthday, tvGender, tvDominantHand, tvAge, tvGradeLevel, tvBMI, tvPatientRemark;
+    private TextView tvName, tvBirthday, tvDominantHand, tvAge, tvGradeLevel, tvBMI, tvPatientRemark, tvMedicalRecordTitle, tvRecordDateTitle;
     private TextView tvData, tvDate, tvHeight, tvWeight, tvVisualLeft, tvVisualRight, tvColorVision, tvHearingLeft,
             tvHearingRight, tvGrossMotor, tvFineMotorD, tvFineMotorND, tvFineMotorHold, tvRecordRemark;
-    private ImageView ivPatient;
+    private ImageView ivPatient, ivGender;
     private Button btnViewHPI, btnViewImmunization;
     private Spinner spRecordDate;
+    private LinearLayout llAbout1, llAbout2, llAbout3, llAbout4, llAboutTitle1, llAboutTitle2, llAboutTitle3, llAboutTitle4;
+    private TextView tvAboutTitle1, tvAboutTitle2, tvAboutTitle3, tvAboutTitle4;
+
+
+    private PatientSidebar sidebarManager;
+    private ImageView ivBMIColor, ivBMIClickable;
+
 
     private int patientID;
     private Patient patient;
@@ -71,7 +87,61 @@ public class ViewPatientActivity extends AppCompatActivity {
     private Spinner spRecordColumn;
     private String recordColumn = "BMI";
     private String chartType = "Line Chart";
+    private boolean bmiIsVisible = false;
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
 
+        super.onWindowFocusChanged(hasFocus);
+        adjustDetailFontSize();
+
+
+
+        tvAboutTitle1 = (TextView) findViewById(R.id.tv_about_title1);
+        tvAboutTitle2 = (TextView) findViewById(R.id.tv_about_title2);
+        tvAboutTitle3 = (TextView) findViewById(R.id.tv_about_title3);
+        tvAboutTitle4 = (TextView) findViewById(R.id.tv_about_title4);
+
+        llAboutTitle1 = (LinearLayout) findViewById(R.id.cont_about_item1_image);
+        llAboutTitle2 = (LinearLayout) findViewById(R.id.cont_about_item2_image);
+        llAboutTitle3 = (LinearLayout) findViewById(R.id.cont_about_item3_image);
+        llAboutTitle4 = (LinearLayout) findViewById(R.id.cont_about_item4_image);
+
+
+        llAbout1 = (LinearLayout) findViewById(R.id.vg_item1);
+        llAbout2 = (LinearLayout) findViewById(R.id.vg_item2);
+        llAbout3 = (LinearLayout) findViewById(R.id.vg_item3);
+        llAbout4 = (LinearLayout) findViewById(R.id.vg_item4);
+
+        tvMedicalRecordTitle = (TextView) findViewById(R.id.tv_scrollbar_title);
+        tvRecordDateTitle = (TextView) findViewById(R.id.tv_vp_date);
+
+        TextView titleSizeReference = tvMedicalRecordTitle;
+        TextView sizeReference = tvRecordDateTitle;
+
+//        setTextViewHeightTo(tvAboutTitle1, titleSizeReference);
+//        setTextViewHeightTo(tvAboutTitle2, titleSizeReference);
+//        setTextViewHeightTo(tvAboutTitle3, titleSizeReference);
+//        setTextViewHeightTo(tvAboutTitle4, titleSizeReference);
+
+        setTextViewChildrenHeightTo(llAbout1, sizeReference);
+        setTextViewChildrenHeightTo(llAbout2, sizeReference);
+        setTextViewChildrenHeightTo(llAbout3, sizeReference);
+        setTextViewChildrenHeightTo(llAbout4, sizeReference);
+
+        setTextViewChildrenHeightTo(llAboutTitle1, titleSizeReference);
+        setTextViewChildrenHeightTo(llAboutTitle2, titleSizeReference);
+        setTextViewChildrenHeightTo(llAboutTitle3, titleSizeReference);
+        setTextViewChildrenHeightTo(llAboutTitle4, titleSizeReference);
+    }
+
+    public void adjustDetailFontSize() {
+        if(tvWeight.getTextSize() > tvHeight.getTextSize()) {
+            tvWeight.setTextSize(tvHeight.getTextSize());
+        }
+        else {
+            tvHeight.setTextSize(tvWeight.getTextSize());
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +155,9 @@ public class ViewPatientActivity extends AppCompatActivity {
         patientID = getIntent().getIntExtra(Patient.C_PATIENT_ID, 0);
         /* connect views in layout here */
         ivPatient = (ImageView) findViewById(R.id.iv_patient);
+        ivGender = (ImageView) findViewById(R.id.iv_gender);
         tvName = (TextView) findViewById(R.id.tv_name_r);
         tvBirthday = (TextView) findViewById(R.id.tv_birthday);
-        tvGender = (TextView) findViewById(R.id.tv_gender);
         tvDominantHand = (TextView) findViewById(R.id.tv_dominant_hand);
         tvAge = (TextView) findViewById(R.id.tv_patient_age);
         tvGradeLevel = (TextView) findViewById(R.id.tv_grade_level);
@@ -113,37 +183,47 @@ public class ViewPatientActivity extends AppCompatActivity {
         /* connect spinner here */
         spRecordColumn = (Spinner) findViewById(R.id.sp_vp_record_column);
         spRecordDate = (Spinner) findViewById(R.id.sp_record_date);
+        contRecordDate = (ConstraintLayout) findViewById(R.id.cont_record_date);
         /* connect buttons */
-        btnViewHPI = (Button) findViewById(R.id.btn_view_hpi);
-        btnViewImmunization = (Button) findViewById(R.id.btn_view_immunization);
+        btnViewHPI = (Button) findViewById(R.id.btn_hpi_sidebar); // TODO
+        btnViewImmunization = (Button) findViewById(R.id.btn_immunization_sidebar); // TODO
+
+
+        ivBMIClickable = (ImageView) findViewById(R.id.img_patient_bmi);
+        ivBMIColor = (ImageView) findViewById(R.id.img_patient_bmi_color);
         /* get fonts from assets */
-        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
-        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
+//        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
+//        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
         /* set fonts to text */
-        tvName.setTypeface(chawpFont);
-        tvBirthday.setTypeface(chalkFont);
-        tvGender.setTypeface(chalkFont);
-        tvDominantHand.setTypeface(chalkFont);
-        tvAge.setTypeface(chalkFont);
-        tvGradeLevel.setTypeface(chalkFont);
-        tvPatientRemark.setTypeface(chalkFont);
-        tvData.setTypeface(chalkFont);
-        tvDate.setTypeface(chalkFont);
-        tvBMI.setTypeface(chalkFont);
-        tvHeight.setTypeface(chalkFont);
-        tvWeight.setTypeface(chalkFont);
-        tvVisualLeft.setTypeface(chalkFont);
-        tvVisualRight.setTypeface(chalkFont);
-        tvColorVision.setTypeface(chalkFont);
-        tvHearingLeft.setTypeface(chalkFont);
-        tvHearingRight.setTypeface(chalkFont);
-        tvGrossMotor.setTypeface(chalkFont);
-        tvFineMotorD.setTypeface(chalkFont);
-        tvFineMotorND.setTypeface(chalkFont);
-        tvFineMotorHold.setTypeface(chalkFont);
-        tvRecordRemark.setTypeface(chalkFont);
-        btnViewImmunization.setTypeface(chawpFont);
-        btnViewHPI.setTypeface(chawpFont);
+        // tvName.setTypeface(chawpFont);
+
+//        tvBirthday.setTypeface(chalkFont);
+//        tvDominantHand.setTypeface(chalkFont);
+
+//        tvAge.setTypeface(chalkFont);
+
+//        tvGradeLevel.setTypeface(chalkFont);
+//        tvPatientRemark.setTypeface(chalkFont);
+//        tvData.setTypeface(chalkFont);
+
+//        tvDate.setTypeface(chalkFont);
+//        tvBMI.setTypeface(chalkFont);
+//        tvHeight.setTypeface(chalkFont);
+//        tvWeight.setTypeface(chalkFont);
+
+//        tvVisualLeft.setTypeface(chalkFont);
+//        tvVisualRight.setTypeface(chalkFont);
+//        tvColorVision.setTypeface(chalkFont);
+//        tvHearingLeft.setTypeface(chalkFont);
+//        tvHearingRight.setTypeface(chalkFont);
+//        tvGrossMotor.setTypeface(chalkFont);
+//        tvFineMotorD.setTypeface(chalkFont);
+//        tvFineMotorND.setTypeface(chalkFont);
+//        tvFineMotorHold.setTypeface(chalkFont);
+//        tvRecordRemark.setTypeface(chalkFont);
+//        btnViewImmunization.setTypeface(chawpFont);
+//        btnViewHPI.setTypeface(chawpFont);
+
         /* set button so that it will go to the HPIListActivity */
         btnViewHPI.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,13 +255,15 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         });
 
+
         patient = null;
         getPatientData();
         /* fill up the patient data */
         if(patient != null) {
+            ivPatient.setImageDrawable(getDefaultImage(patient.getGender())); // TODO added default image
+            ivGender.setImageDrawable(getGenderImage(patient.getGender()));
             tvName.setText(patient.getLastName()+", "+patient.getFirstName());
             tvBirthday.setText(patient.getBirthday());
-            tvGender.setText(patient.getGenderString());
             tvDominantHand.setText(patient.getHandednessString());
             tvPatientRemark.setText(patient.getRemarksString());
             // todo: remove after testing
@@ -235,7 +317,160 @@ public class ViewPatientActivity extends AppCompatActivity {
         prepareLineChart();
         prepareLineChartData();
 
+
+        // Record list
+        ImageView ivRecordButton = (ImageView) findViewById(R.id.iv_record_date_arrow);
+        ivRecordButton.setClickable(true);
+        ivRecordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spRecordDate.performClick();
+            }
+        });
+        setupSidebarFunctionality();
+
+
+        ivBMIClickable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bmiIsVisible = !bmiIsVisible;
+                tvBMI.setVisibility(General.getVisibility(bmiIsVisible));
+            }
+        });
     }
+
+    public void setupSidebarFunctionality () {
+        // TODO About, Immun, HPI functionality
+        sidebarManager = new PatientSidebar(
+                (Button) findViewById(R.id.btn_show_sidebar_icons),
+                (Button) findViewById(R.id.btn_sidebar_open_extend),
+                (Button) findViewById(R.id.btn_about_sidebar),
+                (Button) findViewById(R.id.btn_hpi_sidebar),
+                (Button) findViewById(R.id.btn_immunization_sidebar),
+                (ConstraintLayout) findViewById(R.id.cont_sidebar_blank_hide),
+                (Button) findViewById(R.id.btn_back));
+
+        sidebarManager.setItemsSidebarExtend(new ArrayList<ConstraintLayout>());
+        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.sidebar_extend_body_bg_hide));
+        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_about_extend_hide));
+        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_hpi_extend_hide));
+        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_immunization_extend_hide));
+        sidebarManager.getItemsSidebarExtend().add(sidebarManager.getContSidebarBlank());
+
+        this.sidebarManager.getBtnSidebarBack().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        this.sidebarManager.getContSidebarBlank().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // If sidebar is open, close it by clicking on the openSidebar button
+                if(sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+            }
+        });
+
+        this.sidebarManager.getBtnOpenSidebar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sidebarManager.toggleSidebar();
+
+
+
+                // Setting of Visibility has to be done here (not in PatientSidebar or SidebarParent class, or it won't appear
+                for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
+                    sidebarManager.getItemsSidebarExtend().get(i).setVisibility(General.getVisibility(sidebarManager.isSidebarOpen()));
+
+                    if(sidebarManager.isSidebarOpen()) {
+                        Animation animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_in_left);
+                        sidebarManager.getItemsSidebarExtend().get(i).startAnimation(animSlideDown);
+                    }
+                    else {
+                        Animation animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_out_left);
+                        sidebarManager.getItemsSidebarExtend().get(i).startAnimation(animSlideDown);
+                    }
+                }
+
+                // Toast.makeText(ViewPatientActivity.this, sidebarManager.isSidebarOpen()+" "+sidebarManager.getItemsSidebarExtend().size()+" "+sidebarManager.getItemsSidebarExtend().get(0).getVisibility(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        this.sidebarManager.getBtnOpenSidebarExtend().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // If sidebar is closed, open it by clicking on the openSidebar button
+                if(!sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+            }
+        });
+        // Hide initially
+        for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
+            sidebarManager.getItemsSidebarExtend().get(i).setVisibility(General.getVisibility(false));
+        }
+
+
+//        Animator scaleDown = ObjectAnimator.ofPropertyValuesHolder((Object)null, PropertyValuesHolder.ofFloat("scaleX", 1, 0), PropertyValuesHolder.ofFloat("scaleY", 1, 0));
+//        scaleDown.setDuration(300);
+//        scaleDown.setInterpolator(new OvershootInterpolator());
+//
+//        Animator scaleUp = ObjectAnimator.ofPropertyValuesHolder((Object)null, PropertyValuesHolder.ofFloat("scaleX", 0, 1), PropertyValuesHolder.ofFloat("scaleY", 0, 1));
+//        scaleUp.setDuration(300);
+//        scaleUp.setStartDelay(300);
+//        scaleUp.setInterpolator(new OvershootInterpolator());
+//
+//        LayoutTransition itemLayoutTransition = new LayoutTransition();
+//        itemLayoutTransition.setAnimator(LayoutTransition.APPEARING, scaleUp);
+//        itemLayoutTransition.setAnimator(LayoutTransition.DISAPPEARING, scaleDown);
+//
+//        ViewGroup av = (ViewGroup)v.findViewById(R.id.animated_layout);
+//        av.setLayoutTransition(itemLayoutTransition);
+    }
+
+
+
+    private Drawable getDefaultImage(int gender) {
+        if(gender == 0) {
+            return getResources().getDrawable(R.drawable.no_photo_male);
+        }
+        else {
+            return getResources().getDrawable(R.drawable.no_photo_female);
+        }
+    }
+
+    private Drawable getGenderImage(int gender) {
+        if(gender == 0) {
+            return getResources().getDrawable(R.drawable.img_gender_circle_fill_male);
+        }
+        else {
+            return getResources().getDrawable(R.drawable.img_gender_circle_fill_female);
+        }
+    }
+
+    // Used to resize Medical Record entries
+    public void setTextViewChildrenHeightTo(LinearLayout vg, TextView reference) {
+        try {
+            for (int i = 0; i < vg.getChildCount(); i++) {
+                View child = vg.getChildAt(i);
+                // Recursive call
+                if(child instanceof TextView) {
+                    ((TextView) child).setMinHeight(reference.getHeight());
+
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setTextViewHeightTo(TextView vg, TextView reference) {
+        vg.setMinHeight(reference.getHeight());
+    }
+
+
 
     private void displayRecord(Record record) {
         String recordDate = record.getDateCreated();
@@ -259,9 +494,15 @@ public class ViewPatientActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        tvBMI.setText(bmi);
+
+        tvBMI.setText(getBMIText(bmi));
+        ivBMIColor.setImageDrawable(getBMIColor(bmi));
         tvHeight.setText(record.getHeight()+" cm");
         tvWeight.setText(record.getWeight()+" kg");
+
+        // TODO added
+
+
         tvVisualLeft.setText(record.getVisualAcuityLeft());
         tvVisualRight.setText(record.getVisualAcuityRight());
         tvColorVision.setText(record.getColorVision());
@@ -273,9 +514,34 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvFineMotorHold.setText(record.getFineMotorString(record.getFineMotorHold()));
         tvRecordRemark.setText(record.getRemarksString());
         /* display age and grade level according to recordDate */
-        tvAge.setText(patient.getAge(recordDate)+" years old");
+        tvAge.setText(patient.getAge(recordDate)+"");
         tvGradeLevel.setText(record.getGradeLevel());
     }
+
+    // Function for BMI text setting (complete if needed)
+    private String getBMIText(String text) {
+
+//        if(text.contains("N/A")) {
+//            text = "";
+//        }
+        return text;
+    }
+    private Drawable getBMIColor(String text) {
+       if(text.toLowerCase().contains("under")) {
+            return getResources().getDrawable(R.drawable.img_heart_overlay_underweight);
+        }
+        else if(text.toLowerCase().contains("normal")) {
+            return getResources().getDrawable(R.drawable.img_heart_overlay_normal);
+        }
+        else if(text.toLowerCase().contains("over")) {
+            return getResources().getDrawable(R.drawable.img_heart_overlay_overweight);
+        }
+        else if(text.contains("obese")) {
+            return getResources().getDrawable(R.drawable.img_heart_overlay_obese);
+        }
+        return getResources().getDrawable(R.drawable.img_heart_overlay_na);
+    }
+
 
 //    private void prepareRadarChartData() {
 //        RadarData radarData = new RadarData();
@@ -532,13 +798,13 @@ public class ViewPatientActivity extends AppCompatActivity {
         // enable touch gestures
         chart.setTouchEnabled(true);
         // alternative background color
-        chart.setBackgroundColor(Color.LTGRAY);
+        chart.setBackgroundColor(Color.WHITE);
         // get legend object
         Legend l = chart.getLegend();
         // customize legend
         l.setForm(Legend.LegendForm.LINE);
         l.setTextColor(Color.BLACK);
-        l.setTextSize(25f);
+        l.setTextSize(LEGEND_TEXT_SIZE);
         // customize content of legend
         int color[] = {Color.BLUE, ColorTemplate.getHoloBlue()};
         String label[] = {"Patient", "Average"};
@@ -546,7 +812,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         // customize xAxis
         XAxis xl = chart.getXAxis();
         xl.setTextColor(Color.BLACK);
-        xl.setTextSize(R.dimen.context_text_size);
+        xl.setTextSize(AXIS_TEXT_SIZE);
         xl.setDrawGridLines(false);
         xl.setAvoidFirstLastClipping(true);
     }
@@ -676,8 +942,14 @@ public class ViewPatientActivity extends AppCompatActivity {
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
                 R.layout.custom_spinner, recordDateList);
+
+
+
         spinnerAdapter.setDropDownViewResource(R.layout.custom_spinner);
         spRecordDate.setAdapter(spinnerAdapter);
+
+
+
         spRecordDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -691,6 +963,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 displayRecord(lastRecord);
             }
         });
+
     }
 
     private void convertBlobToFile(byte[] soundBytes) {

@@ -1,5 +1,6 @@
 package seebee.geebeeview.layout;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -48,6 +49,10 @@ public class DatasetListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dataset_list);
+
+
+        // lock orientation of activity to landscape
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         getBetterDb = new DatabaseAdapter(this);
         tvTitle = (TextView) findViewById(R.id.tv_dataset_list_title);

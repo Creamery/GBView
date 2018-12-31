@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/DefaultBackground"
     android:layout_width="match_parent"
@@ -11,99 +12,238 @@
     tools:context=".layout.MainActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:weightSum="3">
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:gravity="top"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/linearLayout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.15" />
 
             <TextView
                 android:id="@+id/main_title"
-                style="@style/TitleText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
+
+
+                android:autoSizeMaxTextSize="100sp"
+                android:autoSizeMinTextSize="12sp"
+                android:autoSizeStepGranularity="2sp"
+                android:autoSizeTextType="uniform"
+
+
+                android:gravity="center"
                 android:text="@string/app_name"
-                android:textAlignment="center" />
+                android:textAllCaps="false"
+                android:textColor="@color/yellow"
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.12"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/tv_username"
-                    style="@style/LabelText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeStepGranularity="2sp"
+
+                    android:autoSizeTextType="uniform"
+                    android:autoText="false"
+
+                    android:gravity="center"
+                    android:padding="@dimen/text_box_padding"
                     android:text="@string/username"
-                    android:textAlignment="viewEnd" />
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
                 <EditText
                     android:id="@+id/et_username"
-                    style="@style/DefaultText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/text_box"
+                    style="@style/Widget.AppCompat.EditText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+
+
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeStepGranularity="2sp"
+                    android:autoSizeTextType="uniform"
+                    android:autoText="false"
+
+                    android:background="@color/white"
                     android:hint="username"
+                    android:includeFontPadding="false"
                     android:maxLines="1"
-                    android:padding="@dimen/text_box_padding" />
+                    android:paddingLeft="10dp"
+                    android:textAppearance="@style/DefaultText"
+                    android:textColor="@color/green"
+                    android:textColorHint="@color/grey" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.12"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/tv_password"
-                    style="@style/LabelText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeMinTextSize="12sp"
+
+
+                    android:autoSizeStepGranularity="2sp"
+
+
+                    android:autoSizeTextType="uniform"
+                    android:autoText="false"
+                    android:gravity="center"
+                    android:padding="@dimen/text_box_padding"
                     android:text="@string/password"
-                    android:textAlignment="viewEnd" />
+                    android:textAppearance="@style/TextAppearance.AppCompat"
+
+                    app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
                 <EditText
                     android:id="@+id/et_password"
-                    style="@style/DefaultText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/text_box"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+
+                    android:autoSizeTextType="uniform"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeMinTextSize="12sp"
+                    android:autoSizeStepGranularity="2sp"
+
+                    android:autoText="false"
+                    android:background="@color/white"
                     android:hint="password"
+
+
                     android:inputType="textPassword"
-                    android:padding="@dimen/text_box_padding" />
+                    android:paddingLeft="10dp"
+                    android:textAppearance="@style/DefaultText"
+                    android:textColor="@color/green"
+                    android:textColorHint="@color/grey" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:weightSum="5">
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="0.18"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-                <Button
-                    android:id="@+id/btn_login"
-                    style="@style/DefaultButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/login" />
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3" />
 
-                <Button
-                    android:id="@+id/btn_signup"
-                    style="@style/DefaultButton"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/linearLayout3"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/signup" />
+                    android:layout_weight="0.7"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="1">
+
+                    <Button
+                        android:id="@+id/btn_login"
+                        style="@style/DefaultButton"
+                        android:layout_width="0dp"
+
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+
+
+                        android:layout_weight="0.5"
+                        android:autoSizeMaxTextSize="100sp"
+                        android:autoSizeMinTextSize="12sp"
+
+                        android:autoSizeStepGranularity="2sp"
+                        android:autoSizeTextType="uniform"
+                        android:autoText="false"
+                        android:text="@string/login"
+                        android:textAlignment="center"
+
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_signup"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/btn_signup"
+                        style="@style/DefaultButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+
+                        android:layout_weight="0.5"
+
+                        android:autoSizeMaxTextSize="100sp"
+                        android:autoSizeMinTextSize="12sp"
+
+                        android:autoSizeStepGranularity="2sp"
+                        android:autoSizeTextType="uniform"
+                        android:autoText="false"
+                        android:text="@string/signup"
+
+                        android:textAlignment="center"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.25" />
+
+
         </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25" />
+
     </LinearLayout>
     <!--
     <LinearLayout
