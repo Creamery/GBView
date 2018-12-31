@@ -537,36 +537,34 @@
                     app:layout_constraintTop_toBottomOf="@+id/cont_item1_icons"
                     app:layout_constraintVertical_weight="1">
 
+                    <ImageView
+                        android:id="@+id/imageView3_icons"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:adjustViewBounds="false"
+                        android:background="@color/theme_menu_button"
+                        android:contentDescription="@string/cd_blank"
+                        android:cropToPadding="false"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_view_hpi_icons"
+                        app:layout_constraintEnd_toEndOf="@id/btn_view_hpi_icons"
+                        app:layout_constraintStart_toStartOf="@id/btn_view_hpi_icons"
+                        app:layout_constraintTop_toTopOf="@id/btn_view_hpi_icons" />
+
                     <Button
                         android:id="@+id/btn_view_hpi_icons"
                         style="@style/DefaultButton"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_margin="0dp"
-                        android:background="@android:color/white"
+                        android:background="@drawable/img_sidebar_hpi"
                         android:clickable="false"
                         android:includeFontPadding="false"
                         android:padding="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/imageView3_icons"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:adjustViewBounds="false"
-                        android:contentDescription="@string/cd_blank"
-                        android:cropToPadding="false"
-                        android:elevation="102dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/img_sidebar_filler_greenhighlight" />
 
                 </android.support.constraint.ConstraintLayout>
 
