@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -65,6 +68,9 @@ import seebee.geebeeview.model.consultation.School;
 import seebee.geebeeview.model.monitoring.PatientRecord;
 import seebee.geebeeview.model.monitoring.Record;
 import seebee.geebeeview.model.monitoring.ValueCounter;
+import seebee.geebeeview.sidebar.DataVisualizationSidebar;
+import seebee.geebeeview.sidebar.General;
+import seebee.geebeeview.sidebar.PatientSidebar;
 
 
 public class DataVisualizationActivity extends AppCompatActivity
@@ -112,6 +118,10 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private float offsetYDivider = 8f;
     private String provinceName, municipalityName;
+
+
+
+    private DataVisualizationSidebar sidebarManager;
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -201,6 +211,10 @@ public class DataVisualizationActivity extends AppCompatActivity
         btnViewHPIList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+
                 if(getHPIs() > 0) {
                     Intent intent = new Intent(getBaseContext(), HPIListActivity.class);
                     intent.putExtra(School.C_SCHOOL_ID, schoolID);
@@ -214,6 +228,10 @@ public class DataVisualizationActivity extends AppCompatActivity
         btnViewPatientList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+
                 Intent intent = new Intent(getBaseContext(), PatientListActivity.class);
                 intent.putExtra(School.C_SCHOOL_ID, schoolID);
                 intent.putExtra(School.C_SCHOOLNAME, schoolName);
@@ -250,6 +268,10 @@ public class DataVisualizationActivity extends AppCompatActivity
         btnAddFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+
                 AddFilterDialogFragment addFilterDialog = new AddFilterDialogFragment();
                 addFilterDialog.setGradeLevels(gradeLevels);
                 addFilterDialog.show(getFragmentManager(), AddFilterDialogFragment.TAG);
@@ -259,6 +281,10 @@ public class DataVisualizationActivity extends AppCompatActivity
         btnAddDataset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+
                 AddDatasetDialogFragment addDatasetDialog = new AddDatasetDialogFragment();
                 addDatasetDialog.setDatasetList(datasets);
                 addDatasetDialog.show(getFragmentManager(), AddDatasetDialogFragment.TAG);
@@ -390,6 +416,83 @@ public class DataVisualizationActivity extends AppCompatActivity
                 rightChartContent = parent.getItemAtPosition(0).toString();
             }
         });
+
+        setupSidebarFunctionality();
+    }
+
+    public void setupSidebarFunctionality () {
+        // TODO About, Immun, HPI functionality
+        sidebarManager = new DataVisualizationSidebar(
+                (Button) findViewById(R.id.btn_show_sidebar_icons),
+                (Button) findViewById(R.id.btn_sidebar_open_extend),
+                (Button) findViewById(R.id.btn_add_dataset),
+                (Button) findViewById(R.id.btn_add_filter),
+                (Button) findViewById(R.id.btn_view_hpi_list), // HPI LIST
+                (Button) findViewById(R.id.btn_view_patient_list), // PATIENT LIST
+                (ConstraintLayout) findViewById(R.id.cont_sidebar_blank_hide),
+                (Button) findViewById(R.id.btn_back));
+
+        sidebarManager.setItemsSidebarExtend(new ArrayList<ConstraintLayout>());
+        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.sidebar_extend_body_bg_hide));
+//        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_about_extend_hide));
+//        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_hpi_extend_hide));
+//        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_immunization_extend_hide));
+        sidebarManager.getItemsSidebarExtend().add(sidebarManager.getContSidebarBlank());
+
+        this.sidebarManager.getBtnSidebarBack().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+
+        this.sidebarManager.getContSidebarBlank().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // If sidebar is open, close it by clicking on the openSidebar button
+                if(sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+            }
+        });
+
+        this.sidebarManager.getBtnOpenSidebar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sidebarManager.toggleSidebar();
+
+                // Setting of Visibility has to be done here (not in PatientSidebar or SidebarParent class, or it won't appear
+                for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
+                    sidebarManager.getItemsSidebarExtend().get(i).setVisibility(General.getVisibility(sidebarManager.isSidebarOpen()));
+
+                    if(sidebarManager.isSidebarOpen()) {
+                        Animation animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_in_left);
+                        sidebarManager.getItemsSidebarExtend().get(i).startAnimation(animSlideDown);
+                    }
+                    else {
+                        Animation animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_out_left);
+                        sidebarManager.getItemsSidebarExtend().get(i).startAnimation(animSlideDown);
+                    }
+                }
+
+                // Toast.makeText(ViewPatientActivity.this, sidebarManager.isSidebarOpen()+" "+sidebarManager.getItemsSidebarExtend().size()+" "+sidebarManager.getItemsSidebarExtend().get(0).getVisibility(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        this.sidebarManager.getBtnOpenSidebarExtend().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // If sidebar is closed, open it by clicking on the openSidebar button
+                if(!sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+            }
+        });
+        // Hide initially
+        for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
+            sidebarManager.getItemsSidebarExtend().get(i).setVisibility(General.getVisibility(false));
+        }
     }
 
     private void refreshCharts() {
