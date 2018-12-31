@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -183,8 +185,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         spRecordDate = (Spinner) findViewById(R.id.sp_record_date);
         contRecordDate = (ConstraintLayout) findViewById(R.id.cont_record_date);
         /* connect buttons */
-        btnViewHPI = (Button) findViewById(R.id.btn_view_hpi);
-        btnViewImmunization = (Button) findViewById(R.id.btn_view_immunization);
+        btnViewHPI = (Button) findViewById(R.id.btn_view_hpi_icons); // TODO
+        btnViewImmunization = (Button) findViewById(R.id.btn_view_immunization_icons); // TODO
 
 
         ivBMIClickable = (ImageView) findViewById(R.id.img_patient_bmi);
@@ -338,11 +340,13 @@ public class ViewPatientActivity extends AppCompatActivity {
     }
 
     public void setupSidebarFunctionality () {
+        // TODO About, Immun, HPI functionality
         sidebarManager = new PatientSidebar(
-                (Button) findViewById(R.id.btn_show_sidebar),
-                (Button) findViewById(R.id.btn_patient_about),
-                (Button) findViewById(R.id.btn_view_hpi),
-                (Button) findViewById(R.id.btn_view_immunization));
+                (Button) findViewById(R.id.btn_show_sidebar_icons),
+                (Button) findViewById(R.id.btn_patient_about_icons),
+                (Button) findViewById(R.id.btn_view_hpi_icons),
+                (Button) findViewById(R.id.btn_view_immunization_icons),
+                (ImageView) findViewById(R.id.sidebar_blank_space));
 
         sidebarManager.setItemsSidebarExtend(new ArrayList<ConstraintLayout>());
         sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.sidebar_extend_body_bg_hide));
@@ -354,13 +358,47 @@ public class ViewPatientActivity extends AppCompatActivity {
             public void onClick(View v) {
                 sidebarManager.toggleSidebar();
 
+
+
                 // Setting of Visibility has to be done here (not in PatientSidebar or SidebarParent class, or it won't appear
                 for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
                     sidebarManager.getItemsSidebarExtend().get(i).setVisibility(General.getVisibility(sidebarManager.isSidebarOpen()));
+
+                    if(sidebarManager.isSidebarOpen()) {
+                        Animation animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_in_left);
+                        sidebarManager.getItemsSidebarExtend().get(i).startAnimation(animSlideDown);
+                    }
+                    else {
+                        Animation animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_out_left);
+                        sidebarManager.getItemsSidebarExtend().get(i).startAnimation(animSlideDown);
+                    }
                 }
+
                 // Toast.makeText(ViewPatientActivity.this, sidebarManager.isSidebarOpen()+" "+sidebarManager.getItemsSidebarExtend().size()+" "+sidebarManager.getItemsSidebarExtend().get(0).getVisibility(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Hide initially
+        for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
+            sidebarManager.getItemsSidebarExtend().get(i).setVisibility(General.getVisibility(false));
+        }
+
+
+//        Animator scaleDown = ObjectAnimator.ofPropertyValuesHolder((Object)null, PropertyValuesHolder.ofFloat("scaleX", 1, 0), PropertyValuesHolder.ofFloat("scaleY", 1, 0));
+//        scaleDown.setDuration(300);
+//        scaleDown.setInterpolator(new OvershootInterpolator());
+//
+//        Animator scaleUp = ObjectAnimator.ofPropertyValuesHolder((Object)null, PropertyValuesHolder.ofFloat("scaleX", 0, 1), PropertyValuesHolder.ofFloat("scaleY", 0, 1));
+//        scaleUp.setDuration(300);
+//        scaleUp.setStartDelay(300);
+//        scaleUp.setInterpolator(new OvershootInterpolator());
+//
+//        LayoutTransition itemLayoutTransition = new LayoutTransition();
+//        itemLayoutTransition.setAnimator(LayoutTransition.APPEARING, scaleUp);
+//        itemLayoutTransition.setAnimator(LayoutTransition.DISAPPEARING, scaleDown);
+//
+//        ViewGroup av = (ViewGroup)v.findViewById(R.id.animated_layout);
+//        av.setLayoutTransition(itemLayoutTransition);
     }
 
 
