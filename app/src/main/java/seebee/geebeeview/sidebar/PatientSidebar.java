@@ -8,23 +8,23 @@ import java.util.ArrayList;
 
 public class PatientSidebar extends SidebarParent {
     private Button btnSidebarAbout, btnSidebarHPI, btnSidebarImmunization;
-    private ImageView ivSidebarBlank;
+    private ConstraintLayout contSidebarBlank;
     private ArrayList<ConstraintLayout> itemsSidebarExtend;
 
-    public PatientSidebar(Button btnOpen, Button btnAbout, Button btnHPI, Button btnImmunization, ImageView ivBlank) {
+    public PatientSidebar(Button btnOpen, Button btnAbout, Button btnHPI, Button btnImmunization, ConstraintLayout contBlank) {
         super(btnOpen);
         this.setBtnSidebarAbout(btnAbout);
         this.setBtnSidebarHPI(btnHPI);
         this.setBtnSidebarImmunization(btnImmunization);
-        this.setIvBlank(ivBlank);
+        this.setContSidebarBlank(contBlank);
     }
 
-    public ImageView getIvBlank() {
-        return ivSidebarBlank;
+    public ConstraintLayout getContSidebarBlank() {
+        return contSidebarBlank;
     }
 
-    public void setIvBlank(ImageView ivBlank) {
-        this.ivSidebarBlank = ivBlank;
+    public void setContSidebarBlank(ConstraintLayout contSidebarBlank) {
+        this.contSidebarBlank = contSidebarBlank;
     }
 
     public Button getBtnSidebarAbout() {

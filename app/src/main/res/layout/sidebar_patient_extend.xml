@@ -104,7 +104,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/sidebar_blank_space"
+                    app:layout_constraintEnd_toStartOf="@+id/cont_sidebar_blank_hide"
                     app:layout_constraintHorizontal_weight="2.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -133,20 +133,19 @@
 
                 </android.support.constraint.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/sidebar_blank_space"
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_sidebar_blank_hide"
                     android:layout_width="0dp"
-                    android:layout_height="0dp"
+                    android:layout_height="match_parent"
                     android:clickable="true"
-                    android:contentDescription="@string/cd_blank"
-                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="7.5"
                     app:layout_constraintStart_toEndOf="@+id/constraintLayout12"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:color/transparent"
-                    android:focusable="true" />
+                    android:focusable="true">
+
+                </android.support.constraint.ConstraintLayout>
             </android.support.constraint.ConstraintLayout>
 
             <Space
