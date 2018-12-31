@@ -228,9 +228,15 @@ public class ViewPatientActivity extends AppCompatActivity {
         btnViewHPI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Close sidebar if extended
+                if(sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+
                 Intent intent = new Intent(v.getContext(), ViewHPIActivity.class);
                 intent.putExtra(Patient.C_PATIENT_ID, patient.getPatientID());
                 startActivity(intent);
+
             }
         });
         btnViewImmunization.setOnClickListener(new View.OnClickListener() {
@@ -251,6 +257,11 @@ public class ViewPatientActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     Toast.makeText(ViewPatientActivity.this, R.string.no_immunizaiton, Toast.LENGTH_SHORT).show();
+                }
+
+                // Close sidebar if extended
+                if(sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
                 }
             }
         });
@@ -364,6 +375,16 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         });
 
+        this.sidebarManager.getBtnSidebarAbout().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Close sidebar if extended
+                if(sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+            }
+        });
+
         this.sidebarManager.getContSidebarBlank().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -411,23 +432,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
             sidebarManager.getItemsSidebarExtend().get(i).setVisibility(General.getVisibility(false));
         }
-
-
-//        Animator scaleDown = ObjectAnimator.ofPropertyValuesHolder((Object)null, PropertyValuesHolder.ofFloat("scaleX", 1, 0), PropertyValuesHolder.ofFloat("scaleY", 1, 0));
-//        scaleDown.setDuration(300);
-//        scaleDown.setInterpolator(new OvershootInterpolator());
-//
-//        Animator scaleUp = ObjectAnimator.ofPropertyValuesHolder((Object)null, PropertyValuesHolder.ofFloat("scaleX", 0, 1), PropertyValuesHolder.ofFloat("scaleY", 0, 1));
-//        scaleUp.setDuration(300);
-//        scaleUp.setStartDelay(300);
-//        scaleUp.setInterpolator(new OvershootInterpolator());
-//
-//        LayoutTransition itemLayoutTransition = new LayoutTransition();
-//        itemLayoutTransition.setAnimator(LayoutTransition.APPEARING, scaleUp);
-//        itemLayoutTransition.setAnimator(LayoutTransition.DISAPPEARING, scaleDown);
-//
-//        ViewGroup av = (ViewGroup)v.findViewById(R.id.animated_layout);
-//        av.setLayoutTransition(itemLayoutTransition);
     }
 
 
