@@ -50,6 +50,7 @@ import seebee.geebeeview.model.monitoring.BMICalculator;
 import seebee.geebeeview.model.monitoring.IdealValue;
 import seebee.geebeeview.model.monitoring.LineChartValueFormatter;
 import seebee.geebeeview.model.monitoring.Record;
+import seebee.geebeeview.sidebar.General;
 import seebee.geebeeview.sidebar.PatientSidebar;
 
 public class ViewPatientActivity extends AppCompatActivity {
@@ -70,7 +71,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 
     private PatientSidebar sidebarManager;
-
+    private ImageView ivBMIColor, ivBMIClickable;
 
 
     private int patientID;
@@ -84,7 +85,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     private Spinner spRecordColumn;
     private String recordColumn = "BMI";
     private String chartType = "Line Chart";
-
+    private boolean bmiIsVisible = false;
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
 
@@ -186,6 +187,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         btnViewImmunization = (Button) findViewById(R.id.btn_view_immunization);
 
 
+        ivBMIClickable = (ImageView) findViewById(R.id.img_patient_bmi);
+        ivBMIColor = (ImageView) findViewById(R.id.img_patient_bmi_color);
         /* get fonts from assets */
 //        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
 //        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
@@ -313,6 +316,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         prepareLineChartData();
 
 
+        // Record list
         ImageView ivRecordButton = (ImageView) findViewById(R.id.iv_record_date_arrow);
         ivRecordButton.setClickable(true);
         ivRecordButton.setOnClickListener(new View.OnClickListener() {
@@ -323,6 +327,14 @@ public class ViewPatientActivity extends AppCompatActivity {
         });
         setupSidebarFunctionality();
 
+
+        ivBMIClickable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bmiIsVisible = !bmiIsVisible;
+                tvBMI.setVisibility(General.getVisibility(bmiIsVisible));
+            }
+        });
     }
 
     public void setupSidebarFunctionality () {
@@ -344,12 +356,13 @@ public class ViewPatientActivity extends AppCompatActivity {
 
                 // Setting of Visibility has to be done here (not in PatientSidebar or SidebarParent class, or it won't appear
                 for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
-                    sidebarManager.getItemsSidebarExtend().get(i).setVisibility(sidebarManager.getSidebarVisibility(sidebarManager.isSidebarOpen()));
+                    sidebarManager.getItemsSidebarExtend().get(i).setVisibility(General.getVisibility(sidebarManager.isSidebarOpen()));
                 }
                 // Toast.makeText(ViewPatientActivity.this, sidebarManager.isSidebarOpen()+" "+sidebarManager.getItemsSidebarExtend().size()+" "+sidebarManager.getItemsSidebarExtend().get(0).getVisibility(), Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
 
     private Drawable getDefaultImage(int gender) {
@@ -390,6 +403,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         vg.setMinHeight(reference.getHeight());
     }
 
+
+
     private void displayRecord(Record record) {
         String recordDate = record.getDateCreated();
 
@@ -414,6 +429,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         }
 
         tvBMI.setText(getBMIText(bmi));
+        ivBMIColor.setImageDrawable(getBMIColor(bmi));
         tvHeight.setText(record.getHeight()+" cm");
         tvWeight.setText(record.getWeight()+" kg");
 
@@ -437,12 +453,28 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     // Function for BMI text setting (complete if needed)
     private String getBMIText(String text) {
-        text = "";
-        if(text.contains("N/A")) {
-            text = "";
-        }
+
+//        if(text.contains("N/A")) {
+//            text = "";
+//        }
         return text;
     }
+    private Drawable getBMIColor(String text) {
+       if(text.toLowerCase().contains("under")) {
+            return getResources().getDrawable(R.drawable.img_heart_overlay_underweight);
+        }
+        else if(text.toLowerCase().contains("normal")) {
+            return getResources().getDrawable(R.drawable.img_heart_overlay_normal);
+        }
+        else if(text.toLowerCase().contains("over")) {
+            return getResources().getDrawable(R.drawable.img_heart_overlay_overweight);
+        }
+        else if(text.contains("obese")) {
+            return getResources().getDrawable(R.drawable.img_heart_overlay_obese);
+        }
+        return getResources().getDrawable(R.drawable.img_heart_overlay_na);
+    }
+
 
 //    private void prepareRadarChartData() {
 //        RadarData radarData = new RadarData();

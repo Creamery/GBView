@@ -29,7 +29,6 @@
                 android:id="@+id/cont_about_item1_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:orientation="vertical">
 
