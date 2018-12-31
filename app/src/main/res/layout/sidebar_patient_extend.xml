@@ -32,6 +32,19 @@
                 android:background="@color/lightGrey">
 
                 <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/constraintLayout13"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
@@ -77,19 +90,6 @@
                     app:layout_constraintStart_toEndOf="@+id/constraintLayout13"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <android.support.constraint.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_marginBottom="1dp"
-                    android:background="@color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                </android.support.constraint.ConstraintLayout>
-
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
@@ -114,7 +114,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="1dp"
-                        android:background="@color/white"
+                        android:background="@color/theme_sidebar_extend_noitem"
                         android:contentDescription="@string/cd_blank"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -140,7 +140,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="0.1"
                         android:animateLayoutChanges="true"
-                        android:background="@color/colorAccent"
+                        android:background="@color/white"
                         android:clickable="false"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -163,10 +163,9 @@
                             android:id="@+id/constraintLayout15"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/theme_sidebar_extend_item1"
                             android:clipToPadding="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -178,6 +177,10 @@
                                 android:id="@+id/tv_about_patient_extend"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
                                 android:gravity="center_vertical"
                                 android:text="@string/patient_sidebar_extend_about"
                                 android:textColor="@color/colorPrimaryDark"
@@ -196,7 +199,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="0.1"
                         android:animateLayoutChanges="true"
-                        android:background="@color/colorPrimary"
+                        android:background="@color/white"
                         android:clickable="false"
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -221,10 +224,9 @@
                             android:id="@+id/constraintLayout4"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/theme_sidebar_extend_item2"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_weight="2.5"
@@ -235,6 +237,10 @@
                                 android:id="@+id/tv_patient_hpi_extend"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
                                 android:gravity="center_vertical"
                                 android:text="@string/patient_sidebar_extend_hpi"
                                 android:textColor="@color/colorPrimaryDark"
@@ -254,7 +260,7 @@
                         android:layout_height="0dp"
                         android:layout_weight="0.1"
                         android:animateLayoutChanges="true"
-                        android:background="@color/colorAccent"
+                        android:background="@color/white"
                         android:clickable="false"
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -279,10 +285,9 @@
                             android:id="@+id/constraintLayout6"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginEnd="10dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/theme_sidebar_extend_item3"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_weight="2.5"
@@ -293,6 +298,10 @@
                                 android:id="@+id/tv_patient_immunization_extend"
                                 android:layout_width="0dp"
                                 android:layout_height="0dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="10dp"
                                 android:gravity="center_vertical"
                                 android:text="@string/patient_sidebar_extend_immnuization"
                                 android:textColor="@color/colorPrimaryDark"
@@ -414,12 +423,12 @@
                         android:layout_marginTop="1dp"
                         android:layout_marginEnd="1dp"
                         android:layout_marginBottom="1dp"
+                        android:background="@color/theme_menu_button"
                         android:contentDescription="@string/cd_blank"
                         app:layout_constraintBottom_toBottomOf="@+id/btn_show_sidebar_icons"
                         app:layout_constraintEnd_toEndOf="@+id/btn_show_sidebar_icons"
                         app:layout_constraintStart_toStartOf="@+id/btn_show_sidebar_icons"
-                        app:layout_constraintTop_toTopOf="@+id/btn_show_sidebar_icons"
-                        app:srcCompat="@drawable/img_scroll_greenhighlight" />
+                        app:layout_constraintTop_toTopOf="@+id/btn_show_sidebar_icons" />
 
                     <Button
                         android:id="@+id/btn_show_sidebar_icons"
@@ -481,12 +490,25 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_weight="1">
 
+                    <ImageView
+                        android:id="@+id/iv_item1_color"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:adjustViewBounds="false"
+                        android:background="@color/theme_menu_button"
+                        android:contentDescription="@string/cd_blank"
+                        android:cropToPadding="false"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_patient_about_icons"
+                        app:layout_constraintEnd_toEndOf="@id/btn_patient_about_icons"
+                        app:layout_constraintStart_toStartOf="@id/btn_patient_about_icons"
+                        app:layout_constraintTop_toTopOf="@id/btn_patient_about_icons" />
+
                     <Button
                         android:id="@+id/btn_patient_about_icons"
-                        style="@style/ClearButton"
+                        style="@style/DefaultButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/green"
+                        android:layout_height="0dp"
+                        android:background="@drawable/img_sidebar_about"
 
 
                         android:clickable="false"
@@ -496,23 +518,10 @@
                         android:textAlignment="center"
                         android:textAllCaps="false"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/imageView2_icons"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="false"
-                        android:contentDescription="@string/cd_blank"
-                        android:cropToPadding="false"
-                        android:elevation="102dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/img_sidebar_filler_greenhighlight" />
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -521,7 +530,6 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_gravity="start"
-                    android:layout_weight="1"
                     android:clipChildren="false"
                     android:clipToPadding="false"
                     app:layout_constraintBottom_toTopOf="@+id/cont_item3_icons"
@@ -536,7 +544,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_margin="0dp"
-                        android:background="@color/colorAccent"
+                        android:background="@android:color/white"
                         android:clickable="false"
                         android:includeFontPadding="false"
                         android:padding="0dp"
@@ -568,7 +576,6 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_gravity="start"
-                    android:layout_weight="1"
                     android:clipChildren="false"
                     android:clipToPadding="false"
                     app:layout_constraintBottom_toTopOf="@+id/space13"
@@ -577,34 +584,34 @@
                     app:layout_constraintTop_toBottomOf="@+id/cont_item2_icons"
                     app:layout_constraintVertical_weight="1">
 
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:adjustViewBounds="false"
+                        android:background="@color/theme_menu_button"
+                        android:contentDescription="@string/cd_blank"
+                        android:cropToPadding="false"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_view_immunization_icons"
+                        app:layout_constraintEnd_toEndOf="@id/btn_view_immunization_icons"
+                        app:layout_constraintStart_toStartOf="@id/btn_view_immunization_icons"
+                        app:layout_constraintTop_toTopOf="@id/btn_view_immunization_icons" />
+
                     <Button
                         android:id="@+id/btn_view_immunization_icons"
                         style="@style/DefaultButton"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_margin="0dp"
-                        android:background="@color/green"
+                        android:background="@drawable/img_sidebar_immunization"
                         android:clickable="false"
                         android:includeFontPadding="false"
                         android:padding="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:adjustViewBounds="false"
-                        android:contentDescription="@string/cd_blank"
-                        android:cropToPadding="false"
-                        android:elevation="102dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/img_sidebar_filler_greenhighlight" />
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -612,11 +619,48 @@
                     android:id="@+id/space13"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/cont_item_back"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cont_item3_icons"
-                    app:layout_constraintVertical_weight="7" />
+                    app:layout_constraintVertical_weight="6" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_item_back"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/space13"
+                    app:layout_constraintVertical_weight="1">
+
+                    <ImageView
+                        android:id="@+id/iv_back_color"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/theme_back_button"
+                        android:contentDescription="@string/cd_blank"
+                        app:layout_constraintBottom_toBottomOf="@+id/btn_back"
+                        app:layout_constraintEnd_toEndOf="@+id/btn_back"
+                        app:layout_constraintStart_toStartOf="@+id/btn_back"
+                        app:layout_constraintTop_toTopOf="@+id/btn_back"
+                        app:srcCompat="@drawable/img_sidebar_back_arrow" />
+
+                    <Button
+                        android:id="@+id/btn_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:background="@drawable/img_sidebar_back_arrow"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
 
             </android.support.constraint.ConstraintLayout>
 

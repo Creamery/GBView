@@ -37,8 +37,8 @@
     <string name="patient_circle_sex">SEX</string>
 
     <!-- PATIENT SIDEBAR EXTEND -->
-    <string name="patient_sidebar_extend_about">About Patient</string>
-    <string name="patient_sidebar_extend_hpi">HPI</string>
+    <string name="patient_sidebar_extend_about">Personal Information</string>
+    <string name="patient_sidebar_extend_hpi">View HPI</string>
     <string name="patient_sidebar_extend_immnuization">Immunization</string>
 
 

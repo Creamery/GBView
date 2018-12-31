@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#0d3a35</color>
+    <color name="colorPrimaryDark">#004D40</color>
     <color name="colorAccent">#ff4081</color>
     <!-- SeeBee specified colors -->
     <color name="white">#ffffff</color>
@@ -16,4 +16,41 @@
     <color name="transparentBlack">#c8000000</color>
     <color name="transparentSidebarExtend">#c821c700</color>
     <color name="brightGreenHighlight">#21c700</color>
+
+
+    <!-- Default Colors -->
+    <color name="theme_menu_button">#00c7a9</color>
+    <color name="theme_back_button">#00c7a9</color>
+
+
+    <color name="theme_sidebar_extend_item0">#00BFA5</color>
+    <color name="theme_sidebar_extend_item1">#76FF03</color>
+    <color name="theme_sidebar_extend_item2">#B2FF59</color>
+    <color name="theme_sidebar_extend_item3">#CCFF90</color>
+
+    <color name="theme_sidebar_extend_noitem">#ffffff</color>
+
+
+
+    <!-- Teal50 Theme Colors -->
+    <color name="theme_teal50_menu_button">#00c7a9</color>
+
+    <color name="theme_teal50_sidebar_extend_item0">#00BFA5</color>
+    <color name="theme_teal50_sidebar_extend_item1">#1DE9B6</color>
+    <color name="theme_teal50_sidebar_extend_item2">#64FFDA</color>
+    <color name="theme_teal50_sidebar_extend_item3">#A7FFEB</color>
+
+    <color name="theme_teal50_sidebar_extend_noitem">#ffffff</color>
+
+    <!-- LightGreen50 Theme Colors -->
+    <color name="theme_lightgreen50_menu_button">#76FF03</color>
+
+    <color name="theme_lightgreen50_sidebar_extend_item0">#64DD17</color>
+    <color name="theme_lightgreen50_sidebar_extend_item1">#76FF03</color>
+    <color name="theme_lightgreen50_sidebar_extend_item2">#B2FF59</color>
+    <color name="theme_lightgreen50_sidebar_extend_item3">#CCFF90</color>
+
+    <color name="theme_lightgreen50_sidebar_extend_noitem">#ffffff</color>
+
+
 </resources>
