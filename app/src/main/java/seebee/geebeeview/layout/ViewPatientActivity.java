@@ -363,9 +363,9 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         sidebarManager.setItemsSidebarExtend(new ArrayList<ConstraintLayout>());
         sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.sidebar_extend_body_bg_hide));
-        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_about_extend_hide));
-        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_hpi_extend_hide));
-        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_immunization_extend_hide));
+//        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_about_extend_hide));
+//        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_hpi_extend_hide));
+//        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_immunization_extend_hide));
         sidebarManager.getItemsSidebarExtend().add(sidebarManager.getContSidebarBlank());
 
         this.sidebarManager.getBtnSidebarBack().setOnClickListener(new View.OnClickListener() {
