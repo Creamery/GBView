@@ -185,8 +185,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         spRecordDate = (Spinner) findViewById(R.id.sp_record_date);
         contRecordDate = (ConstraintLayout) findViewById(R.id.cont_record_date);
         /* connect buttons */
-        btnViewHPI = (Button) findViewById(R.id.btn_view_hpi_icons); // TODO
-        btnViewImmunization = (Button) findViewById(R.id.btn_view_immunization_icons); // TODO
+        btnViewHPI = (Button) findViewById(R.id.btn_hpi_sidebar); // TODO
+        btnViewImmunization = (Button) findViewById(R.id.btn_immunization_sidebar); // TODO
 
 
         ivBMIClickable = (ImageView) findViewById(R.id.img_patient_bmi);
@@ -343,9 +343,10 @@ public class ViewPatientActivity extends AppCompatActivity {
         // TODO About, Immun, HPI functionality
         sidebarManager = new PatientSidebar(
                 (Button) findViewById(R.id.btn_show_sidebar_icons),
-                (Button) findViewById(R.id.btn_patient_about_icons),
-                (Button) findViewById(R.id.btn_view_hpi_icons),
-                (Button) findViewById(R.id.btn_view_immunization_icons),
+                (Button) findViewById(R.id.btn_sidebar_open_extend),
+                (Button) findViewById(R.id.btn_about_sidebar),
+                (Button) findViewById(R.id.btn_hpi_sidebar),
+                (Button) findViewById(R.id.btn_immunization_sidebar),
                 (ConstraintLayout) findViewById(R.id.cont_sidebar_blank_hide));
 
         sidebarManager.setItemsSidebarExtend(new ArrayList<ConstraintLayout>());
@@ -390,6 +391,14 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         });
 
+        this.sidebarManager.getBtnOpenSidebarExtend().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // If sidebar is closed, open it by clicking on the openSidebar button
+                if(!sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+            }
+        });
         // Hide initially
         for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
             sidebarManager.getItemsSidebarExtend().get(i).setVisibility(General.getVisibility(false));

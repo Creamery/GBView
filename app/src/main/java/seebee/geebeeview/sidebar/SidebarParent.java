@@ -8,12 +8,13 @@ import android.widget.Button;
 import java.util.ArrayList;
 
 public class SidebarParent{
-    protected Button btnOpenSidebar;
+    protected Button btnOpenSidebar, btnOpenSidebarExtend;
     protected boolean isSidebarOpen;
     protected ArrayList<ConstraintLayout> itemsSidebarExtend;
 
-    public SidebarParent(Button btnOpen) {
+    public SidebarParent(Button btnOpen, Button btnExtend) {
         this.setBtnOpenSidebar(btnOpen);
+        this.setBtnOpenSidebarExtend(btnExtend);
         this.isSidebarOpen = false;
         this.itemsSidebarExtend = new ArrayList<ConstraintLayout>();
     }
@@ -22,15 +23,13 @@ public class SidebarParent{
         isSidebarOpen = !isSidebarOpen;
     }
 
-    public int getSidebarVisibility(boolean visibility) {
-        if(visibility) {
-            return View.VISIBLE;
-        }
-        else {
-            return View.INVISIBLE;
-        }
+    public Button getBtnOpenSidebarExtend() {
+        return btnOpenSidebarExtend;
     }
 
+    public void setBtnOpenSidebarExtend(Button btnOpenSidebarExtend) {
+        this.btnOpenSidebarExtend = btnOpenSidebarExtend;
+    }
 
     public boolean isSidebarOpen() {
         return isSidebarOpen;

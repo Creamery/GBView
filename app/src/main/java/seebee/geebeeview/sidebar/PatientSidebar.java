@@ -11,8 +11,8 @@ public class PatientSidebar extends SidebarParent {
     private ConstraintLayout contSidebarBlank;
     private ArrayList<ConstraintLayout> itemsSidebarExtend;
 
-    public PatientSidebar(Button btnOpen, Button btnAbout, Button btnHPI, Button btnImmunization, ConstraintLayout contBlank) {
-        super(btnOpen);
+    public PatientSidebar(Button btnOpen, Button btnExtend, Button btnAbout, Button btnHPI, Button btnImmunization, ConstraintLayout contBlank) {
+        super(btnOpen, btnExtend);
         this.setBtnSidebarAbout(btnAbout);
         this.setBtnSidebarHPI(btnHPI);
         this.setBtnSidebarImmunization(btnImmunization);
