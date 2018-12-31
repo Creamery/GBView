@@ -24,7 +24,7 @@
 
     <color name="theme_sidebar_dark_button">#004D40</color>
 
-    <color name="theme_sidebar_extend_item0">#00BFA5</color>
+    <color name="theme_sidebar_extend_item0">#64DD17</color>
     <color name="theme_sidebar_extend_item1">#76FF03</color>
     <color name="theme_sidebar_extend_item2">#B2FF59</color>
     <color name="theme_sidebar_extend_item3">#CCFF90</color>
