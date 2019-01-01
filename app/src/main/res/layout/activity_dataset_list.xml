@@ -41,7 +41,9 @@
                 style="@style/DefaultBackground"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:background="@color/white"
                 android:orientation="vertical"
+                android:padding="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +69,6 @@
                         style="@style/LabelText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
                         android:layout_weight="1"
                         android:text="@string/dateCreated" />
 
@@ -76,7 +77,9 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_dataset"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:clipToPadding="false">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
@@ -212,7 +215,7 @@
                     style="@style/DefaultButton"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:allowUndo="true"
                     android:background="@drawable/img_sidebar_add_data"
                     android:contentDescription="@string/cd_blank"

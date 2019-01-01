@@ -45,9 +45,11 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
     private ArrayList<Dataset> datasetList;
     private Context context;
     private DatabaseAdapter getbetterDb;
+    private Button btnRefresh;
 
-    public DatasetAdapter(ArrayList<Dataset> datasetList) {
+    public DatasetAdapter(ArrayList<Dataset> datasetList, Button btnReference) {
         this.datasetList = datasetList;
+        this.btnRefresh = btnReference;
     }
 
     @Override
@@ -66,7 +68,8 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
         //Log.d(TAG, "It should be View!");
         if(dataset.getStatus() == 1) {
             //Log.d(TAG, "It should be View!");
-            holder.btnStatus.setText(R.string.visualize);
+//            holder.btnStatus.setText(R.string.visualize);
+            holder.btnStatus.setBackground(context.getResources().getDrawable(R.drawable.img_sidebar_visualize));
             holder.btnStatus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -75,14 +78,16 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
                 }
             });
         } else {
-            holder.btnStatus.setText(R.string.download);
+//            holder.btnStatus.setText(R.string.download);
+            holder.btnStatus.setBackground(context.getResources().getDrawable(R.drawable.img_sidebar_down_arrow));
             holder.btnStatus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(dataset.getStatus() == 0){
                         downloadDataset(dataset);
                         getbetterDb.updateDatasetStatus(dataset);
-                        holder.btnStatus.setText(R.string.visualize);
+//                        holder.btnStatus.setText(R.string.visualize);
+                        holder.btnStatus.setBackground(context.getResources().getDrawable(R.drawable.img_sidebar_visualize));
                         dataset.setStatus(1);
                     }
                     else if(dataset.getStatus() == 1){
@@ -93,6 +98,8 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
 
             });
         }
+//        holder.btnStatus.getLayoutParams().width = btnRefresh.getWidth();
+        holder.btnStatus.getLayoutParams().height = btnRefresh.getHeight();
     }
     /* Open DataVisualizationActivity */
     private void openActivity(Dataset dataset) {
