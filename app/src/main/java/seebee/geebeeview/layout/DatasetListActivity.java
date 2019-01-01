@@ -55,7 +55,7 @@ public class DatasetListActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         getBetterDb = new DatabaseAdapter(this);
-        tvTitle = (TextView) findViewById(R.id.tv_dataset_list_title);
+        tvTitle = (TextView) findViewById(R.id.tv_patient_record_title);
         tvSchool = (TextView) findViewById(R.id.tv_dl_school);
         tvDate = (TextView) findViewById(R.id.tv_dl_date);
         btnRefresh = (Button) findViewById(R.id.btn_refresh);
@@ -72,10 +72,10 @@ public class DatasetListActivity extends AppCompatActivity {
         Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
         Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
         /* set font of text */
-        tvTitle.setTypeface(chawpFont);
-        tvSchool.setTypeface(chalkFont);
-        tvDate.setTypeface(chalkFont);
-        btnRefresh.setTypeface(chawpFont);
+//        tvTitle.setTypeface(chawpFont);
+//        tvSchool.setTypeface(chalkFont);
+//        tvDate.setTypeface(chalkFont);
+//        btnRefresh.setTypeface(chawpFont);
 
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
