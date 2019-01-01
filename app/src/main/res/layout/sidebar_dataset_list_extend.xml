@@ -144,7 +144,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="9"
                 android:animateLayoutChanges="true"
-                android:visibility="visible">
+                android:visibility="invisible">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="0dp"
@@ -683,7 +683,7 @@
                         android:id="@+id/iv_back_color"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:background="@color/grey"
+                        android:background="@color/theme_teal50_sidebar_extend_item0"
                         android:contentDescription="@string/cd_blank"
                         app:layout_constraintBottom_toBottomOf="@+id/btn_back"
                         app:layout_constraintEnd_toEndOf="@+id/btn_back"

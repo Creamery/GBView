@@ -143,7 +143,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="9"
-                android:animateLayoutChanges="true">
+                android:animateLayoutChanges="true"
+                android:visibility="invisible">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="0dp"
@@ -646,7 +647,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="false"
-                        android:background="@color/theme_cyan50_sidebar_extend_item2"
+                        android:background="@color/theme_cyan50_sidebar_extend_item1"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         app:layout_constraintBottom_toBottomOf="@id/btn_view_hpi_icons"
@@ -690,7 +691,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="false"
-                        android:background="@color/theme_cyan50_sidebar_extend_item3"
+                        android:background="@color/theme_cyan50_sidebar_extend_item1"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         app:layout_constraintBottom_toBottomOf="@id/btn_view_immunization_icons"
@@ -743,7 +744,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="false"
-                        android:background="@color/theme_cyan50_sidebar_extend_noitem"
+                        android:background="@color/theme_cyan50_sidebar_extend_item1"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         app:layout_constraintBottom_toBottomOf="@id/btn_view_patient_list_icons"
@@ -782,7 +783,7 @@
                         android:id="@+id/iv_back_color"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:background="@color/grey"
+                        android:background="@color/theme_cyan50_sidebar_extend_item0"
                         android:contentDescription="@string/cd_blank"
                         app:layout_constraintBottom_toBottomOf="@+id/btn_back"
                         app:layout_constraintEnd_toEndOf="@+id/btn_back"
