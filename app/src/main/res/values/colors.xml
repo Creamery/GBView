@@ -94,6 +94,13 @@
 
     <color name="theme_pink50_sidebar_extend_noitem">#FCE4EC</color>
 
+    <!-- DeepPurple50 Theme Colors -->
+    <color name="theme_deeppurple50_sidebar_extend_item0">#6200EA</color>
+    <color name="theme_deeppurple50_sidebar_extend_item1">#651FFF</color>
+    <color name="theme_deeppurple50_sidebar_extend_item2">#7C4DFF</color>
+    <color name="theme_deeppurple50_sidebar_extend_item3">#B388FF</color>
+
+    <color name="theme_deeppurple50_sidebar_extend_noitem">#D1C4E9</color>
 
     <!-- Red50 Theme Colors -->
     <color name="theme_red50_sidebar_extend_item0">#D50000</color>

@@ -4,8 +4,13 @@
     <string name="password">Password: </string>
 
     <string name="dataset_title">Dataset List</string>
+    <string name="patient_list_title">Patient List</string>
     <string name="school">School</string>
     <string name="dateCreated">Date</string>
+
+
+
+    <string name="sidebar_no_options">No options available</string>
 
     <string name="data_visualization">Data Visualization</string>
     <string name="patient_record">Patient Record</string>
