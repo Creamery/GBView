@@ -18,6 +18,9 @@
     <color name="brightGreenHighlight">#21c700</color>
 
 
+    <color name="dataset_list_visualize_color">#00c7a9</color>
+    <color name="dataset_list_download_color">#cdcdcd</color>
+
     <!-- Default Colors -->
     <color name="theme_menu_button">#00c7a9</color>
     <color name="theme_back_button">#00c7a9</color>
@@ -40,7 +43,7 @@
     <color name="theme_teal50_sidebar_extend_item2">#64FFDA</color>
     <color name="theme_teal50_sidebar_extend_item3">#A7FFEB</color>
 
-    <color name="theme_teal50_sidebar_extend_noitem">#B2DFDB</color>
+    <color name="theme_teal50_sidebar_extend_noitem">#cdfff4</color>
 
     <!-- LightGreen50 Theme Colors -->
     <color name="theme_lightgreen50_sidebar_extend_item0">#64DD17</color>
@@ -48,7 +51,7 @@
     <color name="theme_lightgreen50_sidebar_extend_item2">#B2FF59</color>
     <color name="theme_lightgreen50_sidebar_extend_item3">#CCFF90</color>
 
-    <color name="theme_lightgreen50_sidebar_extend_noitem">#F4FF81</color>
+    <color name="theme_lightgreen50_sidebar_extend_noitem">#dcedc8</color>
 
 
     <!-- Orange50 Theme Colors -->
@@ -73,7 +76,7 @@
     <color name="theme_cyan50_sidebar_extend_item2">#18FFFF</color>
     <color name="theme_cyan50_sidebar_extend_item3">#84FFFF</color>
 
-    <color name="theme_cyan50_sidebar_extend_noitem">#B2EBF2</color>
+    <color name="theme_cyan50_sidebar_extend_noitem">#ccffff</color>
 
     <!-- Purple50 Theme Colors -->
     <color name="theme_purple50_sidebar_extend_item0">#AA00FF</color>
@@ -91,6 +94,13 @@
 
     <color name="theme_pink50_sidebar_extend_noitem">#FCE4EC</color>
 
+    <!-- DeepPurple50 Theme Colors -->
+    <color name="theme_deeppurple50_sidebar_extend_item0">#6200EA</color>
+    <color name="theme_deeppurple50_sidebar_extend_item1">#651FFF</color>
+    <color name="theme_deeppurple50_sidebar_extend_item2">#7C4DFF</color>
+    <color name="theme_deeppurple50_sidebar_extend_item3">#B388FF</color>
+
+    <color name="theme_deeppurple50_sidebar_extend_noitem">#D1C4E9</color>
 
     <!-- Red50 Theme Colors -->
     <color name="theme_red50_sidebar_extend_item0">#D50000</color>
@@ -99,5 +109,12 @@
     <color name="theme_red50_sidebar_extend_item3">#FF8A80</color>
 
     <color name="theme_red50_sidebar_extend_noitem">#FFCDD2</color>
+    <!-- Yellow50 Theme Colors -->
+    <color name="theme_yellow50_sidebar_extend_item0">#FFD600</color>
+    <color name="theme_yellow50_sidebar_extend_item1">#FFEA00</color>
+    <color name="theme_yellow50_sidebar_extend_item2">#FFFF00</color>
+    <color name="theme_yellow50_sidebar_extend_item3">#FFFF8D</color>
+
+    <color name="theme_yellow50_sidebar_extend_noitem">#FFF9C4</color>
 
 </resources>

@@ -144,7 +144,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="9"
                 android:animateLayoutChanges="true"
-                android:visibility="visible">
+                android:visibility="invisible">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="0dp"
@@ -196,7 +196,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <Button
-                            android:id="@+id/btn_add_dataset"
+                            android:id="@+id/btn_refresh"
                             style="@style/ClearButton"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -215,7 +215,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginBottom="1dp"
-                            android:background="@color/theme_pink50_sidebar_extend_item1"
+                            android:background="@color/theme_teal50_sidebar_extend_item1"
                             android:clipToPadding="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -232,7 +232,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="10dp"
                                 android:gravity="center_vertical"
-                                android:text="@string/add_dataset"
+                                android:text="@string/datalist_sidebar_refresh"
                                 android:textColor="@color/theme_sidebar_dark_button"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -259,7 +259,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <Button
-                            android:id="@+id/btn_add_filter"
+                            android:id="@+id/btn_item2"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:background="@android:color/transparent"
@@ -275,7 +275,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginBottom="1dp"
-                            android:background="@color/theme_pink50_sidebar_extend_item2"
+                            android:background="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_weight="2.5"
@@ -291,7 +291,6 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="10dp"
                                 android:gravity="center_vertical"
-                                android:text="@string/add_filter"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -319,9 +318,10 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <Button
-                            android:id="@+id/btn_view_hpi_list"
+                            android:id="@+id/btn_item3"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:layout_marginStart="2dp"
                             android:background="@android:color/transparent"
                             android:clickable="true"
                             android:focusable="true"
@@ -335,7 +335,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginBottom="1dp"
-                            android:background="@color/theme_pink50_sidebar_extend_item3"
+                            android:background="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_weight="2.5"
@@ -351,63 +351,6 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="10dp"
                                 android:gravity="center_vertical"
-                                android:text="@string/patient_consultation"
-                                android:textColor="@color/colorPrimaryDark"
-                                app:autoSizePresetSizes="@array/autosize_text_sizes"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.0"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-                        </android.support.constraint.ConstraintLayout>
-
-                    </android.support.constraint.ConstraintLayout>
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/cont_patient_list_hide"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:layout_weight="0.1"
-                        android:animateLayoutChanges="true"
-                        android:background="@color/white"
-                        android:clickable="false"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="9"
-                        app:layout_constraintStart_toEndOf="@+id/item3"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <Button
-                            android:id="@+id/btn_view_patient_list"
-                            style="@style/ClearButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-
-                            android:background="@android:color/transparent" />
-
-                        <android.support.constraint.ConstraintLayout
-                            android:id="@+id/constraintLayout20"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginBottom="1dp"
-                            android:background="@color/theme_pink50_sidebar_extend_noitem"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_weight="2.5"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
-
-                            <TextView
-                                android:id="@+id/tv_patient_list_extend"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginEnd="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:gravity="center_vertical"
-                                android:text="@string/view_patient_list"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -527,7 +470,7 @@
                         android:layout_marginTop="1dp"
                         android:layout_marginEnd="1dp"
                         android:layout_marginBottom="1dp"
-                        android:background="@color/theme_red50_sidebar_extend_item0"
+                        android:background="@color/theme_teal50_sidebar_extend_item0"
                         android:contentDescription="@string/cd_blank"
                         app:layout_constraintBottom_toBottomOf="@+id/btn_show_sidebar_icons"
                         app:layout_constraintEnd_toEndOf="@+id/btn_show_sidebar_icons"
@@ -599,7 +542,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="false"
-                        android:background="@color/theme_pink50_sidebar_extend_item1"
+                        android:background="@color/theme_teal50_sidebar_extend_item1"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         app:layout_constraintBottom_toBottomOf="@id/btn_patient_about_icons"
@@ -612,7 +555,7 @@
                         style="@style/DefaultButton"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:background="@drawable/img_sidebar_add_data"
+                        android:background="@drawable/img_sidebar_refresh"
 
 
                         android:clickable="false"
@@ -647,7 +590,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="false"
-                        android:background="@color/theme_pink50_sidebar_extend_item1"
+                        android:background="@color/theme_menu_button"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         app:layout_constraintBottom_toBottomOf="@id/btn_view_hpi_icons"
@@ -661,7 +604,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_margin="0dp"
-                        android:background="@drawable/img_sidebar_add_filter"
+                        android:background="@drawable/img_sidebar_empty"
                         android:clickable="false"
                         android:includeFontPadding="false"
                         android:padding="0dp"
@@ -680,7 +623,7 @@
                     android:layout_gravity="start"
                     android:clipChildren="false"
                     android:clipToPadding="false"
-                    app:layout_constraintBottom_toTopOf="@+id/cont_item4_icons"
+                    app:layout_constraintBottom_toTopOf="@+id/space13"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cont_item2_icons"
@@ -691,7 +634,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:adjustViewBounds="false"
-                        android:background="@color/theme_pink50_sidebar_extend_item1"
+                        android:background="@color/theme_menu_button"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         app:layout_constraintBottom_toBottomOf="@id/btn_view_immunization_icons"
@@ -704,7 +647,7 @@
                         style="@style/DefaultButton"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:background="@drawable/img_sidebar_hpi"
+                        android:background="@drawable/img_sidebar_empty"
                         android:clickable="false"
                         android:includeFontPadding="false"
                         android:padding="0dp"
@@ -723,51 +666,8 @@
                     app:layout_constraintBottom_toTopOf="@+id/cont_item_back"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cont_item4_icons"
-                    app:layout_constraintVertical_weight="5" />
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/cont_item4_icons"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_gravity="start"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    app:layout_constraintBottom_toTopOf="@+id/space13"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cont_item3_icons"
-                    app:layout_constraintVertical_weight="1">
-
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:adjustViewBounds="false"
-                        android:background="@color/theme_pink50_sidebar_extend_item1"
-                        android:contentDescription="@string/cd_blank"
-                        android:cropToPadding="false"
-                        app:layout_constraintBottom_toBottomOf="@id/btn_view_patient_list_icons"
-                        app:layout_constraintEnd_toEndOf="@id/btn_view_patient_list_icons"
-                        app:layout_constraintStart_toStartOf="@id/btn_view_patient_list_icons"
-                        app:layout_constraintTop_toTopOf="@id/btn_view_patient_list_icons" />
-
-                    <Button
-                        android:id="@+id/btn_view_patient_list_icons"
-                        style="@style/DefaultButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:background="@drawable/img_sidebar_about"
-                        android:clickable="false"
-                        android:includeFontPadding="false"
-                        android:padding="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintDimensionRatio="1:1"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                </android.support.constraint.ConstraintLayout>
+                    app:layout_constraintVertical_weight="6" />
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/cont_item_back"
@@ -783,7 +683,7 @@
                         android:id="@+id/iv_back_color"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:background="@color/theme_red50_sidebar_extend_item0"
+                        android:background="@color/theme_teal50_sidebar_extend_item0"
                         android:contentDescription="@string/cd_blank"
                         app:layout_constraintBottom_toBottomOf="@+id/btn_back"
                         app:layout_constraintEnd_toEndOf="@+id/btn_back"

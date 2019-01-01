@@ -3,12 +3,15 @@ package seebee.geebeeview.layout;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,17 +37,49 @@ import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.database.VolleySingleton;
 import seebee.geebeeview.model.account.Dataset;
 import seebee.geebeeview.model.consultation.School;
+import seebee.geebeeview.sidebar.DataListSidebar;
+import seebee.geebeeview.sidebar.DataVisualizationSidebar;
+import seebee.geebeeview.sidebar.General;
 
 public class DatasetListActivity extends AppCompatActivity {
     private final static String TAG =  "ViewDatasetListActivity";
     private static String URL_SAVE_NAME = "http://128.199.205.226/server.php";
     RecyclerView rvDataset;
-    Button btnRefresh;
     ArrayList<Dataset> datasetList = new ArrayList<>();
     DatasetAdapter datasetAdapter;
     DatabaseAdapter getBetterDb;
     private TextView tvTitle, tvSchool, tvDate;
+    private DataListSidebar sidebarManager;
+    Button btnRefresh;
+    private ConstraintLayout contTableHeader;
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
 
+        super.onWindowFocusChanged(hasFocus);
+        datasetAdapter = new DatasetAdapter(datasetList, btnRefresh, contTableHeader);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        rvDataset.setLayoutManager(mLayoutManager);
+        rvDataset.setItemAnimator(new DefaultItemAnimator());
+        rvDataset.setAdapter(datasetAdapter);
+        prepareDatasetList();
+
+
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Close sidebar if extended
+                if(sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+
+                prepareDatasetList();
+                Toast.makeText(DatasetListActivity.this, "Refreshing list...", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        setupSidebarFunctionality();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,36 +90,113 @@ public class DatasetListActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         getBetterDb = new DatabaseAdapter(this);
-        tvTitle = (TextView) findViewById(R.id.tv_dataset_list_title);
+        tvTitle = (TextView) findViewById(R.id.tv_patient_record_title);
         tvSchool = (TextView) findViewById(R.id.tv_dl_school);
         tvDate = (TextView) findViewById(R.id.tv_dl_date);
         btnRefresh = (Button) findViewById(R.id.btn_refresh);
         rvDataset = (RecyclerView) findViewById(R.id.rv_dataset);
+        contTableHeader = (ConstraintLayout) findViewById(R.id.cont_table_header);
 
-        datasetAdapter = new DatasetAdapter(datasetList);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        rvDataset.setLayoutManager(mLayoutManager);
-        rvDataset.setItemAnimator(new DefaultItemAnimator());
-        rvDataset.setAdapter(datasetAdapter);
-        prepareDatasetList();
+//        datasetAdapter = new DatasetAdapter(datasetList, btnRefresh);
+//        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+//        rvDataset.setLayoutManager(mLayoutManager);
+//        rvDataset.setItemAnimator(new DefaultItemAnimator());
+//        rvDataset.setAdapter(datasetAdapter);
+//        prepareDatasetList();
+//
+//        // get fonts from assets
+////        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
+////        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
+//        /* set font of text */
+////        tvTitle.setTypeface(chawpFont);
+////        tvSchool.setTypeface(chalkFont);
+////        tvDate.setTypeface(chalkFont);
+////        btnRefresh.setTypeface(chawpFont);
+//
+//        btnRefresh.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                prepareDatasetList();
+//            }
+//        });
+//
+//
+//        setupSidebarFunctionality();
+    }
 
-        // get fonts from assets
-        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
-        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
-        /* set font of text */
-        tvTitle.setTypeface(chawpFont);
-        tvSchool.setTypeface(chalkFont);
-        tvDate.setTypeface(chalkFont);
-        btnRefresh.setTypeface(chawpFont);
+    public void setupSidebarFunctionality () {
+        // TODO About, Immun, HPI functionality
+        sidebarManager = new DataListSidebar(
+                (Button) findViewById(R.id.btn_show_sidebar_icons),
+                (Button) findViewById(R.id.btn_sidebar_open_extend),
+                (Button) findViewById(R.id.btn_add_dataset),
+                (Button) findViewById(R.id.btn_add_filter),
+                (Button) findViewById(R.id.btn_view_hpi_list), // HPI LIST
+                (Button) findViewById(R.id.btn_view_patient_list), // PATIENT LIST
+                (ConstraintLayout) findViewById(R.id.cont_sidebar_blank_hide),
+                (Button) findViewById(R.id.btn_back));
 
-        btnRefresh.setOnClickListener(new View.OnClickListener() {
+        sidebarManager.setItemsSidebarExtend(new ArrayList<ConstraintLayout>());
+        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.sidebar_extend_body_bg_hide));
+//        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_about_extend_hide));
+//        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_hpi_extend_hide));
+//        sidebarManager.getItemsSidebarExtend().add((ConstraintLayout)findViewById(R.id.cont_immunization_extend_hide));
+        sidebarManager.getItemsSidebarExtend().add(sidebarManager.getContSidebarBlank());
+
+        this.sidebarManager.getBtnSidebarBack().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                prepareDatasetList();
+                finish();
             }
         });
 
 
+
+        this.sidebarManager.getContSidebarBlank().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // If sidebar is open, close it by clicking on the openSidebar button
+                if(sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+            }
+        });
+
+        this.sidebarManager.getBtnOpenSidebar().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sidebarManager.toggleSidebar();
+
+                // Setting of Visibility has to be done here (not in PatientSidebar or SidebarParent class, or it won't appear
+                for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
+                    sidebarManager.getItemsSidebarExtend().get(i).setVisibility(General.getVisibility(sidebarManager.isSidebarOpen()));
+
+                    if(sidebarManager.isSidebarOpen()) {
+                        Animation animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_in_left);
+                        sidebarManager.getItemsSidebarExtend().get(i).startAnimation(animSlideDown);
+                    }
+                    else {
+                        Animation animSlideDown = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_out_left);
+                        sidebarManager.getItemsSidebarExtend().get(i).startAnimation(animSlideDown);
+                    }
+                }
+
+                // Toast.makeText(ViewPatientActivity.this, sidebarManager.isSidebarOpen()+" "+sidebarManager.getItemsSidebarExtend().size()+" "+sidebarManager.getItemsSidebarExtend().get(0).getVisibility(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        this.sidebarManager.getBtnOpenSidebarExtend().setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // If sidebar is closed, open it by clicking on the openSidebar button
+                if(!sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+            }
+        });
+        // Hide initially
+        for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
+            sidebarManager.getItemsSidebarExtend().get(i).setVisibility(General.getVisibility(false));
+        }
     }
 
     private void prepareDatasetList() {

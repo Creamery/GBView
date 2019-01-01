@@ -3,12 +3,15 @@ package seebee.geebeeview.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,9 +48,13 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
     private ArrayList<Dataset> datasetList;
     private Context context;
     private DatabaseAdapter getbetterDb;
+    private Button btnRefresh;
+    private ConstraintLayout contHeader;
 
-    public DatasetAdapter(ArrayList<Dataset> datasetList) {
+    public DatasetAdapter(ArrayList<Dataset> datasetList, Button btnReference, ConstraintLayout contReference) {
         this.datasetList = datasetList;
+        this.btnRefresh = btnReference;
+        this.contHeader = contReference;
     }
 
     @Override
@@ -63,10 +70,13 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
         final Dataset dataset = datasetList.get(position);
         holder.tvSchoolName.setText(dataset.getSchoolName());
         holder.tvDate.setText(dataset.getDateCreated());
+        holder.ivStatusColor.setBackgroundColor(ContextCompat.getColor(context, R.color.dataset_list_download_color)); // COLOR
         //Log.d(TAG, "It should be View!");
         if(dataset.getStatus() == 1) {
             //Log.d(TAG, "It should be View!");
-            holder.btnStatus.setText(R.string.visualize);
+//            holder.btnStatus.setText(R.string.visualize);
+            holder.btnStatus.setBackground(context.getResources().getDrawable(R.drawable.img_sidebar_visualize));
+            holder.ivStatusColor.setBackgroundColor(ContextCompat.getColor(context, R.color.dataset_list_visualize_color)); // COLOR
             holder.btnStatus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -75,14 +85,18 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
                 }
             });
         } else {
-            holder.btnStatus.setText(R.string.download);
+//            holder.btnStatus.setText(R.string.download);
+            holder.btnStatus.setBackground(context.getResources().getDrawable(R.drawable.img_sidebar_down_arrow));
+            holder.ivStatusColor.setBackgroundColor(ContextCompat.getColor(context, R.color.dataset_list_download_color)); // COLOR
             holder.btnStatus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(dataset.getStatus() == 0){
                         downloadDataset(dataset);
                         getbetterDb.updateDatasetStatus(dataset);
-                        holder.btnStatus.setText(R.string.visualize);
+//                        holder.btnStatus.setText(R.string.visualize);@
+                        holder.btnStatus.setBackground(context.getResources().getDrawable(R.drawable.img_sidebar_visualize));
+                        holder.ivStatusColor.setBackgroundColor(ContextCompat.getColor(context, R.color.dataset_list_visualize_color)); // COLOR
                         dataset.setStatus(1);
                     }
                     else if(dataset.getStatus() == 1){
@@ -93,6 +107,11 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
 
             });
         }
+//        holder.btnStatus.getLayoutParams().width = btnRefresh.getWidth();
+        holder.btnStatus.getLayoutParams().height = btnRefresh.getHeight();
+//        holder.contParent.getLayoutParams().height = contHeader.getHeight();
+        holder.tvDate.getLayoutParams().height = contHeader.getHeight();
+        holder.tvSchoolName.getLayoutParams().height = contHeader.getHeight();
     }
     /* Open DataVisualizationActivity */
     private void openActivity(Dataset dataset) {
@@ -177,7 +196,8 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
     public class DatasetViewHolder extends RecyclerView.ViewHolder {
         public TextView tvSchoolName, tvDate;
         public Button btnStatus;
-
+        public ConstraintLayout contParent;
+        public ImageView ivStatusColor;
         public DatasetViewHolder(View view) {
             super(view);
             context = view.getContext();
@@ -185,14 +205,16 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
             tvSchoolName = (TextView) view.findViewById(R.id.tv_dataset_sname);
             tvDate = (TextView) view.findViewById(R.id.tv_dataset_date);
             btnStatus = (Button) view.findViewById(R.id.btn_dataset_status);
+            contParent = (ConstraintLayout) view.findViewById(R.id.cont_parent_layout);
+            ivStatusColor = (ImageView) view.findViewById(R.id.iv_dataset_status_color);
             /* get fonts from assets */
-            Typeface chawpFont = Typeface.createFromAsset(context.getAssets(), "font/chawp.ttf");
-            Typeface chalkFont = Typeface.createFromAsset(context.getAssets(), "font/DJBChalkItUp.ttf");
+//            Typeface chawpFont = Typeface.createFromAsset(context.getAssets(), "font/chawp.ttf");
+//            Typeface chalkFont = Typeface.createFromAsset(context.getAssets(), "font/DJBChalkItUp.ttf");
             /* set font of text */
-            btnStatus.setTypeface(chawpFont);
-            tvSchoolName.setTypeface(chalkFont);
-            tvDate.setTypeface(chalkFont);
-            btnStatus.setWidth(tvDate.getWidth());
+//            btnStatus.setTypeface(chawpFont);
+//            tvSchoolName.setTypeface(chalkFont);
+//            tvDate.setTypeface(chalkFont);
+//            btnStatus.setWidth(tvDate.getWidth());
         }
     }
 }

@@ -4,8 +4,13 @@
     <string name="password">Password: </string>
 
     <string name="dataset_title">Dataset List</string>
+    <string name="patient_list_title">Patient List</string>
     <string name="school">School</string>
     <string name="dateCreated">Date</string>
+
+
+
+    <string name="sidebar_no_options">No options available</string>
 
     <string name="data_visualization">Data Visualization</string>
     <string name="patient_record">Patient Record</string>
@@ -24,11 +29,17 @@
 
     <string name="add_dataset">Add Data</string>
     <string name="add_filter">Add Filter</string>
-    <string name="view_patient_list">Patient List</string>
+    <string name="view_patient_list">View Patient List</string>
+
+    <!-- DATALIST SIDEBAR EXTEND -->
+    <string name="datalist_sidebar_refresh">Refresh List</string>
+    <string name="datalist_sidebar_download_all">Download All</string>
+    <string name="datalist_sidebar_sort">Sort</string>
+
 
     <!-- PATIENT RECORD SIDEBAR -->
     <string name="patient_about">ABOUT</string>
-    <string name="patient_consultation">Consultation List</string>
+    <string name="patient_consultation">View HPI List</string>
     <string name="patient_immunization">IMMUNIZATION</string>
 
     <!-- PATIENT CIRCLE ITEMS -->

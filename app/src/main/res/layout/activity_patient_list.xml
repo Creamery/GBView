@@ -1,54 +1,426 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout8"
     style="@style/DefaultBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:clipToPadding="true"
+    android:padding="0dp"
     tools:context="seebee.geebeeview.layout.PatientListActivity">
 
-    <TextView
-        android:id="@+id/tv_school_name"
-        style="@style/TitleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/school"/>
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="5">
+        android:id="@+id/linearLayout9"
+        style="@style/DefaultBackground"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context="seebee.geebeeview.layout.PatientListActivity">
 
         <TextView
-            android:id="@+id/tv_pl_name"
-            style="@style/LabelText"
-            android:layout_width="0dp"
+            android:id="@+id/tv_school_name"
+            style="@style/TitleText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="@string/name" />
+            android:text="@string/school" />
 
-        <TextView
-            android:id="@+id/tv_pl_gender"
-            style="@style/LabelText"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/gender" />
+            android:weightSum="5">
 
-        <TextView
-            android:id="@+id/tv_pl_age"
-            style="@style/LabelText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/age" />
+            <TextView
+                android:id="@+id/tv_pl_name"
+                style="@style/LabelText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="@string/name" />
+
+            <TextView
+                android:id="@+id/tv_pl_gender"
+                style="@style/LabelText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/gender" />
+
+            <TextView
+                android:id="@+id/tv_pl_age"
+                style="@style/LabelText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/age" />
+        </LinearLayout>
+
+
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_patient_list"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/linearLayout4"
+        style="@style/DefaultBackground"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:background="@color/lightGrey"
+        android:clipToPadding="false"
+        android:padding="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context="seebee.geebeeview.layout.ViewPatientActivity">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:baselineAligned="false"
+            android:weightSum="3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="9"
+            app:layout_constraintStart_toStartOf="@+id/topbar"
+            app:layout_constraintTop_toBottomOf="@+id/topbar"
+            app:layout_constraintVertical_weight="9">
+
+            <LinearLayout
+                android:id="@+id/linearLayout14"
+                style="@style/DefaultBackground"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="100dp"
+                android:layout_marginBottom="50dp"
+                android:background="@color/lightGrey"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:padding="0dp"
+                android:weightSum="10"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
 
-</LinearLayout>
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_table_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/tv_dl_school"
+                        style="@style/LabelText"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="1dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:includeFontPadding="false"
+                        android:padding="0dp"
+                        android:text="@string/name"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_dl_date"
+                        app:layout_constraintHorizontal_weight="5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_dl_date"
+                        style="@style/LabelText"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="1dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:includeFontPadding="false"
+                        android:padding="0dp"
+                        android:text="@string/gender"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView10"
+                        app:layout_constraintHorizontal_weight="1.5"
+                        app:layout_constraintStart_toEndOf="@+id/tv_dl_school"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView10"
+                        style="@style/LabelText"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="1dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:includeFontPadding="false"
+                        android:padding="0dp"
+                        android:text="@string/age"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/textView13"
+                        app:layout_constraintHorizontal_weight="1.5"
+                        app:layout_constraintStart_toEndOf="@+id/tv_dl_date"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView13"
+                        style="@style/LabelText"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="1dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:includeFontPadding="false"
+                        android:padding="0dp"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="2"
+                        app:layout_constraintStart_toEndOf="@+id/textView10"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/theme_menu_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayout17"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayout16"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/theme_purple50_sidebar_extend_item0"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/cont_date_color"
+                        app:layout_constraintHorizontal_weight="5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cont_date_color"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/theme_purple50_sidebar_extend_item2"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/cont_download_color"
+                        app:layout_constraintHorizontal_weight="1.5"
+                        app:layout_constraintStart_toEndOf="@id/constraintLayout16"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cont_download_color"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/theme_purple50_sidebar_extend_item3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/cont_view_color"
+                        app:layout_constraintHorizontal_weight="1.5"
+                        app:layout_constraintStart_toEndOf="@+id/cont_date_color"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cont_view_color"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/theme_purple50_sidebar_extend_noitem"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="2"
+                        app:layout_constraintStart_toEndOf="@+id/cont_download_color"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_patient_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="9"
+                    android:background="@color/white"
+                    android:clipToPadding="false"
+                    android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb_purple"
+                    android:scrollbars="vertical"/>
+
+            </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+
+        <RelativeLayout
+            android:id="@+id/topitem"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/sidebar_space"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/topbar"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="1">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/cd_geebeeview"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/img_templogo" />
+        </RelativeLayout>
+
+        <Space
+            android:id="@+id/sidebar_space"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/topbar"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topbar"
+            app:layout_constraintVertical_weight="9" />
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/sidebar_extend_start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </android.support.constraint.ConstraintLayout>
+
+        <Space
+            android:id="@+id/sidebar_extend_start"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/sidebar_space"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/sidebar"
+            layout="@layout/sidebar_patient_list_extend"
+
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="9" />
+
+        <LinearLayout
+            android:id="@+id/topbar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            android:weightSum="1"
+            app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="9"
+            app:layout_constraintStart_toEndOf="@+id/topitem"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="1">
+
+            <RelativeLayout
+                android:id="@+id/cont_title"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25">
+
+                <TextView
+                    android:id="@+id/tv_patient_record_title"
+                    style="@style/TitleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:gravity="center_vertical|start"
+                    android:padding="3dp"
+                    android:text="@string/patient_list_title"
+                    android:textAppearance="@style/DefaultText"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes" />
+            </RelativeLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_graph_spinner"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25">
+
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.constraint.ConstraintLayout>
