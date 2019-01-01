@@ -47,28 +47,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_dataset_list_title"
-                        style="@style/TitleText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/dataset_title" />
-
-                    <Button
-                        android:id="@+id/btn_refresh"
-                        style="@style/DefaultButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:allowUndo="true"
-                        android:contentDescription="Refreshes list from database"
-                        android:text="@string/refresh_dataset_list" />
-                </RelativeLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -200,7 +178,7 @@
                     android:layout_margin="5dp"
                     android:gravity="center_vertical|start"
                     android:padding="3dp"
-                    android:text="@string/data_visualization"
+                    android:text="@string/dataset_title"
                     android:textAppearance="@style/DefaultText"
                     android:textColor="@color/colorPrimaryDark"
                     app:autoSizePresetSizes="@array/autosize_text_sizes" />
@@ -209,111 +187,41 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.35" />
+                android:layout_weight="0.5" />
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/cont_graph_spinner"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.4">
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25">
 
-                <TextView
-                    android:id="@+id/tv_data_visualization_title"
-                    style="@style/TitleText"
+                <ImageView
+                    android:id="@+id/imageView8"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
+                    android:contentDescription="@string/cd_blank"
+                    app:layout_constraintBottom_toBottomOf="@id/btn_refresh"
+                    app:layout_constraintEnd_toEndOf="@id/btn_refresh"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="@id/btn_refresh"
+                    app:layout_constraintTop_toTopOf="@id/btn_refresh"
+                    app:srcCompat="@color/theme_menu_button" />
 
-
-                    android:layout_weight="0.3"
-
-                    android:autoSizeMaxTextSize="100sp"
-                    android:autoSizeMinTextSize="12sp"
-                    android:autoSizeStepGranularity="2sp"
-                    android:autoSizeTextType="uniform"
-
-                    android:autoText="false"
-                    android:gravity="center"
-                    android:padding="3dp"
-                    android:text="@string/data_visualization"
-                    android:textAppearance="@style/DefaultText"
-                    android:textColor="@color/colorPrimaryDark"
-                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                <Button
+                    android:id="@+id/btn_refresh"
+                    style="@style/DefaultButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:allowUndo="true"
+                    android:background="@drawable/img_sidebar_add_data"
+                    android:contentDescription="@string/cd_blank"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/sp_chart_type" />
-
-                <TextView
-                    android:id="@+id/tv_dv_data"
-                    style="@style/LabelText"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="54dp"
-
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="100sp"
-                    android:autoSizeMinTextSize="12sp"
-                    android:autoSizeStepGranularity="2sp"
-
-                    android:autoSizeTextType="uniform"
-                    android:gravity="center"
-                    android:text="@string/displayed_data"
-                    app:autoSizePresetSizes="@array/autosize_text_sizes"
-                    app:layout_constraintEnd_toStartOf="@+id/sp_record_column"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <TextView
-                    android:id="@+id/tv_dv_chart"
-                    style="@style/LabelText"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.1"
-
-                    android:autoSizeMaxTextSize="100sp"
-                    android:autoSizeMinTextSize="12sp"
-                    android:autoSizeStepGranularity="2sp"
-                    android:autoSizeTextType="uniform"
-
-                    android:autoText="false"
-                    android:gravity="center"
-                    android:includeFontPadding="false"
-                    android:padding="0dp"
-                    android:text="@string/chart"
-                    app:autoSizePresetSizes="@array/autosize_text_sizes"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/sp_record_column" />
-
-                <Spinner
-                    android:id="@+id/sp_chart_type"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.2"
-
-                    android:autoSizeMaxTextSize="100sp"
-                    android:autoSizeMinTextSize="12sp"
-                    android:autoSizeStepGranularity="2sp"
-                    android:autoSizeTextType="uniform"
-
-                    android:entries="@array/chart_type_array"
-                    android:gravity="center"
-                    android:padding="0dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/sp_record_column"></Spinner>
-
-                <Spinner
-                    android:id="@+id/sp_record_column"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="1dp"
-
-                    android:layout_weight="0.2"
-                    android:autoSizeMaxTextSize="100sp"
-                    android:autoSizeMinTextSize="12sp"
-                    android:autoSizeStepGranularity="2sp"
-
-                    android:autoSizeTextType="uniform"
-                    android:entries="@array/record_column_array"
-                    android:gravity="center"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tv_dv_data"></Spinner>
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </android.support.constraint.ConstraintLayout>
 
         </LinearLayout>
