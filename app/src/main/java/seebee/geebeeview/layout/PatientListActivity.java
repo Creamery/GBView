@@ -13,11 +13,13 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import seebee.geebeeview.R;
+import seebee.geebeeview.adapter.DatasetAdapter;
 import seebee.geebeeview.adapter.PatientListAdapter;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.model.consultation.Patient;
@@ -39,6 +41,23 @@ public class PatientListActivity extends AppCompatActivity {
 
     private TextView tvSchoolName, tvName, tvGender, tvAge;
     private PatientListSidebar sidebarManager;
+    Button btnSizeReference;
+    private ConstraintLayout contTableHeader;
+
+
+    public void onWindowFocusChanged(boolean hasFocus) {
+        btnSizeReference = (Button) findViewById(R.id.btn_patient_about_icons);
+        contTableHeader = (ConstraintLayout) findViewById(R.id.cont_table_header);
+
+        patientListAdapter = new PatientListAdapter(patientList, date, btnSizeReference, contTableHeader);
+        RecyclerView.LayoutManager rvLayoutManager = new LinearLayoutManager(getBaseContext());
+        rvPatientList.setLayoutManager(rvLayoutManager);
+        rvPatientList.setItemAnimator(new DefaultItemAnimator());
+        rvPatientList.setAdapter(patientListAdapter);
+
+        preparePatientList();
+        setupSidebarFunctionality();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,14 +86,7 @@ public class PatientListActivity extends AppCompatActivity {
 
         tvSchoolName.setText(schoolName);
 
-        patientListAdapter = new PatientListAdapter(patientList, date);
-        RecyclerView.LayoutManager rvLayoutManager = new LinearLayoutManager(getBaseContext());
-        rvPatientList.setLayoutManager(rvLayoutManager);
-        rvPatientList.setItemAnimator(new DefaultItemAnimator());
-        rvPatientList.setAdapter(patientListAdapter);
 
-        preparePatientList();
-        setupSidebarFunctionality();
     }
     public void setupSidebarFunctionality () {
         // TODO About, Immun, HPI functionality

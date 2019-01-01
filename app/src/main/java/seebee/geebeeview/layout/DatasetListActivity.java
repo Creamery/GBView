@@ -45,12 +45,12 @@ public class DatasetListActivity extends AppCompatActivity {
     private final static String TAG =  "ViewDatasetListActivity";
     private static String URL_SAVE_NAME = "http://128.199.205.226/server.php";
     RecyclerView rvDataset;
-    Button btnRefresh;
     ArrayList<Dataset> datasetList = new ArrayList<>();
     DatasetAdapter datasetAdapter;
     DatabaseAdapter getBetterDb;
     private TextView tvTitle, tvSchool, tvDate;
     private DataListSidebar sidebarManager;
+    Button btnRefresh;
     private ConstraintLayout contTableHeader;
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
