@@ -51,11 +51,12 @@ public class DatasetListActivity extends AppCompatActivity {
     DatabaseAdapter getBetterDb;
     private TextView tvTitle, tvSchool, tvDate;
     private DataListSidebar sidebarManager;
+    private ConstraintLayout contTableHeader;
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
 
         super.onWindowFocusChanged(hasFocus);
-        datasetAdapter = new DatasetAdapter(datasetList, btnRefresh);
+        datasetAdapter = new DatasetAdapter(datasetList, btnRefresh, contTableHeader);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         rvDataset.setLayoutManager(mLayoutManager);
         rvDataset.setItemAnimator(new DefaultItemAnimator());
@@ -94,6 +95,7 @@ public class DatasetListActivity extends AppCompatActivity {
         tvDate = (TextView) findViewById(R.id.tv_dl_date);
         btnRefresh = (Button) findViewById(R.id.btn_refresh);
         rvDataset = (RecyclerView) findViewById(R.id.rv_dataset);
+        contTableHeader = (ConstraintLayout) findViewById(R.id.cont_table_header);
 
 //        datasetAdapter = new DatasetAdapter(datasetList, btnRefresh);
 //        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());

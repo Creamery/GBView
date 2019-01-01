@@ -1,37 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cont_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="10">
+    android:background="@color/lightGrey"
+    android:orientation="horizontal">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="1dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </android.support.constraint.ConstraintLayout>
 
     <TextView
         android:id="@+id/tv_dataset_sname"
         style="@style/DefaultText"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="4.5"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="fill_vertical"
         android:marqueeRepeatLimit="10"
         android:text="@string/school"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textAppearance="@style/DefaultText"
+        android:textColor="@color/colorPrimaryDark"
+        app:autoSizePresetSizes="@array/autosize_text_sizes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_dataset_date"
+        app:layout_constraintHorizontal_weight="5.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="70dp"
+        tools:layout_conversion_absoluteWidth="433dp" />
 
     <TextView
         android:id="@+id/tv_dataset_date"
         style="@style/DefaultText"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="4.5"
+        android:layout_height="0dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="8dp"
+        android:gravity="center_vertical"
         android:marqueeRepeatLimit="10"
         android:text="@string/dateCreated"
-        android:textAlignment="center"
-        android:textColor="@color/colorPrimaryDark" />
+        android:textAppearance="@style/DefaultText"
+        android:textColor="@color/colorPrimaryDark"
+        app:autoSizePresetSizes="@array/autosize_text_sizes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/constraintLayout11"
+        app:layout_constraintHorizontal_weight="3.5"
+        app:layout_constraintStart_toEndOf="@+id/tv_dataset_sname"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="70dp"
+        tools:layout_conversion_absoluteWidth="433dp" />
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout11"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/tv_dataset_date"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_conversion_absoluteHeight="70dp"
+        tools:layout_conversion_absoluteWidth="96dp">
 
         <ImageView
             android:id="@+id/imageView6"
@@ -46,24 +93,25 @@
             app:layout_constraintEnd_toEndOf="@id/btn_dataset_status"
             app:layout_constraintStart_toStartOf="@id/btn_dataset_status"
             app:layout_constraintTop_toTopOf="@id/btn_dataset_status"
-            app:srcCompat="@color/theme_menu_button" />
+            app:srcCompat="@color/theme_menu_button"
+            tools:layout_conversion_absoluteHeight="68dp"
+            tools:layout_conversion_absoluteWidth="68dp" />
 
         <Button
             android:id="@+id/btn_dataset_status"
             style="@style/DefaultButton"
             android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_margin="0dp"
-            android:layout_weight="1"
+            android:layout_height="55dp"
             android:background="@drawable/img_sidebar_down_arrow"
             android:padding="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="w,1:1"
+            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="70dp"
+            tools:layout_conversion_absoluteWidth="70dp" />
 
     </android.support.constraint.ConstraintLayout>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

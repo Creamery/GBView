@@ -3,6 +3,7 @@ package seebee.geebeeview.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,10 +47,12 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
     private Context context;
     private DatabaseAdapter getbetterDb;
     private Button btnRefresh;
+    private ConstraintLayout contHeader;
 
-    public DatasetAdapter(ArrayList<Dataset> datasetList, Button btnReference) {
+    public DatasetAdapter(ArrayList<Dataset> datasetList, Button btnReference, ConstraintLayout contReference) {
         this.datasetList = datasetList;
         this.btnRefresh = btnReference;
+        this.contHeader = contReference;
     }
 
     @Override
@@ -100,6 +103,9 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
         }
 //        holder.btnStatus.getLayoutParams().width = btnRefresh.getWidth();
         holder.btnStatus.getLayoutParams().height = btnRefresh.getHeight();
+//        holder.contParent.getLayoutParams().height = contHeader.getHeight();
+        holder.tvDate.getLayoutParams().height = contHeader.getHeight();
+        holder.tvSchoolName.getLayoutParams().height = contHeader.getHeight();
     }
     /* Open DataVisualizationActivity */
     private void openActivity(Dataset dataset) {
@@ -184,6 +190,7 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
     public class DatasetViewHolder extends RecyclerView.ViewHolder {
         public TextView tvSchoolName, tvDate;
         public Button btnStatus;
+        public ConstraintLayout contParent;
 
         public DatasetViewHolder(View view) {
             super(view);
@@ -192,14 +199,15 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
             tvSchoolName = (TextView) view.findViewById(R.id.tv_dataset_sname);
             tvDate = (TextView) view.findViewById(R.id.tv_dataset_date);
             btnStatus = (Button) view.findViewById(R.id.btn_dataset_status);
+            contParent = (ConstraintLayout) view.findViewById(R.id.cont_parent_layout);
             /* get fonts from assets */
-            Typeface chawpFont = Typeface.createFromAsset(context.getAssets(), "font/chawp.ttf");
-            Typeface chalkFont = Typeface.createFromAsset(context.getAssets(), "font/DJBChalkItUp.ttf");
+//            Typeface chawpFont = Typeface.createFromAsset(context.getAssets(), "font/chawp.ttf");
+//            Typeface chalkFont = Typeface.createFromAsset(context.getAssets(), "font/DJBChalkItUp.ttf");
             /* set font of text */
-            btnStatus.setTypeface(chawpFont);
-            tvSchoolName.setTypeface(chalkFont);
-            tvDate.setTypeface(chalkFont);
-            btnStatus.setWidth(tvDate.getWidth());
+//            btnStatus.setTypeface(chawpFont);
+//            tvSchoolName.setTypeface(chalkFont);
+//            tvDate.setTypeface(chalkFont);
+//            btnStatus.setWidth(tvDate.getWidth());
         }
     }
 }
