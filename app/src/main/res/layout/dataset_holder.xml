@@ -5,18 +5,18 @@
     android:id="@+id/cont_parent_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/lightGrey"
+    android:background="@color/white"
     android:orientation="horizontal">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="1dp"
-        android:background="@color/white"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/lightGrey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
     </android.support.constraint.ConstraintLayout>
 
@@ -25,7 +25,7 @@
         style="@style/DefaultText"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="8dp"
@@ -52,7 +52,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="8dp"
-        android:gravity="center_vertical"
+        android:gravity="center_vertical|center_horizontal"
         android:marqueeRepeatLimit="10"
         android:text="@string/dateCreated"
         android:textAppearance="@style/DefaultText"
@@ -60,7 +60,7 @@
         app:autoSizePresetSizes="@array/autosize_text_sizes"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/constraintLayout11"
-        app:layout_constraintHorizontal_weight="3.5"
+        app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toEndOf="@+id/tv_dataset_sname"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="70dp"
@@ -74,26 +74,26 @@
         android:layout_marginEnd="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintHorizontal_weight="1.5"
         app:layout_constraintStart_toEndOf="@+id/tv_dataset_date"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="70dp"
         tools:layout_conversion_absoluteWidth="96dp">
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/iv_dataset_status_color"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="1dp"
             android:layout_marginTop="1dp"
             android:layout_marginEnd="1dp"
             android:layout_marginBottom="1dp"
+            android:background="@color/theme_sidebar_extend_item0"
             android:contentDescription="@string/cd_blank"
             app:layout_constraintBottom_toBottomOf="@id/btn_dataset_status"
             app:layout_constraintEnd_toEndOf="@id/btn_dataset_status"
             app:layout_constraintStart_toStartOf="@id/btn_dataset_status"
             app:layout_constraintTop_toTopOf="@id/btn_dataset_status"
-            app:srcCompat="@color/theme_menu_button"
             tools:layout_conversion_absoluteHeight="68dp"
             tools:layout_conversion_absoluteWidth="68dp" />
 
