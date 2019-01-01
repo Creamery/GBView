@@ -20,6 +20,7 @@ import seebee.geebeeview.R;
 import seebee.geebeeview.layout.ViewPatientActivity;
 import seebee.geebeeview.model.consultation.Patient;
 import seebee.geebeeview.model.monitoring.AgeCalculator;
+import seebee.geebeeview.sidebar.General;
 
 /**
  * Created by Joy on 7/11/2017.
@@ -65,6 +66,7 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
         holder.tvPatientName.setText(name);
         holder.tvGender.setText(patient.getGenderString());
         holder.ivGender.setImageDrawable(getGenderIcon(patient.getGenderString()));
+        holder.ivGenderColor.setBackgroundColor(General.getColorByGender(context, patient.getGenderString()));
         int age = AgeCalculator.calculateAge(patient.getBirthday(), recordDate);
         //Log.v(TAG, "Birthday: "+patient.getBirthday()+" RecordDate: "+recordDate);
         //Log.v(TAG, "Age: "+age);
@@ -96,7 +98,7 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
     public class PatientListViewHolder extends RecyclerView.ViewHolder {
         public TextView tvPatientName, tvGender, tvAge;
         public Button btnView;
-        public ImageView ivGender;
+        public ImageView ivGender, ivGenderColor;
 
         public PatientListViewHolder(View itemView) {
             super(itemView);
@@ -106,6 +108,7 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
             tvAge = (TextView) itemView.findViewById(R.id.tv_patient_age);
             btnView = (Button) itemView.findViewById(R.id.btn_view_record);
             ivGender = (ImageView) itemView.findViewById(R.id.iv_dataset_gender_overlay);
+            ivGenderColor = (ImageView) itemView.findViewById(R.id.iv_dataset_gender_color);
             /* get fonts from assets */
 //            Typeface chawpFont = Typeface.createFromAsset(context.getAssets(), "font/chawp.ttf");
 //            Typeface chalkFont = Typeface.createFromAsset(context.getAssets(), "font/DJBChalkItUp.ttf");

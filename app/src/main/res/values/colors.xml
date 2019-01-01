@@ -18,6 +18,10 @@
     <color name="brightGreenHighlight">#21c700</color>
 
 
+    <color name="view_patient_name_color_female">#ea3571</color>
+    <color name="view_patient_name_color_male">#3348d2</color>
+
+
     <color name="dataset_list_visualize_color">#00c7a9</color>
     <color name="dataset_list_download_color">#cdcdcd</color>
 
