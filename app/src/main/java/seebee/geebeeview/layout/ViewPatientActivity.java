@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -274,6 +275,8 @@ public class ViewPatientActivity extends AppCompatActivity {
             ivPatient.setImageDrawable(getDefaultImage(patient.getGender())); // TODO added default image
             ivGender.setImageDrawable(getGenderImage(patient.getGender()));
             tvName.setText(patient.getLastName()+", "+patient.getFirstName());
+
+            tvName.setTextColor(General.getColorByGender(this, patient.getGender()));
             tvBirthday.setText(patient.getBirthday());
             tvDominantHand.setText(patient.getHandednessString());
             tvPatientRemark.setText(patient.getRemarksString());
@@ -453,7 +456,6 @@ public class ViewPatientActivity extends AppCompatActivity {
             return getResources().getDrawable(R.drawable.img_gender_circle_fill_female);
         }
     }
-
     // Used to resize Medical Record entries
     public void setTextViewChildrenHeightTo(LinearLayout vg, TextView reference) {
         try {
