@@ -611,7 +611,7 @@
                         style="@style/DefaultButton"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:background="@drawable/img_sidebar_about"
+                        android:background="@drawable/img_sidebar_add_data"
 
 
                         android:clickable="false"
@@ -660,7 +660,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_margin="0dp"
-                        android:background="@drawable/img_sidebar_hpi"
+                        android:background="@drawable/img_sidebar_add_filter"
                         android:clickable="false"
                         android:includeFontPadding="false"
                         android:padding="0dp"
@@ -679,7 +679,7 @@
                     android:layout_gravity="start"
                     android:clipChildren="false"
                     android:clipToPadding="false"
-                    app:layout_constraintBottom_toTopOf="@+id/space13"
+                    app:layout_constraintBottom_toTopOf="@+id/cont_item4_icons"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cont_item2_icons"
@@ -703,8 +703,7 @@
                         style="@style/DefaultButton"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_margin="0dp"
-                        android:background="@drawable/img_sidebar_immunization"
+                        android:background="@drawable/img_sidebar_hpi"
                         android:clickable="false"
                         android:includeFontPadding="false"
                         android:padding="0dp"
@@ -723,8 +722,51 @@
                     app:layout_constraintBottom_toTopOf="@+id/cont_item_back"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cont_item4_icons"
+                    app:layout_constraintVertical_weight="5" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_item4_icons"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="start"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    app:layout_constraintBottom_toTopOf="@+id/space13"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cont_item3_icons"
-                    app:layout_constraintVertical_weight="6" />
+                    app:layout_constraintVertical_weight="1">
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:adjustViewBounds="false"
+                        android:background="@color/theme_menu_button"
+                        android:contentDescription="@string/cd_blank"
+                        android:cropToPadding="false"
+                        app:layout_constraintBottom_toBottomOf="@id/btn_view_patient_list_icons"
+                        app:layout_constraintEnd_toEndOf="@id/btn_view_patient_list_icons"
+                        app:layout_constraintStart_toStartOf="@id/btn_view_patient_list_icons"
+                        app:layout_constraintTop_toTopOf="@id/btn_view_patient_list_icons" />
+
+                    <Button
+                        android:id="@+id/btn_view_patient_list_icons"
+                        style="@style/DefaultButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:background="@drawable/img_sidebar_about"
+                        android:clickable="false"
+                        android:includeFontPadding="false"
+                        android:padding="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/cont_item_back"
