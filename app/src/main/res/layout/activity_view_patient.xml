@@ -836,9 +836,9 @@
                 android:layout_margin="10dp"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout10"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="6.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="7">
 
             </RelativeLayout>
 
@@ -849,7 +849,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/patient_chart_container">
+                app:layout_constraintTop_toBottomOf="@+id/patient_chart_container"
+                app:layout_constraintVertical_weight="3">
 
             </android.support.constraint.ConstraintLayout>
 
@@ -980,6 +981,7 @@
                 android:gravity="center"
                 android:text="@string/displayed_data"
                 android:textAlignment="center"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/sp_vp_record_column"
                 app:layout_constraintHorizontal_weight="3"
