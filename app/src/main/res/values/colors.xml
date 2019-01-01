@@ -102,6 +102,17 @@
 
     <color name="theme_deeppurple50_sidebar_extend_noitem">#D1C4E9</color>
 
+
+    <!-- Lime50 Theme Colors -->
+    <color name="theme_lime50_sidebar_extend_item0_alt">#83d804</color>
+    <color name="theme_lime50_sidebar_extend_item0">#AEEA00</color>
+    <color name="theme_lime50_sidebar_extend_item1">#C6FF00</color>
+    <color name="theme_lime50_sidebar_extend_item2">#EEFF41</color>
+    <color name="theme_lime50_sidebar_extend_item3">#F4FF81</color>
+
+    <color name="theme_lime50_sidebar_extend_noitem">#F0F4C3</color>
+
+
     <!-- Red50 Theme Colors -->
     <color name="theme_red50_sidebar_extend_item0">#D50000</color>
     <color name="theme_red50_sidebar_extend_item1">#FF1744</color>
