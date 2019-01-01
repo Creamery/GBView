@@ -103,9 +103,15 @@
     <color name="theme_deeppurple50_sidebar_extend_noitem">#D1C4E9</color>
 
 
+    <!-- Green50 Theme Colors -->
+    <color name="theme_green50_sidebar_extend_item0">#00C853</color>
+    <color name="theme_green50_sidebar_extend_item1">#00E676</color>
+    <color name="theme_green50_sidebar_extend_item2">#69F0AE</color>
+    <color name="theme_green50_sidebar_extend_item3">#B9F6CA</color>
+
     <!-- Lime50 Theme Colors -->
-    <color name="theme_lime50_sidebar_extend_item0_alt">#83d804</color>
-    <color name="theme_lime50_sidebar_extend_item0">#AEEA00</color>
+    <color name="theme_lime50_sidebar_extend_item0_alt">#4cd602</color>
+    <color name="theme_lime50_sidebar_extend_item0">#74e304</color>
     <color name="theme_lime50_sidebar_extend_item1">#C6FF00</color>
     <color name="theme_lime50_sidebar_extend_item2">#EEFF41</color>
     <color name="theme_lime50_sidebar_extend_item3">#F4FF81</color>

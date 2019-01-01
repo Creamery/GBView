@@ -97,7 +97,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="9"
                 android:animateLayoutChanges="true"
-                android:visibility="visible">
+                android:visibility="invisible">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="0dp"
@@ -165,7 +165,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginBottom="1dp"
-                            android:background="@color/theme_lime50_sidebar_extend_item1"
+                            android:background="@color/theme_lime50_sidebar_extend_item0"
                             android:clipToPadding="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -224,7 +224,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginBottom="1dp"
-                            android:background="@color/theme_lime50_sidebar_extend_item2"
+                            android:background="@color/theme_lime50_sidebar_extend_item1"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_weight="2.5"
@@ -283,7 +283,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginBottom="1dp"
-                            android:background="@color/theme_lime50_sidebar_extend_item3"
+                            android:background="@color/theme_lime50_sidebar_extend_item2"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_weight="2.5"
