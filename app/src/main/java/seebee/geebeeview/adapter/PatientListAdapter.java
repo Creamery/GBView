@@ -3,7 +3,9 @@ package seebee.geebeeview.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,13 +50,21 @@ public class PatientListAdapter extends RecyclerView.Adapter<PatientListAdapter.
         return new PatientListViewHolder(itemView);
     }
 
+    public Drawable getGenderIcon(String gender) {
+        if(gender.trim().toLowerCase().contains("f")) {
+            return ContextCompat.getDrawable(context, R.drawable.img_sidebar_gender_f);
+        }
+        else {
+            return ContextCompat.getDrawable(context, R.drawable.img_sidebar_gender_m);
+        }
+    }
     @Override
     public void onBindViewHolder(PatientListViewHolder holder, int position) {
         final Patient patient = patientList.get(position);
         String name = patient.getLastName() + ", "+patient.getFirstName();
         holder.tvPatientName.setText(name);
         holder.tvGender.setText(patient.getGenderString());
-
+        holder.ivGender.setImageDrawable(getGenderIcon(patient.getGenderString()));
         int age = AgeCalculator.calculateAge(patient.getBirthday(), recordDate);
         //Log.v(TAG, "Birthday: "+patient.getBirthday()+" RecordDate: "+recordDate);
         //Log.v(TAG, "Age: "+age);
