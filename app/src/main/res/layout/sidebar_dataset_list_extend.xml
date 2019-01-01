@@ -161,7 +161,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="1dp"
-                        android:background="@color/theme_pink50_sidebar_extend_noitem"
+                        android:background="@color/theme_teal50_sidebar_extend_noitem"
                         android:contentDescription="@string/cd_blank"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -196,7 +196,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <Button
-                            android:id="@+id/btn_add_dataset"
+                            android:id="@+id/btn_refresh"
                             style="@style/ClearButton"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -215,7 +215,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginBottom="1dp"
-                            android:background="@color/theme_red50_sidebar_extend_item1"
+                            android:background="@color/theme_teal50_sidebar_extend_item1"
                             android:clipToPadding="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -232,7 +232,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="10dp"
                                 android:gravity="center_vertical"
-                                android:text="@string/add_dataset"
+                                android:text="@string/datalist_sidebar_refresh"
                                 android:textColor="@color/theme_sidebar_dark_button"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -259,7 +259,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <Button
-                            android:id="@+id/btn_add_filter"
+                            android:id="@+id/btn_item2"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:background="@android:color/transparent"
@@ -275,7 +275,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginBottom="1dp"
-                            android:background="@color/theme_red50_sidebar_extend_item2"
+                            android:background="@color/theme_teal50_sidebar_extend_item2"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_weight="2.5"
@@ -291,7 +291,6 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="10dp"
                                 android:gravity="center_vertical"
-                                android:text="@string/add_filter"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -319,9 +318,10 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <Button
-                            android:id="@+id/btn_view_hpi_list"
+                            android:id="@+id/btn_item3"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:layout_marginStart="2dp"
                             android:background="@android:color/transparent"
                             android:clickable="true"
                             android:focusable="true"
@@ -335,7 +335,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginBottom="1dp"
-                            android:background="@color/theme_red50_sidebar_extend_item3"
+                            android:background="@color/theme_teal50_sidebar_extend_item3"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_weight="2.5"
@@ -351,7 +351,6 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="10dp"
                                 android:gravity="center_vertical"
-                                android:text="@string/patient_consultation"
                                 android:textColor="@color/colorPrimaryDark"
                                 app:autoSizePresetSizes="@array/autosize_text_sizes"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -556,7 +555,7 @@
                         style="@style/DefaultButton"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:background="@drawable/img_sidebar_add_data"
+                        android:background="@drawable/img_sidebar_refresh"
 
 
                         android:clickable="false"
@@ -605,7 +604,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_margin="0dp"
-                        android:background="@drawable/img_sidebar_add_filter"
+                        android:background="@drawable/img_sidebar_empty"
                         android:clickable="false"
                         android:includeFontPadding="false"
                         android:padding="0dp"
@@ -648,7 +647,7 @@
                         style="@style/DefaultButton"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:background="@drawable/img_sidebar_hpi"
+                        android:background="@drawable/img_sidebar_empty"
                         android:clickable="false"
                         android:includeFontPadding="false"
                         android:padding="0dp"

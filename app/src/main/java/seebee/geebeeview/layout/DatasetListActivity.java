@@ -66,7 +66,13 @@ public class DatasetListActivity extends AppCompatActivity {
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Close sidebar if extended
+                if(sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                }
+
                 prepareDatasetList();
+                Toast.makeText(DatasetListActivity.this, "Refreshing list...", Toast.LENGTH_SHORT).show();
             }
         });
 

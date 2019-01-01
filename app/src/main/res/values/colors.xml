@@ -40,7 +40,7 @@
     <color name="theme_teal50_sidebar_extend_item2">#64FFDA</color>
     <color name="theme_teal50_sidebar_extend_item3">#A7FFEB</color>
 
-    <color name="theme_teal50_sidebar_extend_noitem">#B2DFDB</color>
+    <color name="theme_teal50_sidebar_extend_noitem">#cdfff4</color>
 
     <!-- LightGreen50 Theme Colors -->
     <color name="theme_lightgreen50_sidebar_extend_item0">#64DD17</color>
