@@ -3,6 +3,10 @@
     <string name="username">Username: </string>
     <string name="password">Password: </string>
 
+    <string name="geebee_title">GeeBee View</string>
+    <string name="dataset_list_header">Dataset List</string>
+    <string name="title_home">Home</string>
+
     <string name="dataset_title">Dataset List</string>
     <string name="patient_list_title">Patient List</string>
     <string name="school">School</string>

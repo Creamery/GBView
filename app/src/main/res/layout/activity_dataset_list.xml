@@ -42,7 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="100dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="100dp"
                 android:layout_marginBottom="50dp"
                 android:background="@color/lightGrey"
@@ -57,11 +57,64 @@
 
 
                 <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout18"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.4"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout14"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_table_header"
+                        style="@style/TitleText"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:gravity="center"
+                        android:padding="0dp"
+                        android:text="@string/dataset_list_header"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayout17"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:background="@color/lightGrey"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
                     android:id="@+id/cont_table_header"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_margin="0dp"
-                    android:layout_weight="1"
+                    android:layout_weight="0.6"
                     android:background="@color/white">
 
                     <TextView
@@ -125,7 +178,7 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"
+                    android:layout_height="8dp"
                     android:background="@color/theme_menu_button"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -190,7 +243,7 @@
                     android:id="@+id/rv_dataset"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="9"
+                    android:layout_weight="8"
                     android:background="@color/white"
                     android:clipToPadding="false"
                     android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb_teal"
@@ -296,7 +349,7 @@
                     android:layout_margin="5dp"
                     android:gravity="center_vertical|start"
                     android:padding="3dp"
-                    android:text="@string/dataset_title"
+                    android:text="@string/title_home"
                     android:textAppearance="@style/DefaultText"
                     android:textColor="@color/colorPrimaryDark"
                     app:autoSizePresetSizes="@array/autosize_text_sizes" />
