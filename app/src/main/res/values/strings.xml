@@ -59,6 +59,7 @@
 
     <!-- PATIENT RECORD STRINGS -->
     <string name="patient_medical_record">Medical Record</string>
+    <string name="patient_personal_info">Personal Information</string>
 
 
     <string name="cd_blank">content</string>
@@ -70,12 +71,12 @@
     <string name="age">Age</string>
     <string name="view_record">VIEW RECORD</string>
 
-    <string name="birthday">Birthday: </string>
+    <string name="birthday">Birthday</string>
     <string name="gender_r">Gender: </string>
-    <string name="dominant_hand">Dominant Hand: </string>
+    <string name="dominant_hand">Dominant Hand</string>
     <string name="last_record">Last Check Up: </string>
     <string name="bmi">BMI</string>
-    <string name="remarks">Remarks: </string>
+    <string name="remarks">Remarks</string>
 
     <string name="patient_remarks">Patient</string>
     <string name="record_remarks">Record</string>

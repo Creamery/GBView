@@ -69,7 +69,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     private Button btnViewHPI, btnViewImmunization;
     private Spinner spRecordDate;
 //    private LinearLayout llAbout1, llAbout2, llAbout3, llAbout4;
-    private ConstraintLayout contAboutTitle1, contAboutTitle2, contAboutTitle3, contAboutTitle4;
+    private ConstraintLayout contAboutTitle0, contAboutTitle1, contAboutTitle2, contAboutTitle3, contAboutTitle4;
     private TextView tvAboutTitle1, tvAboutTitle2, tvAboutTitle3, tvAboutTitle4;
 
 
@@ -89,6 +89,10 @@ public class ViewPatientActivity extends AppCompatActivity {
     private String recordColumn = "BMI";
     private String chartType = "Line Chart";
     private boolean bmiIsVisible = false;
+
+    private View viewMedicalRecord;
+    private boolean isMedicalRecord;
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
 
@@ -102,6 +106,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvAboutTitle3 = (TextView) findViewById(R.id.tv_about_title3);
         tvAboutTitle4 = (TextView) findViewById(R.id.tv_about_title4);
 
+        contAboutTitle0 = (ConstraintLayout) findViewById(R.id.cont_about_item0_image);
         contAboutTitle1 = (ConstraintLayout) findViewById(R.id.cont_about_item1_image);
         contAboutTitle2 = (ConstraintLayout) findViewById(R.id.cont_about_item2_image);
         contAboutTitle3 = (ConstraintLayout) findViewById(R.id.cont_about_item3_image);
@@ -129,6 +134,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        setTextViewChildrenHeightTo(llAbout3, sizeReference);
 //        setTextViewChildrenHeightTo(llAbout4, sizeReference);
 
+        setTextViewChildrenHeightTo(contAboutTitle0, titleSizeReference);
         setTextViewChildrenHeightTo(contAboutTitle1, titleSizeReference);
         setTextViewChildrenHeightTo(contAboutTitle2, titleSizeReference);
         setTextViewChildrenHeightTo(contAboutTitle3, titleSizeReference);
@@ -192,6 +198,9 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         ivBMIClickable = (ImageView) findViewById(R.id.img_patient_bmi);
         ivBMIColor = (ImageView) findViewById(R.id.img_patient_bmi_color);
+
+        viewMedicalRecord = (View) findViewById(R.id.sectionMedicalRecord);
+
         /* get fonts from assets */
 //        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
 //        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
@@ -280,6 +289,11 @@ public class ViewPatientActivity extends AppCompatActivity {
             tvBirthday.setText(patient.getBirthday());
             tvDominantHand.setText(patient.getHandednessString());
             tvPatientRemark.setText(patient.getRemarksString());
+
+            Log.d("ABOUTLOG", "Birthday: "+patient.getBirthday());
+            Log.d("ABOUTLOG", "Dominant: "+patient.getHandednessString());
+            Log.d("ABOUTLOG", "Remark: "+patient.getRemarksString());
+
             // todo: remove after testing
 //            MediaPlayer ring = MediaPlayer.create(this, R.raw.ring);
 //            ring.setLooping(true);
@@ -378,6 +392,8 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         });
 
+        // SETUP Medical Record and Personal Information
+        isMedicalRecord = true;
         this.sidebarManager.getBtnSidebarAbout().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -385,8 +401,15 @@ public class ViewPatientActivity extends AppCompatActivity {
                 if(sidebarManager.isSidebarOpen()) {
                     sidebarManager.getBtnOpenSidebar().performClick();
                 }
+
+//                isMedicalRecord = !isMedicalRecord;
+//                viewMedicalRecord.setVisibility(General.getVisibility(isMedicalRecord));
+//                viewPersonalInfo.setVisibility(General.getVisibility(!isMedicalRecord));
             }
         });
+
+        // Initially show medical record and hide personal information
+        viewMedicalRecord.setVisibility(General.getVisibility(isMedicalRecord));
 
         this.sidebarManager.getContSidebarBlank().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -402,8 +425,6 @@ public class ViewPatientActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 sidebarManager.toggleSidebar();
-
-
 
                 // Setting of Visibility has to be done here (not in PatientSidebar or SidebarParent class, or it won't appear
                 for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
@@ -435,6 +456,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         for(int i = 0; i < sidebarManager.getItemsSidebarExtend().size(); i++) {
             sidebarManager.getItemsSidebarExtend().get(i).setVisibility(General.getVisibility(false));
         }
+
     }
 
 
@@ -463,14 +485,32 @@ public class ViewPatientActivity extends AppCompatActivity {
                 View child = vg.getChildAt(i);
                 // Recursive call
                 if(child instanceof TextView) {
-                    ((TextView) child).setMinHeight(reference.getHeight());
-                    ((TextView) child).getLayoutParams().height = reference.getHeight();
+                    ((TextView) child).setMinHeight(reference.getLayoutParams().height);
+                    ((TextView) child).getLayoutParams().height = reference.getLayoutParams().height;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    // Used to resize Medical Record entries by FONT
+    public void setTextViewChildrenFontHeightTo(ConstraintLayout vg, TextView reference) {
+        try {
+            for (int i = 0; i < vg.getChildCount(); i++) {
+                View child = vg.getChildAt(i);
+                // Recursive call
+                if(child instanceof TextView) {
+                    ((TextView) child).setTextSize(reference.getTextSize());
+//                    ((TextView) child).setMinHeight(reference.getHeight());
+//                    ((TextView) child).getLayoutParams().height = reference.getHeight();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     // Used to resize Medical Record entries
     public void setTextViewChildrenHeightTo(LinearLayout vg, TextView reference) {
         try {

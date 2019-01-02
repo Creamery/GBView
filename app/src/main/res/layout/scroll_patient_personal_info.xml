@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollViewAbout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        android:clipToPadding="false"
+        android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb_lime"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="7.3">
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/textView2_personal_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightGrey"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxHeight="16dp"
+                    android:minHeight="16dp"
+                    android:padding="0dp"
+                    android:text="@string/birthday"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_birthday"
+                    app:layout_constraintHorizontal_weight="4.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_birthday"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxHeight="16dp"
+                    android:minHeight="16dp"
+                    android:padding="0dp"
+                    android:text="@string/birthday"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="5.5"
+                    app:layout_constraintStart_toEndOf="@+id/textView2_personal_info"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/textView_personal_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightGrey"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxHeight="16dp"
+                    android:minHeight="16dp"
+                    android:padding="0dp"
+                    android:text="@string/grade_level"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_grade_level"
+                    app:layout_constraintHorizontal_weight="4.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_grade_level"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxHeight="16dp"
+                    android:minHeight="16dp"
+                    android:padding="0dp"
+                    android:text="@string/grade_level"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="5.5"
+                    app:layout_constraintStart_toEndOf="@+id/textView_personal_info"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="1dp"
+                android:layout_marginBottom="1dp"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/textView3_personal_info"
+                    style="@style/SmallLabelText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightGrey"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxHeight="16dp"
+                    android:minHeight="16dp"
+                    android:padding="0dp"
+                    android:text="@string/dominant_hand"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_dominant_hand"
+                    app:layout_constraintHorizontal_weight="4.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_dominant_hand"
+                    style="@style/SmallContextText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="0dp"
+                    android:gravity="center_vertical"
+                    android:includeFontPadding="false"
+                    android:maxHeight="16dp"
+                    android:minHeight="16dp"
+                    android:padding="0dp"
+                    android:text="@string/dominant"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="5.5"
+                    app:layout_constraintStart_toEndOf="@+id/textView3_personal_info"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
