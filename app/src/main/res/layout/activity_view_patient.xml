@@ -637,7 +637,6 @@
                                 android:layout_marginStart="1dp"
                                 android:background="@color/white"
                                 android:clipToPadding="false"
-                                android:dropDownWidth="match_parent"
                                 android:gravity="center"
                                 android:padding="0dp"
                                 android:popupBackground="@color/white"
@@ -838,7 +837,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="7">
+                app:layout_constraintVertical_weight="8">
 
             </RelativeLayout>
 
@@ -850,7 +849,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/patient_chart_container"
-                app:layout_constraintVertical_weight="3">
+                app:layout_constraintVertical_weight="2">
 
             </android.support.constraint.ConstraintLayout>
 
