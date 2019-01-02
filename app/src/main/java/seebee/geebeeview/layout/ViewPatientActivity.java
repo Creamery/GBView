@@ -10,7 +10,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -69,7 +68,8 @@ public class ViewPatientActivity extends AppCompatActivity {
     private ImageView ivPatient, ivGender;
     private Button btnViewHPI, btnViewImmunization;
     private Spinner spRecordDate;
-    private LinearLayout llAbout1, llAbout2, llAbout3, llAbout4, llAboutTitle1, llAboutTitle2, llAboutTitle3, llAboutTitle4;
+//    private LinearLayout llAbout1, llAbout2, llAbout3, llAbout4;
+    private LinearLayout contAboutTitle1, contAboutTitle2, contAboutTitle3, contAboutTitle4;
     private TextView tvAboutTitle1, tvAboutTitle2, tvAboutTitle3, tvAboutTitle4;
 
 
@@ -102,16 +102,16 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvAboutTitle3 = (TextView) findViewById(R.id.tv_about_title3);
         tvAboutTitle4 = (TextView) findViewById(R.id.tv_about_title4);
 
-        llAboutTitle1 = (LinearLayout) findViewById(R.id.cont_about_item1_image);
-        llAboutTitle2 = (LinearLayout) findViewById(R.id.cont_about_item2_image);
-        llAboutTitle3 = (LinearLayout) findViewById(R.id.cont_about_item3_image);
-        llAboutTitle4 = (LinearLayout) findViewById(R.id.cont_about_item4_image);
+        contAboutTitle1 = (LinearLayout) findViewById(R.id.cont_about_item1_image);
+        contAboutTitle2 = (LinearLayout) findViewById(R.id.cont_about_item2_image);
+        contAboutTitle3 = (LinearLayout) findViewById(R.id.cont_about_item3_image);
+        contAboutTitle4 = (LinearLayout) findViewById(R.id.cont_about_item4_image);
 
 
-        llAbout1 = (LinearLayout) findViewById(R.id.vg_item1);
-        llAbout2 = (LinearLayout) findViewById(R.id.vg_item2);
-        llAbout3 = (LinearLayout) findViewById(R.id.vg_item3);
-        llAbout4 = (LinearLayout) findViewById(R.id.vg_item4);
+//        llAbout1 = (LinearLayout) findViewById(R.id.vg_item1);
+//        llAbout2 = (LinearLayout) findViewById(R.id.vg_item2);
+//        llAbout3 = (LinearLayout) findViewById(R.id.vg_item3);
+//        llAbout4 = (LinearLayout) findViewById(R.id.vg_item4);
 
         tvMedicalRecordTitle = (TextView) findViewById(R.id.tv_scrollbar_title);
         tvRecordDateTitle = (TextView) findViewById(R.id.tv_vp_date);
@@ -124,15 +124,15 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        setTextViewHeightTo(tvAboutTitle3, titleSizeReference);
 //        setTextViewHeightTo(tvAboutTitle4, titleSizeReference);
 
-        setTextViewChildrenHeightTo(llAbout1, sizeReference);
-        setTextViewChildrenHeightTo(llAbout2, sizeReference);
-        setTextViewChildrenHeightTo(llAbout3, sizeReference);
-        setTextViewChildrenHeightTo(llAbout4, sizeReference);
+//        setTextViewChildrenHeightTo(llAbout1, sizeReference);
+//        setTextViewChildrenHeightTo(llAbout2, sizeReference);
+//        setTextViewChildrenHeightTo(llAbout3, sizeReference);
+//        setTextViewChildrenHeightTo(llAbout4, sizeReference);
 
-        setTextViewChildrenHeightTo(llAboutTitle1, titleSizeReference);
-        setTextViewChildrenHeightTo(llAboutTitle2, titleSizeReference);
-        setTextViewChildrenHeightTo(llAboutTitle3, titleSizeReference);
-        setTextViewChildrenHeightTo(llAboutTitle4, titleSizeReference);
+        setTextViewChildrenHeightTo(contAboutTitle1, titleSizeReference);
+        setTextViewChildrenHeightTo(contAboutTitle2, titleSizeReference);
+        setTextViewChildrenHeightTo(contAboutTitle3, titleSizeReference);
+        setTextViewChildrenHeightTo(contAboutTitle4, titleSizeReference);
     }
 
     public void adjustDetailFontSize() {
@@ -464,7 +464,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 // Recursive call
                 if(child instanceof TextView) {
                     ((TextView) child).setMinHeight(reference.getHeight());
-
+                    ((TextView) child).getLayoutParams().height = reference.getHeight();
                 }
             }
         } catch (Exception e) {
