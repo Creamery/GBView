@@ -69,7 +69,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     private Button btnViewHPI, btnViewImmunization;
     private Spinner spRecordDate;
 //    private LinearLayout llAbout1, llAbout2, llAbout3, llAbout4;
-    private LinearLayout contAboutTitle1, contAboutTitle2, contAboutTitle3, contAboutTitle4;
+    private ConstraintLayout contAboutTitle1, contAboutTitle2, contAboutTitle3, contAboutTitle4;
     private TextView tvAboutTitle1, tvAboutTitle2, tvAboutTitle3, tvAboutTitle4;
 
 
@@ -102,10 +102,10 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvAboutTitle3 = (TextView) findViewById(R.id.tv_about_title3);
         tvAboutTitle4 = (TextView) findViewById(R.id.tv_about_title4);
 
-        contAboutTitle1 = (LinearLayout) findViewById(R.id.cont_about_item1_image);
-        contAboutTitle2 = (LinearLayout) findViewById(R.id.cont_about_item2_image);
-        contAboutTitle3 = (LinearLayout) findViewById(R.id.cont_about_item3_image);
-        contAboutTitle4 = (LinearLayout) findViewById(R.id.cont_about_item4_image);
+        contAboutTitle1 = (ConstraintLayout) findViewById(R.id.cont_about_item1_image);
+        contAboutTitle2 = (ConstraintLayout) findViewById(R.id.cont_about_item2_image);
+        contAboutTitle3 = (ConstraintLayout) findViewById(R.id.cont_about_item3_image);
+        contAboutTitle4 = (ConstraintLayout) findViewById(R.id.cont_about_item4_image);
 
 
 //        llAbout1 = (LinearLayout) findViewById(R.id.vg_item1);
@@ -457,6 +457,21 @@ public class ViewPatientActivity extends AppCompatActivity {
         }
     }
     // Used to resize Medical Record entries
+    public void setTextViewChildrenHeightTo(ConstraintLayout vg, TextView reference) {
+        try {
+            for (int i = 0; i < vg.getChildCount(); i++) {
+                View child = vg.getChildAt(i);
+                // Recursive call
+                if(child instanceof TextView) {
+                    ((TextView) child).setMinHeight(reference.getHeight());
+                    ((TextView) child).getLayoutParams().height = reference.getHeight();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    // Used to resize Medical Record entries
     public void setTextViewChildrenHeightTo(LinearLayout vg, TextView reference) {
         try {
             for (int i = 0; i < vg.getChildCount(); i++) {
@@ -471,7 +486,6 @@ public class ViewPatientActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
-
     public void setTextViewHeightTo(TextView vg, TextView reference) {
         vg.setMinHeight(reference.getHeight());
     }
