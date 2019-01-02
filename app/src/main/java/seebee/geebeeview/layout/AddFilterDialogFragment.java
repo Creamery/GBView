@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -106,7 +107,14 @@ public class AddFilterDialogFragment extends DialogFragment {
         /* prepare grade level spinner */
         final List<String> gradeLevelList = new ArrayList<>();
         for(int i = 0; i < gradeLevels.size(); i++) {
-            gradeLevelList.add(gradeLevels.get(i));
+
+            if(gradeLevels.get(i) == null) {
+                Log.e("FILTER", "Null found at gradeLevel "+i); // TODO ADDED NULL CHECK
+                gradeLevelList.add("null");
+            }
+            else {
+                gradeLevelList.add(gradeLevels.get(i));
+            }
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getActivity().getBaseContext(),
                 R.layout.custom_spinner, gradeLevelList);

@@ -18,7 +18,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -70,7 +69,6 @@ import seebee.geebeeview.model.monitoring.Record;
 import seebee.geebeeview.model.monitoring.ValueCounter;
 import seebee.geebeeview.sidebar.DataVisualizationSidebar;
 import seebee.geebeeview.sidebar.General;
-import seebee.geebeeview.sidebar.PatientSidebar;
 
 
 public class DataVisualizationActivity extends AppCompatActivity
@@ -119,9 +117,8 @@ public class DataVisualizationActivity extends AppCompatActivity
     private float offsetYDivider = 8f;
     private String provinceName, municipalityName;
 
-
-
     private DataVisualizationSidebar sidebarManager;
+
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
