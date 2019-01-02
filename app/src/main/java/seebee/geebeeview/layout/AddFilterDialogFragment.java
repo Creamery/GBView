@@ -76,7 +76,7 @@ public class AddFilterDialogFragment extends DialogFragment {
         etFilter = (EditText) view.findViewById(R.id.et_filter);
         // set filterEquator to what is pointed by spinner
         ArrayAdapter<String> spAgeAdapter = new ArrayAdapter<>(getActivity().getBaseContext(),
-                R.layout.custom_spinner, getResources().getStringArray(R.array.age_filter_array));
+                R.layout.custom_spinner_light, getResources().getStringArray(R.array.age_filter_array));
         spAgeFilter.setAdapter(spAgeAdapter);
         spAgeFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -91,7 +91,7 @@ public class AddFilterDialogFragment extends DialogFragment {
         });
 
         ArrayAdapter<String> spGenderAdapter = new ArrayAdapter<>(getActivity().getBaseContext(),
-                R.layout.custom_spinner, getResources().getStringArray(R.array.gender_filter_array));
+                R.layout.custom_spinner_light, getResources().getStringArray(R.array.gender_filter_array));
         spGenderFilter.setAdapter(spGenderAdapter);
         spGenderFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -117,7 +117,7 @@ public class AddFilterDialogFragment extends DialogFragment {
             }
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getActivity().getBaseContext(),
-                R.layout.custom_spinner, gradeLevelList);
+                R.layout.custom_spinner_light, gradeLevelList);
         spGradeLevelFilter.setAdapter(spinnerAdapter);
 
         spGradeLevelFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
