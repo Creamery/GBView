@@ -205,34 +205,9 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
 //        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
         /* set fonts to text */
-        // tvName.setTypeface(chawpFont);
-
 //        tvBirthday.setTypeface(chalkFont);
 //        tvDominantHand.setTypeface(chalkFont);
 
-//        tvAge.setTypeface(chalkFont);
-
-//        tvGradeLevel.setTypeface(chalkFont);
-//        tvPatientRemark.setTypeface(chalkFont);
-//        tvData.setTypeface(chalkFont);
-
-//        tvDate.setTypeface(chalkFont);
-//        tvBMI.setTypeface(chalkFont);
-//        tvHeight.setTypeface(chalkFont);
-//        tvWeight.setTypeface(chalkFont);
-
-//        tvVisualLeft.setTypeface(chalkFont);
-//        tvVisualRight.setTypeface(chalkFont);
-//        tvColorVision.setTypeface(chalkFont);
-//        tvHearingLeft.setTypeface(chalkFont);
-//        tvHearingRight.setTypeface(chalkFont);
-//        tvGrossMotor.setTypeface(chalkFont);
-//        tvFineMotorD.setTypeface(chalkFont);
-//        tvFineMotorND.setTypeface(chalkFont);
-//        tvFineMotorHold.setTypeface(chalkFont);
-//        tvRecordRemark.setTypeface(chalkFont);
-//        btnViewImmunization.setTypeface(chawpFont);
-//        btnViewHPI.setTypeface(chawpFont);
 
         /* set button so that it will go to the HPIListActivity */
         btnViewHPI.setOnClickListener(new View.OnClickListener() {
@@ -290,9 +265,9 @@ public class ViewPatientActivity extends AppCompatActivity {
             tvDominantHand.setText(patient.getHandednessString());
             tvPatientRemark.setText(patient.getRemarksString());
 
-            Log.d("ABOUTLOG", "Birthday: "+patient.getBirthday());
-            Log.d("ABOUTLOG", "Dominant: "+patient.getHandednessString());
-            Log.d("ABOUTLOG", "Remark: "+patient.getRemarksString());
+//            Log.d("ABOUTLOG", "Birthday: "+patient.getBirthday());
+//            Log.d("ABOUTLOG", "Dominant: "+patient.getHandednessString());
+//            Log.d("ABOUTLOG", "Remark: "+patient.getRemarksString());
 
             // todo: remove after testing
 //            MediaPlayer ring = MediaPlayer.create(this, R.raw.ring);
@@ -576,6 +551,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         /* display age and grade level according to recordDate */
         tvAge.setText(patient.getAge(recordDate)+"");
         tvGradeLevel.setText(record.getGradeLevel());
+//        Log.d("ABOUTLOG", "GradeLevel: "+record.getGradeLevel());
     }
 
     // Function for BMI text setting (complete if needed)
