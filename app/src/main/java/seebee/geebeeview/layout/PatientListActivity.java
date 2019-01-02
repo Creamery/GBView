@@ -152,9 +152,9 @@ public class PatientListActivity extends AppCompatActivity {
         this.sidebarManager.getBtnOpenSidebarExtend().setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // If sidebar is closed, open it by clicking on the openSidebar button
-                if(!sidebarManager.isSidebarOpen()) {
+//                if(!sidebarManager.isSidebarOpen()) {
                     sidebarManager.getBtnOpenSidebar().performClick();
-                }
+//                }
             }
         });
         // Hide initially
