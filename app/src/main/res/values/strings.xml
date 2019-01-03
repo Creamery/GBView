@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">GeeBeeView</string>
-    <string name="username">Username: </string>
-    <string name="password">Password: </string>
+    <string name="username">Username</string>
+    <string name="username_hint">username</string>
+    <string name="password">Password</string>
+    <string name="password_hint">password</string>
 
     <string name="geebee_title">GeeBee View</string>
     <string name="dataset_list_header">Dataset List</string>

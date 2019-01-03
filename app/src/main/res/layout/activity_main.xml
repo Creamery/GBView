@@ -2,249 +2,492 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/DefaultBackground"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:clipToPadding="false"
+    android:padding="0dp"
     tools:context=".layout.MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearLayout2"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:gravity="top"
-        android:orientation="horizontal"
-        android:weightSum="1">
+        android:background="@color/white">
 
-        <Space
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout21"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.25" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/linearLayout17"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </android.support.constraint.ConstraintLayout>
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/linearLayout"
+            android:id="@+id/linearLayout17"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:gravity="center"
+            android:layout_height="0dp"
             android:orientation="vertical"
-            android:weightSum="1">
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/constraintLayout19"
+            app:layout_constraintHorizontal_weight="4"
+            app:layout_constraintStart_toEndOf="@+id/constraintLayout21"
+            app:layout_constraintTop_toTopOf="parent">
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.15" />
 
-            <TextView
-                android:id="@+id/main_title"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_title"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.2"
-
-
-                android:autoSizeMaxTextSize="100sp"
-                android:autoSizeMinTextSize="12sp"
-                android:autoSizeStepGranularity="2sp"
-                android:autoSizeTextType="uniform"
-
-
-                android:gravity="center"
-                android:text="@string/app_name"
-                android:textAllCaps="false"
-                android:textColor="@color/yellow"
-                app:autoSizePresetSizes="@array/autosize_text_sizes" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.12"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_weight="0.2">
 
                 <TextView
-                    android:id="@+id/tv_username"
+                    android:id="@+id/main_title"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.3"
-                    android:autoSizeMaxTextSize="100sp"
-                    android:autoSizeMinTextSize="12sp"
-                    android:autoSizeStepGranularity="2sp"
+                    android:layout_height="0dp"
 
-                    android:autoSizeTextType="uniform"
-                    android:autoText="false"
 
+                    android:layout_marginStart="10dp"
+
+
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="0.2"
                     android:gravity="center"
-                    android:padding="@dimen/text_box_padding"
-                    android:text="@string/username"
-                    android:textAppearance="@style/TextAppearance.AppCompat"
-                    app:autoSizePresetSizes="@array/autosize_text_sizes" />
+                    android:text="@string/app_name"
+                    android:textAllCaps="false"
+                    android:textColor="@color/theme_red50_sidebar_extend_item2"
+                    android:textStyle="bold"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
 
-                <EditText
-                    android:id="@+id/et_username"
-                    style="@style/Widget.AppCompat.EditText"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_line_color_copy"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout17_copy"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.7"
-
-
-                    android:autoSizeMaxTextSize="100sp"
-                    android:autoSizeMinTextSize="12sp"
-                    android:autoSizeStepGranularity="2sp"
-                    android:autoSizeTextType="uniform"
-                    android:autoText="false"
-
+                    android:layout_height="0dp"
                     android:background="@color/white"
-                    android:hint="username"
-                    android:includeFontPadding="false"
-                    android:maxLines="1"
-                    android:paddingLeft="10dp"
-                    android:textAppearance="@style/DefaultText"
-                    android:textColor="@color/green"
-                    android:textColorHint="@color/grey" />
-            </LinearLayout>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
 
-            <LinearLayout
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout16_copy"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/theme_pink50_sidebar_extend_item1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cont_date_color_copy"
+                    app:layout_constraintHorizontal_weight="5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_date_color_copy"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/theme_orange50_sidebar_extend_item0"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/cont_download_color_copy"
+                    app:layout_constraintHorizontal_weight="1.5"
+                    app:layout_constraintStart_toEndOf="@+id/constraintLayout16_copy"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_download_color_copy"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/theme_orange50_sidebar_extend_item2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cont_view_color_copy"
+                    app:layout_constraintHorizontal_weight="1.5"
+                    app:layout_constraintStart_toEndOf="@+id/cont_date_color_copy"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_view_color_copy"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/theme_sidebar_extend_item3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="2"
+                    app:layout_constraintStart_toEndOf="@+id/cont_download_color_copy"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_fields"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="0.12"
-                android:orientation="horizontal"
-                android:weightSum="1">
+                android:layout_marginBottom="10dp"
+                android:layout_weight="0.2">
 
-                <TextView
-                    android:id="@+id/tv_password"
+                <LinearLayout
+                    android:id="@+id/linearLayout15"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.3"
-                    android:autoSizeMaxTextSize="100sp"
-                    android:autoSizeMinTextSize="12sp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="0.12"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    app:layout_constraintBottom_toTopOf="@+id/linearLayout16"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_username"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="0dp"
+                        android:layout_weight="0.3"
+                        android:gravity="center_vertical|start"
+                        android:padding="@dimen/text_box_padding"
+                        android:text="@string/username"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+                    <EditText
+                        android:id="@+id/et_username"
+                        style="@style/Widget.AppCompat.EditText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
 
 
-                    android:autoSizeStepGranularity="2sp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|start"
+                        android:hint="@string/username_hint"
+                        android:includeFontPadding="false"
+                        android:inputType=""
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/green"
+                        android:textColorHint="@color/grey" />
+                </LinearLayout>
 
-
-                    android:autoSizeTextType="uniform"
-                    android:autoText="false"
-                    android:gravity="center"
-                    android:padding="@dimen/text_box_padding"
-                    android:text="@string/password"
-                    android:textAppearance="@style/TextAppearance.AppCompat"
-
-                    app:autoSizePresetSizes="@array/autosize_text_sizes" />
-
-                <EditText
-                    android:id="@+id/et_password"
+                <LinearLayout
+                    android:id="@+id/linearLayout16"
                     android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="0.12"
+                    android:orientation="horizontal"
+                    android:weightSum="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout15">
+
+                    <TextView
+                        android:id="@+id/tv_password"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="0dp"
+                        android:layout_weight="0.3"
+                        android:gravity="center_vertical|start"
+
+                        android:padding="@dimen/text_box_padding"
+                        android:text="@string/password"
+                        android:textAppearance="@style/TextAppearance.AppCompat"
+                        android:textColor="@color/colorPrimaryDark"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+                    <EditText
+                        android:id="@+id/et_password"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.7"
+
+                        android:background="@color/white"
+
+                        android:gravity="center_vertical|start"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/green"
+                        android:textColorHint="@color/grey" />
+                </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout17"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.7"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@color/lightGrey"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    android:autoSizeTextType="uniform"
-                    android:autoSizeMaxTextSize="100sp"
-                    android:autoSizeMinTextSize="12sp"
-                    android:autoSizeStepGranularity="2sp"
+                </android.support.constraint.ConstraintLayout>
 
-                    android:autoText="false"
-                    android:background="@color/white"
-                    android:hint="password"
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout16"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/theme_purple50_sidebar_extend_item0"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cont_date_color"
+                    app:layout_constraintHorizontal_weight="5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
+                </android.support.constraint.ConstraintLayout>
 
-                    android:inputType="textPassword"
-                    android:paddingLeft="10dp"
-                    android:textAppearance="@style/DefaultText"
-                    android:textColor="@color/green"
-                    android:textColorHint="@color/grey" />
-            </LinearLayout>
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_date_color"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/theme_purple50_sidebar_extend_item2"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cont_download_color"
+                    app:layout_constraintHorizontal_weight="1.5"
+                    app:layout_constraintStart_toEndOf="@id/constraintLayout16"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_download_color"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/theme_purple50_sidebar_extend_item3"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/cont_view_color"
+                    app:layout_constraintHorizontal_weight="1.5"
+                    app:layout_constraintStart_toEndOf="@+id/cont_date_color"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_view_color"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@color/theme_purple50_sidebar_extend_noitem"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="2"
+                    app:layout_constraintStart_toEndOf="@+id/cont_download_color"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginTop="10dp"
-                android:layout_weight="0.18"
-                android:orientation="horizontal"
-                android:weightSum="1">
-
-                <Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.3" />
+                android:layout_marginBottom="0dp"
+                android:layout_weight="0.2">
 
                 <LinearLayout
                     android:id="@+id/linearLayout3"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:baselineAligned="false"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:weightSum="1">
+                    app:layout_constraintBottom_toTopOf="@+id/space10"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="6">
 
-                    <Button
-                        android:id="@+id/btn_login"
-                        style="@style/DefaultButton"
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="0dp"
-
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
                         android:layout_marginEnd="5dp"
-
-
                         android:layout_weight="0.5"
-                        android:autoSizeMaxTextSize="100sp"
-                        android:autoSizeMinTextSize="12sp"
+                        android:background="@color/theme_red50_sidebar_extend_item1">
 
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:autoText="false"
-                        android:text="@string/login"
-                        android:textAlignment="center"
+                        <Button
+                            android:id="@+id/btn_login"
+                            style="@style/DefaultButton"
+                            android:layout_width="0dp"
 
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@+id/btn_signup"
-                        app:layout_constraintStart_toStartOf="parent" />
+                            android:layout_height="0dp"
+                            android:layout_marginTop="5dp"
 
-                    <Button
-                        android:id="@+id/btn_signup"
-                        style="@style/DefaultButton"
+
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.5"
+                            android:background="@android:color/transparent"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_login"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:gravity="center"
+                            android:text="@string/login"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes"
+                            app:layout_constraintBottom_toBottomOf="@+id/btn_login"
+                            app:layout_constraintEnd_toEndOf="@+id/btn_login"
+                            app:layout_constraintStart_toStartOf="@+id/btn_login"
+                            app:layout_constraintTop_toTopOf="@+id/btn_login" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-
-
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_weight="0.5"
+                        android:background="@color/theme_orange50_sidebar_extend_item1">
 
-                        android:autoSizeMaxTextSize="100sp"
-                        android:autoSizeMinTextSize="12sp"
+                        <Button
+                            android:id="@+id/btn_signup"
+                            style="@style/DefaultButton"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
 
-                        android:autoSizeStepGranularity="2sp"
-                        android:autoSizeTextType="uniform"
-                        android:autoText="false"
-                        android:text="@string/signup"
 
-                        android:textAlignment="center"
-                        android:textStyle="bold" />
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="0.5"
+                            android:background="@android:color/transparent"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_signup"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:gravity="center"
+                            android:text="@string/signup"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes"
+                            app:layout_constraintBottom_toBottomOf="@+id/btn_signup"
+                            app:layout_constraintEnd_toEndOf="@+id/btn_signup"
+                            app:layout_constraintStart_toStartOf="@+id/btn_signup"
+                            app:layout_constraintTop_toTopOf="@+id/btn_signup" />
+
+                    </android.support.constraint.ConstraintLayout>
+
                 </LinearLayout>
-            </LinearLayout>
+
+                <Space
+                    android:id="@+id/space10"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+                    app:layout_constraintVertical_weight="4" />
+
+            </android.support.constraint.ConstraintLayout>
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.25" />
 
-
         </LinearLayout>
 
-        <Space
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout19"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.25" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="3"
+            app:layout_constraintStart_toEndOf="@+id/linearLayout17"
+            app:layout_constraintTop_toTopOf="parent">
 
-    </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
     <!--
     <LinearLayout
         android:layout_width="match_parent"
