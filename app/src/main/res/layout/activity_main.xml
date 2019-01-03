@@ -238,14 +238,15 @@
 
                     <EditText
                         android:id="@+id/et_password"
+                        style="@style/Widget.AppCompat.EditText"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
+
                         android:layout_weight="0.7"
 
                         android:background="@color/theme_yellow50_sidebar_extend_noitem"
-
                         android:gravity="center_vertical|start"
-                        android:hint="@string/password"
+                        android:hint="@string/password_hint"
                         android:inputType="textPassword"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"

@@ -49,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
         Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
         // set font to text views
 //        tvTitle.setTypeface(chawpFont);
-//        tvUsername.setTypeface(chalkFont);
-//        tvPassword.setTypeface(chalkFont);
-//        etUsername.setTypeface(chalkFont);
-//        etPassword.setTypeface(chalkFont);
+//        tvUsername.setTypeface(chawpFont);
+//        tvPassword.setTypeface(chawpFont);
+        etUsername.setTypeface(chalkFont);
+        etPassword.setTypeface(chalkFont);
 //        btnLogin.setTypeface(chawpFont);
 //        btnSignUp.setTypeface(chawpFont);
 
