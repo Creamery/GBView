@@ -195,7 +195,7 @@
                         android:layout_weight="0.7"
 
 
-                        android:background="@color/white"
+                        android:background="@color/theme_yellow50_sidebar_extend_noitem"
                         android:gravity="center_vertical|start"
                         android:hint="@string/username_hint"
                         android:includeFontPadding="false"
@@ -242,7 +242,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="0.7"
 
-                        android:background="@color/white"
+                        android:background="@color/theme_yellow50_sidebar_extend_noitem"
 
                         android:gravity="center_vertical|start"
                         android:hint="@string/password"
