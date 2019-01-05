@@ -1228,7 +1228,9 @@ public class DatabaseAdapter {
         return getPatientRecords(sql);
     }
 
+    // TODO debug error on municipality id
     public ArrayList<PatientRecord> getRecordsFromProvinceOnYear(int schoolId, String recordYear)  {
+
         String sql = "SELECT * "
                 +" FROM "+Patient.TABLE_NAME+" AS p, "+Record.TABLE_NAME+" AS r "
                 +" WHERE p."+Patient.C_PATIENT_ID+" = r."+Record.C_PATIENT_ID
@@ -1241,10 +1243,11 @@ public class DatabaseAdapter {
                         +" FROM tbl_school AS s, tbl_municipality AS m"
                         +" WHERE s.municipality = m.municipality_id\n"
                         +" AND school_id = "+schoolId+")))";
-
+        Log.e("SQLPROVINCE", sql);
         return getPatientRecords(sql);
     }
 
+    // TODO debug error on municipality id
     public ArrayList<PatientRecord> getRecordsFromRegionOnYear(int schoolId, String recordYear)  {
         String sql = "SELECT *\n" +
                 "FROM tbl_patient AS p, tbl_record AS r \n" +

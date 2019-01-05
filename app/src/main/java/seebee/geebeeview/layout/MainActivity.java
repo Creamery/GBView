@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import seebee.geebeeview.R;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.model.account.User;
+import seebee.geebeeview.sidebar.General;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,14 +46,14 @@ public class MainActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btn_login);
         btnSignUp = (Button) findViewById(R.id.btn_signup);
         // get fonts from assets
-        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
-        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
+//        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
+//        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
         // set font to text views
 //        tvTitle.setTypeface(chawpFont);
 //        tvUsername.setTypeface(chawpFont);
 //        tvPassword.setTypeface(chawpFont);
-        etUsername.setTypeface(chalkFont);
-        etPassword.setTypeface(chalkFont);
+        etUsername.setTypeface(General.getDefaultFont(this));
+        etPassword.setTypeface(General.getDefaultFont(this));
 //        btnLogin.setTypeface(chawpFont);
 //        btnSignUp.setTypeface(chawpFont);
 
