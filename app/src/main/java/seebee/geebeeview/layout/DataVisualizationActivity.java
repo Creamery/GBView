@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -69,6 +71,8 @@ import seebee.geebeeview.model.monitoring.Record;
 import seebee.geebeeview.model.monitoring.ValueCounter;
 import seebee.geebeeview.sidebar.DataVisualizationSidebar;
 import seebee.geebeeview.sidebar.General;
+import seebee.geebeeview.spinner.CustomSpinnerAdapter;
+import seebee.geebeeview.spinner.CustomSpinnerItem;
 
 
 public class DataVisualizationActivity extends AppCompatActivity
@@ -104,7 +108,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     ArrayList<Dataset> datasets;
     /* attributes for addFilterDialog */
     ArrayList<String> gradeLevels;
-    private TextView tvTitle, tvDataset, tvFilter, tvChart, tvData, tvRightChart;
+    private TextView tvDataset, tvFilter, tvChart, tvData, tvRightChart;
     private Spinner spRecordColumn, spChartType, spRightChart;
     private String recordColumn = "BMI", rightChartContent = "National Profile";
     private String chartType = "Pie Chart";
@@ -170,7 +174,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         schoolID = getIntent().getIntExtra(School.C_SCHOOL_ID, 0);
         date = getIntent().getStringExtra(Record.C_DATE_CREATED);
 
-        tvTitle = (TextView) findViewById(R.id.tv_data_visualization_title);
+//        tvTitle = (TextView) findViewById(R.id.tv_data_visualization_title);
         tvDataset = (TextView) findViewById(R.id.tv_dv_dataset);
         tvFilter = (TextView) findViewById(R.id.tv_dv_filter);
         tvChart = (TextView) findViewById(R.id.tv_dv_chart);
@@ -189,20 +193,20 @@ public class DataVisualizationActivity extends AppCompatActivity
         spChartType = (Spinner) findViewById(R.id.sp_chart_type);
         spRightChart = (Spinner) findViewById(R.id.sp_right_chart_content);
 
+        // TODO Set default font
         /* get fonts from assets */
-        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
-        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
+//        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
+//        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
         /* set font of text */
-        tvTitle.setTypeface(chawpFont);
-        tvDataset.setTypeface(chalkFont);
-        tvFilter.setTypeface(chalkFont);
-        tvChart.setTypeface(chalkFont);
-        tvData.setTypeface(chalkFont);
-        tvRightChart.setTypeface(chalkFont);
-        btnAddDataset.setTypeface(chawpFont);
-        btnAddFilter.setTypeface(chawpFont);
-        btnViewHPIList.setTypeface(chawpFont);
-        btnViewPatientList.setTypeface(chawpFont);
+//        tvDataset.setTypeface(chalkFont);
+//        tvFilter.setTypeface(chalkFont);
+//        tvChart.setTypeface(chalkFont);
+//        tvData.setTypeface(chalkFont);
+//        tvRightChart.setTypeface(chalkFont);
+//        btnAddDataset.setTypeface(chawpFont);
+//        btnAddFilter.setTypeface(chawpFont);
+//        btnViewHPIList.setTypeface(chawpFont);
+//        btnViewPatientList.setTypeface(chawpFont);
 
         /* set listener for button view hpi list */
         btnViewHPIList.setOnClickListener(new View.OnClickListener() {
@@ -312,14 +316,39 @@ public class DataVisualizationActivity extends AppCompatActivity
         createCharts();
 
 
-        ArrayAdapter<String> spChartAdapter = new ArrayAdapter<>(this,
-                R.layout.custom_spinner, getResources().getStringArray(R.array.chart_type_array));
-        spChartType.setAdapter(spChartAdapter);
+//        ArrayAdapter<String> spChartAdapter = new ArrayAdapter<>(this,
+//                R.layout.custom_spinner, getResources().getStringArray(R.array.chart_type_array));
+//        ArrayAdapter<String> spChartAdapter = new ArrayAdapter<>(this,
+//                R.layout.custom_spinner_image, R.id.tv_spinner, getResources().getStringArray(R.array.chart_type_array));
+
+        // TODO spinner
+//        String[] chartNames = getResources().getStringArray(R.array.chart_type_array);
+//        int chartIcons[] = {R.drawable.img_templogo, R.drawable.img_templogo, R.drawable.img_templogo, R.drawable.img_templogo};
+
+//        CustomSpinnerAdapter customAdapter = new CustomSpinnerAdapter(getApplicationContext(),chartIcons,chartNames);
+
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                R.layout.custom_spinner_image, R.id.tv_spinner, getResources().getStringArray(R.array.chart_type_array));
+
+//        spChartType.setAdapter(new CustomSpinnerAdapter(this, R.layout.custom_spinner_image, getSpinnerList()));
+
+        String[] charts = getResources().getStringArray(R.array.chart_type_array);
+        ArrayList<CustomSpinnerItem> list=new ArrayList<>();
+        list.add(new CustomSpinnerItem(charts[0],R.drawable.img_templogo));
+        list.add(new CustomSpinnerItem(charts[1],R.drawable.img_templogo));
+        list.add(new CustomSpinnerItem(charts[2],R.drawable.img_templogo));
+        list.add(new CustomSpinnerItem(charts[3],R.drawable.img_templogo));
+        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(this,
+                R.layout.custom_spinner_image, R.id.tv_spinner, list);
+
+
+        spChartType.setAdapter(adapter);
         spChartType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                chartType = parent.getItemAtPosition(position).toString();
-
+//                chartType = ((CustomSpinnerAdapter)parent.getAdapter()).getItem(position);
+                chartType = ((CustomSpinnerItem)(parent.getItemAtPosition(position))).getText();
+                Log.e("CHART", chartType);
                 graphLayoutLeft.removeAllViews();
                 graphLayoutRight.removeAllViews();
                 graphLayoutCenter.removeAllViews();
@@ -416,7 +445,30 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         setupSidebarFunctionality();
     }
+    // TODO EDIT
+    public ArrayList<Drawable> getChartIcons(String[] chartTypes) {
 
+//        ArrayList<CustomSpinnerItem> allList = new ArrayList<CustomSpinnerItem>();
+//        CustomSpinnerItem item = new CustomSpinnerItem();
+        ArrayList<Drawable> iconList = new ArrayList<Drawable>();
+
+        for(int i = 0; i < chartTypes.length; i++) {
+            iconList.add(ContextCompat.getDrawable(this, R.drawable.img_templogo));
+        }
+//        item.setData(getResources().getStringArray(R.array.chart_type_array)[0],R.drawable.img_templogo);
+//        allList.add(item);
+//        item = new CustomSpinnerItem();
+//        item.setData(getResources().getStringArray(R.array.chart_type_array)[1], R.drawable.img_templogo);
+//        allList.add(item);
+//        item = new CustomSpinnerItem();
+//        item.setData(getResources().getStringArray(R.array.chart_type_array)[2], R.drawable.img_templogo);
+//        allList.add(item);
+//        item = new CustomSpinnerItem();
+//        item.setData(getResources().getStringArray(R.array.chart_type_array)[3], R.drawable.img_templogo);
+//        allList.add(item);
+
+        return iconList;
+    }
     public void setupSidebarFunctionality () {
         // TODO About, Immun, HPI functionality
         sidebarManager = new DataVisualizationSidebar(

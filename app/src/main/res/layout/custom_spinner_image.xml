@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Single Item Design -->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/iv_spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/cd_blank"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_spinner"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+
+    <TextView
+        android:id="@+id/tv_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:autoSizePresetSizes="@array/autosize_text_sizes"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="9"
+        app:layout_constraintStart_toEndOf="@+id/iv_spinner"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
+</android.support.constraint.ConstraintLayout>
