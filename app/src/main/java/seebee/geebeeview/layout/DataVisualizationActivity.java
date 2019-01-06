@@ -31,7 +31,10 @@ import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.charts.ScatterChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -44,6 +47,7 @@ import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
@@ -658,32 +662,43 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private OnChartValueSelectedListener getOnChartValueSelectedListener() {
         return new OnChartValueSelectedListener() {
+//            @Override TODO Deprecated
+//            public void onValueSelected(Entry entry, int i, Highlight highlight) {
+//                // display msg when value selected
+//                if(entry == null)
+//                    return;
+//                if(chartType.contains("Scatter") && recordColumn.contains("BMI")) {
+//                    Toast.makeText(DataVisualizationActivity.this,
+//                            "BMI of a child " + possibleAge[entry.getXIndex()] + " years old = " + entry.getVal(),
+//                            Toast.LENGTH_SHORT).show();
+//                    Log.v(TAG, "BMI of a child " + possibleAge[entry.getXIndex()] + " years old = " + entry.getVal());
+//                } else {
+//                    // TODO EDIT TOAST
+//                    Toast.makeText(DataVisualizationActivity.this,
+//                            xData[entry.getXIndex()] + " = " + entry.getVal() + " children",
+//                            Toast.LENGTH_SHORT).show();
+//                    Log.v(TAG, xData[entry.getXIndex()] + " = " + entry.getVal() + " children");
+//                }
+//            }
+
             @Override
-            public void onValueSelected(Entry entry, int i, Highlight highlight) {
+            public void onValueSelected(Entry entry, Highlight highlight) {
                 // display msg when value selected
+                // TODO Retrieve age
                 if(entry == null)
                     return;
                 if(chartType.contains("Scatter") && recordColumn.contains("BMI")) {
                     Toast.makeText(DataVisualizationActivity.this,
-                            "BMI of a child " + possibleAge[entry.getXIndex()] + " years old = " + entry.getVal(),
+                            "BMI of a child "/* + possibleAge[entry.getXIndex()]*/ + " years old = " + entry.getData(),
                             Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, "BMI of a child " + possibleAge[entry.getXIndex()] + " years old = " + entry.getVal());
+                    Log.v(TAG, "BMI of a child "/* + possibleAge[entry.getXIndex()]*/ + " years old = " + entry.getData());
                 } else {
                     // TODO EDIT TOAST
                     Toast.makeText(DataVisualizationActivity.this,
-                            xData[entry.getXIndex()] + " = " + entry.getVal() + " children",
+                            /*xData[entry.getXIndex()] + */" = " + entry.getData() + " children",
                             Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, xData[entry.getXIndex()] + " = " + entry.getVal() + " children");
+                    Log.v(TAG, /*xData[entry.getXIndex()] + */" = " + entry.getData() + " children");
                 }
-/*                if(!recordColumn.contentEquals("BMI")) {
-                    Intent intent = new Intent(getBaseContext(), PatientListActivity.class);
-                    intent.putExtra(School.C_SCHOOL_ID, schoolID);
-                    intent.putExtra(School.C_SCHOOLNAME, schoolName);
-                    intent.putExtra(Record.C_DATE_CREATED, date);
-                    intent.putExtra("column", ValueCounter.convertRecordColumn(recordColumn));
-                    intent.putExtra("value", xData[entry.getXIndex()]);
-                    startActivity(intent);
-                } */
             }
 
             @Override
@@ -764,7 +779,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         Legend l = pieChart.getLegend();
         l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
         l.setWordWrapEnabled(true);
-        l.setTextSize(R.dimen.context_text_size);
+        l.setTextSize(R.dimen.context_text_size); // TODO Dynamic Font
         l.setTextColor(CHART_LEGEND_TEXT_COLOR);
         l.setXEntrySpace(7);
         l.setYEntrySpace(5);
@@ -956,6 +971,16 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
     }
 
+    private ArrayList<PieEntry> createPieEntries(int[] yData) {
+        ArrayList<PieEntry> yVals1 = new ArrayList<>();
+
+        for(int i = 0; i < yData.length; i++) {
+            yVals1.add(new PieEntry(yData[i], i));
+        }
+
+        return yVals1;
+    }
+
     private ArrayList<Entry> createEntries(int[] yData) {
         ArrayList<Entry> yVals1 = new ArrayList<>();
 
@@ -992,7 +1017,11 @@ public class DataVisualizationActivity extends AppCompatActivity
 
             bubbleDataSetList.add(bubbleDataSet2);
             bubbleDataSetList.add(bubbleDataSet);
-            bubbleData = new BubbleData(xData, bubbleDataSetList);
+
+            // TODO deprecated
+//            bubbleData = new BubbleData(xData, bubbleDataSetList);
+            bubbleData = new BubbleData(bubbleDataSetList);
+
             bubbleChart.getLegend().resetCustom();
         } else {
             ValueCounter valueCounter = new ValueCounter(recordsLeft);
@@ -1017,14 +1046,28 @@ public class DataVisualizationActivity extends AppCompatActivity
             }
             Log.v(TAG, "Bubble List Size: "+bubbleDataSetList.size());
 
-            bubbleData = new BubbleData(possibleAge, bubbleDataSetList);
+            // TODO deprecated
+//            bubbleData = new BubbleData(possibleAge, bubbleDataSetList);
+            bubbleData = new BubbleData(bubbleDataSetList);
+
+
             // customize legend
             Legend legend = bubbleChart.getLegend();
             int color[] = new int[xData.length];
             for(int k = 0; k < xData.length; k++) {
                 color[k] = colors.get(k);
             }
-            legend.setCustom(color, xData);
+
+
+//            legend.setCustom(color, xData); TODO deprecated
+            LegendEntry entry;
+            ArrayList<LegendEntry> entries = new ArrayList<LegendEntry>();
+            for(int i = 0; i < color.length; i++) {
+                entry = new LegendEntry();
+                entry.formColor = color[i];
+                entry.label = xData[i];
+                entries.add(entry);
+            }
         }
 
         bubbleChart.setData(bubbleData);
@@ -1052,7 +1095,11 @@ public class DataVisualizationActivity extends AppCompatActivity
 
             scatterDataSetList.add(scatterDataSet);
             scatterDataSetList.add(scatterDataSet2);
-            scatterData = new ScatterData(xData, scatterDataSetList);
+
+//            scatterData = new ScatterData(xData, scatterDataSetList); // TODO deprecated
+            scatterData = new ScatterData(scatterDataSetList);
+
+
             scatterChart.getLegend().resetCustom();
         } else {
             PatientRecord patientRecord; int age, category;
@@ -1073,13 +1120,25 @@ public class DataVisualizationActivity extends AppCompatActivity
                 }
             }
             Log.v(TAG, "Scatter List Size: "+scatterDataSetList.size());
-            scatterData = new ScatterData(possibleAge, scatterDataSetList);
+
+            scatterData = new ScatterData(scatterDataSetList);
+//            scatterData = new ScatterData(possibleAge, scatterDataSetList); TODO deprecated
+
             Legend legend = scatterChart.getLegend();
             int color[] = new int[xData.length];
             for(int k = 0; k < xData.length; k++) {
                 color[k] = colors.get(k);
             }
-            legend.setCustom(color, xData);
+//            legend.setCustom(color, xData); TODO deprecated
+            LegendEntry entry;
+            ArrayList<LegendEntry> entries = new ArrayList<LegendEntry>();
+            for(int i = 0; i < color.length; i++) {
+                entry = new LegendEntry();
+                entry.formColor = color[i];
+                entry.label = xData[i];
+                entries.add(entry);
+            }
+
         }
 
         scatterChart.setData(scatterData);
@@ -1091,47 +1150,118 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private void prepareBarChartData() {
 
-        // barChart.fitScreen(); // TODO added
-
-        // TODO stacked bar chart
-//        stackedBarChart = new BarEntry(new float[] { 10, 20, 30 }, 0);//new BarEntry(0f, new float[] { 10, 20, 30 });
-
+        int index = 0;
         ArrayList<BarEntry> yVals1 = new ArrayList<>();
         for(int i = 0; i < yDataLeft.length; i++) {
-            yVals1.add(new BarEntry(yDataLeft[i], i));
-
+            yVals1.add(new BarEntry(index, yDataLeft[i]));
+            index += 2;
         }
 
+        index = 1;
         ArrayList<BarEntry> yVals2 = new ArrayList<>();
         for(int i = 0; i < yDataRight.length; i++) {
-            yVals2.add(new BarEntry(yDataRight[i], i));
+            yVals2.add(new BarEntry(index, yDataRight[i]));
+            index += 2;
         }
 
         /* create bar chart dataset */
-        BarDataSet barDataSet = new BarDataSet(yVals1, "Left Chart");
+        BarDataSet barDataSet = new BarDataSet(yVals1, "School");
         BarDataSet barDataSet2 = new BarDataSet(yVals2, rightChartContent);
         ArrayList<Integer> colors = getColorPalette();
         barDataSet.setColor(colors.get(0));
         barDataSet2.setColor(colors.get(1));
+
         /*BarDataSet barDataSet1 = new BarDataSet(yVals1, "");
         barDataSet.setColor(colors.get(0)); */
         List<IBarDataSet> barDataSetList = new ArrayList<>();
         barDataSetList.add(barDataSet);
         barDataSetList.add(barDataSet2);
-        BarData barData = new BarData(xData, barDataSetList);
+
+//        BarData barData = new BarData(xData, barDataSetList); TODO deprecated
+        BarData barData = new BarData(barDataSetList);
+
+
         //BarData barData = new BarData(xData, barDataSet);
         barChart.setData(barData);
         barChart.getAxisLeft().setEnabled(false);
         customizeChart(barChart, barChart.getAxisRight());
 
     }
+
+
     private void prepareStackedBarChartData() {
+        this.prepareStackedBarChartDataPercentages();
+//        this.prepareStackedBarChartDataRaw();
+    }
 
-        // barChart.fitScreen(); // TODO added
 
-        // TODO stacked bar chart
-//        stackedBarChart = new BarEntry(new float[] { 10, 20, 30 }, 0);//new BarEntry(0f, new float[] { 10, 20, 30 });
 
+    // Alters the values to be in percent (0 to 100)
+    private void prepareStackedBarChartDataPercentages() {
+        ArrayList<BarEntry> yVals1 = new ArrayList<>();
+
+        // Variables to hold the converted yData (from int to float) and sum
+        float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
+        float fSumSchool, fSumNational;
+
+
+
+        // Convert yData to float
+        fDataSchool = General.convertToFloat(yDataLeft);
+        fDataNational = General.convertToFloat(yDataRight);
+
+        // Get yData sum
+        fSumSchool = General.getArraySum(fDataSchool);
+        fSumNational = General.getArraySum(fDataNational);
+
+        // Convert to percentages
+        fDataSchool = General.computePercentEquivalent(fDataSchool, fSumSchool);
+        fDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
+
+
+        // TODO Remove, PRINTING for validation only
+        for(int i = 0; i < yDataLeft.length; i++) {
+            Log.e("YVAL_School", fDataSchool[i]+"");
+            Log.e("YVAL_National", fDataNational[i]+"");
+        }
+
+        // Stacked bar entries. xIndex 0 is the bottom
+        List<BarEntry> entries = new ArrayList<>();
+//        entries.add(new BarEntry(fDataNational, 0)); // National
+//        entries.add(new BarEntry(fDataSchool, 1)); // School
+        entries.add(new BarEntry(0f, fDataNational)); // National
+        entries.add(new BarEntry(1f, fDataSchool)); // School
+
+
+
+        // BarDataSet second parameter is the label
+        BarDataSet set = new BarDataSet(entries, recordColumn);
+        List<IBarDataSet> barDataSetList = new ArrayList<>();
+//        set.setValueFormatter(); TODO VALUE FORMATTER
+        // Set stack colors here
+        set.setColors(new int[] {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN, Color.MAGENTA}); // TODO Dynamic colors
+        set.setStackLabels(xData);
+        barDataSetList.add(set);
+
+//        BarData data = new BarData(new String[]{"National", "School"}, barDataSetList); // TODO X Values
+        BarData data = new BarData(barDataSetList); // TODO X Values
+//        data.setDrawValues(false); // Removes values TODO
+
+//        data.getDataSetLabels()[0] = "National";
+//        data.getDataSetLabels()[1] = "School";
+
+        stackedBarChart.setData(data);
+//        XAxis leftAxis = stackedBarChart.getXAxis();
+//        LimitLine ll = new LimitLine(140f, "Critical Blood Pressure");
+//        ll.setLineColor(Color.RED);
+//        ll.setLineWidth(4f);
+//        ll.setTextColor(Color.BLACK);
+//        ll.setTextSize(12f);
+//        leftAxis.addLimitLine(ll);
+//        stackedBarChart.getXAxis().setEnabled(true);
+
+    }
+    private void prepareStackedBarChartDataRaw() {
         ArrayList<BarEntry> yVals1 = new ArrayList<>();
 
         float[] fDataLeft = new float[yDataLeft.length];
@@ -1145,33 +1275,53 @@ public class DataVisualizationActivity extends AppCompatActivity
             Log.e("YVAL_r", fDataRight[i]+"");
         }
 
+
         for(int i = 0; i < yDataLeft.length; i++) {
-            yVals1.add(new BarEntry(fDataLeft, i));
+            yVals1.add(new BarEntry(i, fDataLeft));
         }
         ArrayList<BarEntry> yVals2 = new ArrayList<>();
         for(int i = 0; i < yDataRight.length; i++) {
-            yVals2.add(new BarEntry(fDataRight, i));
+            yVals2.add(new BarEntry(i, fDataRight));
         }
 
         List<BarEntry> entries = new ArrayList<BarEntry>();
-        entries.add(new BarEntry(fDataLeft, 0));
-        entries.add(new BarEntry(fDataRight, 1));
+        entries.add(new BarEntry(0, fDataLeft));
+        entries.add(new BarEntry(1, fDataRight));
 
-        BarDataSet set = new BarDataSet(entries, "BarDataSet");
+        // TODO deprecated
+//        for(int i = 0; i < yDataLeft.length; i++) {
+//            yVals1.add(new BarEntry(fDataLeft, i));
+//        }
+//        ArrayList<BarEntry> yVals2 = new ArrayList<>();
+//        for(int i = 0; i < yDataRight.length; i++) {
+//            yVals2.add(new BarEntry(fDataRight, i));
+//        }
+//
+//        List<BarEntry> entries = new ArrayList<BarEntry>();
+//        entries.add(new BarEntry(fDataLeft, 0));
+//        entries.add(new BarEntry(fDataRight, 1));
+
+        BarDataSet set = new BarDataSet(entries, recordColumn);
         List<IBarDataSet> barDataSetList = new ArrayList<>();
         set.setColors(new int[] {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN, Color.MAGENTA});
         set.setStackLabels(xData);
         barDataSetList.add(set);
 
-        BarData data = new BarData(new String[]{"local", "national"}, barDataSetList);
+        // TODO deprecated
+//        BarData data = new BarData(new String[]{"local", "national"}, barDataSetList);
+        BarData data = new BarData(barDataSetList);
+        data.getDataSetLabels()[0] = "School";
+        data.getDataSetLabels()[1] = "National";
 
         stackedBarChart.setData(data);
 
     }
     private void preparePieChartData(PieChart pieChart, int[] yData) {
-        ArrayList<Entry> yVals1 = createEntries(yData);
+//        ArrayList<Entry> yVals1 = createEntries(yData); TODO deprecated
+        List<PieEntry> yVals1 = createPieEntries(yData);
 
         // create pie data set
+//        PieDataSet dataSet = new PieDataSet(yVals1, ""); TODO deprecated
         PieDataSet dataSet = new PieDataSet(yVals1, "");
         dataSet.setSliceSpace(3);
         dataSet.setSelectionShift(5);
@@ -1179,7 +1329,9 @@ public class DataVisualizationActivity extends AppCompatActivity
         dataSet.setColors(getColorPalette());
 
         // instantiate pie data object now
-        PieData data = new PieData(xData, dataSet);
+//        PieData data = new PieData(xData, dataSet); // TODO deprecated
+        PieData data = new PieData(dataSet);
+
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(VALUE_TEXT_SIZE); // TODO Pie chart label size
 
@@ -1187,14 +1339,17 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         pieChart.setData(data);
 
-        pieChart.setDescription(recordColumn);
-        pieChart.setDescriptionTextSize(DESCRIPTION_TEXT_SIZE);
-        pieChart.setDescriptionColor(CHART_DESC_TEXT_COLOR);
-//        Description description = new Description();
-//        description.setText(recordColumn);
-//        description.setTextSize(20f);
-//        description.setTextColor(Color.WHITE);
-//        pieChart.setDescription(description);
+//        pieChart.setDescription(recordColumn); TODO deprecated
+//        pieChart.setDescriptionTextSize(DESCRIPTION_TEXT_SIZE);
+//        pieChart.setDescriptionColor(CHART_DESC_TEXT_COLOR);
+
+        Description description = new Description();
+        description.setText(recordColumn);
+        description.setTextSize(DESCRIPTION_TEXT_SIZE);
+        description.setTextColor(CHART_DESC_TEXT_COLOR);
+        pieChart.setDescription(description);
+
+
         // undo all highlights
         pieChart.highlightValues(null);
 
@@ -1208,9 +1363,20 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        description.setTextSize(20f);
 //        description.setTextColor(Color.WHITE);
 //        chart.setDescription(description);
-        chart.setDescription(recordColumn);
-        chart.setDescriptionTextSize(DESCRIPTION_TEXT_SIZE);
-        chart.setDescriptionColor(CHART_DESC_TEXT_COLOR);
+
+
+
+        Description description = new Description();
+        description.setText(recordColumn);
+        description.setTextSize(DESCRIPTION_TEXT_SIZE);
+        description.setTextColor(CHART_DESC_TEXT_COLOR);
+        chart.setDescription(description);
+
+//        chart.setDescription(recordColumn); TODO deprecated
+//        chart.setDescriptionTextSize(DESCRIPTION_TEXT_SIZE);
+//        chart.setDescriptionColor(CHART_DESC_TEXT_COLOR);
+
+
         chart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
 
         ChartData chartData = chart.getData();

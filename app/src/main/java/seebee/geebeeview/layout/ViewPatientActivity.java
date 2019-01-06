@@ -28,13 +28,17 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.YAxisValueFormatter;
+//import com.github.mikephil.charting.formatter.YAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.File;
@@ -294,7 +298,11 @@ public class ViewPatientActivity extends AppCompatActivity {
                 if(lineChart != null) {
                     lineChart.clear();
                     prepareLineChartData();
-                    lineChart.setDescription(recordColumn);
+//                    lineChart.setDescription(recordColumn);
+                    // TODO Edited
+                    Description desc = new Description();
+                    desc.setText(recordColumn);
+                    lineChart.setDescription(desc);
 //                } else {
 //                    radarChart.clear();
 //                    prepareRadarChartData();
@@ -642,7 +650,9 @@ public class ViewPatientActivity extends AppCompatActivity {
             lineData.addEntry(new Entry(yVal, i), 1);
             /* set xValue to age of patient when record is created */
             age = patient.getAge(record.getDateCreated());
-            lineData.addXValue(Integer.toString(age));
+//            lineData.addXValue(Integer.toString(age)); // TODO deprecated, FIND replacement
+
+
             /* addIdealValues if column is either height, weight, or BMI */
             if(addIdealValues && age >= 5 && age <= 19) {
                 getIdealValues(age);
@@ -727,12 +737,19 @@ public class ViewPatientActivity extends AppCompatActivity {
             lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterMotor());
         } else {
             lineData.setValueFormatter(lineChart.getDefaultValueFormatter());
-            lineChart.getAxisRight().setValueFormatter(new YAxisValueFormatter() {
+            lineChart.getAxisRight().setValueFormatter(new IAxisValueFormatter() {
                 @Override
-                public String getFormattedValue(float v, YAxis yAxis) {
+                public String getFormattedValue(float v, AxisBase axisBase) {
                     return Float.toString(v);
                 }
             });
+            // TODO deprecated
+//            lineChart.getAxisRight().setValueFormatter(new YAxisValueFormatter() {
+//                @Override
+//                public String getFormattedValue(float v, YAxis yAxis) {
+//                    return Float.toString(v);
+//                }
+//            });
         }
     }
 
@@ -822,9 +839,11 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     private void customizeChart(Chart chart) {
 //         customize line chart
-        chart.setDescription("");
-        chart.setNoDataTextDescription("No data for the moment");
-        chart.setDescriptionTextSize(20f);
+//        chart.setDescription(""); TODO deprecated
+        chart.setNoDataText("No data for the moment");
+//        chart.setNoDataTextDescription("No data for the moment"); TODO deprecated
+//        chart.setDescriptionTextSize(20f); TODO deprecated
+
 //        Description description = new Description();
 //        description.setText("");
 //        description.setTextSize(20f);
@@ -844,7 +863,24 @@ public class ViewPatientActivity extends AppCompatActivity {
         // customize content of legend
         int color[] = {Color.BLUE, ColorTemplate.getHoloBlue()};
         String label[] = {"Patient", "Average"};
-        l.setCustom(color, label);
+
+//        l.setCustom(color, label); TODO deprecated
+
+        // TODO added
+        ArrayList<LegendEntry> entries = new ArrayList<>();
+        LegendEntry entry1 = new LegendEntry(), entry2 = new LegendEntry();
+        entry1.label = label[0];
+        entry1.formColor = color[0];
+
+        entry2.label = label[1];
+        entry2.formColor = color[1];
+
+        entries.add(entry1);
+        entries.add(entry2);
+
+        l.setCustom(entries);
+
+
         // customize xAxis
         XAxis xl = chart.getXAxis();
         xl.setTextColor(Color.BLACK);
