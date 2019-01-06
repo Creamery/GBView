@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.BubbleChart;
 import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.Legend;
@@ -100,6 +101,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     String schoolName, date;
     PieChart pieChartLeft, pieChartRight;
     BarChart barChart;
+    HorizontalBarChart stackedBarChart;
     ScatterChart scatterChart;
     BubbleChart bubbleChart;
     ArrayList<PatientRecord> recordsLeft, recordsRight;
@@ -348,11 +350,11 @@ public class DataVisualizationActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //                chartType = ((CustomSpinnerAdapter)parent.getAdapter()).getItem(position);
                 chartType = ((CustomSpinnerItem)(parent.getItemAtPosition(position))).getText();
-                Log.e("CHART", chartType);
+//                Log.e("CHART", chartType);
                 graphLayoutLeft.removeAllViews();
                 graphLayoutRight.removeAllViews();
                 graphLayoutCenter.removeAllViews();
-                if(position == 0){
+                if(position == 0){ // Pie Chart
                     graphLayoutLeft.addView(pieChartLeft);
                     graphLayoutRight.addView(pieChartRight);
                     // adjust size of layout
@@ -370,24 +372,42 @@ public class DataVisualizationActivity extends AppCompatActivity
 //                    paramsRight.height = graphLayoutRight.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
 //                    paramsRight.width = graphLayoutRight.getWidth(); // ViewGroup.LayoutParams.MATCH_PARENT;
 
-                } else if(position == 1) {
+                } else if(position == 1) { // Bar Chart
                     /* add bar chart to layout */
                     graphLayoutCenter.addView(barChart); // TODO edited
                     /* adjust the size of the bar chart */
                     paramsCenter = barChart.getLayoutParams();
                     barChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
                     barChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-//                    paramsCenter.height = graphLayoutCenter.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
-//                    paramsCenter.width = graphLayoutCenter.getWidth(); // ViewGroup.LayoutParams.MATCH_PARENT;
-                } else if (position == 2) {
-                    graphLayoutCenter.addView(scatterChart); // TODO edited
 
+
+//                    // Stacked bar TODO: trial only, remove
+//                    graphLayoutCenter.addView(stackedBarChart); // TODO edited
+//                    /* adjust the size of the bar chart */
+//                    paramsCenter = stackedBarChart.getLayoutParams();
+//                    stackedBarChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+//                    stackedBarChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
+
+
+
+                } else if (position == 2) { // TODO PUT BACK TO Scatter
+                    // TODO REMOVE START
+                    // Stacked bar TODO: trial only, remove
+                    graphLayoutCenter.addView(stackedBarChart); // TODO edited
                     /* adjust the size of the bar chart */
+                    paramsCenter = stackedBarChart.getLayoutParams();
+                    stackedBarChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+                    stackedBarChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
+                    // TODO REMOVE END
+
+
+                    /*
+                    graphLayoutCenter.addView(scatterChart); // TODO edited
+                    // adjust the size of the bar chart
                     paramsCenter = scatterChart.getLayoutParams();
                     scatterChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
                     scatterChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-//                    paramsCenter.height = graphLayoutCenter.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
-//                    paramsCenter.width = graphLayoutCenter.getWidth(); //ViewGroup.LayoutParams.MATCH_PARENT;
+                    */
                 } else {
                     graphLayoutCenter.addView(bubbleChart); // TODO edited
 
@@ -551,9 +571,11 @@ public class DataVisualizationActivity extends AppCompatActivity
             if(chartType.contentEquals("Pie Chart")) {
                 pieChartLeft.clear();
             } else if(chartType.contentEquals("Bar Chart")) {
-                barChart.clear();
-            } else if (chartType.contentEquals("Scatter Chart")) {
-                scatterChart.clear();
+                barChart.clear(); // TODO add stacked here
+
+            } else if (chartType.contentEquals("Scatter Chart")) { // TODO EDITED FOR TESTING ONLY, CHANGE BACK TO SCATTER
+//                scatterChart.clear(); // TODO ENABLE THIS
+                stackedBarChart.clear();
             } else {
                 bubbleChart.clear();
             }
@@ -567,6 +589,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         pieChartRight = createPieChart();
 
         createBarChart();
+        createStackedBarChart();
         createScatterChart();
         createBubbleChart();
 
@@ -646,6 +669,7 @@ public class DataVisualizationActivity extends AppCompatActivity
                             Toast.LENGTH_SHORT).show();
                     Log.v(TAG, "BMI of a child " + possibleAge[entry.getXIndex()] + " years old = " + entry.getVal());
                 } else {
+                    // TODO EDIT TOAST
                     Toast.makeText(DataVisualizationActivity.this,
                             xData[entry.getXIndex()] + " = " + entry.getVal() + " children",
                             Toast.LENGTH_SHORT).show();
@@ -702,13 +726,18 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         scatterChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
     }
+    private void createStackedBarChart() {
+        /* create bar chart */
+        stackedBarChart = new HorizontalBarChart(this);
+        // set a chart value selected listener
+        stackedBarChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
+    }
 
     private void createBarChart() {
         /* create bar chart */
         barChart = new BarChart(this);
         // set a chart value selected listener
         barChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
-        // barChart.fitScreen(); // TODO added
     }
 
     /* prepare values specifically for piechart only */
@@ -919,8 +948,9 @@ public class DataVisualizationActivity extends AppCompatActivity
             preparePieChartData(pieChartRight, yDataRight);
         } else if(chartType.contentEquals("Bar Chart")){
             prepareBarChartData();
-        } else if(chartType.contentEquals("Scatter Chart")) {
-            prepareScatterChartData();
+        } else if(chartType.contentEquals("Scatter Chart")) { // TODO TESTING ONLY, PUT BACK TO prepareScatterChartData
+//            prepareScatterChartData();
+            prepareStackedBarChartData(); // TODO Remove stacked  bar chart
         } else {
             prepareBubbleChartData();
         }
@@ -1060,9 +1090,16 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
 
     private void prepareBarChartData() {
+
+        // barChart.fitScreen(); // TODO added
+
+        // TODO stacked bar chart
+//        stackedBarChart = new BarEntry(new float[] { 10, 20, 30 }, 0);//new BarEntry(0f, new float[] { 10, 20, 30 });
+
         ArrayList<BarEntry> yVals1 = new ArrayList<>();
         for(int i = 0; i < yDataLeft.length; i++) {
             yVals1.add(new BarEntry(yDataLeft[i], i));
+
         }
 
         ArrayList<BarEntry> yVals2 = new ArrayList<>();
@@ -1086,8 +1123,51 @@ public class DataVisualizationActivity extends AppCompatActivity
         barChart.setData(barData);
         barChart.getAxisLeft().setEnabled(false);
         customizeChart(barChart, barChart.getAxisRight());
-    }
 
+    }
+    private void prepareStackedBarChartData() {
+
+        // barChart.fitScreen(); // TODO added
+
+        // TODO stacked bar chart
+//        stackedBarChart = new BarEntry(new float[] { 10, 20, 30 }, 0);//new BarEntry(0f, new float[] { 10, 20, 30 });
+
+        ArrayList<BarEntry> yVals1 = new ArrayList<>();
+
+        float[] fDataLeft = new float[yDataLeft.length];
+        float[] fDataRight = new float[yDataRight.length];
+        for(int i = 0; i < yDataLeft.length; i++) {
+            fDataLeft[i] = (float)yDataLeft[i];
+            Log.e("YVAL_l", fDataLeft[i]+"");
+        }
+        for(int i = 0; i < yDataRight.length; i++) {
+            fDataRight[i] = (float)yDataRight[i];
+            Log.e("YVAL_r", fDataRight[i]+"");
+        }
+
+        for(int i = 0; i < yDataLeft.length; i++) {
+            yVals1.add(new BarEntry(fDataLeft, i));
+        }
+        ArrayList<BarEntry> yVals2 = new ArrayList<>();
+        for(int i = 0; i < yDataRight.length; i++) {
+            yVals2.add(new BarEntry(fDataRight, i));
+        }
+
+        List<BarEntry> entries = new ArrayList<BarEntry>();
+        entries.add(new BarEntry(fDataLeft, 0));
+        entries.add(new BarEntry(fDataRight, 1));
+
+        BarDataSet set = new BarDataSet(entries, "BarDataSet");
+        List<IBarDataSet> barDataSetList = new ArrayList<>();
+        set.setColors(new int[] {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN, Color.MAGENTA});
+        set.setStackLabels(xData);
+        barDataSetList.add(set);
+
+        BarData data = new BarData(new String[]{"local", "national"}, barDataSetList);
+
+        stackedBarChart.setData(data);
+
+    }
     private void preparePieChartData(PieChart pieChart, int[] yData) {
         ArrayList<Entry> yVals1 = createEntries(yData);
 
