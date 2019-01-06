@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -75,7 +76,7 @@ public class AddFilterDialogFragment extends DialogFragment {
         etFilter = (EditText) view.findViewById(R.id.et_filter);
         // set filterEquator to what is pointed by spinner
         ArrayAdapter<String> spAgeAdapter = new ArrayAdapter<>(getActivity().getBaseContext(),
-                R.layout.custom_spinner, getResources().getStringArray(R.array.age_filter_array));
+                R.layout.custom_spinner_light, getResources().getStringArray(R.array.age_filter_array));
         spAgeFilter.setAdapter(spAgeAdapter);
         spAgeFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -90,7 +91,7 @@ public class AddFilterDialogFragment extends DialogFragment {
         });
 
         ArrayAdapter<String> spGenderAdapter = new ArrayAdapter<>(getActivity().getBaseContext(),
-                R.layout.custom_spinner, getResources().getStringArray(R.array.gender_filter_array));
+                R.layout.custom_spinner_light, getResources().getStringArray(R.array.gender_filter_array));
         spGenderFilter.setAdapter(spGenderAdapter);
         spGenderFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -106,10 +107,17 @@ public class AddFilterDialogFragment extends DialogFragment {
         /* prepare grade level spinner */
         final List<String> gradeLevelList = new ArrayList<>();
         for(int i = 0; i < gradeLevels.size(); i++) {
-            gradeLevelList.add(gradeLevels.get(i));
+
+            if(gradeLevels.get(i) == null) {
+                Log.e("FILTER", "Null found at gradeLevel "+i); // TODO ADDED NULL CHECK
+                gradeLevelList.add("null");
+            }
+            else {
+                gradeLevelList.add(gradeLevels.get(i));
+            }
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getActivity().getBaseContext(),
-                R.layout.custom_spinner, gradeLevelList);
+                R.layout.custom_spinner_light, gradeLevelList);
         spGradeLevelFilter.setAdapter(spinnerAdapter);
 
         spGradeLevelFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

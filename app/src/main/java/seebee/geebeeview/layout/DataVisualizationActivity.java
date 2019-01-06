@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +20,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.BubbleChart;
 import com.github.mikephil.charting.charts.Chart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.Legend;
@@ -70,7 +72,8 @@ import seebee.geebeeview.model.monitoring.Record;
 import seebee.geebeeview.model.monitoring.ValueCounter;
 import seebee.geebeeview.sidebar.DataVisualizationSidebar;
 import seebee.geebeeview.sidebar.General;
-import seebee.geebeeview.sidebar.PatientSidebar;
+import seebee.geebeeview.spinner.CustomSpinnerAdapter;
+import seebee.geebeeview.spinner.CustomSpinnerItem;
 
 
 public class DataVisualizationActivity extends AppCompatActivity
@@ -98,6 +101,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     String schoolName, date;
     PieChart pieChartLeft, pieChartRight;
     BarChart barChart;
+    HorizontalBarChart stackedBarChart;
     ScatterChart scatterChart;
     BubbleChart bubbleChart;
     ArrayList<PatientRecord> recordsLeft, recordsRight;
@@ -106,7 +110,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     ArrayList<Dataset> datasets;
     /* attributes for addFilterDialog */
     ArrayList<String> gradeLevels;
-    private TextView tvTitle, tvDataset, tvFilter, tvChart, tvData, tvRightChart;
+    private TextView tvDataset, tvFilter, tvChart, tvData, tvRightChart;
     private Spinner spRecordColumn, spChartType, spRightChart;
     private String recordColumn = "BMI", rightChartContent = "National Profile";
     private String chartType = "Pie Chart";
@@ -119,9 +123,8 @@ public class DataVisualizationActivity extends AppCompatActivity
     private float offsetYDivider = 8f;
     private String provinceName, municipalityName;
 
-
-
     private DataVisualizationSidebar sidebarManager;
+
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -173,7 +176,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         schoolID = getIntent().getIntExtra(School.C_SCHOOL_ID, 0);
         date = getIntent().getStringExtra(Record.C_DATE_CREATED);
 
-        tvTitle = (TextView) findViewById(R.id.tv_data_visualization_title);
+//        tvTitle = (TextView) findViewById(R.id.tv_data_visualization_title);
         tvDataset = (TextView) findViewById(R.id.tv_dv_dataset);
         tvFilter = (TextView) findViewById(R.id.tv_dv_filter);
         tvChart = (TextView) findViewById(R.id.tv_dv_chart);
@@ -192,20 +195,20 @@ public class DataVisualizationActivity extends AppCompatActivity
         spChartType = (Spinner) findViewById(R.id.sp_chart_type);
         spRightChart = (Spinner) findViewById(R.id.sp_right_chart_content);
 
+        // TODO Set default font
         /* get fonts from assets */
-        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
-        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
+//        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
+//        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
         /* set font of text */
-        tvTitle.setTypeface(chawpFont);
-        tvDataset.setTypeface(chalkFont);
-        tvFilter.setTypeface(chalkFont);
-        tvChart.setTypeface(chalkFont);
-        tvData.setTypeface(chalkFont);
-        tvRightChart.setTypeface(chalkFont);
-        btnAddDataset.setTypeface(chawpFont);
-        btnAddFilter.setTypeface(chawpFont);
-        btnViewHPIList.setTypeface(chawpFont);
-        btnViewPatientList.setTypeface(chawpFont);
+//        tvDataset.setTypeface(chalkFont);
+//        tvFilter.setTypeface(chalkFont);
+//        tvChart.setTypeface(chalkFont);
+//        tvData.setTypeface(chalkFont);
+//        tvRightChart.setTypeface(chalkFont);
+//        btnAddDataset.setTypeface(chawpFont);
+//        btnAddFilter.setTypeface(chawpFont);
+//        btnViewHPIList.setTypeface(chawpFont);
+//        btnViewPatientList.setTypeface(chawpFont);
 
         /* set listener for button view hpi list */
         btnViewHPIList.setOnClickListener(new View.OnClickListener() {
@@ -315,18 +318,43 @@ public class DataVisualizationActivity extends AppCompatActivity
         createCharts();
 
 
-        ArrayAdapter<String> spChartAdapter = new ArrayAdapter<>(this,
-                R.layout.custom_spinner, getResources().getStringArray(R.array.chart_type_array));
-        spChartType.setAdapter(spChartAdapter);
+//        ArrayAdapter<String> spChartAdapter = new ArrayAdapter<>(this,
+//                R.layout.custom_spinner, getResources().getStringArray(R.array.chart_type_array));
+//        ArrayAdapter<String> spChartAdapter = new ArrayAdapter<>(this,
+//                R.layout.custom_spinner_image, R.id.tv_spinner, getResources().getStringArray(R.array.chart_type_array));
+
+        // TODO spinner
+//        String[] chartNames = getResources().getStringArray(R.array.chart_type_array);
+//        int chartIcons[] = {R.drawable.img_templogo, R.drawable.img_templogo, R.drawable.img_templogo, R.drawable.img_templogo};
+
+//        CustomSpinnerAdapter customAdapter = new CustomSpinnerAdapter(getApplicationContext(),chartIcons,chartNames);
+
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                R.layout.custom_spinner_image, R.id.tv_spinner, getResources().getStringArray(R.array.chart_type_array));
+
+//        spChartType.setAdapter(new CustomSpinnerAdapter(this, R.layout.custom_spinner_image, getSpinnerList()));
+
+        String[] charts = getResources().getStringArray(R.array.chart_type_array);
+        ArrayList<CustomSpinnerItem> list=new ArrayList<>();
+        list.add(new CustomSpinnerItem(charts[0],R.drawable.img_templogo));
+        list.add(new CustomSpinnerItem(charts[1],R.drawable.img_templogo));
+        list.add(new CustomSpinnerItem(charts[2],R.drawable.img_templogo));
+        list.add(new CustomSpinnerItem(charts[3],R.drawable.img_templogo));
+        CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(this,
+                R.layout.custom_spinner_image, R.id.tv_spinner, list);
+
+
+        spChartType.setAdapter(adapter);
         spChartType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                chartType = parent.getItemAtPosition(position).toString();
-
+//                chartType = ((CustomSpinnerAdapter)parent.getAdapter()).getItem(position);
+                chartType = ((CustomSpinnerItem)(parent.getItemAtPosition(position))).getText();
+//                Log.e("CHART", chartType);
                 graphLayoutLeft.removeAllViews();
                 graphLayoutRight.removeAllViews();
                 graphLayoutCenter.removeAllViews();
-                if(position == 0){
+                if(position == 0){ // Pie Chart
                     graphLayoutLeft.addView(pieChartLeft);
                     graphLayoutRight.addView(pieChartRight);
                     // adjust size of layout
@@ -344,24 +372,42 @@ public class DataVisualizationActivity extends AppCompatActivity
 //                    paramsRight.height = graphLayoutRight.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
 //                    paramsRight.width = graphLayoutRight.getWidth(); // ViewGroup.LayoutParams.MATCH_PARENT;
 
-                } else if(position == 1) {
+                } else if(position == 1) { // Bar Chart
                     /* add bar chart to layout */
                     graphLayoutCenter.addView(barChart); // TODO edited
                     /* adjust the size of the bar chart */
                     paramsCenter = barChart.getLayoutParams();
                     barChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
                     barChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-//                    paramsCenter.height = graphLayoutCenter.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
-//                    paramsCenter.width = graphLayoutCenter.getWidth(); // ViewGroup.LayoutParams.MATCH_PARENT;
-                } else if (position == 2) {
-                    graphLayoutCenter.addView(scatterChart); // TODO edited
 
+
+//                    // Stacked bar TODO: trial only, remove
+//                    graphLayoutCenter.addView(stackedBarChart); // TODO edited
+//                    /* adjust the size of the bar chart */
+//                    paramsCenter = stackedBarChart.getLayoutParams();
+//                    stackedBarChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+//                    stackedBarChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
+
+
+
+                } else if (position == 2) { // TODO PUT BACK TO Scatter
+                    // TODO REMOVE START
+                    // Stacked bar TODO: trial only, remove
+                    graphLayoutCenter.addView(stackedBarChart); // TODO edited
                     /* adjust the size of the bar chart */
+                    paramsCenter = stackedBarChart.getLayoutParams();
+                    stackedBarChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+                    stackedBarChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
+                    // TODO REMOVE END
+
+
+                    /*
+                    graphLayoutCenter.addView(scatterChart); // TODO edited
+                    // adjust the size of the bar chart
                     paramsCenter = scatterChart.getLayoutParams();
                     scatterChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
                     scatterChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-//                    paramsCenter.height = graphLayoutCenter.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
-//                    paramsCenter.width = graphLayoutCenter.getWidth(); //ViewGroup.LayoutParams.MATCH_PARENT;
+                    */
                 } else {
                     graphLayoutCenter.addView(bubbleChart); // TODO edited
 
@@ -419,7 +465,30 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         setupSidebarFunctionality();
     }
+    // TODO EDIT
+    public ArrayList<Drawable> getChartIcons(String[] chartTypes) {
 
+//        ArrayList<CustomSpinnerItem> allList = new ArrayList<CustomSpinnerItem>();
+//        CustomSpinnerItem item = new CustomSpinnerItem();
+        ArrayList<Drawable> iconList = new ArrayList<Drawable>();
+
+        for(int i = 0; i < chartTypes.length; i++) {
+            iconList.add(ContextCompat.getDrawable(this, R.drawable.img_templogo));
+        }
+//        item.setData(getResources().getStringArray(R.array.chart_type_array)[0],R.drawable.img_templogo);
+//        allList.add(item);
+//        item = new CustomSpinnerItem();
+//        item.setData(getResources().getStringArray(R.array.chart_type_array)[1], R.drawable.img_templogo);
+//        allList.add(item);
+//        item = new CustomSpinnerItem();
+//        item.setData(getResources().getStringArray(R.array.chart_type_array)[2], R.drawable.img_templogo);
+//        allList.add(item);
+//        item = new CustomSpinnerItem();
+//        item.setData(getResources().getStringArray(R.array.chart_type_array)[3], R.drawable.img_templogo);
+//        allList.add(item);
+
+        return iconList;
+    }
     public void setupSidebarFunctionality () {
         // TODO About, Immun, HPI functionality
         sidebarManager = new DataVisualizationSidebar(
@@ -502,9 +571,11 @@ public class DataVisualizationActivity extends AppCompatActivity
             if(chartType.contentEquals("Pie Chart")) {
                 pieChartLeft.clear();
             } else if(chartType.contentEquals("Bar Chart")) {
-                barChart.clear();
-            } else if (chartType.contentEquals("Scatter Chart")) {
-                scatterChart.clear();
+                barChart.clear(); // TODO add stacked here
+
+            } else if (chartType.contentEquals("Scatter Chart")) { // TODO EDITED FOR TESTING ONLY, CHANGE BACK TO SCATTER
+//                scatterChart.clear(); // TODO ENABLE THIS
+                stackedBarChart.clear();
             } else {
                 bubbleChart.clear();
             }
@@ -518,6 +589,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         pieChartRight = createPieChart();
 
         createBarChart();
+        createStackedBarChart();
         createScatterChart();
         createBubbleChart();
 
@@ -597,6 +669,7 @@ public class DataVisualizationActivity extends AppCompatActivity
                             Toast.LENGTH_SHORT).show();
                     Log.v(TAG, "BMI of a child " + possibleAge[entry.getXIndex()] + " years old = " + entry.getVal());
                 } else {
+                    // TODO EDIT TOAST
                     Toast.makeText(DataVisualizationActivity.this,
                             xData[entry.getXIndex()] + " = " + entry.getVal() + " children",
                             Toast.LENGTH_SHORT).show();
@@ -653,13 +726,18 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         scatterChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
     }
+    private void createStackedBarChart() {
+        /* create bar chart */
+        stackedBarChart = new HorizontalBarChart(this);
+        // set a chart value selected listener
+        stackedBarChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
+    }
 
     private void createBarChart() {
         /* create bar chart */
         barChart = new BarChart(this);
         // set a chart value selected listener
         barChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
-        // barChart.fitScreen(); // TODO added
     }
 
     /* prepare values specifically for piechart only */
@@ -870,8 +948,9 @@ public class DataVisualizationActivity extends AppCompatActivity
             preparePieChartData(pieChartRight, yDataRight);
         } else if(chartType.contentEquals("Bar Chart")){
             prepareBarChartData();
-        } else if(chartType.contentEquals("Scatter Chart")) {
-            prepareScatterChartData();
+        } else if(chartType.contentEquals("Scatter Chart")) { // TODO TESTING ONLY, PUT BACK TO prepareScatterChartData
+//            prepareScatterChartData();
+            prepareStackedBarChartData(); // TODO Remove stacked  bar chart
         } else {
             prepareBubbleChartData();
         }
@@ -1011,9 +1090,16 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
 
     private void prepareBarChartData() {
+
+        // barChart.fitScreen(); // TODO added
+
+        // TODO stacked bar chart
+//        stackedBarChart = new BarEntry(new float[] { 10, 20, 30 }, 0);//new BarEntry(0f, new float[] { 10, 20, 30 });
+
         ArrayList<BarEntry> yVals1 = new ArrayList<>();
         for(int i = 0; i < yDataLeft.length; i++) {
             yVals1.add(new BarEntry(yDataLeft[i], i));
+
         }
 
         ArrayList<BarEntry> yVals2 = new ArrayList<>();
@@ -1037,8 +1123,51 @@ public class DataVisualizationActivity extends AppCompatActivity
         barChart.setData(barData);
         barChart.getAxisLeft().setEnabled(false);
         customizeChart(barChart, barChart.getAxisRight());
-    }
 
+    }
+    private void prepareStackedBarChartData() {
+
+        // barChart.fitScreen(); // TODO added
+
+        // TODO stacked bar chart
+//        stackedBarChart = new BarEntry(new float[] { 10, 20, 30 }, 0);//new BarEntry(0f, new float[] { 10, 20, 30 });
+
+        ArrayList<BarEntry> yVals1 = new ArrayList<>();
+
+        float[] fDataLeft = new float[yDataLeft.length];
+        float[] fDataRight = new float[yDataRight.length];
+        for(int i = 0; i < yDataLeft.length; i++) {
+            fDataLeft[i] = (float)yDataLeft[i];
+            Log.e("YVAL_l", fDataLeft[i]+"");
+        }
+        for(int i = 0; i < yDataRight.length; i++) {
+            fDataRight[i] = (float)yDataRight[i];
+            Log.e("YVAL_r", fDataRight[i]+"");
+        }
+
+        for(int i = 0; i < yDataLeft.length; i++) {
+            yVals1.add(new BarEntry(fDataLeft, i));
+        }
+        ArrayList<BarEntry> yVals2 = new ArrayList<>();
+        for(int i = 0; i < yDataRight.length; i++) {
+            yVals2.add(new BarEntry(fDataRight, i));
+        }
+
+        List<BarEntry> entries = new ArrayList<BarEntry>();
+        entries.add(new BarEntry(fDataLeft, 0));
+        entries.add(new BarEntry(fDataRight, 1));
+
+        BarDataSet set = new BarDataSet(entries, "BarDataSet");
+        List<IBarDataSet> barDataSetList = new ArrayList<>();
+        set.setColors(new int[] {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN, Color.MAGENTA});
+        set.setStackLabels(xData);
+        barDataSetList.add(set);
+
+        BarData data = new BarData(new String[]{"local", "national"}, barDataSetList);
+
+        stackedBarChart.setData(data);
+
+    }
     private void preparePieChartData(PieChart pieChart, int[] yData) {
         ArrayList<Entry> yVals1 = createEntries(yData);
 
