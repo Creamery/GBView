@@ -31,6 +31,7 @@ import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.charts.ScatterChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
@@ -69,6 +70,7 @@ import seebee.geebeeview.R;
 import seebee.geebeeview.adapter.FilterAdapter;
 import seebee.geebeeview.adapter.TextHolderAdapter;
 import seebee.geebeeview.database.DatabaseAdapter;
+import seebee.geebeeview.graphs.StackedBarChartIAxisFormatter;
 import seebee.geebeeview.model.account.Dataset;
 import seebee.geebeeview.model.consultation.School;
 import seebee.geebeeview.model.monitoring.PatientRecord;
@@ -985,7 +987,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         ArrayList<Entry> yVals1 = new ArrayList<>();
 
         for(int i = 0; i < yData.length; i++) {
-            yVals1.add(new Entry(yData[i], i));
+            yVals1.add(new Entry(i, yData[i]));
+//            yVals1.add(new Entry(yData[i], i)); TODO edited
         }
 
         return yVals1;
@@ -1111,7 +1114,8 @@ public class DataVisualizationActivity extends AppCompatActivity
                     age = Integer.valueOf(possibleAge[j]);
                     if(patientRecord.getAge() == age) {
                         category = ValueCounter.getBMICategoryIndex(patientRecord.getBMIResultString());
-                        yVals1.add(new Entry(patientRecord.getBMIResult(), j));
+//                        yVals1.add(new Entry(patientRecord.getBMIResult(), j)); TODO edited
+                        yVals1.add(new Entry(j, patientRecord.getBMIResult()));
                         scatterDataSet = new ScatterDataSet(yVals1, xData[category]);
                         scatterDataSet.setColor(colors.get(category));
                         scatterDataSet.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
@@ -1245,21 +1249,51 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 //        BarData data = new BarData(new String[]{"National", "School"}, barDataSetList); // TODO X Values
         BarData data = new BarData(barDataSetList); // TODO X Values
-//        data.setDrawValues(false); // Removes values TODO
 
-//        data.getDataSetLabels()[0] = "National";
-//        data.getDataSetLabels()[1] = "School";
 
+        formatStackedBarAxis();
         stackedBarChart.setData(data);
-//        XAxis leftAxis = stackedBarChart.getXAxis();
-//        LimitLine ll = new LimitLine(140f, "Critical Blood Pressure");
-//        ll.setLineColor(Color.RED);
-//        ll.setLineWidth(4f);
-//        ll.setTextColor(Color.BLACK);
-//        ll.setTextSize(12f);
-//        leftAxis.addLimitLine(ll);
-//        stackedBarChart.getXAxis().setEnabled(true);
 
+
+    }
+
+    private void formatStackedBarAxis() {
+        stackedBarChart.getAxisLeft().setDrawLabels(false);
+        stackedBarChart.getAxisLeft().setDrawGridLines(false);
+        stackedBarChart.getAxisLeft().setDrawAxisLine(false);
+
+        stackedBarChart.getAxisRight().setDrawLabels(false);
+        stackedBarChart.getAxisRight().setDrawGridLines(false);
+        stackedBarChart.getAxisRight().setDrawAxisLine(false);
+
+        stackedBarChart.getXAxis().setDrawLabels(false);
+        stackedBarChart.getXAxis().setDrawGridLines(false);
+        stackedBarChart.getXAxis().setDrawAxisLine(false);
+
+        // X Axis
+        String[] values = new String[] {"National", "School"};
+        XAxis xAxis = stackedBarChart.getXAxis();
+        xAxis.setValueFormatter(new StackedBarChartIAxisFormatter(values));
+        xAxis.setLabelCount(2);
+
+        // Y Axis
+        YAxis leftAxis = stackedBarChart.getAxisLeft();
+
+        LimitLine llStart, llEnd;
+        llStart = new LimitLine(0f, "0");
+        llStart.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
+        llStart.setLineColor(Color.LTGRAY);
+        llStart.setLineWidth(2f);
+        llStart.setTextColor(Color.BLACK);
+        llStart.setTextSize(VALUE_TEXT_SIZE);
+        leftAxis.addLimitLine(llStart);
+
+        llEnd = new LimitLine(100f, "100");
+        llEnd.setLineColor(Color.LTGRAY);
+        llEnd.setLineWidth(2f);
+        llEnd.setTextColor(Color.BLACK);
+        llEnd.setTextSize(VALUE_TEXT_SIZE);
+        leftAxis.addLimitLine(llEnd);
     }
     private void prepareStackedBarChartDataRaw() {
         ArrayList<BarEntry> yVals1 = new ArrayList<>();
@@ -1310,8 +1344,10 @@ public class DataVisualizationActivity extends AppCompatActivity
         // TODO deprecated
 //        BarData data = new BarData(new String[]{"local", "national"}, barDataSetList);
         BarData data = new BarData(barDataSetList);
-        data.getDataSetLabels()[0] = "School";
-        data.getDataSetLabels()[1] = "National";
+//        data.getDataSetLabels()[0] = "School";
+//        data.getDataSetLabels()[1] = "National"; TODO commented
+
+
 
         stackedBarChart.setData(data);
 

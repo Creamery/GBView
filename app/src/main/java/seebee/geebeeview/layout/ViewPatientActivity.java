@@ -103,8 +103,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
         adjustDetailFontSize();
 
-
-
         tvAboutTitle1 = (TextView) findViewById(R.id.tv_about_title1);
         tvAboutTitle2 = (TextView) findViewById(R.id.tv_about_title2);
         tvAboutTitle3 = (TextView) findViewById(R.id.tv_about_title3);
@@ -117,10 +115,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         contAboutTitle4 = (ConstraintLayout) findViewById(R.id.cont_about_item4_image);
 
 
-//        llAbout1 = (LinearLayout) findViewById(R.id.vg_item1);
-//        llAbout2 = (LinearLayout) findViewById(R.id.vg_item2);
-//        llAbout3 = (LinearLayout) findViewById(R.id.vg_item3);
-//        llAbout4 = (LinearLayout) findViewById(R.id.vg_item4);
 
         tvMedicalRecordTitle = (TextView) findViewById(R.id.tv_scrollbar_title);
         tvRecordDateTitle = (TextView) findViewById(R.id.tv_vp_date);
@@ -128,15 +122,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         TextView titleSizeReference = tvMedicalRecordTitle;
         TextView sizeReference = tvRecordDateTitle;
 
-//        setTextViewHeightTo(tvAboutTitle1, titleSizeReference);
-//        setTextViewHeightTo(tvAboutTitle2, titleSizeReference);
-//        setTextViewHeightTo(tvAboutTitle3, titleSizeReference);
-//        setTextViewHeightTo(tvAboutTitle4, titleSizeReference);
-
-//        setTextViewChildrenHeightTo(llAbout1, sizeReference);
-//        setTextViewChildrenHeightTo(llAbout2, sizeReference);
-//        setTextViewChildrenHeightTo(llAbout3, sizeReference);
-//        setTextViewChildrenHeightTo(llAbout4, sizeReference);
 
         setTextViewChildrenHeightTo(contAboutTitle0, titleSizeReference);
         setTextViewChildrenHeightTo(contAboutTitle1, titleSizeReference);
@@ -205,12 +190,6 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         viewMedicalRecord = (View) findViewById(R.id.sectionMedicalRecord);
 
-        /* get fonts from assets */
-//        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
-//        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
-        /* set fonts to text */
-//        tvBirthday.setTypeface(chalkFont);
-//        tvDominantHand.setTypeface(chalkFont);
 
 
         /* set button so that it will go to the HPIListActivity */
@@ -324,10 +303,16 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        }
 
         createCharts();
+//        Log.e("DEBUG", "Entering addChartToView");
         addChartToView();
+//        Log.e("DEBUG", "Entering prepareLineChart");
+
         prepareLineChart();
+//        Log.e("DEBUG", "Entering prepareLineChartData");
         prepareLineChartData();
 
+
+        Log.e("DEBUG", "Record List");
 
         // Record list
         ImageView ivRecordButton = (ImageView) findViewById(R.id.iv_record_date_arrow);
@@ -339,8 +324,6 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         });
         setupSidebarFunctionality();
-
-
         ivBMIClickable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -348,6 +331,8 @@ public class ViewPatientActivity extends AppCompatActivity {
                 tvBMI.setVisibility(General.getVisibility(bmiIsVisible));
             }
         });
+
+        Log.e("DEBUG", "Exiting OnCreate");
     }
 
     public void setupSidebarFunctionality () {
@@ -580,7 +565,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         else if(text.toLowerCase().contains("over")) {
             return getResources().getDrawable(R.drawable.img_heart_overlay_overweight);
         }
-        else if(text.contains("obese")) {
+        else if(text.toLowerCase().contains("obese")) {
             return getResources().getDrawable(R.drawable.img_heart_overlay_obese);
         }
         return getResources().getDrawable(R.drawable.img_heart_overlay_na);
@@ -602,13 +587,18 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         // add data to line chart
         lineChart.setData(lineData);
+
         /* dataset containing values from patient, index 0 */
         LineDataSet patientDataset = createLineDataSet(0);
         lineData.addDataSet(patientDataset);
+
+
         /* add dataset containing average record values from patients with same age */
         lineData.addDataSet(createLineDataSet(1));
+
         /* add ideal values only if record */
         boolean addIdealValues = recordColumn.contains("Height") || recordColumn.contains("Weight") || recordColumn.contains("BMI");
+
         if(addIdealValues) {
             LineDataSet n2Dataset, n1Dataset, medianDataset, p1Dataset, p2Dataset;
             /* dataset containing values from 2SD */
@@ -644,36 +634,55 @@ public class ViewPatientActivity extends AppCompatActivity {
             yVal = getColumnValue(record);
             //Log.v(TAG, recordColumn+": "+yVal);
             /* add patient data to patient entry, index 0 */
-            lineData.addEntry(new Entry(yVal, i), 0);
+//            lineData.addEntry(new Entry(yVal, i), 0); TODO edited
+            lineData.addEntry(new Entry(i, yVal), 0);
+
             /* add average record values of patients of the same age, index 1 */
             yVal = getColumnValue(averageRecords.get(i));
-            lineData.addEntry(new Entry(yVal, i), 1);
+            lineData.addEntry(new Entry(i, yVal), 1);
+//            lineData.addEntry(new Entry(yVal, i), 1); TODO edited
+
+
             /* set xValue to age of patient when record is created */
             age = patient.getAge(record.getDateCreated());
 //            lineData.addXValue(Integer.toString(age)); // TODO deprecated, FIND replacement
 
 
+
             /* addIdealValues if column is either height, weight, or BMI */
             if(addIdealValues && age >= 5 && age <= 19) {
                 getIdealValues(age);
-                //Log.v(TAG, recordColumn+"(-3SD): "+idealValue.getN3SD());
+//                //Log.v(TAG, recordColumn+"(-3SD): "+idealValue.getN3SD()); TODO edited
+//                /* add -2SD from ideal value data to patient entry, index 3 */
+//                lineData.addEntry(new Entry(idealValue.getP2SD(), i), 2);
+//                /* add -1SD from ideal value data to patient entry, index 4 */
+//                lineData.addEntry(new Entry(idealValue.getP1SD(), i), 3);
+//                /* add median of ideal value data to patient entry, index 5 */
+//                lineData.addEntry(new Entry(idealValue.getMedian(), i), 4);
+//                /* add 1SD from ideal value data to patient entry, index 6 */
+//                lineData.addEntry(new Entry(idealValue.getN1SD(), i), 5);
+//                /* add 2SD from ideal value data to patient entry, index 7 */
+//                lineData.addEntry(new Entry(idealValue.getN2SD(), i), 6);
+//                /* add -3SD from ideal value data to patient entry, index 2 */
+//                lineData.addEntry(new Entry(idealValue.getN3SD(), i), 7);
+
                 /* add -2SD from ideal value data to patient entry, index 3 */
-                lineData.addEntry(new Entry(idealValue.getP2SD(), i), 2);
+                lineData.addEntry(new Entry(i, idealValue.getP2SD()), 2);
                 /* add -1SD from ideal value data to patient entry, index 4 */
-                lineData.addEntry(new Entry(idealValue.getP1SD(), i), 3);
+                lineData.addEntry(new Entry(i, idealValue.getP1SD()), 3);
                 /* add median of ideal value data to patient entry, index 5 */
-                lineData.addEntry(new Entry(idealValue.getMedian(), i), 4);
+                lineData.addEntry(new Entry(i, idealValue.getMedian()), 4);
                 /* add 1SD from ideal value data to patient entry, index 6 */
-                lineData.addEntry(new Entry(idealValue.getN1SD(), i), 5);
+                lineData.addEntry(new Entry(i, idealValue.getN1SD()), 5);
                 /* add 2SD from ideal value data to patient entry, index 7 */
-                lineData.addEntry(new Entry(idealValue.getN2SD(), i), 6);
+                lineData.addEntry(new Entry(i, idealValue.getN2SD()), 6);
                 /* add -3SD from ideal value data to patient entry, index 2 */
-                lineData.addEntry(new Entry(idealValue.getN3SD(), i), 7);
+                lineData.addEntry(new Entry(i, idealValue.getN3SD()), 7);
             }
         }
 
         setLineChartValueFormatter(lineData);
-
+        lineChart.getLineData().setDrawValues(false);
         // notify chart data has changed
         lineChart.notifyDataSetChanged();
 
@@ -838,9 +847,12 @@ public class ViewPatientActivity extends AppCompatActivity {
     }
 
     private void customizeChart(Chart chart) {
+
 //         customize line chart
 //        chart.setDescription(""); TODO deprecated
+
         chart.setNoDataText("No data for the moment");
+
 //        chart.setNoDataTextDescription("No data for the moment"); TODO deprecated
 //        chart.setDescriptionTextSize(20f); TODO deprecated
 
@@ -867,19 +879,15 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        l.setCustom(color, label); TODO deprecated
 
         // TODO added
-        ArrayList<LegendEntry> entries = new ArrayList<>();
-        LegendEntry entry1 = new LegendEntry(), entry2 = new LegendEntry();
-        entry1.label = label[0];
-        entry1.formColor = color[0];
-
-        entry2.label = label[1];
-        entry2.formColor = color[1];
-
-        entries.add(entry1);
-        entries.add(entry2);
-
-        l.setCustom(entries);
-
+//        ArrayList<LegendEntry> entries = new ArrayList<>();
+//        LegendEntry entry1 = new LegendEntry(), entry2 = new LegendEntry();
+//        entry1.label = label[0];
+//        entry1.formColor = color[0];
+//        entry2.label = label[1];
+//        entry2.formColor = color[1];
+//        entries.add(entry1);
+//        entries.add(entry2);
+//        l.setCustom(entries);
 
         // customize xAxis
         XAxis xl = chart.getXAxis();
@@ -930,11 +938,14 @@ public class ViewPatientActivity extends AppCompatActivity {
     }
 
     private void addChartToView() {
-        graphLayout.addView(getCurrentChart());
-        ViewGroup.LayoutParams params = getCurrentChart().getLayoutParams();
+        Chart chart = getCurrentChart();
+        chart.clear();
+        graphLayout.addView(chart);
+        ViewGroup.LayoutParams params = chart.getLayoutParams();
         /* match chart size to layout size */
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        chart.notifyDataSetChanged();
     }
 
     private void getPatientData() {
