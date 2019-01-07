@@ -1,6 +1,7 @@
 package seebee.geebeeview.sidebar;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -17,11 +18,40 @@ public class General {
     private static final General INSTANCE = new General();
     private static Typeface fntRobotoRegular = null;
 
+
+
+    private static final int[] csGray = new int[] {Color.LTGRAY, Color.GRAY, Color.DKGRAY, Color.GRAY, Color.LTGRAY};
+    private static int[] csWhite = new int[] {Color.WHITE};
+    private static int[] csLightGray = new int[] {ColorThemes.cLightGray};
+
     public static General getInstance() {
         return INSTANCE;
     }
 
+    public static int[] getColorSetGray() {
+        return csGray;
+    }
 
+    public static int[] getColorSetWhite(int entryCount) {
+        if(csWhite.length != entryCount) {
+            csWhite = new int[entryCount];
+            for(int i = 0; i < entryCount; i++) {
+                csWhite[i] = Color.WHITE;
+            }
+        }
+        return csWhite;
+    }
+
+    // Used for uniform colors in a stacked bar chart
+    public static int[] getColorSetLightGray(int entryCount) {
+        if(csLightGray.length != entryCount) {
+            csLightGray = new int[entryCount];
+            for(int i = 0; i < entryCount; i++) {
+                csLightGray[i] = ColorThemes.cLightGray;
+            }
+        }
+        return csLightGray;
+    }
     /**
      * Returns the percent equivalent of the passed parameter [range of 0-100]
      * @param rawData

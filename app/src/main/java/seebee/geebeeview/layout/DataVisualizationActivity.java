@@ -3,6 +3,7 @@ package seebee.geebeeview.layout;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -71,6 +72,7 @@ import seebee.geebeeview.adapter.FilterAdapter;
 import seebee.geebeeview.adapter.TextHolderAdapter;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.graphs.StackedBarChartIAxisFormatter;
+import seebee.geebeeview.graphs.StackedBarChartValueFormatter;
 import seebee.geebeeview.model.account.Dataset;
 import seebee.geebeeview.model.consultation.School;
 import seebee.geebeeview.model.monitoring.PatientRecord;
@@ -1195,14 +1197,10 @@ public class DataVisualizationActivity extends AppCompatActivity
         customizeChart(barChart, barChart.getAxisRight());
 
     }
-
-
     private void prepareStackedBarChartData() {
         this.prepareStackedBarChartDataPercentages();
 //        this.prepareStackedBarChartDataRaw();
     }
-
-
 
     // Alters the values to be in percent (0 to 100)
     private void prepareStackedBarChartDataPercentages() {
@@ -1211,8 +1209,6 @@ public class DataVisualizationActivity extends AppCompatActivity
         // Variables to hold the converted yData (from int to float) and sum
         float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
         float fSumSchool, fSumNational;
-
-
 
         // Convert yData to float
         fDataSchool = General.convertToFloat(yDataLeft);
@@ -1223,45 +1219,72 @@ public class DataVisualizationActivity extends AppCompatActivity
         fSumNational = General.getArraySum(fDataNational);
 
         // Convert to percentages
-        fDataSchool = General.computePercentEquivalent(fDataSchool, fSumSchool);
-        fDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
+        pDataSchool = General.computePercentEquivalent(fDataSchool, fSumSchool);
+        pDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
 
 
         // TODO Remove, PRINTING for validation only
-        for(int i = 0; i < yDataLeft.length; i++) {
-            Log.e("YVAL_School", fDataSchool[i]+"");
-            Log.e("YVAL_National", fDataNational[i]+"");
-        }
+//        for(int i = 0; i < yDataLeft.length; i++) {
+//            Log.e("YVAL_School", fDataSchool[i]+"");
+//            Log.e("YVAL_National", fDataNational[i]+"");
+//        }
 
         // Stacked bar entries. xIndex 0 is the bottom
         List<BarEntry> entries = new ArrayList<>();
-//        entries.add(new BarEntry(fDataNational, 0)); // National
-//        entries.add(new BarEntry(fDataSchool, 1)); // School
-        entries.add(new BarEntry(0f, fDataNational)); // National
-        entries.add(new BarEntry(1f, fDataSchool)); // School
-
-
+        BarEntry schoolData = new BarEntry(0f, pDataSchool);
+        entries.add(schoolData); // School
 
         // BarDataSet second parameter is the label
         BarDataSet set = new BarDataSet(entries, recordColumn);
         List<IBarDataSet> barDataSetList = new ArrayList<>();
-//        set.setValueFormatter(); TODO VALUE FORMATTER
-        // Set stack colors here
-        set.setColors(new int[] {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN, Color.MAGENTA}); // TODO Dynamic colors
-        set.setStackLabels(xData);
+
         barDataSetList.add(set);
-
-//        BarData data = new BarData(new String[]{"National", "School"}, barDataSetList); // TODO X Values
         BarData data = new BarData(barDataSetList); // TODO X Values
-
-
-        formatStackedBarAxis();
         stackedBarChart.setData(data);
+
+        formatStackBarAppearance(set, fDataSchool, pDataSchool); // Edit stack bar appearance
+        stackedBarChart.notifyDataSetChanged();
+    }
+
+    private void formatStackBarAppearance(BarDataSet barData, float[] rawData, float[] percentData) {
+        barData.setValueFormatter(new StackedBarChartValueFormatter()); // Format values to ###.##% as specified i the passed parameter class
+
+        // Set stack colors here
+        barData.setColors(General.getColorSetLightGray(percentData.length)); // TODO Dynamic colors
+        barData.setStackLabels(xData);
+
+        YAxis leftAxis = stackedBarChart.getAxisLeft();
+        leftAxis.removeAllLimitLines();
+
+        stackedBarChart.getLegend().setEnabled(true); // Show/hide stack label legend
+        formatStackedBarAxis();
+
+        LimitLine line;
+        float sumX = 0;
+        int highestValueIndex = 0;
+
+        // percentData.length-1 so that the last value won't have a limit line
+        for(int i = 0; i < percentData.length; i++) {
+            sumX += percentData[i];
+            if(sumX != 0 && (i != percentData.length-1)) { // Don't draw limit line on 0 value and don't draw the last value's line
+                line = new LimitLine(sumX, "");
+                line.setLineWidth(1f);
+                line.setLineColor(Color.WHITE);
+                leftAxis.addLimitLine(line);
+            }
+
+            if(percentData[highestValueIndex] < percentData[i]) { // Find highest value to be highlighted later
+                highestValueIndex = i;
+            }
+        }
+        barData.getColors().set(highestValueIndex, Color.RED);
 
 
     }
 
     private void formatStackedBarAxis() {
+        stackedBarChart.getDescription().setEnabled(false);
+
         stackedBarChart.getAxisLeft().setDrawLabels(false);
         stackedBarChart.getAxisLeft().setDrawGridLines(false);
         stackedBarChart.getAxisLeft().setDrawAxisLine(false);
@@ -1274,11 +1297,12 @@ public class DataVisualizationActivity extends AppCompatActivity
         stackedBarChart.getXAxis().setDrawGridLines(false);
         stackedBarChart.getXAxis().setDrawAxisLine(false);
 
+
         // X Axis
-        String[] values = new String[] {"National", "School"};
-        XAxis xAxis = stackedBarChart.getXAxis();
-        xAxis.setValueFormatter(new StackedBarChartIAxisFormatter(values));
-        xAxis.setLabelCount(2);
+//        String[] values = new String[] {"School"};
+//        XAxis xAxis = stackedBarChart.getXAxis();
+//        xAxis.setValueFormatter(new StackedBarChartIAxisFormatter(values));
+//        xAxis.setLabelCount(1, true);
 
         // Y Axis
         YAxis leftAxis = stackedBarChart.getAxisLeft();
@@ -1286,76 +1310,179 @@ public class DataVisualizationActivity extends AppCompatActivity
         LimitLine llStart, llEnd;
         llStart = new LimitLine(0f, "0");
         llStart.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
-        llStart.setLineColor(Color.LTGRAY);
-        llStart.setLineWidth(2f);
+        llStart.setLineColor(Color.GRAY);
+        llStart.setLineWidth(1f);
         llStart.setTextColor(Color.BLACK);
         llStart.setTextSize(VALUE_TEXT_SIZE);
         leftAxis.addLimitLine(llStart);
 
         llEnd = new LimitLine(100f, "100");
-        llEnd.setLineColor(Color.LTGRAY);
-        llEnd.setLineWidth(2f);
-        llEnd.setTextColor(Color.BLACK);
+        llEnd.setLineColor(llStart.getLineColor());
+        llEnd.setLineWidth(1f);
+        llEnd.setTextColor(llStart.getTextColor());
         llEnd.setTextSize(VALUE_TEXT_SIZE);
         leftAxis.addLimitLine(llEnd);
     }
-    private void prepareStackedBarChartDataRaw() {
-        ArrayList<BarEntry> yVals1 = new ArrayList<>();
-
-        float[] fDataLeft = new float[yDataLeft.length];
-        float[] fDataRight = new float[yDataRight.length];
-        for(int i = 0; i < yDataLeft.length; i++) {
-            fDataLeft[i] = (float)yDataLeft[i];
-            Log.e("YVAL_l", fDataLeft[i]+"");
-        }
-        for(int i = 0; i < yDataRight.length; i++) {
-            fDataRight[i] = (float)yDataRight[i];
-            Log.e("YVAL_r", fDataRight[i]+"");
-        }
 
 
-        for(int i = 0; i < yDataLeft.length; i++) {
-            yVals1.add(new BarEntry(i, fDataLeft));
-        }
-        ArrayList<BarEntry> yVals2 = new ArrayList<>();
-        for(int i = 0; i < yDataRight.length; i++) {
-            yVals2.add(new BarEntry(i, fDataRight));
-        }
-
-        List<BarEntry> entries = new ArrayList<BarEntry>();
-        entries.add(new BarEntry(0, fDataLeft));
-        entries.add(new BarEntry(1, fDataRight));
-
-        // TODO deprecated
+    // TODO backup code, delete when done
+//    private void prepareStackedBarChartData() {
+//        this.prepareStackedBarChartDataPercentages();
+////        this.prepareStackedBarChartDataRaw();
+//    }
+//
+//
+//
+//    // Alters the values to be in percent (0 to 100)
+//    private void prepareStackedBarChartDataPercentages() {
+//        ArrayList<BarEntry> yVals1 = new ArrayList<>();
+//
+//        // Variables to hold the converted yData (from int to float) and sum
+//        float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
+//        float fSumSchool, fSumNational;
+//
+//
+//
+//        // Convert yData to float
+//        fDataSchool = General.convertToFloat(yDataLeft);
+//        fDataNational = General.convertToFloat(yDataRight);
+//
+//        // Get yData sum
+//        fSumSchool = General.getArraySum(fDataSchool);
+//        fSumNational = General.getArraySum(fDataNational);
+//
+//        // Convert to percentages
+//        fDataSchool = General.computePercentEquivalent(fDataSchool, fSumSchool);
+//        fDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
+//
+//
+//        // TODO Remove, PRINTING for validation only
 //        for(int i = 0; i < yDataLeft.length; i++) {
-//            yVals1.add(new BarEntry(fDataLeft, i));
+//            Log.e("YVAL_School", fDataSchool[i]+"");
+//            Log.e("YVAL_National", fDataNational[i]+"");
+//        }
+//
+//        // Stacked bar entries. xIndex 0 is the bottom
+//        List<BarEntry> entries = new ArrayList<>();
+////        entries.add(new BarEntry(fDataNational, 0)); // National
+////        entries.add(new BarEntry(fDataSchool, 1)); // School
+//        entries.add(new BarEntry(0f, fDataNational)); // National
+//        entries.add(new BarEntry(1f, fDataSchool)); // School
+//
+//
+//
+//        // BarDataSet second parameter is the label
+//        BarDataSet set = new BarDataSet(entries, recordColumn);
+//        List<IBarDataSet> barDataSetList = new ArrayList<>();
+////        set.setValueFormatter(); TODO VALUE FORMATTER
+//        // Set stack colors here
+//        set.setColors(new int[] {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN, Color.MAGENTA}); // TODO Dynamic colors
+//        set.setStackLabels(xData);
+//        barDataSetList.add(set);
+//
+////        BarData data = new BarData(new String[]{"National", "School"}, barDataSetList); // TODO X Values
+//        BarData data = new BarData(barDataSetList); // TODO X Values
+//
+//
+//        formatStackedBarAxis();
+//        stackedBarChart.setData(data);
+//    }
+
+//    private void formatStackedBarAxis() {
+//        stackedBarChart.getAxisLeft().setDrawLabels(false);
+//        stackedBarChart.getAxisLeft().setDrawGridLines(false);
+//        stackedBarChart.getAxisLeft().setDrawAxisLine(false);
+//
+//        stackedBarChart.getAxisRight().setDrawLabels(false);
+//        stackedBarChart.getAxisRight().setDrawGridLines(false);
+//        stackedBarChart.getAxisRight().setDrawAxisLine(false);
+//
+//        stackedBarChart.getXAxis().setDrawLabels(false);
+//        stackedBarChart.getXAxis().setDrawGridLines(false);
+//        stackedBarChart.getXAxis().setDrawAxisLine(false);
+//
+//        // X Axis
+//        String[] values = new String[] {"National", "School"};
+//        XAxis xAxis = stackedBarChart.getXAxis();
+//        xAxis.setValueFormatter(new StackedBarChartIAxisFormatter(values));
+//        xAxis.setLabelCount(2);
+//
+//        // Y Axis
+//        YAxis leftAxis = stackedBarChart.getAxisLeft();
+//
+//        LimitLine llStart, llEnd;
+//        llStart = new LimitLine(0f, "0");
+//        llStart.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
+//        llStart.setLineColor(Color.LTGRAY);
+//        llStart.setLineWidth(2f);
+//        llStart.setTextColor(Color.BLACK);
+//        llStart.setTextSize(VALUE_TEXT_SIZE);
+//        leftAxis.addLimitLine(llStart);
+//
+//        llEnd = new LimitLine(100f, "100");
+//        llEnd.setLineColor(Color.LTGRAY);
+//        llEnd.setLineWidth(2f);
+//        llEnd.setTextColor(Color.BLACK);
+//        llEnd.setTextSize(VALUE_TEXT_SIZE);
+//        leftAxis.addLimitLine(llEnd);
+//    }
+//    private void prepareStackedBarChartDataRaw() { // TODO delete
+//        ArrayList<BarEntry> yVals1 = new ArrayList<>();
+//
+//        float[] fDataLeft = new float[yDataLeft.length];
+//        float[] fDataRight = new float[yDataRight.length];
+//        for(int i = 0; i < yDataLeft.length; i++) {
+//            fDataLeft[i] = (float)yDataLeft[i];
+//            Log.e("YVAL_l", fDataLeft[i]+"");
+//        }
+//        for(int i = 0; i < yDataRight.length; i++) {
+//            fDataRight[i] = (float)yDataRight[i];
+//            Log.e("YVAL_r", fDataRight[i]+"");
+//        }
+//
+//
+//        for(int i = 0; i < yDataLeft.length; i++) {
+//            yVals1.add(new BarEntry(i, fDataLeft));
 //        }
 //        ArrayList<BarEntry> yVals2 = new ArrayList<>();
 //        for(int i = 0; i < yDataRight.length; i++) {
-//            yVals2.add(new BarEntry(fDataRight, i));
+//            yVals2.add(new BarEntry(i, fDataRight));
 //        }
 //
 //        List<BarEntry> entries = new ArrayList<BarEntry>();
-//        entries.add(new BarEntry(fDataLeft, 0));
-//        entries.add(new BarEntry(fDataRight, 1));
-
-        BarDataSet set = new BarDataSet(entries, recordColumn);
-        List<IBarDataSet> barDataSetList = new ArrayList<>();
-        set.setColors(new int[] {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN, Color.MAGENTA});
-        set.setStackLabels(xData);
-        barDataSetList.add(set);
-
-        // TODO deprecated
-//        BarData data = new BarData(new String[]{"local", "national"}, barDataSetList);
-        BarData data = new BarData(barDataSetList);
-//        data.getDataSetLabels()[0] = "School";
-//        data.getDataSetLabels()[1] = "National"; TODO commented
-
-
-
-        stackedBarChart.setData(data);
-
-    }
+//        entries.add(new BarEntry(0, fDataLeft));
+//        entries.add(new BarEntry(1, fDataRight));
+//
+//        // TODO deprecated
+////        for(int i = 0; i < yDataLeft.length; i++) {
+////            yVals1.add(new BarEntry(fDataLeft, i));
+////        }
+////        ArrayList<BarEntry> yVals2 = new ArrayList<>();
+////        for(int i = 0; i < yDataRight.length; i++) {
+////            yVals2.add(new BarEntry(fDataRight, i));
+////        }
+////
+////        List<BarEntry> entries = new ArrayList<BarEntry>();
+////        entries.add(new BarEntry(fDataLeft, 0));
+////        entries.add(new BarEntry(fDataRight, 1));
+//
+//        BarDataSet set = new BarDataSet(entries, recordColumn);
+//        List<IBarDataSet> barDataSetList = new ArrayList<>();
+//        set.setColors(new int[] {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN, Color.MAGENTA});
+//        set.setStackLabels(xData);
+//        barDataSetList.add(set);
+//
+//        // TODO deprecated
+////        BarData data = new BarData(new String[]{"local", "national"}, barDataSetList);
+//        BarData data = new BarData(barDataSetList);
+////        data.getDataSetLabels()[0] = "School";
+////        data.getDataSetLabels()[1] = "National"; TODO commented
+//
+//
+//
+//        stackedBarChart.setData(data);
+//
+//    }
     private void preparePieChartData(PieChart pieChart, int[] yData) {
 //        ArrayList<Entry> yVals1 = createEntries(yData); TODO deprecated
         List<PieEntry> yVals1 = createPieEntries(yData);
