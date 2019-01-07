@@ -116,7 +116,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     ArrayList<Dataset> datasets;
     /* attributes for addFilterDialog */
     ArrayList<String> gradeLevels;
-    private TextView tvDataset, tvFilter, tvChart, tvData, tvRightChart;
+    private TextView tvDataset, tvFilter, tvChart, tvData, tvRightChart, tvDataHeader;
     private Spinner spRecordColumn, spChartType, spRightChart;
     private String recordColumn = "BMI", rightChartContent = "National Profile";
     private String chartType = "Pie Chart";
@@ -200,6 +200,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         spRecordColumn = (Spinner) findViewById(R.id.sp_record_column);
         spChartType = (Spinner) findViewById(R.id.sp_chart_type);
         spRightChart = (Spinner) findViewById(R.id.sp_right_chart_content);
+
+        tvDataHeader = (TextView) findViewById(R.id.tv_data_header);
 
         // TODO Set default font
         /* get fonts from assets */
@@ -468,6 +470,8 @@ public class DataVisualizationActivity extends AppCompatActivity
                 rightChartContent = parent.getItemAtPosition(0).toString();
             }
         });
+
+        tvDataHeader.setText(schoolName);
 
         setupSidebarFunctionality();
     }
