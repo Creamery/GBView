@@ -78,6 +78,7 @@ import seebee.geebeeview.model.consultation.School;
 import seebee.geebeeview.model.monitoring.PatientRecord;
 import seebee.geebeeview.model.monitoring.Record;
 import seebee.geebeeview.model.monitoring.ValueCounter;
+import seebee.geebeeview.sidebar.ColorThemes;
 import seebee.geebeeview.sidebar.DataVisualizationSidebar;
 import seebee.geebeeview.sidebar.General;
 import seebee.geebeeview.spinner.CustomSpinnerAdapter;
@@ -1251,6 +1252,8 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         // Set stack colors here
         barData.setColors(General.getColorSetLightGray(percentData.length)); // TODO Dynamic colors
+
+
         barData.setStackLabels(xData);
 
         YAxis leftAxis = stackedBarChart.getAxisLeft();
@@ -1277,7 +1280,10 @@ public class DataVisualizationActivity extends AppCompatActivity
                 highestValueIndex = i;
             }
         }
-        barData.getColors().set(highestValueIndex, Color.RED);
+
+
+        // TODO length check for color
+        barData.getColors().set(highestValueIndex,ColorThemes.getStackedColorSet(recordColumn)[highestValueIndex]);
 
 
     }
