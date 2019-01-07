@@ -48,138 +48,6 @@
                 app:layout_constraintVertical_weight="3" />
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/cont_graph_items"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="1.5">
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/cont_graph_spinner"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_weight="1.5">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraintLayout22"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/tv_dv_data"
-                            style="@style/LabelText"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-
-                            android:layout_weight="0.2"
-                            android:gravity="center"
-                            android:text="@string/displayed_data"
-                            app:autoSizePresetSizes="@array/autosize_text_sizes"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/sp_record_column"
-                            app:layout_constraintHorizontal_weight="3"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <Spinner
-                            android:id="@+id/sp_record_column"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-
-                            android:layout_weight="0.2"
-                            android:entries="@array/record_column_array"
-                            android:gravity="center"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_weight="7"
-                            app:layout_constraintStart_toEndOf="@+id/tv_dv_data"
-                            app:layout_constraintTop_toTopOf="parent"></Spinner>
-                    </android.support.constraint.ConstraintLayout>
-
-                </android.support.constraint.ConstraintLayout>
-
-            </android.support.constraint.ConstraintLayout>
-
-            <TextView
-                android:id="@+id/tv_dv_right_chart"
-                style="@style/LabelText"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_alignParentEnd="true"
-
-                android:layout_toStartOf="@+id/sp_right_chart_content"
-
-                android:elevation="100dp"
-                android:gravity="center"
-                android:includeFontPadding="false"
-                android:padding="0dp"
-                android:text="@string/right_chart_content"
-                android:textAlignment="center"
-                android:textAppearance="@style/DefaultText"
-                android:visibility="invisible"
-                app:autoSizePresetSizes="@array/autosize_text_sizes"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/sp_right_chart_content"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintHorizontal_weight="3"
-                app:layout_constraintStart_toEndOf="@+id/spaceleft"
-                app:layout_constraintTop_toBottomOf="@+id/spacetop"
-                app:layout_constraintVertical_weight="1.5" />
-
-            <Space
-                android:id="@+id/spacetop"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-
-                app:layout_constraintBottom_toTopOf="@+id/tv_dv_right_chart"
-                app:layout_constraintEnd_toEndOf="@+id/spaceright"
-                app:layout_constraintStart_toEndOf="@+id/spaceleft"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="8.5" />
-
-            <Spinner
-                android:id="@id/sp_right_chart_content"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-
-
-                android:clipToPadding="false"
-                android:elevation="100dp"
-                android:entries="@array/right_chart_content_array"
-                android:gravity="center"
-                android:padding="0dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintHorizontal_weight="7"
-                app:layout_constraintStart_toEndOf="@+id/tv_dv_right_chart"
-                app:layout_constraintTop_toBottomOf="@+id/spacetop"
-                app:layout_constraintVertical_weight="1.5"></Spinner>
-
-            <Space
-                android:id="@+id/spaceleft"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/spaceright"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="3" />
-
-            <android.support.constraint.ConstraintLayout
                 android:id="@+id/cont_graph_overview"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -581,6 +449,141 @@
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_graph_items"
+                android:layout_width="432dp"
+                android:layout_height="64dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/spacetop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/spaceleft"
+                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintVertical_weight="1.5">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_graph_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="1.5">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayout22"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/tv_dv_data"
+                            style="@style/LabelText"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+
+                            android:layout_weight="0.2"
+                            android:gravity="center"
+                            android:text="@string/displayed_data"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/sp_record_column"
+                            app:layout_constraintHorizontal_weight="3"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Spinner
+                            android:id="@+id/sp_record_column"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+
+                            android:layout_weight="0.2"
+                            android:entries="@array/record_column_array"
+                            android:gravity="center"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="7"
+                            app:layout_constraintStart_toEndOf="@+id/tv_dv_data"
+                            app:layout_constraintTop_toTopOf="parent"></Spinner>
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_dv_right_chart"
+                style="@style/LabelText"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_alignParentEnd="true"
+
+                android:layout_toStartOf="@+id/sp_right_chart_content"
+
+                android:elevation="100dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:padding="0dp"
+                android:text="@string/right_chart_content"
+                android:textAlignment="center"
+                android:textAppearance="@style/DefaultText"
+                android:visibility="invisible"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/sp_right_chart_content"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintHorizontal_weight="3"
+                app:layout_constraintStart_toEndOf="@+id/spaceleft"
+                app:layout_constraintTop_toBottomOf="@+id/spacetop"
+                app:layout_constraintVertical_weight="1.5" />
+
+            <Space
+                android:id="@+id/spacetop"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+                app:layout_constraintBottom_toTopOf="@+id/tv_dv_right_chart"
+                app:layout_constraintEnd_toEndOf="@+id/spaceright"
+                app:layout_constraintStart_toEndOf="@+id/spaceleft"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="8.5" />
+
+            <Spinner
+                android:id="@id/sp_right_chart_content"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+
+
+                android:clipToPadding="false"
+                android:elevation="100dp"
+                android:entries="@array/right_chart_content_array"
+                android:gravity="center"
+                android:padding="0dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_weight="7"
+                app:layout_constraintStart_toEndOf="@+id/tv_dv_right_chart"
+                app:layout_constraintTop_toBottomOf="@+id/spacetop"
+                app:layout_constraintVertical_weight="1.5"></Spinner>
+
+            <Space
+                android:id="@+id/spaceleft"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/spaceright"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="3" />
 
         </android.support.constraint.ConstraintLayout>
 
