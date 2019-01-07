@@ -127,7 +127,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     private ViewGroup.LayoutParams paramsLeft, paramsRight, paramsCenter;
     private int offsetTopBottom;
     private int offsetLeftRight;
-    private float offsetPercent = 0.1f;
+    private float offsetPercent = 0.0f;
 
     private float offsetYDivider = 8f;
     private String provinceName, municipalityName;
@@ -168,7 +168,9 @@ public class DataVisualizationActivity extends AppCompatActivity
             offsetTopBottom = computePercent(graphLayoutCenter.getHeight(), offsetPercent);
             offsetLeftRight = computePercent(graphLayoutCenter.getWidth(), offsetPercent);
 
-            paramsCenter.height = graphLayoutCenter.getHeight()-offsetTopBottom; // ViewGroup.LayoutParams.MATCH_PARENT;
+            float height = graphLayoutCenter.getHeight()-offsetTopBottom;
+//            paramsCenter.height = Math.round(height+(height/4f)); // ViewGroup.LayoutParams.MATCH_PARENT;
+            paramsCenter.height = graphLayoutCenter.getHeight()-offsetTopBottom+10; // ViewGroup.LayoutParams.MATCH_PARENT; TODO ADD CHART HEIGHT
             paramsCenter.width = graphLayoutCenter.getWidth()-offsetLeftRight; //ViewGroup.LayoutParams.MATCH_PARENT;
         }
     }
@@ -1253,13 +1255,12 @@ public class DataVisualizationActivity extends AppCompatActivity
         // Set stack colors here
         barData.setColors(General.getColorSetLightGray(percentData.length)); // TODO Dynamic colors
 
-
         barData.setStackLabels(xData);
-
         YAxis leftAxis = stackedBarChart.getAxisLeft();
         leftAxis.removeAllLimitLines();
 
-        stackedBarChart.getLegend().setEnabled(true); // Show/hide stack label legend
+        stackedBarChart.getLegend().setEnabled(false); // Show/hide stack label legend
+//        stackedBarChart.getLegend().setMaxSizePercent(5);
         formatStackedBarAxis();
 
         LimitLine line;
@@ -1314,7 +1315,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         YAxis leftAxis = stackedBarChart.getAxisLeft();
 
         LimitLine llStart, llEnd;
-        llStart = new LimitLine(0f, "0");
+        llStart = new LimitLine(0f, ""); // TODO label
         llStart.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
         llStart.setLineColor(Color.GRAY);
         llStart.setLineWidth(1f);
@@ -1322,7 +1323,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         llStart.setTextSize(VALUE_TEXT_SIZE);
         leftAxis.addLimitLine(llStart);
 
-        llEnd = new LimitLine(100f, "100");
+        llEnd = new LimitLine(100f, ""); // TODO Label
         llEnd.setLineColor(llStart.getLineColor());
         llEnd.setLineWidth(1f);
         llEnd.setTextColor(llStart.getTextColor());
