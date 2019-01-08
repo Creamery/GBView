@@ -1210,7 +1210,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 //            chart.setMinimumHeight(graphStackedBarCharts.get(i).getLayoutParams().height);
 //            chart.setMinimumWidth(graphStackedBarCharts.get(i).getLayoutParams().width);
             chart.setY(chart.getY()-(overviewHeightIncrease/2f));
-            chart.setBackgroundColor(Color.LTGRAY); // TODO Remove or make White
+            chart.setBackgroundColor(Color.TRANSPARENT); // TODO Remove or make White
 //            chart.setX(computePercentHalf(chart.getWidth(), offsetPercent));
 //            chart.setY(computePercentHalf(chart.getHeight(), offsetPercent)/offsetYDivider);
         }
