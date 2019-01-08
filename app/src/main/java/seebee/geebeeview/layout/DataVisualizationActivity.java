@@ -1663,7 +1663,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
 
         // Set focus value to highest value
-        chartFocusValue.setText(""+Math.round(percentData[highestValueIndex]));
+        chartFocusValue.setText(""+Math.round(percentData[highestValueIndex])+"%");
         chartFocus.setText(xLabels[highestValueIndex]);
 
         formatStackedBarAxis(chart);

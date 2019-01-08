@@ -154,7 +154,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_end_fine_dominant"
-                    app:layout_constraintHorizontal_weight="7.5"
+                    app:layout_constraintHorizontal_weight="8"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -167,7 +167,7 @@
                     app:autoSizePresetSizes="@array/autosize_text_sizes"
                     app:layout_constraintBottom_toTopOf="@+id/space_fine_dominant_bottom_details"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="2.5"
+                    app:layout_constraintHorizontal_weight="2"
                     app:layout_constraintStart_toEndOf="@+id/space_end_fine_dominant_padding"
                     app:layout_constraintTop_toBottomOf="@+id/space_fine_dominant_top_details"
                     app:layout_constraintVertical_weight="6" />
@@ -379,7 +379,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_end_fine_non"
-                    app:layout_constraintHorizontal_weight="7.5"
+                    app:layout_constraintHorizontal_weight="8"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -392,7 +392,7 @@
                     app:autoSizePresetSizes="@array/autosize_text_sizes"
                     app:layout_constraintBottom_toTopOf="@+id/space_fine_non_bottom_details"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="2.5"
+                    app:layout_constraintHorizontal_weight="2"
                     app:layout_constraintStart_toEndOf="@+id/space_end_fine_non_padding"
                     app:layout_constraintTop_toBottomOf="@+id/space_fine_non_top_details"
                     app:layout_constraintVertical_weight="6" />
@@ -604,7 +604,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tv_end_fine_hold"
-                    app:layout_constraintHorizontal_weight="7.5"
+                    app:layout_constraintHorizontal_weight="8"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -617,7 +617,7 @@
                     app:autoSizePresetSizes="@array/autosize_text_sizes"
                     app:layout_constraintBottom_toTopOf="@+id/space_fine_hold_bottom_details"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="2.5"
+                    app:layout_constraintHorizontal_weight="2"
                     app:layout_constraintStart_toEndOf="@+id/space_end_fine_hold_padding"
                     app:layout_constraintTop_toBottomOf="@+id/space_fine_hold_top_details"
                     app:layout_constraintVertical_weight="6" />

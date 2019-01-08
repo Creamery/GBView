@@ -148,7 +148,7 @@
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/tv_end_gross_motor"
-                app:layout_constraintHorizontal_weight="7.5"
+                app:layout_constraintHorizontal_weight="8"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -161,7 +161,7 @@
                 app:autoSizePresetSizes="@array/autosize_text_sizes"
                 app:layout_constraintBottom_toTopOf="@+id/space_gross_motor_bottom_details"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_weight="2.5"
+                app:layout_constraintHorizontal_weight="2"
                 app:layout_constraintStart_toEndOf="@+id/space_end_gross_motor_padding"
                 app:layout_constraintTop_toBottomOf="@+id/space_gross_motor_top_details"
                 app:layout_constraintVertical_weight="6" />
