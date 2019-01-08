@@ -80,6 +80,11 @@
     <string name="bmi">BMI</string>
     <string name="remarks">Remarks</string>
 
+
+    <string name="overview">Overview</string>
+    <string name="num_50">50</string>
+
+
     <string name="patient_remarks">Patient</string>
     <string name="record_remarks">Record</string>
 

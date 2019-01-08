@@ -1206,7 +1206,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 //            params.get(i).height = ViewGroup.LayoutParams.MATCH_PARENT;// ViewGroup.LayoutParams.MATCH_PARENT;
             params.get(i).width = ViewGroup.LayoutParams.MATCH_PARENT;
-
 //            chart.setMinimumHeight(graphStackedBarCharts.get(i).getLayoutParams().height);
 //            chart.setMinimumWidth(graphStackedBarCharts.get(i).getLayoutParams().width);
             chart.setY(chart.getY()-(overviewHeightIncrease/2f));
@@ -1651,6 +1650,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         chart.getAxisLeft().setAxisMaximum(100f);
         chart.getAxisLeft().setAxisMinimum(0f);
+//        chart.fitScreen();
 
     }
 
