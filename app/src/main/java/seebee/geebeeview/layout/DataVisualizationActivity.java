@@ -174,7 +174,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         super.onWindowFocusChanged(hasFocus);
         // Place layout width/height retrieval here to avoid returning 0
-
         ivBMIRef.getLayoutParams().height = ivBMIRef.getWidth();
         ivVALRef.getLayoutParams().height = ivVALRef.getWidth();
         ivVARRef.getLayoutParams().height = ivVARRef.getWidth();
@@ -187,9 +186,20 @@ public class DataVisualizationActivity extends AppCompatActivity
         ivFMDRef.getLayoutParams().height = ivFMDRef.getWidth();
         ivFMNRef.getLayoutParams().height = ivFMNRef.getWidth();
         ivFMHRef.getLayoutParams().height = ivFMHRef.getWidth();
-
+        adjustGraphOverviewAppearance();
         showGraphOverview(); // Remember to make scroll view visible (set invisible in onCreate)
     }
+
+    private void chartSelectRefresh() {
+
+        // TODO Remove all views
+        removeGraphViews();
+
+        refreshChartParams();
+        addDataSet();
+    }
+
+
 
     private int computePercent(float value, float percent) {
         return Math.round(value*percent);
@@ -441,7 +451,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
                 if(position == 0){ // Overview
                     // TODO place overview setup here if necessary)
-
+                    adjustGraphOverviewAppearance();
                 } else if(position == 1) { // Pie Chart
                     preparePieChart();
                 } else if (position == 2) { // Bar Chart
@@ -504,13 +514,32 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         setupSidebarFunctionality();
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        hideGraphOverview();
+//        adjustGraphOverviewAppearance();
+//        showGraphOverview();
+        chartSelectRefresh();
+        Log.e("RESUME", "resumed");
+    }
     public void hideGraphOverview() {
         scrollGraphOverview.setVisibility(General.getVisibility(false));
     }
 
     public void showGraphOverview() {
         scrollGraphOverview.setVisibility(General.getVisibility(true));
+    }
+
+    public void adjustGraphOverviewAppearance() {
+        if(overviewEntries != null && overviewEntries.get(0).getStackedBarChart() != null) {
+            computeOverviewParams(overviewEntries, paramsOverview);
+        }
     }
 
     public void preparePieChart() {
@@ -563,14 +592,11 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         // TODO add all graphs
         graphBMI.removeAllViews();
-
         graphVisualAcuityLeft.removeAllViews();
         graphVisualAcuityRight.removeAllViews();
         graphColorBlindness.removeAllViews();
-
         graphHearingLeft.removeAllViews();
         graphHearingRight.removeAllViews();
-
         graphGrossMotor.removeAllViews(); // TODO new graph
         graphFineMotorDominant.removeAllViews();
         graphFineMotorNon.removeAllViews();
