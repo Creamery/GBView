@@ -69,7 +69,7 @@
                     android:id="@+id/space11"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/cont_visualization_content"
+                    app:layout_constraintBottom_toTopOf="@+id/include_visualization_content"
                     app:layout_constraintEnd_toStartOf="@+id/cont_header"
                     app:layout_constraintHorizontal_weight="0.5"
                     app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,7 @@
                     android:id="@+id/space12"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/cont_visualization_content"
+                    app:layout_constraintBottom_toTopOf="@+id/include_visualization_content"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="0.5"
                     app:layout_constraintStart_toEndOf="@+id/cont_header"
@@ -104,7 +104,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:orientation="vertical"
-                    app:layout_constraintBottom_toTopOf="@+id/cont_visualization_content"
+                    app:layout_constraintBottom_toTopOf="@+id/include_visualization_content"
                     app:layout_constraintEnd_toStartOf="@+id/space12"
                     app:layout_constraintHorizontal_weight="9"
                     app:layout_constraintStart_toEndOf="@+id/space11"
@@ -290,8 +290,9 @@
 
                 </LinearLayout>
 
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/cont_visualization_content"
+                <include
+                    android:id="@+id/include_visualization_content"
+                    layout="@layout/section_data_visualization_content"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toTopOf="@+id/spc_bottom_padding"
@@ -300,112 +301,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/cont_header"
                     app:layout_constraintVertical_weight="8.25"
                     tools:layout_conversion_absoluteHeight="377dp"
-                    tools:layout_conversion_absoluteWidth="813dp">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/cont_scroll_graph"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="7.5"
-                        app:layout_constraintStart_toEndOf="@+id/cont_overview_avatar"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <include
-                            android:id="@+id/include"
-                            layout="@layout/scroll_visualization_stacked_graph"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="20dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <RelativeLayout
-                            android:id="@+id/graph_container_center"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:background="@color/white"
-                            android:visibility="visible"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_weight="6">
-
-                        </RelativeLayout>
-
-                    </android.support.constraint.ConstraintLayout>
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/cont_overview_avatar"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:visibility="visible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/cont_scroll_graph"
-                        app:layout_constraintHorizontal_weight="4"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_conversion_absoluteHeight="377dp"
-                        tools:layout_conversion_absoluteWidth="244dp">
-
-                        <ImageView
-                            android:id="@+id/imageView6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:contentDescription="@string/cd_blank"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/temp_mascot_256"
-                            tools:layout_conversion_absoluteHeight="377dp"
-                            tools:layout_conversion_absoluteWidth="244dp"
-                            tools:layout_editor_absoluteX="101dp"
-                            tools:layout_editor_absoluteY="140dp" />
-                    </android.support.constraint.ConstraintLayout>
-
-                    <LinearLayout
-                        android:id="@+id/cont_graph_container"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:baselineAligned="false"
-                        android:orientation="horizontal"
-                        android:weightSum="1"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="6"
-                        app:layout_constraintStart_toEndOf="@+id/cont_overview_avatar"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_conversion_absoluteHeight="377dp"
-                        tools:layout_conversion_absoluteWidth="569dp">
-
-                        <RelativeLayout
-                            android:id="@+id/graph_container_left"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5"
-                            android:gravity="top">
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/graph_container_right"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="0.5"
-                            android:clipToPadding="false"
-                            android:gravity="top">
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                </android.support.constraint.ConstraintLayout>
+                    tools:layout_conversion_absoluteWidth="813dp"/>
 
                 <Space
                     android:id="@+id/spc_bottom_padding"
@@ -414,7 +310,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cont_visualization_content"
+                    app:layout_constraintTop_toBottomOf="@+id/include_visualization_content"
                     app:layout_constraintVertical_weight="0.5"
                     tools:layout_conversion_absoluteHeight="12dp"
                     tools:layout_conversion_absoluteWidth="813dp" />

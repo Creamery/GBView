@@ -187,13 +187,19 @@ public class DataVisualizationActivity extends AppCompatActivity
         ivFMNRef.getLayoutParams().height = ivFMNRef.getWidth();
         ivFMHRef.getLayoutParams().height = ivFMHRef.getWidth();
         adjustGraphOverviewAppearance();
-        showGraphOverview(); // Remember to make scroll view visible (set invisible in onCreate)
+
+        if(spChartType != null && spChartType.getSelectedItemPosition() == 0) {
+            showGraphOverview(); // Remember to make scroll view visible (set invisible in onCreate)
+        }
+
     }
 
     private void chartSelectRefresh() {
-
         if(spChartType != null) {
             spChartType.setSelection(0);
+        }
+        if(spRecordColumn != null) {
+            spRecordColumn.setVisibility(General.getVisibility(false));
         }
         removeGraphViews();
         refreshChartParams();
@@ -455,17 +461,16 @@ public class DataVisualizationActivity extends AppCompatActivity
                     // TODO place overview setup here if necessary)
                     showGraphOverview();
                     graphLayoutCenter.setVisibility(General.getVisibility(false));
+                    if(spRecordColumn != null) {
+                        spRecordColumn.setVisibility(General.getVisibility(false));
+                    }
                 } else if(position == 1) { // Pie Chart
-                    graphLayoutCenter.setVisibility(General.getVisibility(true));
                     preparePieChart();
                 } else if (position == 2) { // Bar Chart
-                    graphLayoutCenter.setVisibility(General.getVisibility(true));
                     prepareBarChart();
                 } else if (position == 3) { // Scatter Chart TODO Remove?
-                    graphLayoutCenter.setVisibility(General.getVisibility(true));
                     prepareScatterChart();
                 } else { // Bubble Chart TODO Remove?
-                    graphLayoutCenter.setVisibility(General.getVisibility(true));
                     prepareBubbleChart();
                 }
 
@@ -551,6 +556,9 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     public void preparePieChart() {
 
+        spRecordColumn.setVisibility(General.getVisibility(true));
+        graphLayoutCenter.setVisibility(General.getVisibility(true));
+
         graphLayoutLeft.addView(pieChartLeft);
         graphLayoutRight.addView(pieChartRight);
         // adjust size of layout
@@ -564,6 +572,8 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
 
     public void prepareBarChart() {
+        spRecordColumn.setVisibility(General.getVisibility(true));
+        graphLayoutCenter.setVisibility(General.getVisibility(true));
         /* add bar chart to layout */
         graphLayoutCenter.addView(barChart); // TODO edited
         /* adjust the size of the bar chart */
@@ -574,6 +584,8 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     public void prepareScatterChart() {
 
+        spRecordColumn.setVisibility(General.getVisibility(true));
+        graphLayoutCenter.setVisibility(General.getVisibility(true));
         graphLayoutCenter.addView(scatterChart); // TODO edited
         // adjust the size of the bar chart
         paramsCenter = scatterChart.getLayoutParams();
@@ -583,6 +595,8 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
 
     public void prepareBubbleChart() {
+        spRecordColumn.setVisibility(General.getVisibility(true));
+        graphLayoutCenter.setVisibility(General.getVisibility(true));
         graphLayoutCenter.addView(bubbleChart); // TODO edited
 
         /* adjust the size of the bar chart */
@@ -1019,14 +1033,16 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         // customize legends
         Legend l = pieChart.getLegend();
-        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+//        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
         l.setWordWrapEnabled(true);
         l.setTextSize(R.dimen.context_text_size); // TODO Dynamic Font
         l.setTextColor(CHART_LEGEND_TEXT_COLOR);
         l.setXEntrySpace(7);
         l.setYEntrySpace(5);
+//        pieChart.getLegend().setEntries(); // TODO Set stack entry text
 
         pieChart.getLegend().setEnabled(true); // TODO Temporarily removed legends
+        pieChart.setBackgroundColor(Color.WHITE);
         return pieChart;
     }
 
