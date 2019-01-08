@@ -454,13 +454,18 @@ public class DataVisualizationActivity extends AppCompatActivity
                 if(position == 0){ // Overview
                     // TODO place overview setup here if necessary)
                     showGraphOverview();
+                    graphLayoutCenter.setVisibility(General.getVisibility(false));
                 } else if(position == 1) { // Pie Chart
+                    graphLayoutCenter.setVisibility(General.getVisibility(true));
                     preparePieChart();
                 } else if (position == 2) { // Bar Chart
+                    graphLayoutCenter.setVisibility(General.getVisibility(true));
                     prepareBarChart();
                 } else if (position == 3) { // Scatter Chart TODO Remove?
+                    graphLayoutCenter.setVisibility(General.getVisibility(true));
                     prepareScatterChart();
                 } else { // Bubble Chart TODO Remove?
+                    graphLayoutCenter.setVisibility(General.getVisibility(true));
                     prepareBubbleChart();
                 }
 
