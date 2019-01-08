@@ -22,6 +22,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -113,6 +114,8 @@ public class DataVisualizationActivity extends AppCompatActivity
     RelativeLayout graphLayoutLeft, graphLayoutRight; /* space where graph will be set on */
     RelativeLayout graphLayoutCenter; // added
 
+    ImageView ivBMIRef;
+
     RelativeLayout
             graphBMI,
             graphVisualAcuityLeft, graphVisualAcuityRight, graphColorBlindness,
@@ -171,6 +174,9 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         super.onWindowFocusChanged(hasFocus);
         // Place layout width/height retrieval here to avoid returning 0
+
+        ivBMIRef.getLayoutParams().height = ivBMIRef.getWidth();
+//        ivBMIRef.setMaxHeight(ivBMIRef.getWidth());
     }
 
     private int computePercent(float value, float percent) {
@@ -256,7 +262,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         tvDataHeader = (TextView) findViewById(R.id.tv_data_header);
 
-
+        ivBMIRef = (ImageView) findViewById(R.id.iv_bmi_size_ref);
         initializeStackedGraphOverview();
 
         // TODO Set default font

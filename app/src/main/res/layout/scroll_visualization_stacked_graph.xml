@@ -34,23 +34,23 @@
                     android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="8.5"
-                    app:layout_constraintStart_toEndOf="@+id/imageView9"
+                    app:layout_constraintHorizontal_weight="7"
+                    app:layout_constraintStart_toEndOf="@+id/iv_bmi_size_ref"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_conversion_absoluteHeight="1dp"
                     tools:layout_conversion_absoluteWidth="1dp" />
 
                 <ImageView
-                    android:id="@+id/imageView9"
+                    android:id="@+id/iv_bmi_size_ref"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
+                    android:adjustViewBounds="false"
                     android:contentDescription="@string/cd_blank"
                     android:cropToPadding="false"
                     android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/space14"
-                    app:layout_constraintHorizontal_weight="2.5"
+                    app:layout_constraintHorizontal_weight="3"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/img_sidebar_empty"
@@ -61,45 +61,75 @@
                     android:id="@+id/graph_container_bmi"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="50dp"
                     android:background="@color/dataset_list_download_color"
                     android:gravity="center_vertical|center_horizontal|fill"
                     android:visibility="visible"
-                    app:layout_constraintBottom_toTopOf="@+id/cont_stack_bmi_labels_bottom"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_bmi_graph_center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cont_stack_bmi_labels_top"
+                    app:layout_constraintTop_toTopOf="@+id/tv_bmi_graph_center"
                     app:layout_constraintVertical_weight="6"
                     tools:layout_conversion_absoluteHeight="1dp"
                     tools:layout_conversion_absoluteWidth="1dp">
 
                 </RelativeLayout>
 
+                <TextView
+                    android:id="@+id/tv_bmi_graph_focus_title"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center"
+                    android:text="@string/bmi"
+                    android:textAlignment="center"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_bmi_graph_center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent
+"
+                    app:layout_constraintVertical_weight="2"
+                    tools:layout_conversion_absoluteHeight="19dp"
+                    tools:layout_conversion_absoluteWidth="26dp" />
+
+                <TextView
+                    android:id="@+id/tv_bmi_graph_center"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_bmi_graph_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_bmi_graph_focus_title"
+                    app:layout_constraintVertical_weight="6" />
+
+                <TextView
+                    android:id="@+id/tv_bmi_graph_title"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/brightGreenHighlight"
+                    android:gravity="center"
+                    android:text="@string/bmi"
+                    android:textAlignment="center"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_bmi_graph_center"
+                    app:layout_constraintVertical_weight="2"
+                    tools:layout_conversion_absoluteHeight="19dp"
+                    tools:layout_conversion_absoluteWidth="26dp" />
+
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/cont_stack_bmi_labels_bottom"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:background="@color/colorAccent"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="@+id/space14"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/graph_container_bmi"
                     app:layout_constraintVertical_weight="2">
 
-                    <TextView
-                        android:id="@+id/tv_bmi_graph_focus_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:text="@string/bmi"
-                        android:textAlignment="center"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_conversion_absoluteHeight="19dp"
-                        tools:layout_conversion_absoluteWidth="26dp" />
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
@@ -107,6 +137,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:background="@color/colorPrimary"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@id/graph_container_bmi"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -115,20 +146,6 @@
                     tools:layout_conversion_absoluteHeight="19dp"
                     tools:layout_conversion_absoluteWidth="26dp">
 
-                    <TextView
-                        android:id="@+id/tv_bmi_graph_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:background="@color/brightGreenHighlight"
-                        android:text="@string/bmi"
-                        android:textAlignment="center"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:layout_conversion_absoluteHeight="19dp"
-                        tools:layout_conversion_absoluteWidth="26dp" />
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.constraint.ConstraintLayout>
