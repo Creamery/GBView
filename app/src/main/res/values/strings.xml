@@ -148,6 +148,7 @@
     </string-array>
 
     <string-array name="chart_type_array">
+        <item>Overview</item>
         <item>Pie Chart</item>
         <item>Bar Chart</item>
         <item>Scatter Chart</item>

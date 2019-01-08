@@ -145,7 +145,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     private Spinner spRecordColumn, spChartType, spRightChart;
     private String recordColumn = "BMI", rightChartContent = "National Profile";
 
-    private String chartType = "Pie Chart";
+    private String chartType = "Overview";
 
     private ViewGroup.LayoutParams paramsLeft, paramsRight, paramsCenter, paramsStacked;
     private ArrayList<ViewGroup.LayoutParams> paramsOverview;
@@ -251,6 +251,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         tvDataHeader = (TextView) findViewById(R.id.tv_data_header);
 
 
+        initializeStackedGraphOverview();
+        
         // TODO Set default font
         /* get fonts from assets */
 //        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
@@ -415,81 +417,37 @@ public class DataVisualizationActivity extends AppCompatActivity
                 // TODO Remove all views
                 removeGraphViews();
 
-                if(position == 0){ // Pie Chart
-                    graphLayoutLeft.addView(pieChartLeft);
-                    graphLayoutRight.addView(pieChartRight);
-                    // adjust size of layout
-                    paramsLeft = pieChartLeft.getLayoutParams();
-                    pieChartLeft.setX(computePercentHalf(graphLayoutLeft.getWidth(), offsetPercent));
-                    pieChartLeft.setY(computePercentHalf(graphLayoutLeft.getHeight(), offsetPercent)/offsetYDivider);
+                if(position == 0){ // Overview
+                    // TODO place overview setup here if necessary)
 
-                    paramsRight = pieChartRight.getLayoutParams();
-                    pieChartRight.setX(computePercentHalf(graphLayoutRight.getWidth(), offsetPercent));
-                    pieChartRight.setY(computePercentHalf(graphLayoutRight.getHeight(), offsetPercent)/offsetYDivider);
-
-//                    paramsLeft.height = graphLayoutLeft.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
-//                    paramsLeft.width = graphLayoutLeft.getWidth(); // ViewGroup.LayoutParams.MATCH_PARENT;
-
-//                    paramsRight.height = graphLayoutRight.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
-//                    paramsRight.width = graphLayoutRight.getWidth(); // ViewGroup.LayoutParams.MATCH_PARENT;
-
-                } else if(position == 1) { // Bar Chart
-                    /* add bar chart to layout */
-                    graphLayoutCenter.addView(barChart); // TODO edited
-                    /* adjust the size of the bar chart */
-                    paramsCenter = barChart.getLayoutParams();
-                    barChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
-                    barChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-
-
-//                    // Stacked bar TODO: trial only, remove
-//                    graphLayoutCenter.addView(stackedBarChart); // TODO edited
-//                    /* adjust the size of the bar chart */
-//                    paramsCenter = stackedBarChart.getLayoutParams();
-//                    stackedBarChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
-//                    stackedBarChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-                } else if (position == 2) { // TODO PUT BACK TO Scatter
-                    // TODO REMOVE START
-                    // Stacked bar TODO: trial only, remove
-
-
-
-                    // TODO Removed (latest)
-//                    graphLayoutCenter.addView(stackedBarChart); // TODO edited
-//                    /* adjust the size of the bar chart */
-//                    paramsCenter = stackedBarChart.getLayoutParams();
-//                    stackedBarChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
-//                    stackedBarChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-//                    // TODO REMOVE END
-
-
-                    /*
-                    graphLayoutCenter.addView(scatterChart); // TODO edited
-                    // adjust the size of the bar chart
-                    paramsCenter = scatterChart.getLayoutParams();
-                    scatterChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
-                    scatterChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-                    */
-                } else {
-                    graphLayoutCenter.addView(bubbleChart); // TODO edited
-
-                    /* adjust the size of the bar chart */
-                    paramsCenter = bubbleChart.getLayoutParams();
-                    bubbleChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
-                    bubbleChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-//                    paramsCenter.height = graphLayoutCenter.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
-//                    paramsCenter.width = graphLayoutCenter.getWidth(); //ViewGroup.LayoutParams.MATCH_PARENT;
+                } else if(position == 1) { // Pie Chart
+                    preparePieChart();
+                } else if (position == 2) { // Bar Chart
+                    prepareBarChart();
+                } else if (position == 3) { // Scatter Chart TODO Remove?
+                    prepareBarChart();
+                } else { // Bubble Chart TODO Remove?
+                    prepareBubbleChart();
                 }
 
                 // hide control of right chart for scatter and bubble plot
-                // TODO edited (added "Bar" constraint)
-                if(chartType.contains("Scatter") || chartType.contains("Bubble") || chartType.contains("Bar")) {
-                    spRightChart.setVisibility(View.GONE);
-                    tvRightChart.setVisibility(View.GONE);
-                } else {
+                // **edited, only show on Pie
+                if(chartType.contains("Pie")) {
                     spRightChart.setVisibility(View.VISIBLE);
                     tvRightChart.setVisibility(View.VISIBLE);
+                } else {
+                    spRightChart.setVisibility(View.GONE);
+                    tvRightChart.setVisibility(View.GONE);
                 }
+
+//                if(chartType.contains("Overview") || chartType.contains("Scatter") || chartType.contains("Bubble") || chartType.contains("Bar")) { // TODO make dynamic
+//                    spRightChart.setVisibility(View.GONE);
+//                    tvRightChart.setVisibility(View.GONE);
+//                } else {
+//                    spRightChart.setVisibility(View.VISIBLE);
+//                    tvRightChart.setVisibility(View.VISIBLE);
+//                }
+
                 refreshChartParams();
                 addDataSet();
             }
@@ -497,12 +455,15 @@ public class DataVisualizationActivity extends AppCompatActivity
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 /* Default chart is pie chart */
-                chartType = "Pie Chart";
-                graphLayoutLeft.addView(pieChartLeft);
-                // adjust size of layout
-                ViewGroup.LayoutParams params = pieChartLeft.getLayoutParams();
-                params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                // ** Edited, default chart is Overview
+//                chartType = "Overview";
+                chartType = ((CustomSpinnerItem)(parent.getItemAtPosition(0))).getText(); // On nothing selected, show Overview (first item)
+
+//                graphLayoutLeft.addView(pieChartLeft);
+//                // adjust size of layout
+//                ViewGroup.LayoutParams params = pieChartLeft.getLayoutParams();
+//                params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+//                params.width = ViewGroup.LayoutParams.MATCH_PARENT;
             }
         });
 
@@ -528,7 +489,57 @@ public class DataVisualizationActivity extends AppCompatActivity
         tvDataHeader.setText(schoolName);
 
         setupSidebarFunctionality();
-        initializeStackedGraphOverview();
+    }
+
+    public void preparePieChart() {
+
+        graphLayoutLeft.addView(pieChartLeft);
+        graphLayoutRight.addView(pieChartRight);
+        // adjust size of layout
+        paramsLeft = pieChartLeft.getLayoutParams();
+        pieChartLeft.setX(computePercentHalf(graphLayoutLeft.getWidth(), offsetPercent));
+        pieChartLeft.setY(computePercentHalf(graphLayoutLeft.getHeight(), offsetPercent)/offsetYDivider);
+
+        paramsRight = pieChartRight.getLayoutParams();
+        pieChartRight.setX(computePercentHalf(graphLayoutRight.getWidth(), offsetPercent));
+        pieChartRight.setY(computePercentHalf(graphLayoutRight.getHeight(), offsetPercent)/offsetYDivider);
+    }
+
+    public void prepareBarChart() {
+        /* add bar chart to layout */
+        graphLayoutCenter.addView(barChart); // TODO edited
+        /* adjust the size of the bar chart */
+        paramsCenter = barChart.getLayoutParams();
+        barChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+        barChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
+    }
+
+    public void prepareScatterChart() {
+// TODO Removed (latest)
+//                    graphLayoutCenter.addView(stackedBarChart); // TODO edited
+//                    /* adjust the size of the bar chart */
+//                    paramsCenter = stackedBarChart.getLayoutParams();
+//                    stackedBarChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+//                    stackedBarChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
+//                    // TODO REMOVE END
+
+
+
+        graphLayoutCenter.addView(scatterChart); // TODO edited
+        // adjust the size of the bar chart
+        paramsCenter = scatterChart.getLayoutParams();
+        scatterChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+        scatterChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
+
+    }
+
+    public void prepareBubbleChart() {
+        graphLayoutCenter.addView(bubbleChart); // TODO edited
+
+        /* adjust the size of the bar chart */
+        paramsCenter = bubbleChart.getLayoutParams();
+        bubbleChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+        bubbleChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
     }
 
     public void removeGraphViews() {
@@ -648,16 +659,14 @@ public class DataVisualizationActivity extends AppCompatActivity
         /* change the contents of the chart */
         if(pieChartLeft != null) {
             prepareChartData();
-            if(chartType.contentEquals("Pie Chart")) {
+            if(chartType.contentEquals("Overview")) {
+                clearOverviewCharts();
+            } else if(chartType.contentEquals("Pie Chart")) {
                 pieChartLeft.clear();
             } else if(chartType.contentEquals("Bar Chart")) {
-                barChart.clear(); // TODO add stacked here
-
-            } else if (chartType.contentEquals("Scatter Chart")) { // TODO EDITED FOR TESTING ONLY, CHANGE BACK TO SCATTER
-//                scatterChart.clear(); // TODO ENABLE THIS
-                stackedBarChart.clear();
-                // TODO clear all overview (or not)
-                clearOverviewCharts();
+                barChart.clear();
+            } else if (chartType.contentEquals("Scatter Chart")) {
+                scatterChart.clear();
             } else {
                 bubbleChart.clear();
             }
@@ -677,8 +686,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         pieChartRight = createPieChart();
 
         createBarChart();
-
-        createStackedBarChart();
+//        createStackedBarChart();
 
         createScatterChart();
         createBubbleChart();
@@ -1195,23 +1203,20 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 
     private void addDataSet() {
-        if(chartType.contentEquals("Scatter Chart")) { // TODO change to "Overview"
+        if(chartType.contentEquals("Overview")) {
             prepareOverviewChartData();
         }
-        else {
-            // TODO edit graph
-            if(chartType.contentEquals("Pie Chart")) {
-                preparePieChartData(pieChartLeft, yDataLeft);
-                preparePieChartData(pieChartRight, yDataRight);
-            } else if(chartType.contentEquals("Bar Chart")){
-                prepareBarChartData();
-            } else if(chartType.contentEquals("Scatter Chart")) { // TODO TESTING ONLY, PUT BACK TO prepareScatterChartData
-//            prepareScatterChartData();
-//                prepareStackedBarChartData(); // TODO Remove stacked  bar chart
-                prepareOverviewChartData();
-            } else {
-                prepareBubbleChartData();
-            }
+        else if(chartType.contentEquals("Pie Chart")) {
+            preparePieChartData(pieChartLeft, yDataLeft);
+            preparePieChartData(pieChartRight, yDataRight);
+        }
+        else if(chartType.contentEquals("Bar Chart")){
+            prepareBarChartData();
+        }
+        else if(chartType.contentEquals("Scatter Chart")) {
+            prepareScatterChartData();
+        } else {
+            prepareBubbleChartData();
         }
     }
 
@@ -1435,8 +1440,6 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
     private void prepareOverviewChartData() {
         for(int i = 0; i < 4; i++) { // TODO change 4 to recordColumns.length
-
-
             stackedBarCharts.set(i, prepareStackedOverview(recordColumns[i], stackedBarCharts.get(i)));
             graphStackedBarCharts.get(i).addView(stackedBarCharts.get(i));
 
