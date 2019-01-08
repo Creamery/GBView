@@ -114,7 +114,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     RelativeLayout graphLayoutLeft, graphLayoutRight; /* space where graph will be set on */
     RelativeLayout graphLayoutCenter; // added
 
-    ImageView ivBMIRef;
+    ImageView ivBMIRef, ivVALRef, ivVARRef, ivCOLORRef;
 
     RelativeLayout
             graphBMI,
@@ -176,6 +176,9 @@ public class DataVisualizationActivity extends AppCompatActivity
         // Place layout width/height retrieval here to avoid returning 0
 
         ivBMIRef.getLayoutParams().height = ivBMIRef.getWidth();
+        ivVALRef.getLayoutParams().height = ivVALRef.getWidth();
+//        ivVARRef.getLayoutParams().height = ivVARRef.getWidth();
+//        ivCOLORRef.getLayoutParams().height = ivCOLORRef.getWidth();
 //        ivBMIRef.setMaxHeight(ivBMIRef.getWidth());
     }
 
@@ -263,6 +266,11 @@ public class DataVisualizationActivity extends AppCompatActivity
         tvDataHeader = (TextView) findViewById(R.id.tv_data_header);
 
         ivBMIRef = (ImageView) findViewById(R.id.iv_bmi_size_ref);
+
+        ivVALRef = (ImageView) findViewById(R.id.iv_va_left_size_ref);
+//        ivVARRef = (ImageView) findViewById(R.id.iv_va_right_size_ref);
+//        ivCOLORRef = (ImageView) findViewById(R.id.iv_color_size_ref);
+
         initializeStackedGraphOverview();
 
         // TODO Set default font

@@ -256,36 +256,6 @@
                     tools:layout_conversion_absoluteHeight="19dp"
                     tools:layout_conversion_absoluteWidth="26dp" />
 
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/cont_stack_bmi_labels_bottom"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@color/colorAccent"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/space14"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cont_graph_bmi_details"
-                    app:layout_constraintVertical_weight="2.5">
-
-                </android.support.constraint.ConstraintLayout>
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/cont_stack_bmi_labels_top"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:background="@color/colorPrimary"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toTopOf="@id/cont_graph_bmi_details"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_weight="2"
-                    tools:layout_conversion_absoluteHeight="19dp"
-                    tools:layout_conversion_absoluteWidth="26dp">
-
-                </android.support.constraint.ConstraintLayout>
-
             </android.support.constraint.ConstraintLayout>
 
             <LinearLayout
@@ -298,47 +268,237 @@
                     android:id="@+id/cont_stack_va_left"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/dataset_list_visualize_color">
-
-                    <ImageView
-                        android:id="@+id/imageView11"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="@string/cd_blank"
-                        android:cropToPadding="false"
-                        android:visibility="invisible"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/space17"
-                        app:layout_constraintHorizontal_weight="2.5"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/img_sidebar_empty" />
+                    android:background="@color/white">
 
                     <Space
-                        android:id="@+id/space17"
+                        android:id="@+id/space14_va_left"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="8.5"
-                        app:layout_constraintStart_toEndOf="@+id/imageView11"
+                        app:layout_constraintHorizontal_weight="8.25"
+                        app:layout_constraintStart_toEndOf="@+id/iv_va_left_size_ref"
                         app:layout_constraintTop_toTopOf="parent"
                         tools:layout_conversion_absoluteHeight="1dp"
                         tools:layout_conversion_absoluteWidth="1dp" />
 
-                    <RelativeLayout
-                        android:id="@+id/graph_container_va_left"
+                    <ImageView
+                        android:id="@+id/iv_va_left_size_ref"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="false"
+                        android:contentDescription="@string/cd_blank"
+                        android:cropToPadding="false"
+                        android:visibility="invisible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/space14_va_left"
+                        app:layout_constraintHorizontal_weight="1.75"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/img_sidebar_empty"
+                        tools:layout_conversion_absoluteHeight="200dp"
+                        tools:layout_conversion_absoluteWidth="200dp" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cont_graph_va_left_details"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:gravity="fill"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_weight="6">
 
-                    </RelativeLayout>
+                        <Space
+                            android:id="@+id/space_va_left_top_details"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toTopOf="@+id/tv_start_va_left"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_weight="2" />
+
+                        <Space
+                            android:id="@+id/space_va_left_bottom_details"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/space_va_left_center"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/space_end_va_left"
+                            app:layout_constraintVertical_weight="2" />
+
+                        <Space
+                            android:id="@+id/space_end_va_left"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toTopOf="@+id/space_va_left_bottom_details"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="1.5"
+                            app:layout_constraintStart_toEndOf="@+id/space_va_left_center"
+                            app:layout_constraintTop_toBottomOf="@+id/space_va_left_top_details"
+                            app:layout_constraintVertical_weight="6" />
+
+                        <Space
+                            android:id="@+id/space_graph_container_va_left_start"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/graph_container_va_left"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <RelativeLayout
+                            android:id="@+id/graph_container_va_left"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="1dp"
+                            android:gravity="center_vertical|center_horizontal|fill"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/space_graph_container_va_left_end"
+                            app:layout_constraintHorizontal_weight="8"
+                            app:layout_constraintStart_toEndOf="@+id/space_graph_container_va_left_start"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_conversion_absoluteHeight="1dp"
+                            tools:layout_conversion_absoluteWidth="1dp">
+
+                        </RelativeLayout>
+
+                        <Space
+                            android:id="@+id/space_graph_container_va_left_end"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toEndOf="@id/graph_container_va_left"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/space_va_left_center"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/space_end_va_left"
+                            app:layout_constraintHorizontal_weight="7"
+                            app:layout_constraintStart_toEndOf="@+id/tv_start_va_left"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_conversion_absoluteHeight="1dp"
+                            tools:layout_conversion_absoluteWidth="1dp">
+
+                        </android.support.constraint.ConstraintLayout>
+
+                        <TextView
+                            android:id="@+id/tv_start_va_left"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:gravity="center_vertical"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes"
+                            app:layout_constraintBottom_toTopOf="@+id/space_va_left_bottom_details"
+                            app:layout_constraintEnd_toStartOf="@+id/space_va_left_center"
+                            app:layout_constraintHorizontal_weight="1.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/space_va_left_top_details"
+                            app:layout_constraintVertical_weight="6" />
+
+                        <Space
+                            android:id="@+id/space_end_va_left_padding"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_end_va_left"
+                            app:layout_constraintHorizontal_weight="7.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_end_va_left"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="@string/num_50"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes"
+                            app:layout_constraintBottom_toTopOf="@+id/space_va_left_bottom_details"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="2.5"
+                            app:layout_constraintStart_toEndOf="@+id/space_end_va_left_padding"
+                            app:layout_constraintTop_toBottomOf="@+id/space_va_left_top_details"
+                            app:layout_constraintVertical_weight="6" />
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/tv_va_left_graph_focus_title"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="50dp"
+                        android:gravity="bottom"
+                        android:text="@string/visual_acuity"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_va_left_graph_center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent
+"
+                        app:layout_constraintVertical_weight="2.5"
+                        tools:layout_conversion_absoluteHeight="19dp"
+                        tools:layout_conversion_absoluteWidth="26dp" />
+
+                    <TextView
+                        android:id="@+id/tv_va_left_graph_center"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="4dp"
+                        android:gravity="center_vertical"
+                        android:textAlignment="center"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toTopOf="@+id/space_va_left_bottom"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_va_left_graph_focus_title"
+                        app:layout_constraintVertical_weight="5" />
+
+                    <Space
+                        android:id="@+id/space_va_left_bottom"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_va_left_graph_center"
+                        app:layout_constraintVertical_weight="2" />
+
+                    <Space
+                        android:id="@+id/space_va_left_title_top"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_va_left_graph_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_weight="7" />
+
+                    <TextView
+                        android:id="@+id/tv_va_left_graph_title"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center"
+                        android:text="@string/overview"
+                        android:textAlignment="center"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/space_va_left_title_top"
+                        app:layout_constraintVertical_weight="3"
+                        tools:layout_conversion_absoluteHeight="19dp"
+                        tools:layout_conversion_absoluteWidth="26dp" />
+
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
