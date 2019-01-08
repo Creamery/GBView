@@ -10,6 +10,7 @@
         android:id="@+id/scroll_graph_overview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb_red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,6 +20,8 @@
             android:id="@+id/cont_graph_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="30dp"
             android:orientation="vertical">
 
             <TextView
@@ -388,12 +391,12 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="0dp"
+                android:layout_marginBottom="5dp"
                 android:text="@string/fine_motor"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:autoSizePresetSizes="@array/autosize_text_sizes"
-                android:layout_marginBottom="5dp" />
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
 
             <ImageView
                 android:id="@+id/iv_bar4"
