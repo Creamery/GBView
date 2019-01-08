@@ -569,7 +569,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         graphLayoutCenter.removeAllViews();
 
         // TODO add all graphs
-        graphBMI.removeAllViews();
+//        graphBMI.removeAllViews();
 
         graphVisualAcuityLeft.removeAllViews();
         graphVisualAcuityRight.removeAllViews();
@@ -1172,7 +1172,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private void initializeStackedGraphOverview() {
 //        recordColumn = spRecordColumn.getItemAtPosition(0).toString();
-        recordColumns = getResources().getStringArray(R.array.record_column_array_num); // Initialize columns to appear
+        recordColumns = getResources().getStringArray(R.array.record_column_array); // Initialize columns to appear
 
         // TODO add additional overviews here + corresponding params
 //        stackedBarCharts = new ArrayList<>();
@@ -1476,7 +1476,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private HorizontalBarChart prepareStackedOverview(String recordType, HorizontalBarChart chart) {
         ChartDataValue chartDataValue = prepareChartData(recordType);
-
+        Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
         chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Removed
         // Variables to hold the converted yData (from int to float) and sum
