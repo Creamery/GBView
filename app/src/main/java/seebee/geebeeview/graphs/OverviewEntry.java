@@ -10,9 +10,6 @@ public class OverviewEntry {
     private TextView tvFocusTitle;
     private TextView tvFocusValue;
 
-    public OverviewEntry(HorizontalBarChart chart) {
-        this.setStackedBarChart(chart);
-    }
 
     public OverviewEntry(HorizontalBarChart chart, TextView title, TextView focusTitle, TextView focusValue) {
         this.setStackedBarChart(chart);

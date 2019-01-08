@@ -24,6 +24,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,7 +76,6 @@ import seebee.geebeeview.adapter.TextHolderAdapter;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.graphs.ChartDataValue;
 import seebee.geebeeview.graphs.OverviewEntry;
-import seebee.geebeeview.graphs.StackedBarChartIAxisFormatter;
 import seebee.geebeeview.graphs.StackedBarChartValueFormatter;
 import seebee.geebeeview.model.account.Dataset;
 import seebee.geebeeview.model.consultation.School;
@@ -116,6 +116,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     ImageView ivBMIRef, ivVALRef, ivVARRef, ivCOLORRef, ivHEARLRef, ivHEARRRef, ivGMRef, ivFMDRef, ivFMNRef, ivFMHRef;
 
+    ScrollView scrollGraphOverview;
     RelativeLayout
             graphBMI,
             graphVisualAcuityLeft, graphVisualAcuityRight, graphColorBlindness,
@@ -135,7 +136,6 @@ public class DataVisualizationActivity extends AppCompatActivity
     BarChart barChart;
 
     HorizontalBarChart stackedBarChart;
-//    ArrayList<HorizontalBarChart> stackedBarCharts;
     ArrayList<OverviewEntry> overviewEntries;
     ArrayList<RelativeLayout> graphStackedBarCharts;
     String[] recordColumns;
@@ -188,6 +188,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         ivFMNRef.getLayoutParams().height = ivFMNRef.getWidth();
         ivFMHRef.getLayoutParams().height = ivFMHRef.getWidth();
 
+        showGraphOverview(); // Remember to make scroll view visible (set invisible in onCreate)
     }
 
     private int computePercent(float value, float percent) {
@@ -216,20 +217,10 @@ public class DataVisualizationActivity extends AppCompatActivity
             offsetTopBottom = computePercent(graphLayoutCenter.getHeight(), offsetPercent);
             offsetLeftRight = computePercent(graphLayoutCenter.getWidth(), offsetPercent);
 
-            float height = graphLayoutCenter.getHeight()-offsetTopBottom;
 //            paramsCenter.height = Math.round(height+(height/4f)); // ViewGroup.LayoutParams.MATCH_PARENT;
-            paramsCenter.height = graphLayoutCenter.getHeight()-offsetTopBottom+10; // ViewGroup.LayoutParams.MATCH_PARENT; TODO ADD CHART HEIGHT
+            paramsCenter.height = graphLayoutCenter.getHeight()-offsetTopBottom; // ViewGroup.LayoutParams.MATCH_PARENT; TODO ADD CHART HEIGHT
             paramsCenter.width = graphLayoutCenter.getWidth()-offsetLeftRight; //ViewGroup.LayoutParams.MATCH_PARENT;
         }
-//        if(paramsStacked != null) {
-//            offsetTopBottom = computePercent(graphBMI.getHeight(), offsetPercent);
-//            offsetLeftRight = computePercent(graphBMI.getWidth(), offsetPercent);
-//
-//            float height = graphBMI.getHeight()-offsetTopBottom;
-////            paramsCenter.height = Math.round(height+(height/4f)); // ViewGroup.LayoutParams.MATCH_PARENT;
-//            paramsCenter.height = graphBMI.getHeight()-offsetTopBottom+10; // ViewGroup.LayoutParams.MATCH_PARENT; TODO ADD CHART HEIGHT
-//            paramsCenter.width = graphBMI.getWidth()-offsetLeftRight; //ViewGroup.LayoutParams.MATCH_PARENT;
-//        }
     }
 
     @Override
@@ -260,12 +251,14 @@ public class DataVisualizationActivity extends AppCompatActivity
         graphLayoutRight = (RelativeLayout) findViewById(R.id.graph_container_right);
         graphLayoutCenter = (RelativeLayout) findViewById(R.id.graph_container_center); // Added
 
+        scrollGraphOverview = (ScrollView) findViewById(R.id.scroll_graph_overview);
+        hideGraphOverview(); // Initially make invisible
 
         // TODO Add Here
-        graphBMI = (RelativeLayout) findViewById(R.id.graph_container_bmi); // Added
-        graphVisualAcuityLeft = (RelativeLayout) findViewById(R.id.graph_container_va_left); // Added
-        graphVisualAcuityRight = (RelativeLayout) findViewById(R.id.graph_container_va_right); // Added
-        graphColorBlindness = (RelativeLayout) findViewById(R.id.graph_container_va_color); // Added
+        graphBMI = (RelativeLayout) findViewById(R.id.graph_container_bmi);
+        graphVisualAcuityLeft = (RelativeLayout) findViewById(R.id.graph_container_va_left);
+        graphVisualAcuityRight = (RelativeLayout) findViewById(R.id.graph_container_va_right);
+        graphColorBlindness = (RelativeLayout) findViewById(R.id.graph_container_va_color);
 
         graphHearingLeft = (RelativeLayout) findViewById(R.id.graph_container_hearing_left);
         graphHearingRight = (RelativeLayout) findViewById(R.id.graph_container_hearing_right);
@@ -299,19 +292,6 @@ public class DataVisualizationActivity extends AppCompatActivity
         initializeStackedGraphOverview();
 
         // TODO Set default font
-        /* get fonts from assets */
-//        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
-//        Typeface chalkFont = Typeface.createFromAsset(getAssets(), "font/DJBChalkItUp.ttf");
-        /* set font of text */
-//        tvDataset.setTypeface(chalkFont);
-//        tvFilter.setTypeface(chalkFont);
-//        tvChart.setTypeface(chalkFont);
-//        tvData.setTypeface(chalkFont);
-//        tvRightChart.setTypeface(chalkFont);
-//        btnAddDataset.setTypeface(chawpFont);
-//        btnAddFilter.setTypeface(chawpFont);
-//        btnViewHPIList.setTypeface(chawpFont);
-//        btnViewPatientList.setTypeface(chawpFont);
 
         /* set listener for button view hpi list */
         btnViewHPIList.setOnClickListener(new View.OnClickListener() {
@@ -456,9 +436,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 //                Log.e("CHART", chartType);
 
 
-//                graphLayoutLeft.removeAllViews();
-//                graphLayoutRight.removeAllViews();
-//                graphLayoutCenter.removeAllViews();
                 // TODO Remove all views
                 removeGraphViews();
 
@@ -484,14 +461,6 @@ public class DataVisualizationActivity extends AppCompatActivity
                     spRightChart.setVisibility(View.GONE);
                     tvRightChart.setVisibility(View.GONE);
                 }
-
-//                if(chartType.contains("Overview") || chartType.contains("Scatter") || chartType.contains("Bubble") || chartType.contains("Bar")) { // TODO make dynamic
-//                    spRightChart.setVisibility(View.GONE);
-//                    tvRightChart.setVisibility(View.GONE);
-//                } else {
-//                    spRightChart.setVisibility(View.VISIBLE);
-//                    tvRightChart.setVisibility(View.VISIBLE);
-//                }
 
                 refreshChartParams();
                 addDataSet();
@@ -536,6 +505,14 @@ public class DataVisualizationActivity extends AppCompatActivity
         setupSidebarFunctionality();
     }
 
+    public void hideGraphOverview() {
+        scrollGraphOverview.setVisibility(General.getVisibility(false));
+    }
+
+    public void showGraphOverview() {
+        scrollGraphOverview.setVisibility(General.getVisibility(true));
+    }
+
     public void preparePieChart() {
 
         graphLayoutLeft.addView(pieChartLeft);
@@ -560,15 +537,6 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
 
     public void prepareScatterChart() {
-// TODO Removed (latest)
-//                    graphLayoutCenter.addView(stackedBarChart); // TODO edited
-//                    /* adjust the size of the bar chart */
-//                    paramsCenter = stackedBarChart.getLayoutParams();
-//                    stackedBarChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
-//                    stackedBarChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-//                    // TODO REMOVE END
-
-
 
         graphLayoutCenter.addView(scatterChart); // TODO edited
         // adjust the size of the bar chart
@@ -594,7 +562,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         graphLayoutCenter.removeAllViews();
 
         // TODO add all graphs
-//        graphBMI.removeAllViews();
+        graphBMI.removeAllViews();
 
         graphVisualAcuityLeft.removeAllViews();
         graphVisualAcuityRight.removeAllViews();
@@ -732,18 +700,13 @@ public class DataVisualizationActivity extends AppCompatActivity
         for(int i = 0; i < overviewEntries.size(); i++) {
             overviewEntries.get(i).getStackedBarChart().clear();
         }
-//        for (HorizontalBarChart chart : stackedBarCharts) {
-//            chart.clear();
-//        }
     }
+
     private void createCharts() {
-        //graphLayoutLeft.setBackgroundColor(Color.LTGRAY);
         pieChartLeft = createPieChart();
         pieChartRight = createPieChart();
 
         createBarChart();
-//        createStackedBarChart();
-
         createScatterChart();
         createBubbleChart();
 
@@ -1212,42 +1175,81 @@ public class DataVisualizationActivity extends AppCompatActivity
         overviewEntries = new ArrayList<>();
         graphStackedBarCharts = new ArrayList<>();
 
-        // TODO Add stack
-        overviewEntries.add(new OverviewEntry(stackedBMI));
+        TextView title, focusTitle, focusValue;
+
+        // TODO Add new graph here
+        // BMI
+        title = findViewById(R.id.tv_bmi_graph_focus_title); // Note: R.id. naming was inverted, but this is correct (_focus_title is title)
+        focusTitle = findViewById(R.id.tv_bmi_graph_title);
+        focusValue = findViewById(R.id.tv_end_bmi);
+        overviewEntries.add(new OverviewEntry(stackedBMI, title, focusTitle, focusValue));
         graphStackedBarCharts.add(graphBMI);
 
-
-        overviewEntries.add(new OverviewEntry(stackedVisualAcuityLeft));
+        // Visual Acuity Left
+        title = findViewById(R.id.tv_va_left_graph_focus_title);
+        focusTitle = findViewById(R.id.tv_va_left_graph_title);
+        focusValue = findViewById(R.id.tv_end_va_left);
+        overviewEntries.add(new OverviewEntry(stackedVisualAcuityLeft, title, focusTitle, focusValue));
         graphStackedBarCharts.add(graphVisualAcuityLeft);
 
-
-        overviewEntries.add(new OverviewEntry(stackedVisualAcuityRight));
+        // Visual Acuity Right
+        title = findViewById(R.id.tv_va_right_graph_focus_title);
+        focusTitle = findViewById(R.id.tv_va_right_graph_title);
+        focusValue = findViewById(R.id.tv_end_va_right);
+        overviewEntries.add(new OverviewEntry(stackedVisualAcuityRight, title, focusTitle, focusValue));
         graphStackedBarCharts.add(graphVisualAcuityRight);
 
-
-        overviewEntries.add(new OverviewEntry(stackedColorBlindness));
+        // Color Vision
+        title = findViewById(R.id.tv_va_color_graph_focus_title);
+        focusTitle = findViewById(R.id.tv_va_color_graph_title);
+        focusValue = findViewById(R.id.tv_end_va_color);
+        overviewEntries.add(new OverviewEntry(stackedColorBlindness, title, focusTitle, focusValue));
         graphStackedBarCharts.add(graphColorBlindness);
 
-        // TODO new graph
-        overviewEntries.add(new OverviewEntry(stackedHearingLeft));
+        // Hearing Left
+        title = findViewById(R.id.tv_hearing_left_graph_focus_title);
+        focusTitle = findViewById(R.id.tv_hearing_left_graph_title);
+        focusValue = findViewById(R.id.tv_end_hearing_left);
+        overviewEntries.add(new OverviewEntry(stackedHearingLeft, title, focusTitle, focusValue));
         graphStackedBarCharts.add(graphHearingLeft);
 
-        overviewEntries.add(new OverviewEntry(stackedHearingRight));
+
+        // Hearing Right
+        title = findViewById(R.id.tv_hearing_right_graph_focus_title);
+        focusTitle = findViewById(R.id.tv_hearing_right_graph_title);
+        focusValue = findViewById(R.id.tv_end_hearing_right);
+        overviewEntries.add(new OverviewEntry(stackedHearingRight, title, focusTitle, focusValue));
         graphStackedBarCharts.add(graphHearingRight);
 
 
-        overviewEntries.add(new OverviewEntry(stackedGrossMotor));
+        // Gross Motor
+        title = findViewById(R.id.tv_gross_motor_graph_focus_title);
+        focusTitle = findViewById(R.id.tv_gross_motor_graph_title);
+        focusValue = findViewById(R.id.tv_end_gross_motor);
+        overviewEntries.add(new OverviewEntry(stackedGrossMotor, title, focusTitle, focusValue));
         graphStackedBarCharts.add(graphGrossMotor);
 
-        overviewEntries.add(new OverviewEntry(stackedFineMotorDominant));
+
+        // Fine Motor (Dominant)
+        title = findViewById(R.id.tv_fine_dominant_graph_focus_title);
+        focusTitle = findViewById(R.id.tv_fine_dominant_graph_title);
+        focusValue = findViewById(R.id.tv_end_fine_dominant);
+        overviewEntries.add(new OverviewEntry(stackedFineMotorDominant, title, focusTitle, focusValue));
         graphStackedBarCharts.add(graphFineMotorDominant);
 
 
-        overviewEntries.add(new OverviewEntry(stackedFineMotorNon));
+        // Fine Motor (Non-dominant)
+        title = findViewById(R.id.tv_fine_non_graph_focus_title);
+        focusTitle = findViewById(R.id.tv_fine_non_graph_title);
+        focusValue = findViewById(R.id.tv_end_fine_non);
+        overviewEntries.add(new OverviewEntry(stackedFineMotorNon, title, focusTitle, focusValue));
         graphStackedBarCharts.add(graphFineMotorNon);
 
-
-        overviewEntries.add(new OverviewEntry(stackedFineMotorHold));
+        // Fine Motor (Hold)
+        title = findViewById(R.id.tv_fine_hold_graph_focus_title);
+        focusTitle = findViewById(R.id.tv_fine_hold_graph_title);
+        focusValue = findViewById(R.id.tv_end_fine_hold);
+        overviewEntries.add(new OverviewEntry(stackedFineMotorHold, title, focusTitle, focusValue));
         graphStackedBarCharts.add(graphFineMotorHold);
     }
 
@@ -1266,7 +1268,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 
             params.get(i).height = graphStackedBarCharts.get(i).getHeight()+(int)overviewHeightIncrease; // ViewGroup.LayoutParams.MATCH_PARENT; TODO ADD CHART HEIGHT
 //            params.get(i).width = graphStackedBarCharts.get(i).getWidth(); //ViewGroup.LayoutParams.MATCH_PARENT;
-
 //            params.get(i).height = ViewGroup.LayoutParams.MATCH_PARENT;// ViewGroup.LayoutParams.MATCH_PARENT;
             params.get(i).width = ViewGroup.LayoutParams.MATCH_PARENT;
 //            chart.setMinimumHeight(graphStackedBarCharts.get(i).getLayoutParams().height);
@@ -1277,8 +1278,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 //            chart.setY(computePercentHalf(chart.getHeight(), offsetPercent)/offsetYDivider);
         }
     }
-
-
 
     private void addDataSet() {
         if(chartType.contentEquals("Overview")) {
@@ -1516,20 +1515,30 @@ public class DataVisualizationActivity extends AppCompatActivity
         customizeChart(barChart, barChart.getAxisRight());
 
     }
+
+    /**
+     * Create a stacked bar graph for each entry in overviewEntries.
+     */
     private void prepareOverviewChartData() {
         for(int i = 0; i < overviewEntries.size(); i++) {
 //            stackedBarCharts.set(i, prepareStackedOverview(recordColumns[i], stackedBarCharts.get(i)));
 //            graphStackedBarCharts.get(i).addView(stackedBarCharts.get(i));
-            overviewEntries.get(i).setStackedBarChart(prepareStackedOverview(recordColumns[i], overviewEntries.get(i).getStackedBarChart()));
+
+            // Initialize the stackedBarChart variable of the overviewEntry
+            overviewEntries.get(i).setStackedBarChart(prepareStackedOverview(recordColumns[i], overviewEntries.get(i)));
+            // Then add the initialized entry to graphStackedBarCharts so that it will appear on screen
             graphStackedBarCharts.get(i).addView(overviewEntries.get(i).getStackedBarChart());
 
 //            graphStackedBarCharts.get(i).setX(computePercentHalf(graphStackedBarCharts.get(i).getWidth(), offsetPercent));
 //            graphStackedBarCharts.get(i).setY(computePercentHalf(graphStackedBarCharts.get(i).getHeight(), offsetPercent)/offsetYDivider);
         }
+        // Then adjust the graph container's size
         computeOverviewParams(overviewEntries, paramsOverview);
     }
 
-    private HorizontalBarChart prepareStackedOverview(String recordType, HorizontalBarChart chart) {
+    private HorizontalBarChart prepareStackedOverview(String recordType, OverviewEntry overviewEntry) {
+        HorizontalBarChart chart;
+
         ChartDataValue chartDataValue = prepareChartData(recordType);
         Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
@@ -1564,62 +1573,31 @@ public class DataVisualizationActivity extends AppCompatActivity
         BarData data = new BarData(barDataSetList); // TODO X Values
         chart.setData(data);
 
-        formatStackBarAppearance(recordType, chart, set, fDataSchool, pDataSchool); // Edit stack bar appearance
-        chart.notifyDataSetChanged();
+        overviewEntry.setStackedBarChart(chart);
+        formatStackBarAppearance(
+                recordType,
+                overviewEntry,
+                chartDataValue.getxData(),
+                set, fDataSchool, pDataSchool); // Edit stack bar appearance
+
+        chart.notifyDataSetChanged(); // Call this to reflect chart data changes
         return chart;
     }
 
+    /**
+     * Formats the stacked bar chart appearance (for overview). Calls formatStackedBarAxis.
+     * @param recordName
+     * @param overviewEntry
+     * @param xLabels
+     * @param barData
+     * @param rawData
+     * @param percentData
+     */
+    private void formatStackBarAppearance(String recordName, OverviewEntry overviewEntry, String[] xLabels, BarDataSet barData, float[] rawData, float[] percentData) {
+        HorizontalBarChart chart = overviewEntry.getStackedBarChart();
+        TextView chartFocus = overviewEntry.getTvFocusTitle();
+        TextView chartFocusValue = overviewEntry.getTvFocusValue();
 
-    private void prepareStackedBarChartData() {
-        this.prepareStackedBarChartDataPercentages();
-//        this.prepareStackedBarChartDataRaw();
-    }
-
-    // Alters the values to be in percent (0 to 100)
-    private void prepareStackedBarChartDataPercentages() {
-        ArrayList<BarEntry> yVals1 = new ArrayList<>();
-
-        // Variables to hold the converted yData (from int to float) and sum
-        float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
-        float fSumSchool, fSumNational;
-
-        // Convert yData to float
-        fDataSchool = General.convertToFloat(yDataLeft);
-        fDataNational = General.convertToFloat(yDataRight);
-
-        // Get yData sum
-        fSumSchool = General.getArraySum(fDataSchool);
-        fSumNational = General.getArraySum(fDataNational);
-
-        // Convert to percentages
-        pDataSchool = General.computePercentEquivalent(fDataSchool, fSumSchool);
-        pDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
-
-
-        // TODO Remove, PRINTING for validation only
-//        for(int i = 0; i < yDataLeft.length; i++) {
-//            Log.e("YVAL_School", fDataSchool[i]+"");
-//            Log.e("YVAL_National", fDataNational[i]+"");
-//        }
-
-        // Stacked bar entries. xIndex 0 is the bottom
-        List<BarEntry> entries = new ArrayList<>();
-        BarEntry schoolData = new BarEntry(0f, pDataSchool);
-        entries.add(schoolData); // School
-
-        // BarDataSet second parameter is the label
-        BarDataSet set = new BarDataSet(entries, recordColumn);
-        List<IBarDataSet> barDataSetList = new ArrayList<>();
-
-        barDataSetList.add(set);
-        BarData data = new BarData(barDataSetList); // TODO X Values
-        stackedBarChart.setData(data);
-
-        formatStackBarAppearance(recordColumn, stackedBarChart, set, fDataSchool, pDataSchool); // Edit stack bar appearance
-        stackedBarChart.notifyDataSetChanged();
-    }
-
-    private void formatStackBarAppearance(String recordName, HorizontalBarChart chart, BarDataSet barData, float[] rawData, float[] percentData) {
         barData.setValueFormatter(new StackedBarChartValueFormatter()); // Format values to ###.##% as specified i the passed parameter class
 
         // Set stack colors here
@@ -1631,9 +1609,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         chart.getLegend().setEnabled(false); // GRAPH LEGEND Show/hide stack label legend
         barData.setDrawValues(false); // Show/hide per bar labels
-
-//        stackedBarChart.getLegend().setMaxSizePercent(5);
-
 
         LimitLine line;
         float sumX = 0;
@@ -1653,11 +1628,20 @@ public class DataVisualizationActivity extends AppCompatActivity
                 highestValueIndex = i;
             }
         }
+
+        // Set focus value to highest value
+        chartFocusValue.setText(""+Math.round(percentData[highestValueIndex])+"%");
+        chartFocus.setText(xLabels[highestValueIndex]);
+
         formatStackedBarAxis(chart);
         // TODO length check for color
         barData.getColors().set(highestValueIndex,ColorThemes.getStackedColorSet(recordName)[highestValueIndex]);
     }
 
+    /**
+     * Edits (hides) the grid and axis of the stacked bar chart. Called by formatStackBarAppearance.
+     * @param chart
+     */
     private void formatStackedBarAxis(HorizontalBarChart chart) {
         chart.getDescription().setEnabled(false);
 
@@ -1717,165 +1701,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     }
 
-
-    // TODO backup code, delete when done
-//    private void prepareStackedBarChartData() {
-//        this.prepareStackedBarChartDataPercentages();
-////        this.prepareStackedBarChartDataRaw();
-//    }
-//
-//
-//
-//    // Alters the values to be in percent (0 to 100)
-//    private void prepareStackedBarChartDataPercentages() {
-//        ArrayList<BarEntry> yVals1 = new ArrayList<>();
-//
-//        // Variables to hold the converted yData (from int to float) and sum
-//        float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
-//        float fSumSchool, fSumNational;
-//
-//
-//
-//        // Convert yData to float
-//        fDataSchool = General.convertToFloat(yDataLeft);
-//        fDataNational = General.convertToFloat(yDataRight);
-//
-//        // Get yData sum
-//        fSumSchool = General.getArraySum(fDataSchool);
-//        fSumNational = General.getArraySum(fDataNational);
-//
-//        // Convert to percentages
-//        fDataSchool = General.computePercentEquivalent(fDataSchool, fSumSchool);
-//        fDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
-//
-//
-//        // TODO Remove, PRINTING for validation only
-//        for(int i = 0; i < yDataLeft.length; i++) {
-//            Log.e("YVAL_School", fDataSchool[i]+"");
-//            Log.e("YVAL_National", fDataNational[i]+"");
-//        }
-//
-//        // Stacked bar entries. xIndex 0 is the bottom
-//        List<BarEntry> entries = new ArrayList<>();
-////        entries.add(new BarEntry(fDataNational, 0)); // National
-////        entries.add(new BarEntry(fDataSchool, 1)); // School
-//        entries.add(new BarEntry(0f, fDataNational)); // National
-//        entries.add(new BarEntry(1f, fDataSchool)); // School
-//
-//
-//
-//        // BarDataSet second parameter is the label
-//        BarDataSet set = new BarDataSet(entries, recordColumn);
-//        List<IBarDataSet> barDataSetList = new ArrayList<>();
-////        set.setValueFormatter(); TODO VALUE FORMATTER
-//        // Set stack colors here
-//        set.setColors(new int[] {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN, Color.MAGENTA}); // TODO Dynamic colors
-//        set.setStackLabels(xData);
-//        barDataSetList.add(set);
-//
-////        BarData data = new BarData(new String[]{"National", "School"}, barDataSetList); // TODO X Values
-//        BarData data = new BarData(barDataSetList); // TODO X Values
-//
-//
-//        formatStackedBarAxis();
-//        stackedBarChart.setData(data);
-//    }
-
-//    private void formatStackedBarAxis() {
-//        stackedBarChart.getAxisLeft().setDrawLabels(false);
-//        stackedBarChart.getAxisLeft().setDrawGridLines(false);
-//        stackedBarChart.getAxisLeft().setDrawAxisLine(false);
-//
-//        stackedBarChart.getAxisRight().setDrawLabels(false);
-//        stackedBarChart.getAxisRight().setDrawGridLines(false);
-//        stackedBarChart.getAxisRight().setDrawAxisLine(false);
-//
-//        stackedBarChart.getXAxis().setDrawLabels(false);
-//        stackedBarChart.getXAxis().setDrawGridLines(false);
-//        stackedBarChart.getXAxis().setDrawAxisLine(false);
-//
-//        // X Axis
-//        String[] values = new String[] {"National", "School"};
-//        XAxis xAxis = stackedBarChart.getXAxis();
-//        xAxis.setValueFormatter(new StackedBarChartIAxisFormatter(values));
-//        xAxis.setLabelCount(2);
-//
-//        // Y Axis
-//        YAxis leftAxis = stackedBarChart.getAxisLeft();
-//
-//        LimitLine llStart, llEnd;
-//        llStart = new LimitLine(0f, "0");
-//        llStart.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
-//        llStart.setLineColor(Color.LTGRAY);
-//        llStart.setLineWidth(2f);
-//        llStart.setTextColor(Color.BLACK);
-//        llStart.setTextSize(VALUE_TEXT_SIZE);
-//        leftAxis.addLimitLine(llStart);
-//
-//        llEnd = new LimitLine(100f, "100");
-//        llEnd.setLineColor(Color.LTGRAY);
-//        llEnd.setLineWidth(2f);
-//        llEnd.setTextColor(Color.BLACK);
-//        llEnd.setTextSize(VALUE_TEXT_SIZE);
-//        leftAxis.addLimitLine(llEnd);
-//    }
-//    private void prepareStackedBarChartDataRaw() { // TODO delete
-//        ArrayList<BarEntry> yVals1 = new ArrayList<>();
-//
-//        float[] fDataLeft = new float[yDataLeft.length];
-//        float[] fDataRight = new float[yDataRight.length];
-//        for(int i = 0; i < yDataLeft.length; i++) {
-//            fDataLeft[i] = (float)yDataLeft[i];
-//            Log.e("YVAL_l", fDataLeft[i]+"");
-//        }
-//        for(int i = 0; i < yDataRight.length; i++) {
-//            fDataRight[i] = (float)yDataRight[i];
-//            Log.e("YVAL_r", fDataRight[i]+"");
-//        }
-//
-//
-//        for(int i = 0; i < yDataLeft.length; i++) {
-//            yVals1.add(new BarEntry(i, fDataLeft));
-//        }
-//        ArrayList<BarEntry> yVals2 = new ArrayList<>();
-//        for(int i = 0; i < yDataRight.length; i++) {
-//            yVals2.add(new BarEntry(i, fDataRight));
-//        }
-//
-//        List<BarEntry> entries = new ArrayList<BarEntry>();
-//        entries.add(new BarEntry(0, fDataLeft));
-//        entries.add(new BarEntry(1, fDataRight));
-//
-//        // TODO deprecated
-////        for(int i = 0; i < yDataLeft.length; i++) {
-////            yVals1.add(new BarEntry(fDataLeft, i));
-////        }
-////        ArrayList<BarEntry> yVals2 = new ArrayList<>();
-////        for(int i = 0; i < yDataRight.length; i++) {
-////            yVals2.add(new BarEntry(fDataRight, i));
-////        }
-////
-////        List<BarEntry> entries = new ArrayList<BarEntry>();
-////        entries.add(new BarEntry(fDataLeft, 0));
-////        entries.add(new BarEntry(fDataRight, 1));
-//
-//        BarDataSet set = new BarDataSet(entries, recordColumn);
-//        List<IBarDataSet> barDataSetList = new ArrayList<>();
-//        set.setColors(new int[] {Color.RED, Color.BLUE, Color.GREEN, Color.CYAN, Color.MAGENTA});
-//        set.setStackLabels(xData);
-//        barDataSetList.add(set);
-//
-//        // TODO deprecated
-////        BarData data = new BarData(new String[]{"local", "national"}, barDataSetList);
-//        BarData data = new BarData(barDataSetList);
-////        data.getDataSetLabels()[0] = "School";
-////        data.getDataSetLabels()[1] = "National"; TODO commented
-//
-//
-//
-//        stackedBarChart.setData(data);
-//
-//    }
     private void preparePieChartData(PieChart pieChart, int[] yData) {
 //        ArrayList<Entry> yVals1 = createEntries(yData); TODO deprecated
         List<PieEntry> yVals1 = createPieEntries(yData);
@@ -1923,7 +1748,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        description.setTextSize(20f);
 //        description.setTextColor(Color.WHITE);
 //        chart.setDescription(description);
-
 
 
         Description description = new Description();
