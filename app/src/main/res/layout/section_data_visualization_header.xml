@@ -29,17 +29,32 @@
                 style="@style/TitleText"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="center"
+                android:gravity="bottom|center_horizontal"
                 android:padding="0dp"
                 android:text="@string/dataset_list_header"
                 android:textColor="@color/colorPrimaryDark"
                 android:textStyle="bold"
                 app:autoSizePresetSizes="@array/autosize_text_sizes"
+                app:layout_constraintBottom_toTopOf="@+id/tv_data_header_year"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="6.75" />
+
+            <TextView
+                android:id="@+id/tv_data_header_year"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="top|center_horizontal"
+                android:includeFontPadding="false"
+                android:text="@string/record_date"
+                android:textColor="@color/colorPrimaryDark"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_data_header"
+                app:layout_constraintVertical_weight="3.25" />
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout

@@ -150,7 +150,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     ArrayList<Dataset> datasets;
     /* attributes for addFilterDialog */
     ArrayList<String> gradeLevels;
-    private TextView tvDataset, tvFilter, tvChart, tvData, tvRightChart, tvDataHeader;
+    private TextView tvDataset, tvFilter, tvChart, tvData, tvRightChart, tvDataHeader, tvDataHeaderYear;
     private Spinner spRecordColumn, spChartType, spRightChart;
     private String recordColumn = "BMI", rightChartContent = "National Profile";
 
@@ -291,6 +291,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         spRightChart = (Spinner) findViewById(R.id.sp_right_chart_content);
 
         tvDataHeader = (TextView) findViewById(R.id.tv_data_header);
+        tvDataHeaderYear = (TextView) findViewById(R.id.tv_data_header_year);
 
         ivBMIRef = (ImageView) findViewById(R.id.iv_bmi_size_ref);
 
@@ -524,7 +525,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         });
 
         tvDataHeader.setText(schoolName);
-
+        tvDataHeaderYear.setText("Record Date: "+date);
         setupSidebarFunctionality();
     }
     @Override
