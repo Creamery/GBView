@@ -21,6 +21,32 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/tv_section_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/bmi"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+            <ImageView
+                android:id="@+id/iv_bar5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank" />
+
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/cont_stack_bmi"
                 android:layout_width="match_parent"
@@ -175,7 +201,6 @@
                         android:id="@+id/tv_end_bmi"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_marginStart="1dp"
                         android:gravity="center_vertical|center_horizontal"
                         android:text="@string/num_50"
                         app:autoSizePresetSizes="@array/autosize_text_sizes"
@@ -259,11 +284,63 @@
 
             </android.support.constraint.ConstraintLayout>
 
+            <TextView
+                android:id="@+id/tv_section_heading2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/visual_acuity"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+            <ImageView
+                android:id="@+id/iv_bar"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank" />
+
             <include
                 android:id="@+id/include_stack_visual_acuity"
                 layout="@layout/item_overview_visual_acuity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_section_heading3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/hearing"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+            <ImageView
+                android:id="@+id/iv_bar2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank" />
 
             <include
                 android:id="@+id/include_stack_hearing"
@@ -271,11 +348,63 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/tv_section_heading4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/gross_motor"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+            <ImageView
+                android:id="@+id/iv_bar3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank" />
+
             <include
                 android:id="@+id/include_stack_gross_motor"
                 layout="@layout/item_overview_gross_motor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_section_heading5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:text="@string/fine_motor"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                android:layout_marginBottom="5dp" />
+
+            <ImageView
+                android:id="@+id/iv_bar4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank" />
 
             <include
                 android:id="@+id/include_stack_fine_motor"
