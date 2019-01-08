@@ -312,20 +312,6 @@
                         app:layout_constraintStart_toEndOf="@+id/cont_overview_avatar"
                         app:layout_constraintTop_toTopOf="parent">
 
-                        <RelativeLayout
-                            android:id="@+id/graph_container_center"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:background="@color/white"
-                            android:visibility="visible"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_weight="6">
-
-                        </RelativeLayout>
-
                         <include
                             android:id="@+id/include"
                             layout="@layout/scroll_visualization_stacked_graph"
@@ -337,6 +323,19 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <RelativeLayout
+                            android:id="@+id/graph_container_center"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:visibility="visible"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_weight="6">
+
+                        </RelativeLayout>
 
                     </android.support.constraint.ConstraintLayout>
 
