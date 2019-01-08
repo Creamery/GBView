@@ -177,7 +177,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         ivBMIRef.getLayoutParams().height = ivBMIRef.getWidth();
         ivVALRef.getLayoutParams().height = ivVALRef.getWidth();
-//        ivVARRef.getLayoutParams().height = ivVARRef.getWidth();
+        ivVARRef.getLayoutParams().height = ivVARRef.getWidth();
 //        ivCOLORRef.getLayoutParams().height = ivCOLORRef.getWidth();
 //        ivBMIRef.setMaxHeight(ivBMIRef.getWidth());
     }
@@ -268,7 +268,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         ivBMIRef = (ImageView) findViewById(R.id.iv_bmi_size_ref);
 
         ivVALRef = (ImageView) findViewById(R.id.iv_va_left_size_ref);
-//        ivVARRef = (ImageView) findViewById(R.id.iv_va_right_size_ref);
+        ivVARRef = (ImageView) findViewById(R.id.iv_va_right_size_ref);
 //        ivCOLORRef = (ImageView) findViewById(R.id.iv_color_size_ref);
 
         initializeStackedGraphOverview();
@@ -1476,7 +1476,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private HorizontalBarChart prepareStackedOverview(String recordType, HorizontalBarChart chart) {
         ChartDataValue chartDataValue = prepareChartData(recordType);
-        Log.e("RECORD", recordType);
+//        Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
         chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Removed
         // Variables to hold the converted yData (from int to float) and sum
@@ -1578,7 +1578,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         barData.setDrawValues(false); // Show/hide per bar labels
 
 //        stackedBarChart.getLegend().setMaxSizePercent(5);
-        formatStackedBarAxis(chart);
+
 
         LimitLine line;
         float sumX = 0;
@@ -1598,7 +1598,7 @@ public class DataVisualizationActivity extends AppCompatActivity
                 highestValueIndex = i;
             }
         }
-
+        formatStackedBarAxis(chart);
         // TODO length check for color
         barData.getColors().set(highestValueIndex,ColorThemes.getStackedColorSet(recordName)[highestValueIndex]);
     }
