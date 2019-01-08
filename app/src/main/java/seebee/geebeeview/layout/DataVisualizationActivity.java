@@ -114,7 +114,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     RelativeLayout graphLayoutLeft, graphLayoutRight; /* space where graph will be set on */
     RelativeLayout graphLayoutCenter; // added
 
-    ImageView ivBMIRef, ivVALRef, ivVARRef, ivCOLORRef;
+    ImageView ivBMIRef, ivVALRef, ivVARRef, ivCOLORRef, ivHEARLRef, ivHEARRRef, ivGMRef, ivFMDRef, ivFMNRef, ivFMHRef;
 
     RelativeLayout
             graphBMI,
@@ -178,7 +178,17 @@ public class DataVisualizationActivity extends AppCompatActivity
         ivBMIRef.getLayoutParams().height = ivBMIRef.getWidth();
         ivVALRef.getLayoutParams().height = ivVALRef.getWidth();
         ivVARRef.getLayoutParams().height = ivVARRef.getWidth();
-//        ivCOLORRef.getLayoutParams().height = ivCOLORRef.getWidth();
+        ivCOLORRef.getLayoutParams().height = ivCOLORRef.getWidth();
+
+//        ivHEARLRef.getLayoutParams().height = ivHEARLRef.getWidth();
+//        ivHEARRRef.getLayoutParams().height = ivHEARRRef.getWidth();
+//        ivGMRef.getLayoutParams().height = ivGMRef.getWidth();
+
+//        ivFMDRef.getLayoutParams().height = ivFMDRef.getWidth();
+//        ivFMNRef.getLayoutParams().height = ivFMNRef.getWidth();
+//        ivFMHRef.getLayoutParams().height = ivFMHRef.getWidth();
+
+
 //        ivBMIRef.setMaxHeight(ivBMIRef.getWidth());
     }
 
@@ -269,7 +279,15 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         ivVALRef = (ImageView) findViewById(R.id.iv_va_left_size_ref);
         ivVARRef = (ImageView) findViewById(R.id.iv_va_right_size_ref);
-//        ivCOLORRef = (ImageView) findViewById(R.id.iv_color_size_ref);
+        ivCOLORRef = (ImageView) findViewById(R.id.iv_va_color_size_ref);
+
+//        ivHEARLRef = (ImageView) findViewById(R.id.iv_color_size_ref); // TODO change R.id
+//        ivHEARRRef = (ImageView) findViewById(R.id.iv_color_size_ref);
+//        ivGMRef = (ImageView) findViewById(R.id.iv_color_size_ref);
+
+//        ivFMDRef = (ImageView) findViewById(R.id.iv_color_size_ref);
+//        ivFMNRef = (ImageView) findViewById(R.id.iv_color_size_ref);
+//        ivFMHRef = (ImageView) findViewById(R.id.iv_color_size_ref);
 
         initializeStackedGraphOverview();
 
