@@ -259,30 +259,28 @@
             </android.support.constraint.ConstraintLayout>
 
             <include
+                android:id="@+id/include_stack_visual_acuity"
                 layout="@layout/item_overview_visual_acuity"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/cont_stack_hearing"
+            <include
+                android:id="@+id/include_stack_hearing"
+                layout="@layout/item_overview_hearing"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/cont_stack_gross_motor"
+            <include
+                android:id="@+id/include_stack_gross_motor"
+                layout="@layout/item_overview_gross_motor"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content" />
 
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/cont_stack_fine_motor"
+            <include
+                android:id="@+id/include_stack_fine_motor"
+                layout="@layout/item_overview_fine_motor"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </android.support.constraint.ConstraintLayout>
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
     </ScrollView>

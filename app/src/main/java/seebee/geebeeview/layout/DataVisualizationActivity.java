@@ -121,13 +121,13 @@ public class DataVisualizationActivity extends AppCompatActivity
             graphVisualAcuityLeft, graphVisualAcuityRight, graphColorBlindness,
             graphHearingLeft, graphHearingRight,
             graphGrossMotor,
-            graphFineMotorDominant, graphFineMotorNon;
+            graphFineMotorDominant, graphFineMotorNon, graphFineMotorHold;
 
     HorizontalBarChart stackedBMI,
             stackedVisualAcuityLeft, stackedVisualAcuityRight, stackedColorBlindness,
             stackedHearingLeft, stackedHearingRight,
             stackedGrossMotor,
-            stackedFineMotorDominant, stackedFineMotorNon;
+            stackedFineMotorDominant, stackedFineMotorNon, stackedFineMotorHold;
 
     int schoolID;
     String schoolName, date;
@@ -180,16 +180,14 @@ public class DataVisualizationActivity extends AppCompatActivity
         ivVARRef.getLayoutParams().height = ivVARRef.getWidth();
         ivCOLORRef.getLayoutParams().height = ivCOLORRef.getWidth();
 
-//        ivHEARLRef.getLayoutParams().height = ivHEARLRef.getWidth();
-//        ivHEARRRef.getLayoutParams().height = ivHEARRRef.getWidth();
-//        ivGMRef.getLayoutParams().height = ivGMRef.getWidth();
+        ivHEARLRef.getLayoutParams().height = ivHEARLRef.getWidth();
+        ivHEARRRef.getLayoutParams().height = ivHEARRRef.getWidth();
+        ivGMRef.getLayoutParams().height = ivGMRef.getWidth(); // TODO new graph
 
-//        ivFMDRef.getLayoutParams().height = ivFMDRef.getWidth();
-//        ivFMNRef.getLayoutParams().height = ivFMNRef.getWidth();
-//        ivFMHRef.getLayoutParams().height = ivFMHRef.getWidth();
+        ivFMDRef.getLayoutParams().height = ivFMDRef.getWidth();
+        ivFMNRef.getLayoutParams().height = ivFMNRef.getWidth();
+        ivFMHRef.getLayoutParams().height = ivFMHRef.getWidth();
 
-
-//        ivBMIRef.setMaxHeight(ivBMIRef.getWidth());
     }
 
     private int computePercent(float value, float percent) {
@@ -269,6 +267,15 @@ public class DataVisualizationActivity extends AppCompatActivity
         graphVisualAcuityRight = (RelativeLayout) findViewById(R.id.graph_container_va_right); // Added
         graphColorBlindness = (RelativeLayout) findViewById(R.id.graph_container_va_color); // Added
 
+        graphHearingLeft = (RelativeLayout) findViewById(R.id.graph_container_hearing_left);
+        graphHearingRight = (RelativeLayout) findViewById(R.id.graph_container_hearing_right);
+
+        graphGrossMotor = (RelativeLayout) findViewById(R.id.graph_container_gross_motor); // TODO new graph
+        graphFineMotorDominant = (RelativeLayout) findViewById(R.id.graph_container_fine_dominant);
+        graphFineMotorNon = (RelativeLayout) findViewById(R.id.graph_container_fine_non);
+        graphFineMotorHold = (RelativeLayout) findViewById(R.id.graph_container_fine_hold);
+
+
         spRecordColumn = (Spinner) findViewById(R.id.sp_record_column);
         spChartType = (Spinner) findViewById(R.id.sp_chart_type);
         spRightChart = (Spinner) findViewById(R.id.sp_right_chart_content);
@@ -281,13 +288,13 @@ public class DataVisualizationActivity extends AppCompatActivity
         ivVARRef = (ImageView) findViewById(R.id.iv_va_right_size_ref);
         ivCOLORRef = (ImageView) findViewById(R.id.iv_va_color_size_ref);
 
-//        ivHEARLRef = (ImageView) findViewById(R.id.iv_color_size_ref); // TODO change R.id
-//        ivHEARRRef = (ImageView) findViewById(R.id.iv_color_size_ref);
-//        ivGMRef = (ImageView) findViewById(R.id.iv_color_size_ref);
+        ivHEARLRef = (ImageView) findViewById(R.id.iv_hearing_left_size_ref);
+        ivHEARRRef = (ImageView) findViewById(R.id.iv_hearing_right_size_ref);
+        ivGMRef = (ImageView) findViewById(R.id.iv_gross_motor_size_ref); // TODO new graphs
 
-//        ivFMDRef = (ImageView) findViewById(R.id.iv_color_size_ref);
-//        ivFMNRef = (ImageView) findViewById(R.id.iv_color_size_ref);
-//        ivFMHRef = (ImageView) findViewById(R.id.iv_color_size_ref);
+        ivFMDRef = (ImageView) findViewById(R.id.iv_fine_dominant_size_ref);
+        ivFMNRef = (ImageView) findViewById(R.id.iv_fine_non_size_ref);
+        ivFMHRef = (ImageView) findViewById(R.id.iv_fine_hold_size_ref);
 
         initializeStackedGraphOverview();
 
@@ -592,6 +599,14 @@ public class DataVisualizationActivity extends AppCompatActivity
         graphVisualAcuityLeft.removeAllViews();
         graphVisualAcuityRight.removeAllViews();
         graphColorBlindness.removeAllViews();
+
+        graphHearingLeft.removeAllViews();
+        graphHearingRight.removeAllViews();
+
+        graphGrossMotor.removeAllViews(); // TODO new graph
+        graphFineMotorDominant.removeAllViews();
+        graphFineMotorNon.removeAllViews();
+        graphFineMotorHold.removeAllViews();
     }
 
     // TODO EDIT
@@ -1201,17 +1216,39 @@ public class DataVisualizationActivity extends AppCompatActivity
         overviewEntries.add(new OverviewEntry(stackedBMI));
         graphStackedBarCharts.add(graphBMI);
 
-//        stackedBarCharts.add(stackedVisualAcuityLeft);
+
         overviewEntries.add(new OverviewEntry(stackedVisualAcuityLeft));
         graphStackedBarCharts.add(graphVisualAcuityLeft);
 
-//        stackedBarCharts.add(stackedVisualAcuityRight);
+
         overviewEntries.add(new OverviewEntry(stackedVisualAcuityRight));
         graphStackedBarCharts.add(graphVisualAcuityRight);
 
-//        stackedBarCharts.add(stackedColorBlindness);
+
         overviewEntries.add(new OverviewEntry(stackedColorBlindness));
         graphStackedBarCharts.add(graphColorBlindness);
+
+        // TODO new graph
+        overviewEntries.add(new OverviewEntry(stackedHearingLeft));
+        graphStackedBarCharts.add(graphHearingLeft);
+
+        overviewEntries.add(new OverviewEntry(stackedHearingRight));
+        graphStackedBarCharts.add(graphHearingRight);
+
+
+        overviewEntries.add(new OverviewEntry(stackedGrossMotor));
+        graphStackedBarCharts.add(graphGrossMotor);
+
+        overviewEntries.add(new OverviewEntry(stackedFineMotorDominant));
+        graphStackedBarCharts.add(graphFineMotorDominant);
+
+
+        overviewEntries.add(new OverviewEntry(stackedFineMotorNon));
+        graphStackedBarCharts.add(graphFineMotorNon);
+
+
+        overviewEntries.add(new OverviewEntry(stackedFineMotorHold));
+        graphStackedBarCharts.add(graphFineMotorHold);
     }
 
     private void computeOverviewParams(ArrayList<OverviewEntry> chartsEntries, ArrayList<ViewGroup.LayoutParams> params) {
@@ -1494,7 +1531,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private HorizontalBarChart prepareStackedOverview(String recordType, HorizontalBarChart chart) {
         ChartDataValue chartDataValue = prepareChartData(recordType);
-//        Log.e("RECORD", recordType);
+        Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
         chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Removed
         // Variables to hold the converted yData (from int to float) and sum

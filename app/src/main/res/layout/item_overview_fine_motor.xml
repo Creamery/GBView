@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/cont_stack_visual_acuity"
+        android:id="@+id/cont_stack_fine_motor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -17,24 +17,24 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/cont_stack_va_left"
+            android:id="@+id/cont_stack_fine_dominant"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white">
 
             <Space
-                android:id="@+id/space14_va_left"
+                android:id="@+id/space14_fine_dominant"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="8.25"
-                app:layout_constraintStart_toEndOf="@+id/iv_va_left_size_ref"
+                app:layout_constraintStart_toEndOf="@+id/iv_fine_dominant_size_ref"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/iv_va_left_size_ref"
+                android:id="@+id/iv_fine_dominant_size_ref"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="false"
@@ -42,14 +42,14 @@
                 android:cropToPadding="false"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/space14_va_left"
+                app:layout_constraintEnd_toStartOf="@+id/space14_fine_dominant"
                 app:layout_constraintHorizontal_weight="1.75"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/img_sidebar_empty" />
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/cont_graph_va_left_details"
+                android:id="@+id/cont_graph_fine_dominant_details"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -59,130 +59,130 @@
                 app:layout_constraintVertical_weight="6">
 
                 <Space
-                    android:id="@+id/space_va_left_top_details"
+                    android:id="@+id/space_fine_dominant_top_details"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_start_va_left"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_start_fine_dominant"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_weight="2" />
 
                 <Space
-                    android:id="@+id/space_va_left_bottom_details"
+                    android:id="@+id/space_fine_dominant_bottom_details"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/space_va_left_center"
+                    app:layout_constraintBottom_toBottomOf="@+id/space_fine_dominant_center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/space_end_va_left"
+                    app:layout_constraintTop_toBottomOf="@+id/space_end_fine_dominant"
                     app:layout_constraintVertical_weight="2" />
 
                 <Space
-                    android:id="@+id/space_end_va_left"
+                    android:id="@+id/space_end_fine_dominant"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/space_va_left_bottom_details"
+                    app:layout_constraintBottom_toTopOf="@+id/space_fine_dominant_bottom_details"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="1.5"
-                    app:layout_constraintStart_toEndOf="@+id/space_va_left_center"
-                    app:layout_constraintTop_toBottomOf="@+id/space_va_left_top_details"
+                    app:layout_constraintStart_toEndOf="@+id/space_fine_dominant_center"
+                    app:layout_constraintTop_toBottomOf="@+id/space_fine_dominant_top_details"
                     app:layout_constraintVertical_weight="6" />
 
                 <Space
-                    android:id="@+id/space_graph_container_va_left_start"
+                    android:id="@+id/space_graph_container_fine_dominant_start"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/graph_container_va_left"
+                    app:layout_constraintEnd_toStartOf="@+id/graph_container_fine_dominant"
                     app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RelativeLayout
-                    android:id="@+id/graph_container_va_left"
+                    android:id="@+id/graph_container_fine_dominant"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="1dp"
                     android:gravity="center_vertical|center_horizontal|fill"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/space_graph_container_va_left_end"
+                    app:layout_constraintEnd_toStartOf="@id/space_graph_container_fine_dominant_end"
                     app:layout_constraintHorizontal_weight="8"
-                    app:layout_constraintStart_toEndOf="@+id/space_graph_container_va_left_start"
+                    app:layout_constraintStart_toEndOf="@+id/space_graph_container_fine_dominant_start"
                     app:layout_constraintTop_toTopOf="parent">
 
                 </RelativeLayout>
 
                 <Space
-                    android:id="@+id/space_graph_container_va_left_end"
+                    android:id="@+id/space_graph_container_fine_dominant_end"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/graph_container_va_left"
+                    app:layout_constraintStart_toEndOf="@id/graph_container_fine_dominant"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.constraint.ConstraintLayout
-                    android:id="@+id/space_va_left_center"
+                    android:id="@+id/space_fine_dominant_center"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/space_end_va_left"
+                    app:layout_constraintEnd_toStartOf="@+id/space_end_fine_dominant"
                     app:layout_constraintHorizontal_weight="7"
-                    app:layout_constraintStart_toEndOf="@+id/tv_start_va_left"
+                    app:layout_constraintStart_toEndOf="@+id/tv_start_fine_dominant"
                     app:layout_constraintTop_toTopOf="parent">
 
                 </android.support.constraint.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/tv_start_va_left"
+                    android:id="@+id/tv_start_fine_dominant"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical"
                     app:autoSizePresetSizes="@array/autosize_text_sizes"
-                    app:layout_constraintBottom_toTopOf="@+id/space_va_left_bottom_details"
-                    app:layout_constraintEnd_toStartOf="@+id/space_va_left_center"
+                    app:layout_constraintBottom_toTopOf="@+id/space_fine_dominant_bottom_details"
+                    app:layout_constraintEnd_toStartOf="@+id/space_fine_dominant_center"
                     app:layout_constraintHorizontal_weight="1.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/space_va_left_top_details"
+                    app:layout_constraintTop_toBottomOf="@+id/space_fine_dominant_top_details"
                     app:layout_constraintVertical_weight="6" />
 
                 <Space
-                    android:id="@+id/space_end_va_left_padding"
+                    android:id="@+id/space_end_fine_dominant_padding"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_end_va_left"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_end_fine_dominant"
                     app:layout_constraintHorizontal_weight="7.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_end_va_left"
+                    android:id="@+id/tv_end_fine_dominant"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="@string/num_50"
                     app:autoSizePresetSizes="@array/autosize_text_sizes"
-                    app:layout_constraintBottom_toTopOf="@+id/space_va_left_bottom_details"
+                    app:layout_constraintBottom_toTopOf="@+id/space_fine_dominant_bottom_details"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="2.5"
-                    app:layout_constraintStart_toEndOf="@+id/space_end_va_left_padding"
-                    app:layout_constraintTop_toBottomOf="@+id/space_va_left_top_details"
+                    app:layout_constraintStart_toEndOf="@+id/space_end_fine_dominant_padding"
+                    app:layout_constraintTop_toBottomOf="@+id/space_fine_dominant_top_details"
                     app:layout_constraintVertical_weight="6" />
 
             </android.support.constraint.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tv_va_left_graph_focus_title"
+                android:id="@+id/tv_fine_dominant_graph_focus_title"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="50dp"
                 android:gravity="bottom"
-                android:text="@string/visual_acuity"
+                android:text="@string/dominant"
                 app:autoSizePresetSizes="@array/autosize_text_sizes"
-                app:layout_constraintBottom_toTopOf="@+id/tv_va_left_graph_center"
+                app:layout_constraintBottom_toTopOf="@+id/tv_fine_dominant_graph_center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent
@@ -190,7 +190,7 @@
                 app:layout_constraintVertical_weight="2.5" />
 
             <TextView
-                android:id="@+id/tv_va_left_graph_center"
+                android:id="@+id/tv_fine_dominant_graph_center"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="2dp"
@@ -198,34 +198,34 @@
                 android:gravity="center_vertical"
                 android:textAlignment="center"
                 app:autoSizePresetSizes="@array/autosize_text_sizes"
-                app:layout_constraintBottom_toTopOf="@+id/space_va_left_bottom"
+                app:layout_constraintBottom_toTopOf="@+id/space_fine_dominant_bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_va_left_graph_focus_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fine_dominant_graph_focus_title"
                 app:layout_constraintVertical_weight="5" />
 
             <Space
-                android:id="@+id/space_va_left_bottom"
+                android:id="@+id/space_fine_dominant_bottom"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_va_left_graph_center"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fine_dominant_graph_center"
                 app:layout_constraintVertical_weight="2" />
 
             <Space
-                android:id="@+id/space_va_left_title_top"
+                android:id="@+id/space_fine_dominant_title_top"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_va_left_graph_title"
+                app:layout_constraintBottom_toTopOf="@+id/tv_fine_dominant_graph_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_weight="7" />
 
             <TextView
-                android:id="@+id/tv_va_left_graph_title"
+                android:id="@+id/tv_fine_dominant_graph_title"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@android:color/transparent"
@@ -236,30 +236,30 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/space_va_left_title_top"
+                app:layout_constraintTop_toBottomOf="@+id/space_fine_dominant_title_top"
                 app:layout_constraintVertical_weight="3" />
 
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/cont_stack_va_right"
+            android:id="@+id/cont_stack_fine_non"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white">
 
             <Space
-                android:id="@+id/space14_va_right"
+                android:id="@+id/space14_fine_non"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="8.25"
-                app:layout_constraintStart_toEndOf="@+id/iv_va_right_size_ref"
+                app:layout_constraintStart_toEndOf="@+id/iv_fine_non_size_ref"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/iv_va_right_size_ref"
+                android:id="@+id/iv_fine_non_size_ref"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="false"
@@ -267,14 +267,14 @@
                 android:cropToPadding="false"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/space14_va_right"
+                app:layout_constraintEnd_toStartOf="@+id/space14_fine_non"
                 app:layout_constraintHorizontal_weight="1.75"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/img_sidebar_empty" />
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/cont_graph_va_right_details"
+                android:id="@+id/cont_graph_fine_non_details"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -284,130 +284,130 @@
                 app:layout_constraintVertical_weight="6">
 
                 <Space
-                    android:id="@+id/space_va_right_top_details"
+                    android:id="@+id/space_fine_non_top_details"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_start_va_right"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_start_fine_non"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_weight="2" />
 
                 <Space
-                    android:id="@+id/space_va_right_bottom_details"
+                    android:id="@+id/space_fine_non_bottom_details"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/space_va_right_center"
+                    app:layout_constraintBottom_toBottomOf="@+id/space_fine_non_center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/space_end_va_right"
+                    app:layout_constraintTop_toBottomOf="@+id/space_end_fine_non"
                     app:layout_constraintVertical_weight="2" />
 
                 <Space
-                    android:id="@+id/space_end_va_right"
+                    android:id="@+id/space_end_fine_non"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/space_va_right_bottom_details"
+                    app:layout_constraintBottom_toTopOf="@+id/space_fine_non_bottom_details"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="1.5"
-                    app:layout_constraintStart_toEndOf="@+id/space_va_right_center"
-                    app:layout_constraintTop_toBottomOf="@+id/space_va_right_top_details"
+                    app:layout_constraintStart_toEndOf="@+id/space_fine_non_center"
+                    app:layout_constraintTop_toBottomOf="@+id/space_fine_non_top_details"
                     app:layout_constraintVertical_weight="6" />
 
                 <Space
-                    android:id="@+id/space_graph_container_va_right_start"
+                    android:id="@+id/space_graph_container_fine_non_start"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/graph_container_va_right"
+                    app:layout_constraintEnd_toStartOf="@+id/graph_container_fine_non"
                     app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RelativeLayout
-                    android:id="@+id/graph_container_va_right"
+                    android:id="@+id/graph_container_fine_non"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="1dp"
                     android:gravity="center_vertical|center_horizontal|fill"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/space_graph_container_va_right_end"
+                    app:layout_constraintEnd_toStartOf="@id/space_graph_container_fine_non_end"
                     app:layout_constraintHorizontal_weight="8"
-                    app:layout_constraintStart_toEndOf="@+id/space_graph_container_va_right_start"
+                    app:layout_constraintStart_toEndOf="@+id/space_graph_container_fine_non_start"
                     app:layout_constraintTop_toTopOf="parent">
 
                 </RelativeLayout>
 
                 <Space
-                    android:id="@+id/space_graph_container_va_right_end"
+                    android:id="@+id/space_graph_container_fine_non_end"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/graph_container_va_right"
+                    app:layout_constraintStart_toEndOf="@id/graph_container_fine_non"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.constraint.ConstraintLayout
-                    android:id="@+id/space_va_right_center"
+                    android:id="@+id/space_fine_non_center"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/space_end_va_right"
+                    app:layout_constraintEnd_toStartOf="@+id/space_end_fine_non"
                     app:layout_constraintHorizontal_weight="7"
-                    app:layout_constraintStart_toEndOf="@+id/tv_start_va_right"
+                    app:layout_constraintStart_toEndOf="@+id/tv_start_fine_non"
                     app:layout_constraintTop_toTopOf="parent">
 
                 </android.support.constraint.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/tv_start_va_right"
+                    android:id="@+id/tv_start_fine_non"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical"
                     app:autoSizePresetSizes="@array/autosize_text_sizes"
-                    app:layout_constraintBottom_toTopOf="@+id/space_va_right_bottom_details"
-                    app:layout_constraintEnd_toStartOf="@+id/space_va_right_center"
+                    app:layout_constraintBottom_toTopOf="@+id/space_fine_non_bottom_details"
+                    app:layout_constraintEnd_toStartOf="@+id/space_fine_non_center"
                     app:layout_constraintHorizontal_weight="1.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/space_va_right_top_details"
+                    app:layout_constraintTop_toBottomOf="@+id/space_fine_non_top_details"
                     app:layout_constraintVertical_weight="6" />
 
                 <Space
-                    android:id="@+id/space_end_va_right_padding"
+                    android:id="@+id/space_end_fine_non_padding"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_end_va_right"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_end_fine_non"
                     app:layout_constraintHorizontal_weight="7.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_end_va_right"
+                    android:id="@+id/tv_end_fine_non"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="@string/num_50"
                     app:autoSizePresetSizes="@array/autosize_text_sizes"
-                    app:layout_constraintBottom_toTopOf="@+id/space_va_right_bottom_details"
+                    app:layout_constraintBottom_toTopOf="@+id/space_fine_non_bottom_details"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="2.5"
-                    app:layout_constraintStart_toEndOf="@+id/space_end_va_right_padding"
-                    app:layout_constraintTop_toBottomOf="@+id/space_va_right_top_details"
+                    app:layout_constraintStart_toEndOf="@+id/space_end_fine_non_padding"
+                    app:layout_constraintTop_toBottomOf="@+id/space_fine_non_top_details"
                     app:layout_constraintVertical_weight="6" />
 
             </android.support.constraint.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tv_va_right_graph_focus_title"
+                android:id="@+id/tv_fine_non_graph_focus_title"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="50dp"
                 android:gravity="bottom"
-                android:text="@string/visual_acuity"
+                android:text="@string/fine_motor_non_dominant"
                 app:autoSizePresetSizes="@array/autosize_text_sizes"
-                app:layout_constraintBottom_toTopOf="@+id/tv_va_right_graph_center"
+                app:layout_constraintBottom_toTopOf="@+id/tv_fine_non_graph_center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent
@@ -415,7 +415,7 @@
                 app:layout_constraintVertical_weight="2.5" />
 
             <TextView
-                android:id="@+id/tv_va_right_graph_center"
+                android:id="@+id/tv_fine_non_graph_center"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="2dp"
@@ -423,34 +423,34 @@
                 android:gravity="center_vertical"
                 android:textAlignment="center"
                 app:autoSizePresetSizes="@array/autosize_text_sizes"
-                app:layout_constraintBottom_toTopOf="@+id/space_va_right_bottom"
+                app:layout_constraintBottom_toTopOf="@+id/space_fine_non_bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_va_right_graph_focus_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fine_non_graph_focus_title"
                 app:layout_constraintVertical_weight="5" />
 
             <Space
-                android:id="@+id/space_va_right_bottom"
+                android:id="@+id/space_fine_non_bottom"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_va_right_graph_center"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fine_non_graph_center"
                 app:layout_constraintVertical_weight="2" />
 
             <Space
-                android:id="@+id/space_va_right_title_top"
+                android:id="@+id/space_fine_non_title_top"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_va_right_graph_title"
+                app:layout_constraintBottom_toTopOf="@+id/tv_fine_non_graph_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_weight="7" />
 
             <TextView
-                android:id="@+id/tv_va_right_graph_title"
+                android:id="@+id/tv_fine_non_graph_title"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@android:color/transparent"
@@ -461,30 +461,30 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/space_va_right_title_top"
+                app:layout_constraintTop_toBottomOf="@+id/space_fine_non_title_top"
                 app:layout_constraintVertical_weight="3" />
 
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/cont_stack_va_color"
+            android:id="@+id/cont_stack_fine_hold"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/white">
 
             <Space
-                android:id="@+id/space14_va_color"
+                android:id="@+id/space14_fine_hold"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_weight="8.25"
-                app:layout_constraintStart_toEndOf="@+id/iv_va_color_size_ref"
+                app:layout_constraintStart_toEndOf="@+id/iv_fine_hold_size_ref"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/iv_va_color_size_ref"
+                android:id="@+id/iv_fine_hold_size_ref"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="false"
@@ -492,14 +492,14 @@
                 android:cropToPadding="false"
                 android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/space14_va_color"
+                app:layout_constraintEnd_toStartOf="@+id/space14_fine_hold"
                 app:layout_constraintHorizontal_weight="1.75"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/img_sidebar_empty" />
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/cont_graph_va_color_details"
+                android:id="@+id/cont_graph_fine_hold_details"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -509,130 +509,130 @@
                 app:layout_constraintVertical_weight="6">
 
                 <Space
-                    android:id="@+id/space_va_color_top_details"
+                    android:id="@+id/space_fine_hold_top_details"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_start_va_color"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_start_fine_hold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_weight="2" />
 
                 <Space
-                    android:id="@+id/space_va_color_bottom_details"
+                    android:id="@+id/space_fine_hold_bottom_details"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/space_va_color_center"
+                    app:layout_constraintBottom_toBottomOf="@+id/space_fine_hold_center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/space_end_va_color"
+                    app:layout_constraintTop_toBottomOf="@+id/space_end_fine_hold"
                     app:layout_constraintVertical_weight="2" />
 
                 <Space
-                    android:id="@+id/space_end_va_color"
+                    android:id="@+id/space_end_fine_hold"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/space_va_color_bottom_details"
+                    app:layout_constraintBottom_toTopOf="@+id/space_fine_hold_bottom_details"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="1.5"
-                    app:layout_constraintStart_toEndOf="@+id/space_va_color_center"
-                    app:layout_constraintTop_toBottomOf="@+id/space_va_color_top_details"
+                    app:layout_constraintStart_toEndOf="@+id/space_fine_hold_center"
+                    app:layout_constraintTop_toBottomOf="@+id/space_fine_hold_top_details"
                     app:layout_constraintVertical_weight="6" />
 
                 <Space
-                    android:id="@+id/space_graph_container_va_color_start"
+                    android:id="@+id/space_graph_container_fine_hold_start"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/graph_container_va_color"
+                    app:layout_constraintEnd_toStartOf="@+id/graph_container_fine_hold"
                     app:layout_constraintHorizontal_weight="1"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <RelativeLayout
-                    android:id="@+id/graph_container_va_color"
+                    android:id="@+id/graph_container_fine_hold"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="1dp"
                     android:gravity="center_vertical|center_horizontal|fill"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/space_graph_container_va_color_end"
+                    app:layout_constraintEnd_toStartOf="@id/space_graph_container_fine_hold_end"
                     app:layout_constraintHorizontal_weight="8"
-                    app:layout_constraintStart_toEndOf="@+id/space_graph_container_va_color_start"
+                    app:layout_constraintStart_toEndOf="@+id/space_graph_container_fine_hold_start"
                     app:layout_constraintTop_toTopOf="parent">
 
                 </RelativeLayout>
 
                 <Space
-                    android:id="@+id/space_graph_container_va_color_end"
+                    android:id="@+id/space_graph_container_fine_hold_end"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="1"
-                    app:layout_constraintStart_toEndOf="@id/graph_container_va_color"
+                    app:layout_constraintStart_toEndOf="@id/graph_container_fine_hold"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.constraint.ConstraintLayout
-                    android:id="@+id/space_va_color_center"
+                    android:id="@+id/space_fine_hold_center"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/space_end_va_color"
+                    app:layout_constraintEnd_toStartOf="@+id/space_end_fine_hold"
                     app:layout_constraintHorizontal_weight="7"
-                    app:layout_constraintStart_toEndOf="@+id/tv_start_va_color"
+                    app:layout_constraintStart_toEndOf="@+id/tv_start_fine_hold"
                     app:layout_constraintTop_toTopOf="parent">
 
                 </android.support.constraint.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/tv_start_va_color"
+                    android:id="@+id/tv_start_fine_hold"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical"
                     app:autoSizePresetSizes="@array/autosize_text_sizes"
-                    app:layout_constraintBottom_toTopOf="@+id/space_va_color_bottom_details"
-                    app:layout_constraintEnd_toStartOf="@+id/space_va_color_center"
+                    app:layout_constraintBottom_toTopOf="@+id/space_fine_hold_bottom_details"
+                    app:layout_constraintEnd_toStartOf="@+id/space_fine_hold_center"
                     app:layout_constraintHorizontal_weight="1.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/space_va_color_top_details"
+                    app:layout_constraintTop_toBottomOf="@+id/space_fine_hold_top_details"
                     app:layout_constraintVertical_weight="6" />
 
                 <Space
-                    android:id="@+id/space_end_va_color_padding"
+                    android:id="@+id/space_end_fine_hold_padding"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_end_va_color"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_end_fine_hold"
                     app:layout_constraintHorizontal_weight="7.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_end_va_color"
+                    android:id="@+id/tv_end_fine_hold"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:gravity="center_vertical|center_horizontal"
                     android:text="@string/num_50"
                     app:autoSizePresetSizes="@array/autosize_text_sizes"
-                    app:layout_constraintBottom_toTopOf="@+id/space_va_color_bottom_details"
+                    app:layout_constraintBottom_toTopOf="@+id/space_fine_hold_bottom_details"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_weight="2.5"
-                    app:layout_constraintStart_toEndOf="@+id/space_end_va_color_padding"
-                    app:layout_constraintTop_toBottomOf="@+id/space_va_color_top_details"
+                    app:layout_constraintStart_toEndOf="@+id/space_end_fine_hold_padding"
+                    app:layout_constraintTop_toBottomOf="@+id/space_fine_hold_top_details"
                     app:layout_constraintVertical_weight="6" />
 
             </android.support.constraint.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tv_va_color_graph_focus_title"
+                android:id="@+id/tv_fine_hold_graph_focus_title"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="50dp"
                 android:gravity="bottom"
-                android:text="@string/color_vision"
+                android:text="@string/fine_motor_hold"
                 app:autoSizePresetSizes="@array/autosize_text_sizes"
-                app:layout_constraintBottom_toTopOf="@+id/tv_va_color_graph_center"
+                app:layout_constraintBottom_toTopOf="@+id/tv_fine_hold_graph_center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent
@@ -640,7 +640,7 @@
                 app:layout_constraintVertical_weight="2.5" />
 
             <TextView
-                android:id="@+id/tv_va_color_graph_center"
+                android:id="@+id/tv_fine_hold_graph_center"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="2dp"
@@ -648,34 +648,34 @@
                 android:gravity="center_vertical"
                 android:textAlignment="center"
                 app:autoSizePresetSizes="@array/autosize_text_sizes"
-                app:layout_constraintBottom_toTopOf="@+id/space_va_color_bottom"
+                app:layout_constraintBottom_toTopOf="@+id/space_fine_hold_bottom"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_va_color_graph_focus_title"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fine_hold_graph_focus_title"
                 app:layout_constraintVertical_weight="5" />
 
             <Space
-                android:id="@+id/space_va_color_bottom"
+                android:id="@+id/space_fine_hold_bottom"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_va_color_graph_center"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fine_hold_graph_center"
                 app:layout_constraintVertical_weight="2" />
 
             <Space
-                android:id="@+id/space_va_color_title_top"
+                android:id="@+id/space_fine_hold_title_top"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/tv_va_color_graph_title"
+                app:layout_constraintBottom_toTopOf="@+id/tv_fine_hold_graph_title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_weight="7" />
 
             <TextView
-                android:id="@+id/tv_va_color_graph_title"
+                android:id="@+id/tv_fine_hold_graph_title"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@android:color/transparent"
@@ -686,9 +686,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/space_va_color_title_top"
+                app:layout_constraintTop_toBottomOf="@+id/space_fine_hold_title_top"
                 app:layout_constraintVertical_weight="3" />
 
         </android.support.constraint.ConstraintLayout>
+
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
