@@ -192,9 +192,10 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private void chartSelectRefresh() {
 
-        // TODO Remove all views
+        if(spChartType != null) {
+            spChartType.setSelection(0);
+        }
         removeGraphViews();
-
         refreshChartParams();
         addDataSet();
     }
@@ -448,10 +449,11 @@ public class DataVisualizationActivity extends AppCompatActivity
 
                 // TODO Remove all views
                 removeGraphViews();
+                hideGraphOverview();
 
                 if(position == 0){ // Overview
                     // TODO place overview setup here if necessary)
-                    adjustGraphOverviewAppearance();
+                    showGraphOverview();
                 } else if(position == 1) { // Pie Chart
                     preparePieChart();
                 } else if (position == 2) { // Bar Chart
@@ -481,7 +483,8 @@ public class DataVisualizationActivity extends AppCompatActivity
                 /* Default chart is pie chart */
                 // ** Edited, default chart is Overview
 //                chartType = "Overview";
-                chartType = ((CustomSpinnerItem)(parent.getItemAtPosition(0))).getText(); // On nothing selected, show Overview (first item)
+//                chartType = ((CustomSpinnerItem)(parent.getItemAtPosition(0))).getText(); // On nothing selected, show Overview (first item)
+//                showGraphOverview();
 
 //                graphLayoutLeft.addView(pieChartLeft);
 //                // adjust size of layout
@@ -522,11 +525,10 @@ public class DataVisualizationActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-//        hideGraphOverview();
-//        adjustGraphOverviewAppearance();
-//        showGraphOverview();
+        // Called when back button is pressed
+
         chartSelectRefresh();
-        Log.e("RESUME", "resumed");
+//        Log.e("RESUME", "resumed");
     }
     public void hideGraphOverview() {
         scrollGraphOverview.setVisibility(General.getVisibility(false));
