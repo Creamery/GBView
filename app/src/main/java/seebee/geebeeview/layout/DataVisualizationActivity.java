@@ -91,6 +91,9 @@ import seebee.geebeeview.spinner.CustomSpinnerItem;
 public class DataVisualizationActivity extends AppCompatActivity
         implements AddFilterDialogFragment.AddFilterDialogListener,
         AddDatasetDialogFragment.AddDatasetDialogListener, FilterAdapter.FilterAdapterListener, TextHolderAdapter.TextListener {
+
+    private float overviewHeightIncrease = 0f;
+
     private static final String TAG = "DataVisualActivity";
     public static final float VALUE_TEXT_SIZE = 14f;
     public static final float DESCRIPTION_TEXT_SIZE = 16f;
@@ -1192,7 +1195,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 //            params.get(i).height = graphStackedBarCharts.get(i).getHeight()-offsetTopBottom+10; // ViewGroup.LayoutParams.MATCH_PARENT; TODO ADD CHART HEIGHT
 //            params.get(i).width = graphStackedBarCharts.get(i).getWidth()-offsetLeftRight; //ViewGroup.LayoutParams.MATCH_PARENT;
 
-            params.get(i).height = graphStackedBarCharts.get(i).getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT; TODO ADD CHART HEIGHT
+            params.get(i).height = graphStackedBarCharts.get(i).getHeight()+(int)overviewHeightIncrease; // ViewGroup.LayoutParams.MATCH_PARENT; TODO ADD CHART HEIGHT
 //            params.get(i).width = graphStackedBarCharts.get(i).getWidth(); //ViewGroup.LayoutParams.MATCH_PARENT;
 
 //            params.get(i).height = ViewGroup.LayoutParams.MATCH_PARENT;// ViewGroup.LayoutParams.MATCH_PARENT;
@@ -1200,7 +1203,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 //            chart.setMinimumHeight(graphStackedBarCharts.get(i).getLayoutParams().height);
 //            chart.setMinimumWidth(graphStackedBarCharts.get(i).getLayoutParams().width);
-
+            chart.setY(chart.getY()-(overviewHeightIncrease/2f));
             chart.setBackgroundColor(Color.LTGRAY); // TODO Remove or make White
 //            chart.setX(computePercentHalf(chart.getWidth(), offsetPercent));
 //            chart.setY(computePercentHalf(chart.getHeight(), offsetPercent)/offsetYDivider);
@@ -1462,8 +1465,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         ChartDataValue chartDataValue = prepareChartData(recordType);
 
         chart = new HorizontalBarChart(this);
-        chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener());
-
+        chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Removed
         // Variables to hold the converted yData (from int to float) and sum
         float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
         float fSumSchool, fSumNational;
@@ -1591,17 +1593,17 @@ public class DataVisualizationActivity extends AppCompatActivity
     private void formatStackedBarAxis(HorizontalBarChart chart) {
         chart.getDescription().setEnabled(false);
 
-//        chart.getAxisLeft().setDrawLabels(false);
-//        chart.getAxisLeft().setDrawGridLines(false);
-//        chart.getAxisLeft().setDrawAxisLine(false);
+        chart.getAxisLeft().setDrawLabels(false);
+        chart.getAxisLeft().setDrawGridLines(false);
+        chart.getAxisLeft().setDrawAxisLine(false);
 
-//        chart.getAxisRight().setDrawLabels(false);
-//        chart.getAxisRight().setDrawGridLines(false);
-//        chart.getAxisRight().setDrawAxisLine(false);
+        chart.getAxisRight().setDrawLabels(false);
+        chart.getAxisRight().setDrawGridLines(false);
+        chart.getAxisRight().setDrawAxisLine(false);
 
-//        chart.getXAxis().setDrawLabels(false);
-//        chart.getXAxis().setDrawGridLines(false);
-//        chart.getXAxis().setDrawAxisLine(false);
+        chart.getXAxis().setDrawLabels(false);
+        chart.getXAxis().setDrawGridLines(false);
+        chart.getXAxis().setDrawAxisLine(false);
 
 
         // X Axis
@@ -1609,12 +1611,13 @@ public class DataVisualizationActivity extends AppCompatActivity
         XAxis xAxis = chart.getXAxis();
         xAxis.setDrawLabels(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+
+
 //        xAxis.setValueFormatter(new StackedBarChartIAxisFormatter(values));
 //        xAxis.setLabelCount(1, true);
 
         // Y Axis
         YAxis leftAxis = chart.getAxisLeft();
-
         LimitLine llStart, llEnd;
         llStart = new LimitLine(0f, ""); // TODO label
         llStart.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
@@ -1631,21 +1634,17 @@ public class DataVisualizationActivity extends AppCompatActivity
         llEnd.setTextSize(VALUE_TEXT_SIZE);
         leftAxis.addLimitLine(llEnd);
 
-        leftAxis.setDrawLabels(false);
 
-//        chart.setFitBars(true);
-//        chart.setVisibleYRange(0f, 100f, YAxis.AxisDependency.LEFT);
-//        chart.zoomToCenter(chart.getCenter().x, chart.getCenter().y);
-//        chart.getRendererXAxis().getPaintAxisLabels().setTextAlign(Paint.Align.CENTER);
-//        chart.setFitBars(true);
+
         chart.setViewPortOffsets(0f, 0f,0f,0f);
-        chart.setDoubleTapToZoomEnabled(false);
-        chart.setPinchZoom(false);
+//        chart.setScaleEnabled(false);
+//        chart.setDoubleTapToZoomEnabled(false);
+//        chart.setPinchZoom(false);
+//        chart.setAutoScaleMinMaxEnabled(false);
+        chart.setTouchEnabled(false);
+
         chart.getAxisLeft().setAxisMaximum(100f);
         chart.getAxisLeft().setAxisMinimum(0f);
-
-//        chart.setClipToOutline(true);
-//        chart.fitScreen();
 
     }
 
