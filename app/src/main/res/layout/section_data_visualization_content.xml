@@ -17,13 +17,46 @@
         app:layout_constraintVertical_weight="8.25">
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/cont_graph_specific"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cont_scroll_graph"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </android.support.constraint.ConstraintLayout>
+
+        <Space
+            android:id="@+id/space_overview_start"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cont_scroll_graph"
+            app:layout_constraintHorizontal_weight="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Space
+            android:id="@+id/space_overview_end"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/graph_container_center"
+            app:layout_constraintHorizontal_weight="4.5"
+            app:layout_constraintStart_toEndOf="@+id/cont_scroll_graph"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <android.support.constraint.ConstraintLayout
             android:id="@+id/cont_scroll_graph"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cont_overview_avatar"
-            app:layout_constraintHorizontal_weight="6"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/space_overview_end"
+            app:layout_constraintHorizontal_weight="5"
+            app:layout_constraintStart_toEndOf="@+id/space_overview_start"
             app:layout_constraintTop_toTopOf="parent">
 
             <include
@@ -78,7 +111,6 @@
             android:id="@+id/graph_container_center"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@color/white"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
