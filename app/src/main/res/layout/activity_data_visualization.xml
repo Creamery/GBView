@@ -694,7 +694,6 @@
                         android:layout_height="0dp"
 
 
-                        android:layout_marginStart="1dp"
                         android:layout_weight="0.2"
                         android:dropDownWidth="match_parent"
                         android:entries="@array/chart_type_array"

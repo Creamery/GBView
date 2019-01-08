@@ -72,6 +72,7 @@ import seebee.geebeeview.adapter.FilterAdapter;
 import seebee.geebeeview.adapter.TextHolderAdapter;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.graphs.ChartDataValue;
+import seebee.geebeeview.graphs.OverviewEntry;
 import seebee.geebeeview.graphs.StackedBarChartIAxisFormatter;
 import seebee.geebeeview.graphs.StackedBarChartValueFormatter;
 import seebee.geebeeview.model.account.Dataset;
@@ -127,7 +128,8 @@ public class DataVisualizationActivity extends AppCompatActivity
     BarChart barChart;
 
     HorizontalBarChart stackedBarChart;
-    ArrayList<HorizontalBarChart> stackedBarCharts;
+//    ArrayList<HorizontalBarChart> stackedBarCharts;
+    ArrayList<OverviewEntry> overviewEntries;
     ArrayList<RelativeLayout> graphStackedBarCharts;
     String[] recordColumns;
 
@@ -252,7 +254,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 
         initializeStackedGraphOverview();
-        
+
         // TODO Set default font
         /* get fonts from assets */
 //        Typeface chawpFont = Typeface.createFromAsset(getAssets(), "font/chawp.ttf");
@@ -425,7 +427,7 @@ public class DataVisualizationActivity extends AppCompatActivity
                 } else if (position == 2) { // Bar Chart
                     prepareBarChart();
                 } else if (position == 3) { // Scatter Chart TODO Remove?
-                    prepareBarChart();
+                    prepareScatterChart();
                 } else { // Bubble Chart TODO Remove?
                     prepareBubbleChart();
                 }
@@ -676,9 +678,12 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     // Clear all overview charts
     private void clearOverviewCharts() {
-        for (HorizontalBarChart chart : stackedBarCharts) {
-            chart.clear();
+        for(int i = 0; i < overviewEntries.size(); i++) {
+            overviewEntries.get(i).getStackedBarChart().clear();
         }
+//        for (HorizontalBarChart chart : stackedBarCharts) {
+//            chart.clear();
+//        }
     }
     private void createCharts() {
         //graphLayoutLeft.setBackgroundColor(Color.LTGRAY);
@@ -1152,41 +1157,33 @@ public class DataVisualizationActivity extends AppCompatActivity
         recordColumns = getResources().getStringArray(R.array.record_column_array_num); // Initialize columns to appear
 
         // TODO add additional overviews here + corresponding params
-        stackedBarCharts = new ArrayList<>();
+//        stackedBarCharts = new ArrayList<>();
+        overviewEntries = new ArrayList<>();
         graphStackedBarCharts = new ArrayList<>();
 
         // TODO Add stack
-        stackedBarCharts.add(stackedBMI);
+        overviewEntries.add(new OverviewEntry(stackedBMI));
         graphStackedBarCharts.add(graphBMI);
 
-        stackedBarCharts.add(stackedVisualAcuityLeft);
+//        stackedBarCharts.add(stackedVisualAcuityLeft);
+        overviewEntries.add(new OverviewEntry(stackedVisualAcuityLeft));
         graphStackedBarCharts.add(graphVisualAcuityLeft);
 
-        stackedBarCharts.add(stackedVisualAcuityRight);
+//        stackedBarCharts.add(stackedVisualAcuityRight);
+        overviewEntries.add(new OverviewEntry(stackedVisualAcuityRight));
         graphStackedBarCharts.add(graphVisualAcuityRight);
 
-        stackedBarCharts.add(stackedColorBlindness);
+//        stackedBarCharts.add(stackedColorBlindness);
+        overviewEntries.add(new OverviewEntry(stackedColorBlindness));
         graphStackedBarCharts.add(graphColorBlindness);
-
-
-//        stackedBarCharts = createOverviewCharts(stackedBarCharts); // TODO Initialize
-
-        // TODO Then add as View
-//        graphBMI.addView(stackedBarCharts.get(0));
-//        graphVisualAcuityLeft.addView(stackedBarCharts.get(1));
-//        graphVisualAcuityRight.addView(stackedBarCharts.get(2));
-//        graphColorBlindness.addView(stackedBarCharts.get(3));
-
-//        computeOverviewParams(stackedBarCharts, paramsOverview);
-//        refreshCharts();
     }
 
-    private void computeOverviewParams(ArrayList<HorizontalBarChart> charts, ArrayList<ViewGroup.LayoutParams> params) {
+    private void computeOverviewParams(ArrayList<OverviewEntry> chartsEntries, ArrayList<ViewGroup.LayoutParams> params) {
         params = new ArrayList<>();
-
-        for(int i = 0; i < charts.size(); i++) {
-
-            params.add(charts.get(i).getLayoutParams());
+        HorizontalBarChart chart;
+        for(int i = 0; i < chartsEntries.size(); i++) {
+            chart = chartsEntries.get(i).getStackedBarChart();
+            params.add(chart.getLayoutParams());
 
             offsetTopBottom = computePercent(graphLayoutCenter.getHeight(), offsetPercent);
             offsetLeftRight = computePercent(graphLayoutCenter.getWidth(), offsetPercent);
@@ -1195,8 +1192,8 @@ public class DataVisualizationActivity extends AppCompatActivity
             params.get(i).width = graphStackedBarCharts.get(i).getWidth()-offsetLeftRight; //ViewGroup.LayoutParams.MATCH_PARENT;
 
 
-            charts.get(i).setX(computePercentHalf(charts.get(i).getWidth(), offsetPercent));
-            charts.get(i).setY(computePercentHalf(charts.get(i).getHeight(), offsetPercent)/offsetYDivider);
+            chart.setX(computePercentHalf(chart.getWidth(), offsetPercent));
+            chart.setY(computePercentHalf(chart.getHeight(), offsetPercent)/offsetYDivider);
         }
     }
 
@@ -1439,17 +1436,16 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     }
     private void prepareOverviewChartData() {
-        for(int i = 0; i < 4; i++) { // TODO change 4 to recordColumns.length
-            stackedBarCharts.set(i, prepareStackedOverview(recordColumns[i], stackedBarCharts.get(i)));
-            graphStackedBarCharts.get(i).addView(stackedBarCharts.get(i));
+        for(int i = 0; i < overviewEntries.size(); i++) {
+//            stackedBarCharts.set(i, prepareStackedOverview(recordColumns[i], stackedBarCharts.get(i)));
+//            graphStackedBarCharts.get(i).addView(stackedBarCharts.get(i));
+            overviewEntries.get(i).setStackedBarChart(prepareStackedOverview(recordColumns[i], overviewEntries.get(i).getStackedBarChart()));
+            graphStackedBarCharts.get(i).addView(overviewEntries.get(i).getStackedBarChart());
 
             graphStackedBarCharts.get(i).setX(computePercentHalf(graphStackedBarCharts.get(i).getWidth(), offsetPercent));
             graphStackedBarCharts.get(i).setY(computePercentHalf(graphStackedBarCharts.get(i).getHeight(), offsetPercent)/offsetYDivider);
-
-
-
         }
-        computeOverviewParams(stackedBarCharts, paramsOverview);
+        computeOverviewParams(overviewEntries, paramsOverview);
     }
 
     private HorizontalBarChart prepareStackedOverview(String recordType, HorizontalBarChart chart) {
