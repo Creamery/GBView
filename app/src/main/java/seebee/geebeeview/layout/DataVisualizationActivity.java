@@ -1965,12 +1965,13 @@ public class DataVisualizationActivity extends AppCompatActivity
         chartFocus.setText(StringConstants.getEditedFocusLabel(recordName, xLabels[highestValueIndex], highestValueIndex));
 //        chartFocus.setText(xLabels[highestValueIndex]);
 
-        if(roundedPercentValue > highlightPercentThreshold) {
-            chartFocusValue.setTextColor(ColorThemes.getStackedColorSet(recordName)[highestValueIndex]);
-        }
+
         formatStackedBarAxis(chart);
         // TODO length check for color
         barData.getColors().set(highestValueIndex, ColorThemes.getStackedColorSet(recordName)[highestValueIndex]);
+        if(roundedPercentValue > highlightPercentThreshold) {
+            chartFocusValue.setTextColor(barData.getColors().get(highestValueIndex));
+        }
     }
 
     /**
