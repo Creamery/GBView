@@ -567,6 +567,53 @@ public class DataVisualizationActivity extends AppCompatActivity
                 loadSpecificBarChart(3);
             }
         });
+
+
+
+        graphHearingLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadSpecificBarChart(4);
+            }
+        });
+        graphHearingRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadSpecificBarChart(5);
+            }
+        });
+
+
+        graphGrossMotor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadSpecificBarChart(6);
+            }
+        });
+
+
+        graphFineMotorDominant.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadSpecificBarChart(7);
+            }
+        });
+
+
+        graphFineMotorNon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadSpecificBarChart(8);
+            }
+        });
+
+
+        graphFineMotorHold.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadSpecificBarChart(9);
+            }
+        });
     }
 
     @Override
