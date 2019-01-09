@@ -7,6 +7,9 @@ import android.graphics.Color;
  */
 public class ColorThemes {
 
+    public static int cPrimaryDark = 0xFF004D40;
+
+
     public static int cLightGray = Color.rgb(240, 240, 240);
     public static int cTealDefault = Color.rgb(29, 233, 182);
     public static int cNA = Color.rgb(212, 212, 212);
@@ -32,12 +35,12 @@ public class ColorThemes {
     public static int cHEARING_Severe = cBMI_Obese;
     public static int cHEARING_Profound = cBMI_Obese;
 
-    // Visual Acuity Left & Right (11 items = 20/200 || 20/100, 20/70, 20/50 || 20/40, 20/30, 20/25 || 20/20, 20/15, 20/10, 20/5)
+    // Visual Acuity Left & Right (11 items = 20/200 || 20/100, 20/70 || 20/50, 20/40, 20/30 || 20/25, 20/20, 20/15, 20/10, 20/5)
     // Re-using colors
-    public static int cVISION_Normal = cBMI_Normal; // [7, 8, 9, 10] = 20/20, 20/15, 20/10, 20/5
-    public static int cVISION_Mild = cBMI_Underweight; // [4, 5, 6] = 20/40, 20/30, 20/25
-    public static int cVISION_Moderate = cBMI_Overweight; // [1, 2, 3] = 20/100, 20/70, 20/50
-    public static int cVISION_Severe = cBMI_Obese; // [0] = 20/200
+    public static int cVISION_Normal = cBMI_Normal; // [6, 7, 8, 9, 10] = 20/25 , 20/20, 20/15, 20/10, 20/5 // Normal Vision
+    public static int cVISION_Mild = cBMI_Underweight; // [3, 4, 5] = 20/50, 20/40, 20/30 // Near-normal Vision
+    public static int cVISION_Moderate = cBMI_Overweight; // [1, 2] = 20/100, 20/70  // Moderate Low Vision
+    public static int cVISION_Severe = cBMI_Obese; // [0] = 20/200 // Severe Low Vision
 
 
     // Color Vision (2 items = Normal, Abnormal)
@@ -62,9 +65,10 @@ public class ColorThemes {
     // Visual Acuity (11 items)
     public static int[] csVISION = new int[] {
             cVISION_Severe,
-            cVISION_Moderate, cVISION_Moderate, cVISION_Moderate,
+            cVISION_Moderate, cVISION_Moderate,
             cVISION_Mild, cVISION_Mild, cVISION_Mild,
-            cVISION_Normal, cVISION_Normal, cVISION_Normal, cVISION_Normal};
+            cVISION_Normal, cVISION_Normal, cVISION_Normal, cVISION_Normal, cVISION_Normal};
+
 
 
     // Gross Motor (3 items = Pass, Fail, N/A)

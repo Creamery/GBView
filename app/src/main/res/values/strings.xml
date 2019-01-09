@@ -132,6 +132,15 @@
 
     <string name="no_immunizaiton">Patient has no immunization records!</string>
 
+
+    <string-array name="vision_labels_array">
+        <item>BMI</item>
+        <item>Visual Acuity Left</item>
+        <item>Visual Acuity Right</item>
+        <item>Color Vision</item>
+        <item>Hearing Left</item>
+    </string-array>
+
     <string-array name="record_column_array">
         <item>BMI</item>
         <item>Visual Acuity Left</item>

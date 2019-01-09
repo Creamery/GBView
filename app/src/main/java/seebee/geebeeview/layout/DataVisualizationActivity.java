@@ -77,6 +77,7 @@ import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.graphs.ChartDataValue;
 import seebee.geebeeview.graphs.OverviewEntry;
 import seebee.geebeeview.graphs.StackedBarChartValueFormatter;
+import seebee.geebeeview.graphs.StringConstants;
 import seebee.geebeeview.model.account.Dataset;
 import seebee.geebeeview.model.consultation.School;
 import seebee.geebeeview.model.monitoring.PatientRecord;
@@ -94,7 +95,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         AddDatasetDialogFragment.AddDatasetDialogListener, FilterAdapter.FilterAdapterListener, TextHolderAdapter.TextListener {
 
     private float overviewHeightIncrease = 0f;
-
+    private float highlightPercentThreshold = 60f; // In Overview, highlight percent greater than 60f
     private static final String TAG = "DataVisualActivity";
     public static final float VALUE_TEXT_SIZE = 14f;
     public static final float DESCRIPTION_TEXT_SIZE = 16f;
@@ -1648,6 +1649,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         TextView chartFocus = overviewEntry.getTvFocusTitle();
         TextView chartFocusValue = overviewEntry.getTvFocusValue();
 
+        // Set font color
+        chartFocus.setTextColor(ColorThemes.cPrimaryDark);
         barData.setValueFormatter(new StackedBarChartValueFormatter()); // Format values to ###.##% as specified i the passed parameter class
 
         // Set stack colors here
@@ -1679,13 +1682,18 @@ public class DataVisualizationActivity extends AppCompatActivity
             }
         }
 
+        float roundedPercentValue = Math.round(percentData[highestValueIndex]);
         // Set focus value to highest value
-        chartFocusValue.setText(""+Math.round(percentData[highestValueIndex])+"%");
-        chartFocus.setText(xLabels[highestValueIndex]);
+        chartFocusValue.setText(""+roundedPercentValue+"%");
+        chartFocus.setText(StringConstants.getEditedFocusLabel(recordName, xLabels[highestValueIndex], highestValueIndex));
+//        chartFocus.setText(xLabels[highestValueIndex]);
 
+        if(roundedPercentValue > highlightPercentThreshold) {
+            chartFocusValue.setTextColor(ColorThemes.getStackedColorSet(recordName)[highestValueIndex]);
+        }
         formatStackedBarAxis(chart);
         // TODO length check for color
-        barData.getColors().set(highestValueIndex,ColorThemes.getStackedColorSet(recordName)[highestValueIndex]);
+        barData.getColors().set(highestValueIndex, ColorThemes.getStackedColorSet(recordName)[highestValueIndex]);
     }
 
     /**
