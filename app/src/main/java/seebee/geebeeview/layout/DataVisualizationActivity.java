@@ -1958,7 +1958,8 @@ public class DataVisualizationActivity extends AppCompatActivity
             }
         }
 
-        float roundedPercentValue = Math.round(percentData[highestValueIndex]);
+        int roundedPercentValue = Math.round(percentData[highestValueIndex]);
+
         // Set focus value to highest value
         chartFocusValue.setText(""+roundedPercentValue+"%");
         chartFocus.setText(StringConstants.getEditedFocusLabel(recordName, xLabels[highestValueIndex], highestValueIndex));
