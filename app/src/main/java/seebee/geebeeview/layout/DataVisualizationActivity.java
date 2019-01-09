@@ -55,6 +55,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
@@ -125,11 +126,16 @@ public class DataVisualizationActivity extends AppCompatActivity
             graphGrossMotor,
             graphFineMotorDominant, graphFineMotorNon, graphFineMotorHold;
 
+
     HorizontalBarChart stackedBMI,
             stackedVisualAcuityLeft, stackedVisualAcuityRight, stackedColorBlindness,
             stackedHearingLeft, stackedHearingRight,
             stackedGrossMotor,
             stackedFineMotorDominant, stackedFineMotorNon, stackedFineMotorHold;
+
+
+    RelativeLayout graphSpecificBarSingle;
+    BarChart barSpecific;
 
     int schoolID;
     String schoolName, date;
@@ -140,6 +146,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     ArrayList<OverviewEntry> overviewEntries;
     ArrayList<RelativeLayout> graphStackedBarCharts;
     String[] recordColumns;
+    private String[] xDataContainer; // Only to be used by specific bar chart
 
     ScatterChart scatterChart;
     BubbleChart bubbleChart;
@@ -286,6 +293,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         graphFineMotorNon = (RelativeLayout) findViewById(R.id.graph_container_fine_non);
         graphFineMotorHold = (RelativeLayout) findViewById(R.id.graph_container_fine_hold);
 
+        graphSpecificBarSingle = (RelativeLayout) findViewById(R.id.graph_specific_bar_single);
 
         spRecordColumn = (Spinner) findViewById(R.id.sp_record_column);
         spChartType = (Spinner) findViewById(R.id.sp_chart_type);
@@ -309,7 +317,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         ivFMHRef = (ImageView) findViewById(R.id.iv_fine_hold_size_ref);
 
         initializeStackedGraphOverview();
-
+        initializeStackGraphOnClickListener();
         // TODO Set default font
 
         /* set listener for button view hpi list */
@@ -529,6 +537,38 @@ public class DataVisualizationActivity extends AppCompatActivity
         tvDataHeaderYear.setText("Record Date: "+date);
         setupSidebarFunctionality();
     }
+
+
+    public void initializeStackGraphOnClickListener() {
+        // recordIndex order based on spRecordColumn order
+        graphBMI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadSpecificBarChart(0);
+            }
+        });
+
+
+        graphVisualAcuityLeft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadSpecificBarChart(1);
+            }
+        });
+        graphVisualAcuityRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadSpecificBarChart(2);
+            }
+        });
+        graphColorBlindness.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadSpecificBarChart(3);
+            }
+        });
+    }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -584,6 +624,15 @@ public class DataVisualizationActivity extends AppCompatActivity
         barChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
     }
 
+    public void prepareSpecificBarChart() { // TODO Implement specific bar chart resizing
+        /* adjust the size of the bar chart */
+
+//        paramsCenter = barChart.getLayoutParams();
+//        barChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+//        barChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
+    }
+
+
     public void prepareScatterChart() {
 
         spRecordColumn.setVisibility(General.getVisibility(true));
@@ -624,6 +673,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         graphFineMotorDominant.removeAllViews();
         graphFineMotorNon.removeAllViews();
         graphFineMotorHold.removeAllViews();
+
+        graphSpecificBarSingle.removeAllViews();
     }
 
     // TODO EDIT
@@ -1013,6 +1064,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         barChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
     }
 
+
     /* prepare values specifically for piechart only */
     private PieChart createPieChart() {
         /* add pie chart */
@@ -1333,6 +1385,8 @@ public class DataVisualizationActivity extends AppCompatActivity
     private void addDataSet() {
         if(chartType.contentEquals("Overview")) {
             prepareOverviewChartData();
+            loadSpecificBarChart(spRecordColumn.getSelectedItemPosition());
+//            prepareSpecificBarChartData(recordColumn); // TODO Dynamic or new spinner
         }
         else if(chartType.contentEquals("Pie Chart")) {
             preparePieChartData(pieChartLeft, yDataLeft);
@@ -1347,6 +1401,8 @@ public class DataVisualizationActivity extends AppCompatActivity
             prepareBubbleChartData();
         }
     }
+
+
 
     private ArrayList<PieEntry> createPieEntries(int[] yData) {
         ArrayList<PieEntry> yVals1 = new ArrayList<>();
@@ -1585,6 +1641,185 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
         // Then adjust the graph container's size
         computeOverviewParams(overviewEntries, paramsOverview);
+    }
+
+    private void loadSpecificBarChart(int recordIndex) { // TODO Implement
+        if(this.barSpecific != null) {
+            this.barSpecific.clear();
+        }
+        this.graphSpecificBarSingle.removeAllViews();
+        prepareSpecificBarChartData(recordColumns[recordIndex]);
+    }
+
+    // Plug values into specific bar chart
+    private void prepareSpecificBarChartData(String recordType) { // TODO Implement
+        ChartDataValue chartDataValue = prepareChartData(recordType);
+
+        this.barSpecific = new BarChart(this);
+        this.barSpecific.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Remove (?)
+        this.graphSpecificBarSingle.addView(this.barSpecific);
+
+
+        // Variables to hold the converted yData (from int to float) and sum
+        float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
+        float fSumSchool; //, fSumNational;
+
+        // Convert yData to float
+        fDataSchool = General.convertToFloat(chartDataValue.getyDataLeft());
+//        fDataNational = General.convertToFloat(chartDataValue.getyDataRight());
+
+        // Get yData sum
+        fSumSchool = General.getArraySum(fDataSchool);
+//        fSumNational = General.getArraySum(fDataNational);
+
+        // Convert to percentages
+        pDataSchool = General.computePercentEquivalent(fDataSchool, fSumSchool);
+//        pDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
+
+
+
+        int index = 0;
+        ArrayList<BarEntry> yVals1 = new ArrayList<>();
+        for(int i = 0; i < pDataSchool.length; i++) {
+            yVals1.add(new BarEntry(index, pDataSchool[i]));
+            index ++;
+        }
+//        for(int i = 0; i < chartDataValue.getyDataLeft().length; i++) {
+//            yVals1.add(new BarEntry(index, chartDataValue.getyDataLeft()[i]));
+//            index ++;
+//        }
+
+
+        /* create bar chart dataset */
+        BarDataSet barDataSet = new BarDataSet(yVals1, "");
+        // Set colors
+        barDataSet.setColors(ColorThemes.getStackedColorSet(recordType));
+        barDataSet.setStackLabels(chartDataValue.getxData());
+
+        List<IBarDataSet> barDataSetList = new ArrayList<>();
+        barDataSetList.add(barDataSet);
+
+        BarData barData = new BarData(barDataSetList);
+
+        this.barSpecific.getAxisLeft().setEnabled(false);
+        //BarData barData = new BarData(xData, barDataSet);
+        this.barSpecific.setData(barData);
+        this.barSpecific.getAxisLeft().setEnabled(false);
+        adjustSpecificBarChartParams();
+        formatBarSpecificAppearance(barDataSet, chartDataValue.getxData());
+        this.barSpecific.notifyDataSetChanged();
+    }
+
+    private void formatBarSpecificAppearance(BarDataSet set, String[] xLabels) {
+        set.setBarBorderWidth(0.5f);
+        set.setBarBorderColor(ColorThemes.cLightGray);
+        formatBarSpecificAxis(this.barSpecific, xLabels);
+    }
+
+    private void formatBarSpecificAxis(BarChart chart, String[] xLabels) {
+
+        chart.getDescription().setEnabled(false);
+
+//        chart.getAxisLeft().setDrawLabels(false);
+//        chart.getAxisLeft().setDrawGridLines(false);
+        chart.getAxisLeft().setDrawAxisLine(false);
+
+//        chart.getAxisRight().setDrawLabels(false);
+//        chart.getAxisRight().setDrawGridLines(false);
+        chart.getAxisRight().setDrawAxisLine(false);
+
+        chart.getXAxis().setDrawLabels(false);
+        chart.getXAxis().setDrawGridLines(false);
+
+//        chart.getXAxis().setDrawAxisLine(false);
+
+
+//        chart.setVisibleYRange(0f, 100f, leftAxis.getAxisDependency());
+//        leftAxis.setLabelCount(3, true);
+//        leftAxis.setAxisMinimum(0f);
+//        leftAxis.setAxisMaximum(100f);
+
+
+        // yAXIS
+        YAxis leftAxis = chart.getAxisLeft();
+        YAxis rightAxis = chart.getAxisRight();
+
+        leftAxis.removeAllLimitLines();
+        leftAxis.setAxisMaximum(100);
+        leftAxis.setAxisMinimum(0);
+        leftAxis.setLabelCount(5);
+
+        rightAxis.removeAllLimitLines();
+        rightAxis.setAxisMaximum(100);
+        rightAxis.setAxisMinimum(0);
+        rightAxis.setLabelCount(5);
+
+        // xAXIS LABELS
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
+//        xDataContainer = xLabels;
+//        xAxis.setValueFormatter(new IAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, AxisBase axisBase) {
+//                return xDataContainer[(int) v];
+//            }
+//        });
+
+
+//        chart.setViewPortOffsets(0f, 0f,0f,0f);
+//        xAxis.setValueFormatter(new StackedBarChartIAxisFormatter(values));
+//        xAxis.setLabelCount(1, true);
+
+//        leftAxis.setAxisMaximum(100);
+//        leftAxis.setAxisMinimum(0);
+//        leftAxis.setAxisMinimum(-.5f);
+//        leftAxis.setAxisMaximum(100.5f);
+//        leftAxis.setLabelCount(100);
+
+
+        // Y Axis
+//        LimitLine llStart, llEnd;
+//        llStart = new LimitLine(100, "100"); // TODO label
+//        llStart.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
+//        llStart.setLineColor(ColorThemes.cLightGray);
+//        llStart.setLineWidth(1f);
+//        llStart.setTextColor(Color.BLACK);
+//        llStart.setTextSize(VALUE_TEXT_SIZE);
+//        leftAxis.addLimitLine(llStart);
+
+//        llEnd = new LimitLine(100f, ""); // TODO Label
+//        llEnd.setLineColor(llStart.getLineColor());
+//        llEnd.setLineWidth(1f);
+//        llEnd.setTextColor(llStart.getTextColor());
+//        llEnd.setTextSize(VALUE_TEXT_SIZE);
+//        leftAxis.addLimitLine(llEnd);
+
+
+
+        chart.setScaleEnabled(false);
+        chart.setDoubleTapToZoomEnabled(false);
+        chart.setPinchZoom(false);
+//        chart.setAutoScaleMinMaxEnabled(false);
+        chart.setTouchEnabled(false);
+
+//        chart.setVisibleYRangeMaximum(100f, YAxis.AxisDependency.LEFT);
+//        chart.getAxisLeft().setAxisMaximum(100f);
+//        chart.getAxisLeft().setAxisMinimum(0f);
+
+    }
+
+
+
+    private void adjustSpecificBarChartParams() {
+        ViewGroup.LayoutParams params = this.barSpecific.getLayoutParams();
+
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;//this.graphSpecificBarSingle.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+//            chart.setMinimumHeight(graphStackedBarCharts.get(i).getLayoutParams().height);
+//            chart.setMinimumWidth(graphStackedBarCharts.get(i).getLayoutParams().width);
+//        this.barSpecific.setY(this.barSpecific.getY()-(overviewHeightIncrease/2f));
+//        this.barSpecific.setBackgroundColor(Color.TRANSPARENT); // TODO Remove or make White
     }
 
     private HorizontalBarChart prepareStackedOverview(String recordType, OverviewEntry overviewEntry) {
