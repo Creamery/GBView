@@ -1700,7 +1700,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         barDataSetList.add(barDataSet);
 
         BarData barData = new BarData(barDataSetList);
-
+        barDataSet.setStackLabels(chartDataValue.getxData());
         this.barSpecific.getAxisLeft().setEnabled(false);
         //BarData barData = new BarData(xData, barDataSet);
         this.barSpecific.setData(barData);
@@ -1722,7 +1722,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 //        chart.getAxisLeft().setDrawLabels(false);
 //        chart.getAxisLeft().setDrawGridLines(false);
-        chart.getAxisLeft().setDrawAxisLine(false);
+//        chart.getAxisLeft().setDrawAxisLine(false);
 
 //        chart.getAxisRight().setDrawLabels(false);
 //        chart.getAxisRight().setDrawGridLines(false);
@@ -1770,12 +1770,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        chart.setViewPortOffsets(0f, 0f,0f,0f);
 //        xAxis.setValueFormatter(new StackedBarChartIAxisFormatter(values));
 //        xAxis.setLabelCount(1, true);
-
-//        leftAxis.setAxisMaximum(100);
-//        leftAxis.setAxisMinimum(0);
-//        leftAxis.setAxisMinimum(-.5f);
-//        leftAxis.setAxisMaximum(100.5f);
-//        leftAxis.setLabelCount(100);
 
 
         // Y Axis
