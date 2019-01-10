@@ -158,7 +158,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     ArrayList<Dataset> datasets;
     /* attributes for addFilterDialog */
     ArrayList<String> gradeLevels;
-    private TextView tvDataset, tvFilter, tvChart, tvData, tvRightChart, tvDataHeader, tvDataHeaderYear;
+    private TextView tvDataset, tvFilter, tvChart, tvData, tvRightChart, tvDataHeader, tvDataHeaderYear, tvSpecificTitle;
     private Spinner spRecordColumn, spChartType, spRightChart;
     private String recordColumn = "BMI", rightChartContent = "National Profile";
 
@@ -316,6 +316,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         ivFMNRef = (ImageView) findViewById(R.id.iv_fine_non_size_ref);
         ivFMHRef = (ImageView) findViewById(R.id.iv_fine_hold_size_ref);
 
+        tvSpecificTitle = (TextView) findViewById(R.id.tv_specific_title);
         initializeStackedGraphOverview();
         initializeStackGraphOnClickListener();
         // TODO Set default font
@@ -1731,6 +1732,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
         this.graphSpecificBarSingle.removeAllViews();
         prepareSpecificBarChartData(recordColumns[recordIndex]);
+        tvSpecificTitle.setText(recordColumns[recordIndex]);
     }
 
     // Plug values into specific bar chart
