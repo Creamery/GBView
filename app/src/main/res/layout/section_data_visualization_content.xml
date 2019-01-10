@@ -49,10 +49,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
             android:id="@+id/cont_right_items"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:orientation="vertical"
+            android:weightSum="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cont_scroll_graph"
@@ -60,27 +62,19 @@
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/cont_right_items_top"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/include"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="2" >
+                android:layout_weight="0.2">
 
             </android.support.constraint.ConstraintLayout>
 
             <include
-                android:id="@+id/include"
+                android:id="@+id/include_stacked_graph_overview"
                 layout="@layout/scroll_visualization_stacked_graph"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cont_right_items_top"
-                app:layout_constraintVertical_weight="8" />
-        </android.support.constraint.ConstraintLayout>
+                android:layout_weight="0.8" />
+        </LinearLayout>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cont_scroll_graph"
