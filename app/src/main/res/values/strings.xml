@@ -15,6 +15,9 @@
     <string name="dateCreated">Date</string>
 
 
+    <string name="overview_title">School Health Statistics</string>
+    <string name="highlight_highest">Showing highest values</string>
+    <string name="highlight_target">Showing target values</string>
 
     <string name="sidebar_no_options">No options available</string>
 

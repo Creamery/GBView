@@ -52,7 +52,22 @@
                 android:id="@+id/cont_right_items_top"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.175">
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="0.175"
+                android:background="@color/lightGrey">
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginBottom="1dp"
+                    android:contentDescription="@string/cd_blank"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@color/white" />
 
                 <Space
                     android:id="@+id/space_overview_graph_left2"
@@ -60,7 +75,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/cont_patient_details"
-                    app:layout_constraintHorizontal_weight="0.05"
+                    app:layout_constraintHorizontal_weight="2.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -70,7 +85,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="0.05"
+                    app:layout_constraintHorizontal_weight="2.5"
                     app:layout_constraintStart_toEndOf="@+id/cont_patient_details"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,13 +93,25 @@
                     android:id="@+id/constraintLayout3"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="1dp"
-                    android:background="@color/white"
+                    android:background="@color/lightGrey"
                     app:layout_constraintBottom_toTopOf="@+id/cont_patient_details"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_weight="6">
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginBottom="1dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@color/white" />
 
                     <TextView
                         android:id="@+id/tv_name_r"
@@ -96,7 +123,7 @@
                         android:gravity="center"
                         android:includeFontPadding="false"
                         android:padding="5dp"
-                        android:text="@string/name"
+                        android:text="@string/overview_title"
                         android:textAlignment="center"
                         android:textAppearance="@style/DefaultText"
                         android:textColor="@color/greenHighlight"
@@ -112,22 +139,23 @@
                     android:id="@+id/cont_patient_details"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:background="@color/white"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/lightGrey"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/space_overview_graph_right2"
-                    app:layout_constraintHorizontal_weight="0.9"
+                    app:layout_constraintHorizontal_weight="5"
                     app:layout_constraintStart_toEndOf="@+id/space_overview_graph_left2"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
                     app:layout_constraintVertical_weight="4">
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/cont_height"
+                        android:id="@+id/cont_highlight_1"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="1dp"
                         android:background="@color/lightGrey"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/cont_center_details"
+                        app:layout_constraintEnd_toStartOf="@+id/cont_highlight_2"
                         app:layout_constraintHorizontal_weight="3.33"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
@@ -148,6 +176,7 @@
                             android:text="@string/height"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
+                            android:visibility="invisible"
                             app:autoSizePresetSizes="@array/autosize_text_sizes"
                             app:layout_constraintBottom_toTopOf="@+id/tv_height_label"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -165,6 +194,7 @@
                             android:padding="0dp"
                             android:text="@string/height"
                             android:textAlignment="center"
+                            android:visibility="invisible"
                             app:autoSizePresetSizes="@array/autosize_text_sizes"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -174,20 +204,21 @@
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/cont_center_details"
+                        android:id="@+id/cont_highlight_2"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:background="@color/lightGrey"
+                        android:background="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/cont_weight"
+                        app:layout_constraintEnd_toStartOf="@+id/cont_highlight_3"
                         app:layout_constraintHorizontal_weight="3.33"
-                        app:layout_constraintStart_toEndOf="@+id/cont_height"
+                        app:layout_constraintStart_toEndOf="@+id/cont_highlight_1"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <Space
                             android:id="@+id/space6"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:visibility="invisible"
                             app:layout_constraintBottom_toTopOf="@+id/cont_bmi_image"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -198,6 +229,7 @@
                             android:id="@+id/cont_bmi_image"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -299,6 +331,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginBottom="-1dp"
+                            android:visibility="invisible"
                             app:layout_constraintBottom_toTopOf="@+id/cont_bmi_image"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -308,15 +341,15 @@
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/cont_weight"
+                        android:id="@+id/cont_highlight_3"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="1dp"
-                        android:background="@color/lightGrey"
+                        android:background="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="3.33"
-                        app:layout_constraintStart_toEndOf="@+id/cont_center_details"
+                        app:layout_constraintStart_toEndOf="@+id/cont_highlight_2"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
@@ -333,6 +366,7 @@
                             android:text="@string/weight"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
+                            android:visibility="invisible"
                             app:autoSizePresetSizes="@array/autosize_text_sizes"
                             app:layout_constraintBottom_toTopOf="@+id/tv_weight_label"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -350,6 +384,7 @@
                             android:padding="0dp"
                             android:text="@string/weight"
                             android:textAlignment="center"
+                            android:visibility="invisible"
                             app:autoSizePresetSizes="@array/autosize_text_sizes"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -471,6 +506,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toTopOf="@+id/cont_overview_avatar"
                 app:layout_constraintEnd_toStartOf="@id/spc_right_filler"
                 app:layout_constraintHorizontal_weight="9"
@@ -507,20 +543,19 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_weight="1" />
+                        app:layout_constraintVertical_weight="0.25" />
 
                     <LinearLayout
                         android:id="@+id/cont_specific_chart"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_marginTop="8dp"
                         android:orientation="horizontal"
                         android:weightSum="1"
                         app:layout_constraintBottom_toTopOf="@+id/space_specific_circle_bottom"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/space_specific_circle_top"
-                        app:layout_constraintVertical_weight="8">
+                        app:layout_constraintVertical_weight="8.75">
 
                         <Space
                             android:layout_width="0dp"
