@@ -174,7 +174,6 @@
         <item>Pie Chart</item>
         <item>Bar Chart</item>
         <item>Scatter Chart</item>
-        <item>Bubble Chart</item>
     </string-array>
 
     <string-array name="right_chart_content_array">

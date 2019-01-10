@@ -480,9 +480,10 @@ public class DataVisualizationActivity extends AppCompatActivity
                     prepareBarChart();
                 } else if (position == 3) { // Scatter Chart TODO Remove?
                     prepareScatterChart();
-                } else { // Bubble Chart TODO Remove?
-                    prepareBubbleChart();
                 }
+//                else { // Bubble Chart TODO Remove?
+//                    prepareBubbleChart();
+//                }
 
                 // hide control of right chart for scatter and bubble plot
                 // **edited, only show on Pie
@@ -1171,16 +1172,14 @@ public class DataVisualizationActivity extends AppCompatActivity
         /* get records of patients taken in specified school and date from database */
         prepareRecord();
         addDatasetRefresh();
-//        refreshCharts();
     }
     public void addDatasetRefresh() {
-        // TODO Remove all views
         hideGraphOverview();
         removeGraphViews();
         int position = spChartType.getSelectedItemPosition();
 
+        // NOTE: DO NOT UNCOMMENT the code below.
 //        if(position == 0){ // Overview
-//            // TODO place overview setup here if necessary)
 //            showGraphOverview();
 //            graphLayoutCenter.setVisibility(General.getVisibility(false));
 //            if(spRecordColumn != null) {
@@ -1193,8 +1192,6 @@ public class DataVisualizationActivity extends AppCompatActivity
             prepareBarChart();
         } else if (position == 3) { // Scatter Chart TODO Remove?
             prepareScatterChart();
-        } else { // Bubble Chart TODO Remove?
-//            prepareBubbleChart();
         }
 
         // hide control of right chart for scatter and bubble plot
@@ -2009,6 +2006,9 @@ public class DataVisualizationActivity extends AppCompatActivity
         barData.getColors().set(highestValueIndex, ColorThemes.getStackedColorSet(recordName)[highestValueIndex]);
         if(roundedPercentValue > highlightPercentThreshold) {
             chartFocusValue.setTextColor(barData.getColors().get(highestValueIndex));
+        }
+        else {
+            chartFocusValue.setTextColor(ColorThemes.cPrimaryDark);
         }
     }
 
