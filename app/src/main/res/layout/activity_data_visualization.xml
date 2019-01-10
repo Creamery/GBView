@@ -65,76 +65,15 @@
                 app:layout_constraintTop_toTopOf="parent">
 
 
-                <Space
-                    android:id="@+id/space11"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/include_visualization_content"
-                    app:layout_constraintEnd_toStartOf="@+id/spc_header_filler"
-                    app:layout_constraintHorizontal_weight="0.25"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spc_top_padding"
-                    app:layout_constraintVertical_weight="2" />
-
-                <Space
-                    android:id="@+id/space12"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/include_visualization_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="0.25"
-                    app:layout_constraintStart_toEndOf="@+id/spc_header_filler"
-                    app:layout_constraintTop_toBottomOf="@+id/spc_top_padding"
-                    app:layout_constraintVertical_weight="2" />
-
-                <Space
-                    android:id="@+id/spc_top_padding"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/space11"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_weight="0.25"
-                    tools:layout_conversion_absoluteHeight="11dp"
-                    tools:layout_conversion_absoluteWidth="813dp" />
-
-                <Space
-                    android:id="@+id/spc_header_filler"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginEnd="2dp"
-                    app:layout_constraintBottom_toTopOf="@+id/include_visualization_content"
-                    app:layout_constraintEnd_toStartOf="@+id/space12"
-                    app:layout_constraintHorizontal_weight="9.5"
-                    app:layout_constraintStart_toEndOf="@+id/space11"
-                    app:layout_constraintTop_toBottomOf="@+id/spc_top_padding"
-                    app:layout_constraintVertical_weight="0.5" />
-
                 <include
                     android:id="@+id/include_visualization_content"
                     layout="@layout/section_data_visualization_content"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/spc_bottom_padding"
-                    app:layout_constraintEnd_toStartOf="@+id/space12"
-                    app:layout_constraintStart_toEndOf="@+id/space11"
-                    app:layout_constraintTop_toBottomOf="@+id/spc_header_filler"
-                    app:layout_constraintVertical_weight="8.75"
-                    tools:layout_conversion_absoluteHeight="377dp"
-                    tools:layout_conversion_absoluteWidth="813dp" />
-
-                <Space
-                    android:id="@+id/spc_bottom_padding"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/include_visualization_content"
-                    app:layout_constraintVertical_weight="0.5"
-                    tools:layout_conversion_absoluteHeight="12dp"
-                    tools:layout_conversion_absoluteWidth="813dp" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
 
