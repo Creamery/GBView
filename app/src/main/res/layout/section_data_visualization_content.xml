@@ -68,12 +68,53 @@
 
             </android.support.constraint.ConstraintLayout>
 
-            <include
-                android:id="@+id/include_stacked_graph_overview"
-                layout="@layout/scroll_visualization_stacked_graph"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_graph_overview_spacing"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.8" />
+                android:layout_weight="0.7">
+
+                <Space
+                    android:id="@+id/space_overview_graph_left"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/include_stacked_graph_overview"
+                    app:layout_constraintHorizontal_weight="0.005"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <include
+                    android:id="@+id/include_stacked_graph_overview"
+                    layout="@layout/scroll_visualization_stacked_graph"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@id/space_overview_graph_right"
+                    app:layout_constraintHorizontal_weight="0.99"
+                    app:layout_constraintStart_toEndOf="@id/space_overview_graph_left"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Space
+                    android:id="@+id/space_overview_graph_right"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="0.005"
+                    app:layout_constraintStart_toEndOf="@+id/include_stacked_graph_overview"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_right_items_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1">
+
+            </android.support.constraint.ConstraintLayout>
+
         </LinearLayout>
 
         <android.support.constraint.ConstraintLayout
