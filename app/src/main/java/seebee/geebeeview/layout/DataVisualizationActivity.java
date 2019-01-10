@@ -1170,6 +1170,44 @@ public class DataVisualizationActivity extends AppCompatActivity
         datasetAdapter.notifyDataSetChanged();
         /* get records of patients taken in specified school and date from database */
         prepareRecord();
+        addDatasetRefresh();
+//        refreshCharts();
+    }
+    public void addDatasetRefresh() {
+        // TODO Remove all views
+        hideGraphOverview();
+        removeGraphViews();
+        int position = spChartType.getSelectedItemPosition();
+
+//        if(position == 0){ // Overview
+//            // TODO place overview setup here if necessary)
+//            showGraphOverview();
+//            graphLayoutCenter.setVisibility(General.getVisibility(false));
+//            if(spRecordColumn != null) {
+//                spRecordColumn.setVisibility(General.getVisibility(false));
+//            }
+//        } else
+        if(position == 1) { // Pie Chart
+            preparePieChart();
+        } else if (position == 2) { // Bar Chart
+            prepareBarChart();
+        } else if (position == 3) { // Scatter Chart TODO Remove?
+            prepareScatterChart();
+        } else { // Bubble Chart TODO Remove?
+//            prepareBubbleChart();
+        }
+
+        // hide control of right chart for scatter and bubble plot
+        // **edited, only show on Pie
+        if(chartType.contains("Pie")) {
+            spRightChart.setVisibility(View.VISIBLE);
+            tvRightChart.setVisibility(View.VISIBLE);
+        } else {
+            spRightChart.setVisibility(View.GONE);
+            tvRightChart.setVisibility(View.GONE);
+        }
+
+        refreshChartParams();
         refreshCharts();
     }
 
