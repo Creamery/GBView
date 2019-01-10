@@ -49,17 +49,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <include
-            android:id="@+id/include"
-            layout="@layout/scroll_visualization_stacked_graph"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cont_right_items"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_school_header"
-            app:layout_constraintVertical_weight="8" />
+            app:layout_constraintStart_toEndOf="@+id/cont_scroll_graph"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <include
+                android:id="@+id/include"
+                layout="@layout/scroll_visualization_stacked_graph"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="8" />
+        </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cont_scroll_graph"
