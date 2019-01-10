@@ -49,6 +49,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
+        <include
+            android:id="@+id/include"
+            layout="@layout/scroll_visualization_stacked_graph"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include_school_header"
+            app:layout_constraintVertical_weight="8" />
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cont_scroll_graph"
             android:layout_width="0dp"
@@ -66,125 +78,113 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/include"
+                app:layout_constraintBottom_toTopOf="@+id/cont_overview_avatar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_weight="2" />
 
-            <include
-                android:id="@+id/include"
-                layout="@layout/scroll_visualization_stacked_graph"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_overview_avatar"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginBottom="20dp"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/include_school_header"
-                app:layout_constraintVertical_weight="8" />
-
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/cont_overview_avatar"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="5"
-            app:layout_constraintStart_toEndOf="@+id/cont_scroll_graph"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/cont_specific_top"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toTopOf="@+id/cont_specific_bottom"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_weight="8">
 
-                <Space
-                    android:id="@+id/space_specific_circle_top"
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_specific_top"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    app:layout_constraintBottom_toTopOf="@+id/cont_specific_chart"
+                    app:layout_constraintBottom_toTopOf="@+id/cont_specific_bottom"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_weight="1" />
-
-                <LinearLayout
-                    android:id="@+id/cont_specific_chart"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal"
-                    android:weightSum="1"
-                    app:layout_constraintBottom_toTopOf="@+id/space_specific_circle_bottom"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/space_specific_circle_top"
                     app:layout_constraintVertical_weight="8">
 
                     <Space
+                        android:id="@+id/space_specific_circle_top"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.05" />
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/cont_specific_chart"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_weight="1" />
 
-                    <RelativeLayout
-                        android:id="@+id/graph_specific_bar_single"
+                    <LinearLayout
+                        android:id="@+id/cont_specific_chart"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.9">
+                        android:layout_height="0dp"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal"
+                        android:weightSum="1"
+                        app:layout_constraintBottom_toTopOf="@+id/space_specific_circle_bottom"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/space_specific_circle_top"
+                        app:layout_constraintVertical_weight="8">
 
-                    </RelativeLayout>
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+
+                        <RelativeLayout
+                            android:id="@+id/graph_specific_bar_single"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.9">
+
+                        </RelativeLayout>
+
+                        <Space
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="0.05" />
+
+                    </LinearLayout>
 
                     <Space
+                        android:id="@+id/space_specific_circle_bottom"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="0.05" />
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cont_specific_chart"
+                        app:layout_constraintVertical_weight="1" />
 
-                </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_specific_title"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
+                        android:visibility="invisible"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/cont_specific_chart" />
 
-                <Space
-                    android:id="@+id/space_specific_circle_bottom"
-                    android:layout_width="0dp"
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_specific_bottom"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cont_specific_chart"
-                    app:layout_constraintVertical_weight="1" />
+                    app:layout_constraintTop_toBottomOf="@+id/cont_specific_top"
+                    app:layout_constraintVertical_weight="2">
 
-                <TextView
-                    android:id="@+id/tv_specific_title"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:gravity="center"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold"
-                    android:visibility="invisible"
-                    app:autoSizePresetSizes="@array/autosize_text_sizes"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cont_specific_chart" />
-
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/cont_specific_bottom"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cont_specific_top"
-                app:layout_constraintVertical_weight="2">
+                </android.support.constraint.ConstraintLayout>
 
             </android.support.constraint.ConstraintLayout>
 
