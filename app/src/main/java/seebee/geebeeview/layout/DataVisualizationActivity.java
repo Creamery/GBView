@@ -196,10 +196,10 @@ public class DataVisualizationActivity extends AppCompatActivity
         ivFMHRef.getLayoutParams().height = ivFMHRef.getWidth();
         adjustGraphOverviewAppearance();
 
+        addDatasetRefresh();
         if(spChartType != null && spChartType.getSelectedItemPosition() == 0) {
             showGraphOverview(); // Remember to make scroll view visible (set invisible in onCreate)
         }
-
     }
 
     private void chartSelectRefresh() {
@@ -628,9 +628,12 @@ public class DataVisualizationActivity extends AppCompatActivity
         super.onResume();
         // Called when back button is pressed
 
-        chartSelectRefresh();
+//        chartSelectRefresh();
+        addDatasetRefresh();
 //        Log.e("RESUME", "resumed");
     }
+
+
     public void hideGraphOverview() {
         scrollGraphOverview.setVisibility(General.getVisibility(false));
     }
