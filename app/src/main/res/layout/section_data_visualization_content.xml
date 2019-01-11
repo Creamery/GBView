@@ -75,7 +75,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/cont_patient_details"
-                    app:layout_constraintHorizontal_weight="2.5"
+                    app:layout_constraintHorizontal_weight="0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -85,7 +85,7 @@
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="2.5"
+                    app:layout_constraintHorizontal_weight="0"
                     app:layout_constraintStart_toEndOf="@+id/cont_patient_details"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -107,6 +107,7 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginBottom="1dp"
+                        android:contentDescription="@string/cd_blank"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -143,65 +144,10 @@
                     android:background="@color/lightGrey"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/space_overview_graph_right2"
-                    app:layout_constraintHorizontal_weight="5"
+                    app:layout_constraintHorizontal_weight="10"
                     app:layout_constraintStart_toEndOf="@+id/space_overview_graph_left2"
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
                     app:layout_constraintVertical_weight="4">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/cont_highlight_1"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginEnd="1dp"
-                        android:background="@color/lightGrey"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/cont_highlight_2"
-                        app:layout_constraintHorizontal_weight="3.33"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/tv_height"
-                            style="@style/SmallLabelText"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="5dp"
-
-
-                            android:layout_marginEnd="5dp"
-                            android:layout_weight="1"
-                            android:gravity="bottom"
-                            android:padding="0dp"
-                            android:text="@string/height"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorPrimaryDark"
-                            android:visibility="invisible"
-                            app:autoSizePresetSizes="@array/autosize_text_sizes"
-                            app:layout_constraintBottom_toTopOf="@+id/tv_height_label"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_weight="6" />
-
-                        <TextView
-                            android:id="@+id/tv_height_label"
-                            style="@style/SmallLabelText"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:gravity="top"
-                            android:padding="0dp"
-                            android:text="@string/height"
-                            android:textAlignment="center"
-                            android:visibility="invisible"
-                            app:autoSizePresetSizes="@array/autosize_text_sizes"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_height"
-                            app:layout_constraintVertical_weight="4" />
-                    </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/cont_highlight_2"
@@ -209,10 +155,25 @@
                         android:layout_height="0dp"
                         android:background="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/cont_highlight_3"
-                        app:layout_constraintHorizontal_weight="3.33"
-                        app:layout_constraintStart_toEndOf="@+id/cont_highlight_1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginBottom="2dp"
+                            android:gravity="center"
+                            android:text="@string/highlight_highest"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
                         <Space
                             android:id="@+id/space6"
@@ -341,57 +302,85 @@
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/cont_highlight_3"
+                        android:id="@+id/cont_highlight_1"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_marginStart="1dp"
                         android:background="@color/white"
+                        android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="w,1:1"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="3.33"
-                        app:layout_constraintStart_toEndOf="@+id/cont_highlight_2"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+                        <ImageView
+                            android:id="@+id/imageView11"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:adjustViewBounds="false"
+                            android:background="@color/theme_menu_button"
+                            android:contentDescription="@string/cd_blank"
+                            android:cropToPadding="false"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView10"
+                            app:layout_constraintStart_toStartOf="@+id/imageView10"
+                            app:layout_constraintTop_toTopOf="@+id/imageView10" />
+
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="false"
+                            android:contentDescription="@string/cd_blank"
+                            android:cropToPadding="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/img_sidebar_visualize" />
+
                         <TextView
-                            android:id="@+id/tv_weight"
+                            android:id="@+id/tv_height"
                             style="@style/SmallLabelText"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_marginStart="5dp"
                             android:layout_marginTop="5dp"
+
+
                             android:layout_marginEnd="5dp"
                             android:layout_weight="1"
                             android:gravity="bottom"
                             android:padding="0dp"
-                            android:text="@string/weight"
+                            android:text="@string/height"
                             android:textAlignment="center"
                             android:textColor="@color/colorPrimaryDark"
                             android:visibility="invisible"
                             app:autoSizePresetSizes="@array/autosize_text_sizes"
-                            app:layout_constraintBottom_toTopOf="@+id/tv_weight_label"
+                            app:layout_constraintBottom_toTopOf="@+id/tv_height_label"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintVertical_weight="6" />
 
                         <TextView
-                            android:id="@+id/tv_weight_label"
+                            android:id="@+id/tv_height_label"
                             style="@style/SmallLabelText"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:gravity="top"
                             android:padding="0dp"
-                            android:text="@string/weight"
+                            android:text="@string/height"
                             android:textAlignment="center"
                             android:visibility="invisible"
                             app:autoSizePresetSizes="@array/autosize_text_sizes"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_weight"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_height"
                             app:layout_constraintVertical_weight="4" />
-
                     </android.support.constraint.ConstraintLayout>
 
                 </android.support.constraint.ConstraintLayout>
