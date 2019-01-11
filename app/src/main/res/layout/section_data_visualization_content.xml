@@ -159,6 +159,18 @@
                         app:layout_constraintStart_toEndOf="@+id/cont_highlight_1"
                         app:layout_constraintTop_toTopOf="parent">
 
+                        <ImageView
+                            android:id="@+id/imageView12"
+                            android:layout_width="1dp"
+                            android:layout_height="0dp"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@color/lightGrey" />
+
                         <TextView
                             android:id="@+id/textView14"
                             android:layout_width="0dp"
