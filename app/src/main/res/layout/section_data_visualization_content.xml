@@ -563,6 +563,7 @@
                                     android:id="@+id/cl_item_1_1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
@@ -571,6 +572,7 @@
                                     android:id="@+id/cl_item_1_2"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
@@ -579,6 +581,7 @@
                                     android:id="@+id/cl_item_1_3"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
@@ -598,6 +601,7 @@
                                     android:id="@+id/cl_item_2_1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="start"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
@@ -606,6 +610,7 @@
                                     android:id="@+id/cl_item_2_2"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="start"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
@@ -614,6 +619,7 @@
                                     android:id="@+id/cl_item_2_3"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="start"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
@@ -633,6 +639,7 @@
                                     android:id="@+id/cl_item_3_1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="start"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
@@ -641,6 +648,7 @@
                                     android:id="@+id/cl_item_3_2"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="start"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
@@ -649,6 +657,7 @@
                                     android:id="@+id/cl_item_3_3"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="start"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
@@ -668,6 +677,7 @@
                                     android:id="@+id/cl_item_4_1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="start"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
@@ -676,6 +686,7 @@
                                     android:id="@+id/cl_item_4_2"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="start"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
@@ -684,6 +695,7 @@
                                     android:id="@+id/cl_item_4_3"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
+                                    android:layout_gravity="start"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
