@@ -1828,13 +1828,13 @@ public class DataVisualizationActivity extends AppCompatActivity
         // Remove old legend contents
         removeLegendViews();
 
-        ConstraintLayout entry;
+        LinearLayout entry;
         TextView entryText;
         ImageView entryColor;
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         for(int i = 0; i < legendText.length; i++) {
-            entry = (ConstraintLayout) inflater.inflate(R.layout.item_bar_specific_legend, null);
+            entry = (LinearLayout) inflater.inflate(R.layout.item_bar_specific_legend, null);
             entryText = entry.findViewById(R.id.tv_legend_text);
             entryColor = entry.findViewById(R.id.iv_legend_color);
             entryText.setText(legendText[i]);
