@@ -95,8 +95,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         AddDatasetDialogFragment.AddDatasetDialogListener, FilterAdapter.FilterAdapterListener, TextHolderAdapter.TextListener {
 
     private final int INDEX_OVERVIEW = 0;
-    private final int INDEX_PIE = 1;
-    private final int INDEX_NATIONAL = 2;
+    private final int INDEX_NATIONAL = 1;
+    private final int INDEX_PIE = 2;
     private final int INDEX_SCATTER = 3;
 
     private float overviewHeightIncrease = 0f;
@@ -196,7 +196,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         ivHEARLRef.getLayoutParams().height = ivHEARLRef.getWidth();
         ivHEARRRef.getLayoutParams().height = ivHEARRRef.getWidth();
-        ivGMRef.getLayoutParams().height = ivGMRef.getWidth(); // TODO new graph
+        ivGMRef.getLayoutParams().height = ivGMRef.getWidth();
 
         ivFMDRef.getLayoutParams().height = ivFMDRef.getWidth();
         ivFMNRef.getLayoutParams().height = ivFMNRef.getWidth();
@@ -242,7 +242,7 @@ public class DataVisualizationActivity extends AppCompatActivity
             offsetLeftRight = computePercent(graphLayoutCenter.getWidth(), offsetPercent);
 
 //            paramsCenter.height = Math.round(height+(height/4f)); // ViewGroup.LayoutParams.MATCH_PARENT;
-            paramsCenter.height = graphLayoutCenter.getHeight()-offsetTopBottom; // ViewGroup.LayoutParams.MATCH_PARENT; TODO ADD CHART HEIGHT
+            paramsCenter.height = graphLayoutCenter.getHeight()-offsetTopBottom; // ViewGroup.LayoutParams.MATCH_PARENT;
             paramsCenter.width = graphLayoutCenter.getWidth()-offsetLeftRight; //ViewGroup.LayoutParams.MATCH_PARENT;
         }
     }
@@ -487,34 +487,10 @@ public class DataVisualizationActivity extends AppCompatActivity
                 hideGraphOverview();
                 spinnerSelect();
 
-//                if(position == 0){ // Overview
-//                    // TODO place overview setup here if necessary)
-//                    showGraphOverview();
-//                    graphLayoutCenter.setVisibility(General.getVisibility(false));
-//                    if(spRecordColumn != null) {
-//                        spRecordColumn.setVisibility(General.getVisibility(false));
-//                    }
-//                } else if(position == 1) { // Pie Chart
-//                    preparePieChart();
-//                } else if (position == 2) { // National
-//
-//                    // TODO place overview setup here if necessary)
-//                    showGraphOverview();
-//                    graphLayoutCenter.setVisibility(General.getVisibility(false));
-//                    if(spRecordColumn != null) {
-//                        spRecordColumn.setVisibility(General.getVisibility(false));
-//                    }
-////                    prepareBarChart();
-//                } else if (position == 3) { // Scatter Chart TODO Remove?
-//                    prepareScatterChart();
-//                }
-////                else { // Bubble Chart TODO Remove?
-////                    prepareBubbleChart();
-////                }
 
                 // hide control of right chart for scatter and bubble plot
                 // **edited, only show on Pie
-                if(chartType.contains("Pie")) {
+                if(position == INDEX_PIE) {
                     spRightChart.setVisibility(View.VISIBLE);
                     tvRightChart.setVisibility(View.VISIBLE);
                 } else {
@@ -673,15 +649,6 @@ public class DataVisualizationActivity extends AppCompatActivity
     private void spinnerSelect() {
         int position = spChartType.getSelectedItemPosition();
         getSpinnerFunction(position);
-//        if(position == 0){ // Overview
-//            spinnerOverview();
-//        } else if(position == 1) { // Pie Chart
-//            spinnerPie();
-//        } else if (position == 2) { // National
-//            spinnerNational();
-//        } else if (position == 3) { // Scatter Chart TODO Remove?
-//            spinnerScatter();
-//        }
     }
     private void spinnerOverview() {
         // TODO place overview setup here if necessary)
@@ -1301,7 +1268,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         // hide control of right chart for scatter and bubble plot
         // **edited, only show on Pie
-        if(chartType.contains("Pie")) {
+        if(position == INDEX_PIE) {
             spRightChart.setVisibility(View.VISIBLE);
             tvRightChart.setVisibility(View.VISIBLE);
         } else {
@@ -1551,20 +1518,10 @@ public class DataVisualizationActivity extends AppCompatActivity
             chart = chartsEntries.get(i).getStackedBarChart();
             params.add(chart.getLayoutParams());
 
-//            offsetTopBottom = computePercent(graphLayoutCenter.getHeight(), offsetPercent);
-//            offsetLeftRight = computePercent(graphLayoutCenter.getWidth(), offsetPercent);
-
-//            params.get(i).height = graphStackedBarCharts.get(i).getHeight()-offsetTopBottom+10; // ViewGroup.LayoutParams.MATCH_PARENT; TODO ADD CHART HEIGHT
-//            params.get(i).width = graphStackedBarCharts.get(i).getWidth()-offsetLeftRight; //ViewGroup.LayoutParams.MATCH_PARENT;
-
             params.get(i).height = graphStackedBarCharts.get(i).getHeight()+(int)overviewHeightIncrease; // ViewGroup.LayoutParams.MATCH_PARENT; TODO ADD CHART HEIGHT
-//            params.get(i).width = graphStackedBarCharts.get(i).getWidth(); //ViewGroup.LayoutParams.MATCH_PARENT;
-//            params.get(i).height = ViewGroup.LayoutParams.MATCH_PARENT;// ViewGroup.LayoutParams.MATCH_PARENT;
+
             params.get(i).width = ViewGroup.LayoutParams.MATCH_PARENT;
-//            chart.setMinimumHeight(graphStackedBarCharts.get(i).getLayoutParams().height);
-//            chart.setMinimumWidth(graphStackedBarCharts.get(i).getLayoutParams().width);
             chart.setY(chart.getY()-(overviewHeightIncrease/2f));
-//            chart.setBackgroundColor(Color.TRANSPARENT); // TODO Remove or make White
 
 //            chart.setX(computePercentHalf(chart.getWidth(), offsetPercent));
 //            chart.setY(computePercentHalf(chart.getHeight(), offsetPercent)/offsetYDivider);
@@ -1572,29 +1529,27 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
 
     private void addDataSet() {
-        if(chartType.contentEquals("Overview")) {
-            prepareOverviewChartData();
-            loadSpecificBarChart(spRecordColumn.getSelectedItemPosition());
-//            prepareSpecificBarChartData(recordColumn); // TODO Dynamic or new spinner
-        }
-        else if(chartType.contentEquals("Pie Chart")) {
-            preparePieChartData(pieChartLeft, yDataLeft);
-            preparePieChartData(pieChartRight, yDataRight);
-        }
-        else if(chartType.contentEquals("Bar Chart")){
-//            prepareBarChartData();
-            prepareNationalChartData();
-            loadSpecificBarChart(spRecordColumn.getSelectedItemPosition()); // TODO
-//            prepareSpecificBarChartData(recordColumn); // TODO Dynamic or new spinner
-        }
-        else if(chartType.contentEquals("Scatter Chart")) {
-            prepareScatterChartData();
-        } else {
-            prepareBubbleChartData();
+        if(spChartType != null) {
+            int position = spChartType.getSelectedItemPosition();
+            switch(position) {
+                case INDEX_OVERVIEW:
+                    prepareOverviewChartData();
+                    loadSpecificBarChart(spRecordColumn.getSelectedItemPosition());
+                    break;
+                case INDEX_NATIONAL:
+                    prepareNationalChartData();
+                    loadSpecificBarChart(spRecordColumn.getSelectedItemPosition());
+                    break;
+                case INDEX_PIE:
+                    preparePieChartData(pieChartLeft, yDataLeft);
+                    preparePieChartData(pieChartRight, yDataRight);
+                    break;
+                case INDEX_SCATTER:
+                    prepareScatterChartData();
+                    break;
+            }
         }
     }
-
-
 
     private ArrayList<PieEntry> createPieEntries(int[] yData) {
         ArrayList<PieEntry> yVals1 = new ArrayList<>();
@@ -1615,90 +1570,6 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
 
         return yVals1;
-    }
-
-    private void prepareBubbleChartData() {
-        ArrayList<BubbleEntry> yVals1 = new ArrayList<>();
-        ArrayList<BubbleEntry> yVals2 = new ArrayList<>();
-        ArrayList<Integer> colors = getColorPalette();
-        List<IBubbleDataSet> bubbleDataSetList = new ArrayList<>();
-        BubbleData bubbleData;
-//        String year = date.substring(date.length() - 4);
-        if(!recordColumn.contains("BMI")) {
-            for (int i = 0; i < yDataLeft.length; i++) {
-            /* BubbleEntry(xpos, ypos, size)  */
-                yVals1.add(new BubbleEntry(i, 1, yDataLeft[i]));
-            }
-            for (int i = 0; i < yDataRight.length; i++) {
-            /* BubbleEntry(xpos, ypos, size)  */
-                yVals2.add(new BubbleEntry(i, 0, yDataRight[i]));
-            }
-
-            BubbleDataSet bubbleDataSet = new BubbleDataSet(yVals1, "Chart Left");
-            BubbleDataSet bubbleDataSet2 = new BubbleDataSet(yVals2, rightChartContent);
-            bubbleDataSet.setColor(colors.get(0));
-            bubbleDataSet2.setColor(colors.get(1));
-            bubbleDataSet.setDrawValues(true);
-            bubbleDataSet2.setDrawValues(true);
-
-            bubbleDataSetList.add(bubbleDataSet2);
-            bubbleDataSetList.add(bubbleDataSet);
-
-            // TODO deprecated
-//            bubbleData = new BubbleData(xData, bubbleDataSetList);
-            bubbleData = new BubbleData(bubbleDataSetList);
-
-            bubbleChart.getLegend().resetCustom();
-        } else {
-            ValueCounter valueCounter = new ValueCounter(recordsLeft);
-            ArrayList<ValueCounter.BMICounter> bmiCounters = valueCounter.getBMISpecial();
-            int category, age;
-            ValueCounter.BMICounter counter;
-            BubbleDataSet bubbleDataSet;
-            for(int i = 0; i < bmiCounters.size(); i++) {
-                counter = bmiCounters.get(i);
-                yVals1 = new ArrayList<>();
-                for(int j = 0; j < possibleAge.length; j++) {
-                    age = Integer.valueOf(possibleAge[j]);
-                    if(age == counter.getAge()) {
-                        category = ValueCounter.getBMICategoryIndex(counter.getCategory());
-                        Log.v(TAG, "Bubble Entry: "+age+"\t"+bmiCounters.get(i).getBMI()+"\t"+bmiCounters.get(i).getCount()+"\t"+category);
-                        yVals1.add(new BubbleEntry(j, bmiCounters.get(i).getBMI(), bmiCounters.get(i).getCount()));
-                        bubbleDataSet = new BubbleDataSet(yVals1, xData[category]);
-                        bubbleDataSet.setColor(colors.get(category));
-                        bubbleDataSetList.add(bubbleDataSet);
-                    }
-                }
-            }
-            Log.v(TAG, "Bubble List Size: "+bubbleDataSetList.size());
-
-            // TODO deprecated
-//            bubbleData = new BubbleData(possibleAge, bubbleDataSetList);
-            bubbleData = new BubbleData(bubbleDataSetList);
-
-
-            // customize legend
-            Legend legend = bubbleChart.getLegend();
-            int color[] = new int[xData.length];
-            for(int k = 0; k < xData.length; k++) {
-                color[k] = colors.get(k);
-            }
-
-
-//            legend.setCustom(color, xData); TODO deprecated
-            LegendEntry entry;
-            ArrayList<LegendEntry> entries = new ArrayList<LegendEntry>();
-            for(int i = 0; i < color.length; i++) {
-                entry = new LegendEntry();
-                entry.formColor = color[i];
-                entry.label = xData[i];
-                entries.add(entry);
-            }
-        }
-
-        bubbleChart.setData(bubbleData);
-        bubbleChart.getAxisLeft().setEnabled(false);
-        customizeChart(bubbleChart, bubbleChart.getAxisRight());
     }
 
     private void prepareScatterChartData() {
@@ -2064,7 +1935,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         HorizontalBarChart chart;
 
         ChartDataValue chartDataValue = prepareChartData(recordType);
-        Log.e("RECORD", recordType);
+//        Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
         chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Removed
         // Variables to hold the converted yData (from int to float) and sum
@@ -2112,7 +1983,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         HorizontalBarChart chart;
 
         ChartDataValue chartDataValue = prepareChartData(recordType);
-        Log.e("RECORD", recordType);
+//        Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
         chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Removed
         // Variables to hold the converted yData (from int to float) and sum
@@ -2694,4 +2565,90 @@ public class DataVisualizationActivity extends AppCompatActivity
         prepareRecord();
         refreshCharts();
     }
+
+
+// TODO delete when done (old graph code)
+//    private void prepareBubbleChartData() {
+//        ArrayList<BubbleEntry> yVals1 = new ArrayList<>();
+//        ArrayList<BubbleEntry> yVals2 = new ArrayList<>();
+//        ArrayList<Integer> colors = getColorPalette();
+//        List<IBubbleDataSet> bubbleDataSetList = new ArrayList<>();
+//        BubbleData bubbleData;
+////        String year = date.substring(date.length() - 4);
+//        if(!recordColumn.contains("BMI")) {
+//            for (int i = 0; i < yDataLeft.length; i++) {
+//            /* BubbleEntry(xpos, ypos, size)  */
+//                yVals1.add(new BubbleEntry(i, 1, yDataLeft[i]));
+//            }
+//            for (int i = 0; i < yDataRight.length; i++) {
+//            /* BubbleEntry(xpos, ypos, size)  */
+//                yVals2.add(new BubbleEntry(i, 0, yDataRight[i]));
+//            }
+//
+//            BubbleDataSet bubbleDataSet = new BubbleDataSet(yVals1, "Chart Left");
+//            BubbleDataSet bubbleDataSet2 = new BubbleDataSet(yVals2, rightChartContent);
+//            bubbleDataSet.setColor(colors.get(0));
+//            bubbleDataSet2.setColor(colors.get(1));
+//            bubbleDataSet.setDrawValues(true);
+//            bubbleDataSet2.setDrawValues(true);
+//
+//            bubbleDataSetList.add(bubbleDataSet2);
+//            bubbleDataSetList.add(bubbleDataSet);
+//
+//            // TODO deprecated
+////            bubbleData = new BubbleData(xData, bubbleDataSetList);
+//            bubbleData = new BubbleData(bubbleDataSetList);
+//
+//            bubbleChart.getLegend().resetCustom();
+//        } else {
+//            ValueCounter valueCounter = new ValueCounter(recordsLeft);
+//            ArrayList<ValueCounter.BMICounter> bmiCounters = valueCounter.getBMISpecial();
+//            int category, age;
+//            ValueCounter.BMICounter counter;
+//            BubbleDataSet bubbleDataSet;
+//            for(int i = 0; i < bmiCounters.size(); i++) {
+//                counter = bmiCounters.get(i);
+//                yVals1 = new ArrayList<>();
+//                for(int j = 0; j < possibleAge.length; j++) {
+//                    age = Integer.valueOf(possibleAge[j]);
+//                    if(age == counter.getAge()) {
+//                        category = ValueCounter.getBMICategoryIndex(counter.getCategory());
+//                        Log.v(TAG, "Bubble Entry: "+age+"\t"+bmiCounters.get(i).getBMI()+"\t"+bmiCounters.get(i).getCount()+"\t"+category);
+//                        yVals1.add(new BubbleEntry(j, bmiCounters.get(i).getBMI(), bmiCounters.get(i).getCount()));
+//                        bubbleDataSet = new BubbleDataSet(yVals1, xData[category]);
+//                        bubbleDataSet.setColor(colors.get(category));
+//                        bubbleDataSetList.add(bubbleDataSet);
+//                    }
+//                }
+//            }
+//            Log.v(TAG, "Bubble List Size: "+bubbleDataSetList.size());
+//
+//            // TODO deprecated
+////            bubbleData = new BubbleData(possibleAge, bubbleDataSetList);
+//            bubbleData = new BubbleData(bubbleDataSetList);
+//
+//
+//            // customize legend
+//            Legend legend = bubbleChart.getLegend();
+//            int color[] = new int[xData.length];
+//            for(int k = 0; k < xData.length; k++) {
+//                color[k] = colors.get(k);
+//            }
+//
+//
+////            legend.setCustom(color, xData); TODO deprecated
+//            LegendEntry entry;
+//            ArrayList<LegendEntry> entries = new ArrayList<LegendEntry>();
+//            for(int i = 0; i < color.length; i++) {
+//                entry = new LegendEntry();
+//                entry.formColor = color[i];
+//                entry.label = xData[i];
+//                entries.add(entry);
+//            }
+//        }
+//
+//        bubbleChart.setData(bubbleData);
+//        bubbleChart.getAxisLeft().setEnabled(false);
+//        customizeChart(bubbleChart, bubbleChart.getAxisRight());
+//    }
 }
