@@ -40,7 +40,7 @@ public class ValueCounter {
 //    private static final int[] idealValueIndices = {1, };
     public static final String[] targetValueIndices = {
             "Normal", // BMI
-            "Normal", "Normal", "Normal", // VA
+            "20/20", "20/20", "Normal", // VA
             "Normal", "Normal", // HEAR
             "Pass", // GM
             "Pass", "Pass", "Hold"}; // FM
