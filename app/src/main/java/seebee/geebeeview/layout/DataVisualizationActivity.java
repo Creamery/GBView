@@ -65,6 +65,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -145,7 +146,8 @@ public class DataVisualizationActivity extends AppCompatActivity
     HorizontalBarChart stackedBarChart;
     ArrayList<OverviewEntry> overviewEntries;
     ArrayList<RelativeLayout> graphStackedBarCharts;
-    String[] recordColumns;
+//    String[] recordColumns;
+    ArrayList<String> recordColumns;
     private String[] xDataContainer; // Only to be used by specific bar chart
 
     ScatterChart scatterChart;
@@ -1403,7 +1405,8 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private void initializeStackedGraphOverview() {
 //        recordColumn = spRecordColumn.getItemAtPosition(0).toString();
-        recordColumns = getResources().getStringArray(R.array.record_column_array); // Initialize columns to appear
+        recordColumns = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.record_column_array))); // Initialize columns to appear
+//        listRecordColumns = new ArrayList<String>(Arrays.asList(recordColumns));
 
         // TODO add additional overviews here + corresponding params
 //        stackedBarCharts = new ArrayList<>();
@@ -1764,7 +1767,9 @@ public class DataVisualizationActivity extends AppCompatActivity
 //            graphStackedBarCharts.get(i).addView(stackedBarCharts.get(i));
 
             // Initialize the stackedBarChart variable of the overviewEntry
-            overviewEntries.get(i).setStackedBarChart(prepareStackedOverview(recordColumns[i], overviewEntries.get(i)));
+            overviewEntries.get(i).setStackedBarChart(prepareNationalOverview(recordColumns.get(i), overviewEntries.get(i)));
+//            overviewEntries.get(i).setStackedBarChart(prepareStackedOverview(recordColumns[i], overviewEntries.get(i))); // TODO Test
+
             // Then add the initialized entry to graphStackedBarCharts so that it will appear on screen
             graphStackedBarCharts.get(i).addView(overviewEntries.get(i).getStackedBarChart());
 
@@ -1780,8 +1785,8 @@ public class DataVisualizationActivity extends AppCompatActivity
             this.barSpecific.clear();
         }
         this.graphSpecificBarSingle.removeAllViews();
-        prepareSpecificBarChartData(recordColumns[recordIndex]);
-        tvSpecificTitle.setText(recordColumns[recordIndex]);
+        prepareSpecificBarChartData(recordColumns.get(recordIndex));
+        tvSpecificTitle.setText(recordColumns.get(recordIndex));
     }
 
     // Plug values into specific bar chart
@@ -2035,6 +2040,184 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         chart.notifyDataSetChanged(); // Call this to reflect chart data changes
         return chart;
+    }
+
+    private HorizontalBarChart prepareNationalOverview(String recordType, OverviewEntry overviewEntry) {
+        HorizontalBarChart chart;
+
+        ChartDataValue chartDataValue = prepareChartData(recordType);
+        Log.e("RECORD", recordType);
+        chart = new HorizontalBarChart(this);
+        chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Removed
+        // Variables to hold the converted yData (from int to float) and sum
+        float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
+        float fSumSchool, fSumNational;
+
+        // Convert yData to float
+        fDataSchool = General.convertToFloat(chartDataValue.getyDataLeft());
+        fDataNational = General.convertToFloat(chartDataValue.getyDataRight());
+
+        // Get yData sum
+        fSumSchool = General.getArraySum(fDataSchool);
+        fSumNational = General.getArraySum(fDataNational);
+
+        // Convert to percentages
+        pDataSchool = General.computePercentEquivalent(fDataSchool, fSumSchool);
+        pDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
+
+
+        // Stacked bar entries. xIndex 0 is the bottom
+        List<BarEntry> entries = new ArrayList<>();
+        BarEntry schoolData = new BarEntry(0f, pDataSchool);
+        entries.add(schoolData); // School
+
+        BarEntry nationalData = new BarEntry(1f, pDataNational);
+        entries.add(nationalData); // School
+
+
+
+        // BarDataSet second parameter is the label
+        BarDataSet set = new BarDataSet(entries, recordType);
+        List<IBarDataSet> barDataSetList = new ArrayList<>();
+
+        barDataSetList.add(set);
+        BarData data = new BarData(barDataSetList); // TODO X Values
+        chart.setData(data);
+
+        overviewEntry.setStackedBarChart(chart);
+        formatNationalBarAppearance(
+                recordType,
+                overviewEntry,
+                chartDataValue.getxData(),
+                set, fDataSchool, pDataSchool); // Edit stack bar appearance
+
+        chart.notifyDataSetChanged(); // Call this to reflect chart data changes
+        return chart;
+    }
+    private void formatNationalBarAppearance(String recordName, OverviewEntry overviewEntry, String[] xLabels, BarDataSet barData, float[] rawData, float[] percentData) {
+        HorizontalBarChart chart = overviewEntry.getStackedBarChart();
+        TextView chartFocus = overviewEntry.getTvFocusTitle();
+        TextView chartFocusValue = overviewEntry.getTvFocusValue();
+
+        // Set font color
+        chartFocus.setTextColor(ColorThemes.cPrimaryDark);
+        barData.setValueFormatter(new StackedBarChartValueFormatter()); // Format values to ###.##% as specified i the passed parameter class
+
+        // Set stack colors here
+        barData.setColors(General.getColorSetLightGray(percentData.length)); // TODO Dynamic colors
+
+        barData.setStackLabels(xData);
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.removeAllLimitLines();
+
+        chart.getLegend().setEnabled(false); // GRAPH LEGEND Show/hide stack label legend
+        barData.setDrawValues(false); // Show/hide per bar labels
+
+        LimitLine line;
+        float sumX = 0;
+//        int highestValueIndex = 0;
+
+        int targetValueIndex = 0;
+        int targetNameIndex = getRecordColumn(recordName);
+        // percentData.length-1 so that the last value won't have a limit line
+        for(int i = 0; i < percentData.length; i++) {
+            sumX += percentData[i];
+//            if(sumX != 0 && (i != percentData.length-1)) { // Don't draw limit line on 0 value and don't draw the last value's line
+//                line = new LimitLine(sumX, "");
+//                line.setLineWidth(1f);
+//                line.setLineColor(Color.WHITE);
+//                leftAxis.addLimitLine(line);
+//            }
+
+            if(xLabels[i].equals(ValueCounter.targetValueIndices[targetNameIndex])) { // Find target value to be highlighted later
+                targetValueIndex = i;
+            }
+//            if(percentData[highestValueIndex] < percentData[i]) { // Find highest value to be highlighted later
+//                highestValueIndex = i;
+//            }
+        }
+
+//        int roundedPercentValue = Math.round(percentData[highestValueIndex]);
+        int roundedPercentValue = Math.round(percentData[targetValueIndex]);
+
+        // Set focus value to highest value
+        chartFocusValue.setText(""+roundedPercentValue+"%");
+        chartFocus.setText(StringConstants.getEditedFocusLabel(recordName, xLabels[targetValueIndex], targetValueIndex));
+//        chartFocus.setText(xLabels[highestValueIndex]);
+
+
+        formatNationalBarAxis(chart);
+        // TODO length check for color
+        barData.getColors().set(targetValueIndex, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
+        if(roundedPercentValue > highlightPercentThreshold) {
+            chartFocusValue.setTextColor(barData.getColors().get(targetValueIndex));
+        }
+        else {
+            chartFocusValue.setTextColor(ColorThemes.cPrimaryDark);
+        }
+    }
+
+    private int getRecordColumn(String recordName) {
+        return recordColumns.indexOf(recordName);
+    }
+
+    private void formatNationalBarAxis(HorizontalBarChart chart) {
+        chart.getDescription().setEnabled(false);
+
+        chart.getAxisLeft().setDrawLabels(false);
+        chart.getAxisLeft().setDrawGridLines(false);
+        chart.getAxisLeft().setDrawAxisLine(false);
+
+        chart.getAxisRight().setDrawLabels(false);
+        chart.getAxisRight().setDrawGridLines(false);
+        chart.getAxisRight().setDrawAxisLine(false);
+
+        chart.getXAxis().setDrawLabels(false);
+        chart.getXAxis().setDrawGridLines(false);
+        chart.getXAxis().setDrawAxisLine(false);
+
+
+        // X Axis
+//        String[] values = new String[] {"School"};
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setDrawLabels(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+
+
+//        xAxis.setValueFormatter(new StackedBarChartIAxisFormatter(values));
+//        xAxis.setLabelCount(1, true);
+
+        // Y Axis
+        YAxis leftAxis = chart.getAxisLeft();
+        LimitLine llStart, llEnd;
+        llStart = new LimitLine(0f, ""); // TODO label
+        llStart.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
+        llStart.setLineColor(Color.GRAY);
+        llStart.setLineWidth(1f);
+        llStart.setTextColor(Color.BLACK);
+        llStart.setTextSize(VALUE_TEXT_SIZE);
+        leftAxis.addLimitLine(llStart);
+
+        llEnd = new LimitLine(100f, ""); // TODO Label
+        llEnd.setLineColor(llStart.getLineColor());
+        llEnd.setLineWidth(1f);
+        llEnd.setTextColor(llStart.getTextColor());
+        llEnd.setTextSize(VALUE_TEXT_SIZE);
+        leftAxis.addLimitLine(llEnd);
+
+
+
+        chart.setViewPortOffsets(0f, 0f,0f,0f);
+//        chart.setScaleEnabled(false);
+//        chart.setDoubleTapToZoomEnabled(false);
+//        chart.setPinchZoom(false);
+//        chart.setAutoScaleMinMaxEnabled(false);
+        chart.setTouchEnabled(false);
+
+        chart.getAxisLeft().setAxisMaximum(100f);
+        chart.getAxisLeft().setAxisMinimum(0f);
+//        chart.fitScreen();
+
     }
 
     /**

@@ -34,6 +34,19 @@ public class ValueCounter {
     private int[] valBMI = {0, 0, 0, 0, 0};
     private ArrayList<PatientRecord> patientRecords;
 
+
+
+    // BMI, VA_L, VA_R, COLOR, HEAR_L, HEAR_R, GM, FM_D, FM_NON, FM_H
+//    private static final int[] idealValueIndices = {1, };
+    public static final String[] targetValueIndices = {
+            "Normal", // BMI
+            "Normal", "Normal", "Normal", // VA
+            "Normal", "Normal", // HEAR
+            "Pass", // GM
+            "Pass", "Pass", "Hold"}; // FM
+
+
+
     public ValueCounter(ArrayList<PatientRecord> patientRecords) {
         this.patientRecords = patientRecords;
         setValVisualAcuity();

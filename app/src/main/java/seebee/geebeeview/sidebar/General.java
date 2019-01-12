@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.ViewGroup;
 
 import seebee.geebeeview.R;
 
@@ -17,7 +18,6 @@ public class General {
 
     private static final General INSTANCE = new General();
     private static Typeface fntRobotoRegular = null;
-
 
 
     private static final int[] csGray = new int[] {Color.LTGRAY, Color.GRAY, Color.DKGRAY, Color.GRAY, Color.LTGRAY};
@@ -121,6 +121,7 @@ public class General {
             return ContextCompat.getColor(context, R.color.view_patient_name_color_female);
         }
     }
+
     public static int getVisibility(boolean visibility) {
         if(visibility) {
             return View.VISIBLE;
