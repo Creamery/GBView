@@ -41,7 +41,6 @@
             android:id="@+id/cont_right_items"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="15dp"
             android:orientation="vertical"
             android:weightSum="1"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -512,7 +511,7 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/cont_specific_bottom"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -520,6 +519,168 @@
                     app:layout_constraintTop_toBottomOf="@+id/cont_specific_top"
                     app:layout_constraintVertical_weight="2.5">
 
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/fl_bar_specific_legend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        app:flexWrap="wrap"></com.google.android.flexbox.FlexboxLayout>
+
+                    <TableLayout
+                        android:id="@+id/tl_bar_specific_legend"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                    </TableLayout>
+
+                    <ScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:fillViewport="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:id="@+id/ll_bar_specific_legend"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:baselineAligned="false"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/ll_bar_specific_legend_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/colorAccent"
+                                android:baselineAligned="false"
+                                android:gravity="center_vertical|start"
+                                android:orientation="horizontal"
+                                android:weightSum="4">
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_1_1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="@color/brightGreenHighlight">
+
+                                </android.support.constraint.ConstraintLayout>
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_1_2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+                                </android.support.constraint.ConstraintLayout>
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_1_3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:background="@color/brightGreenHighlight">
+
+                                </android.support.constraint.ConstraintLayout>
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_1_4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1">
+
+                                </android.support.constraint.ConstraintLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_bar_specific_legend_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/dataset_list_download_color"
+                                android:baselineAligned="false"
+                                android:gravity="center_vertical|start"
+                                android:orientation="horizontal"
+                                android:weightSum="4">
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_2_1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1">
+
+                                </android.support.constraint.ConstraintLayout>
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_2_2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1">
+
+                                </android.support.constraint.ConstraintLayout>
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_2_3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1">
+
+                                </android.support.constraint.ConstraintLayout>
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_2_4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1">
+
+                                </android.support.constraint.ConstraintLayout>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_bar_specific_legend_3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:baselineAligned="false"
+                                android:gravity="center_vertical|start"
+                                android:orientation="horizontal"
+                                android:weightSum="4">
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_3_1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1">
+
+                                </android.support.constraint.ConstraintLayout>
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_3_2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1">
+
+                                </android.support.constraint.ConstraintLayout>
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_3_3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1">
+
+                                </android.support.constraint.ConstraintLayout>
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_3_4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1">
+
+                                </android.support.constraint.ConstraintLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </ScrollView>
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.constraint.ConstraintLayout>

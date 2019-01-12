@@ -19,8 +19,8 @@ public class ValueCounter {
     private int[] valVisualAcuityRight = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private String[] lblColorVision = {"Normal", "Abnormal"};
     private int[] valColorVision = {0, 0};
-    private String[] lblHearing = {"Normal Hearing", "Mild Hearing Loss", "Moderate Hearing Loss",
-            "Moderately-Servere Hearing Loss", "Severe Hearing Loss", "Profound Hearing Loss"};
+    private String[] lblHearing = {"Normal", "Mild Loss", "Moderate Loss",
+            "Moderately-Severe Loss", "Severe Loss", "Profound Loss"};
     private int[] valHearingLeft = {0, 0, 0, 0, 0, 0};
     private int[] valHearingRight = {0, 0, 0, 0, 0, 0};
     private String[] lblGrossMotor = {"Pass", "Fail", "N/A"};

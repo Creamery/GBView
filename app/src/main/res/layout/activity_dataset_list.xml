@@ -351,7 +351,8 @@
                     android:padding="3dp"
                     android:text="@string/title_home"
                     android:textAppearance="@style/DefaultText"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/theme_teal50_sidebar_extend_item1"
+                    android:textStyle="bold"
                     app:autoSizePresetSizes="@array/autosize_text_sizes" />
             </RelativeLayout>
 

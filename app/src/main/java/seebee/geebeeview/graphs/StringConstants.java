@@ -4,8 +4,8 @@ public class StringConstants {
 
     // Visual Acuity (11 items) Must be equivalent to ColorThemes.csVISION
     public static String[] strVISION = new String[] {
-            "Severe Low",
-            "Moderate Low", "Moderate Low",
+            "Severe Loss",
+            "Moderate Loss", "Moderate Loss",
             "Near-normal", "Near-normal", "Near-normal",
             "Normal", "Normal", "Normal", "Normal", "Normal"};
 

@@ -10,6 +10,7 @@
         android:id="@+id/scroll_graph_overview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="15dp"
         android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb_red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
