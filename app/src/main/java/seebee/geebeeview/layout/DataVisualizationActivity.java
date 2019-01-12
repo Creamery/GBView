@@ -469,10 +469,10 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         String[] charts = getResources().getStringArray(R.array.chart_type_array);
         ArrayList<CustomSpinnerItem> list=new ArrayList<>();
-        list.add(new CustomSpinnerItem(charts[0],R.drawable.img_templogo));
-        list.add(new CustomSpinnerItem(charts[1],R.drawable.img_templogo));
-        list.add(new CustomSpinnerItem(charts[2],R.drawable.img_templogo));
-        list.add(new CustomSpinnerItem(charts[3],R.drawable.img_templogo));
+        list.add(new CustomSpinnerItem(charts[0],R.drawable.img_circle_trans_greenhighlight)); // TODO change chart icons
+        list.add(new CustomSpinnerItem(charts[1],R.drawable.img_circle_trans_greenhighlight));
+        list.add(new CustomSpinnerItem(charts[2],R.drawable.img_circle_trans_greenhighlight));
+        list.add(new CustomSpinnerItem(charts[3],R.drawable.img_circle_trans_greenhighlight));
         CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(this,
                 R.layout.custom_spinner_image, R.id.tv_spinner, list);
 
@@ -783,7 +783,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         ArrayList<Drawable> iconList = new ArrayList<Drawable>();
 
         for(int i = 0; i < chartTypes.length; i++) {
-            iconList.add(ContextCompat.getDrawable(this, R.drawable.img_templogo));
+            iconList.add(ContextCompat.getDrawable(this, R.drawable.img_circle_trans_greenhighlight));
         }
 //        item.setData(getResources().getStringArray(R.array.chart_type_array)[0],R.drawable.img_templogo);
 //        allList.add(item);
