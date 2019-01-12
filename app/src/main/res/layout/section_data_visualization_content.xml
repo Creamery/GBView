@@ -554,18 +554,16 @@
                                 android:id="@+id/ll_bar_specific_legend_1"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/colorAccent"
                                 android:baselineAligned="false"
                                 android:gravity="center_vertical|start"
                                 android:orientation="horizontal"
-                                android:weightSum="4">
+                                android:weightSum="3">
 
                                 <android.support.constraint.ConstraintLayout
                                     android:id="@+id/cl_item_1_1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:background="@color/brightGreenHighlight">
+                                    android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
 
@@ -581,29 +579,20 @@
                                     android:id="@+id/cl_item_1_3"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:background="@color/brightGreenHighlight">
-
-                                </android.support.constraint.ConstraintLayout>
-
-                                <android.support.constraint.ConstraintLayout
-                                    android:id="@+id/cl_item_1_4"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
+
                             </LinearLayout>
 
                             <LinearLayout
                                 android:id="@+id/ll_bar_specific_legend_2"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@color/dataset_list_download_color"
                                 android:baselineAligned="false"
                                 android:gravity="center_vertical|start"
                                 android:orientation="horizontal"
-                                android:weightSum="4">
+                                android:weightSum="3">
 
                                 <android.support.constraint.ConstraintLayout
                                     android:id="@+id/cl_item_2_1"
@@ -629,13 +618,6 @@
 
                                 </android.support.constraint.ConstraintLayout>
 
-                                <android.support.constraint.ConstraintLayout
-                                    android:id="@+id/cl_item_2_4"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="1">
-
-                                </android.support.constraint.ConstraintLayout>
                             </LinearLayout>
 
                             <LinearLayout
@@ -645,7 +627,7 @@
                                 android:baselineAligned="false"
                                 android:gravity="center_vertical|start"
                                 android:orientation="horizontal"
-                                android:weightSum="4">
+                                android:weightSum="3">
 
                                 <android.support.constraint.ConstraintLayout
                                     android:id="@+id/cl_item_3_1"
@@ -671,14 +653,43 @@
 
                                 </android.support.constraint.ConstraintLayout>
 
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/ll_bar_specific_legend_4"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:baselineAligned="false"
+                                android:gravity="center_vertical|start"
+                                android:orientation="horizontal"
+                                android:weightSum="3">
+
                                 <android.support.constraint.ConstraintLayout
-                                    android:id="@+id/cl_item_3_4"
+                                    android:id="@+id/cl_item_4_1"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_weight="1">
 
                                 </android.support.constraint.ConstraintLayout>
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_4_2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1">
+
+                                </android.support.constraint.ConstraintLayout>
+
+                                <android.support.constraint.ConstraintLayout
+                                    android:id="@+id/cl_item_4_3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1">
+
+                                </android.support.constraint.ConstraintLayout>
+
                             </LinearLayout>
+
                         </LinearLayout>
                     </ScrollView>
                 </android.support.constraint.ConstraintLayout>

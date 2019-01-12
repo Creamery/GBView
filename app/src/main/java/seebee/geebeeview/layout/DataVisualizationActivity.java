@@ -4,19 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +35,6 @@ import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.charts.ScatterChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
@@ -60,7 +54,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.data.ScatterData;
 import com.github.mikephil.charting.data.ScatterDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
@@ -69,7 +62,6 @@ import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.google.android.flexbox.FlexboxLayout;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -125,12 +117,8 @@ public class DataVisualizationActivity extends AppCompatActivity
     ImageView ivBMIRef, ivVALRef, ivVARRef, ivCOLORRef, ivHEARLRef, ivHEARRRef, ivGMRef, ivFMDRef, ivFMNRef, ivFMHRef;
 
     ScrollView scrollGraphOverview;
-//    RelativeLayout llBarSpecificLabel;
-    LinearLayout llBarSpecificLabel, llBarSpecificLabel1, llBarSpecificLabel2, llBarSpecificLabel3;
-    ConstraintLayout llBarSpecificLabel1_1, llBarSpecificLabel1_2, llBarSpecificLabel1_3;
     ArrayList<ConstraintLayout> llBarSpecificLabels;
 
-//    TableLayout tlBarSpecificLabel;
     RelativeLayout
             graphBMI,
             graphVisualAcuityLeft, graphVisualAcuityRight, graphColorBlindness,
@@ -329,32 +317,25 @@ public class DataVisualizationActivity extends AppCompatActivity
         ivFMHRef = (ImageView) findViewById(R.id.iv_fine_hold_size_ref);
 
         tvSpecificTitle = (TextView) findViewById(R.id.tv_specific_title);
-        llBarSpecificLabel = (LinearLayout) findViewById(R.id.ll_bar_specific_legend);
-
-//        llBarSpecificLabel1_1 = (ConstraintLayout) findViewById(R.id.cl_item_1_1);
-//        llBarSpecificLabel1_2 = (ConstraintLayout) findViewById(R.id.cl_item_1_2);
-//        llBarSpecificLabel1_3 = (ConstraintLayout) findViewById(R.id.cl_item_1_3);
-
-
 
         llBarSpecificLabels = new ArrayList<>();
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_1_1));
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_1_2));
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_1_3));
-        llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_1_4));
 
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_2_1));
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_2_2));
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_2_3));
-        llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_2_4));
 
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_3_1));
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_3_2));
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_3_3));
-        llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_3_4));
 
-//        tlBarSpecificLabel = (TableLayout) findViewById(R.id.tl_bar_specific_legend);
-//        flBarSpecificLabel = (FlexboxLayout) findViewById(R.id.fl_bar_specific_legend);
+        llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_4_1));
+        llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_4_2));
+        llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_4_3));
+
+
         initializeStackedGraphOverview();
         initializeStackGraphOnClickListener();
         // TODO Set default font
@@ -1842,6 +1823,24 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
 
     private void prepareBarSpecificLegend(BarChart chart, String[] legendText, int[] colorThemes) {
+        barSpecific.getLegend().setEnabled(false); // Show/hide color legends
+
+        // Remove old legend contents
+        removeLegendViews();
+
+        ConstraintLayout entry;
+        TextView entryText;
+        ImageView entryColor;
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        for(int i = 0; i < legendText.length; i++) {
+            entry = (ConstraintLayout) inflater.inflate(R.layout.item_bar_specific_legend, null);
+            entryText = entry.findViewById(R.id.tv_legend_text);
+            entryColor = entry.findViewById(R.id.iv_legend_color);
+            entryText.setText(legendText[i]);
+            entryColor.setBackgroundColor(colorThemes[i]);
+            ((ConstraintLayout)this.llBarSpecificLabels.get(i)).addView(entry);
+        }
 //        List<LegendEntry> entries = new ArrayList<LegendEntry>();
 //        LegendEntry entry;
 //        for(int i = 0; i < legendText.length; i++) {
@@ -1855,54 +1854,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        Legend legend = chart.getLegend();
 //        legend.setCustom(entries);
 //        barSpecific.getLegend().setWordWrapEnabled(true);
-        barSpecific.getLegend().setEnabled(false); // Show/hide color legends
-//        this.llBarSpecificLabel.removeAllViews();
-//        this.tlBarSpecificLabel.removeAllViews();
-
-//        this.llBarSpecificLabel1_1.removeAllViews();
-//        this.llBarSpecificLabel1_2.removeAllViews();
-//        this.llBarSpecificLabel1_3.removeAllViews();
-
-        // Remove old legend contents
-        removeLegendViews();
-
-        ArrayList<ConstraintLayout> entries = new ArrayList<>();
-        ConstraintLayout entry;
-        TextView entryText;
-        ImageView entryColor;
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        int index = 0;
-        for(int i = 0; i < legendText.length; i++) {
-//            if(i > 0 && i % 3 == 0) {
-//                index++;
-//            }
-            entry = (ConstraintLayout) inflater.inflate(R.layout.item_bar_specific_legend, null);
-            entryText = entry.findViewById(R.id.tv_legend_text);
-            entryColor = entry.findViewById(R.id.iv_legend_color);
-            entryText.setText(legendText[i]);
-            entryColor.setBackgroundColor(colorThemes[i]);
-            ((ConstraintLayout)this.llBarSpecificLabels.get(i)).addView(entry);
-
-
-////            for(int j = 0; j < 4; j++) {
-////                if(index < llBarSpecificLabels.size() && i+j < legendText.length) {
-////                if(i+j < legendText.length) {
-//                    entry = (ConstraintLayout) inflater.inflate(R.layout.item_bar_specific_legend, null);
-//                    entryText = entry.findViewById(R.id.tv_legend_text);
-//                    entryColor = entry.findViewById(R.id.iv_legend_color);
-//                    entryText.setText(legendText[i]);
-//                    entryColor.setBackgroundColor(colorThemes[i]);
-//                    ((ConstraintLayout)this.llBarSpecificLabels.get(index)).addView(entry);
-////                }
-////            }
-
-//            index++;
-//            if(index >= llBarSpecificLabels.size()) {
-//                index = 0;
-//            }
-        }
-
     }
 
     private void formatBarSpecificAppearance(BarDataSet set, String[] xLabels) {
