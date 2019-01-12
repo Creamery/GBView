@@ -1564,7 +1564,8 @@ public class DataVisualizationActivity extends AppCompatActivity
 //            chart.setMinimumHeight(graphStackedBarCharts.get(i).getLayoutParams().height);
 //            chart.setMinimumWidth(graphStackedBarCharts.get(i).getLayoutParams().width);
             chart.setY(chart.getY()-(overviewHeightIncrease/2f));
-            chart.setBackgroundColor(Color.TRANSPARENT); // TODO Remove or make White
+//            chart.setBackgroundColor(Color.TRANSPARENT); // TODO Remove or make White
+
 //            chart.setX(computePercentHalf(chart.getWidth(), offsetPercent));
 //            chart.setY(computePercentHalf(chart.getHeight(), offsetPercent)/offsetYDivider);
         }
@@ -2146,9 +2147,12 @@ public class DataVisualizationActivity extends AppCompatActivity
         // Stacked bar entries. xIndex 0 is the bottom
         List<BarEntry> entries = new ArrayList<>();
         BarEntry schoolData = new BarEntry(1f, pDataSchool[targetValueIndex]);
+//        BarEntry schoolData = new BarEntry(1f, new float[]{pDataSchool[targetValueIndex], 100f-pDataSchool[targetValueIndex]});
         entries.add(schoolData); // School
 
+//        BarEntry nationalData = new BarEntry(0f, pDataNational[targetValueIndex]);
         BarEntry nationalData = new BarEntry(0f, pDataNational[targetValueIndex]);
+//        BarEntry nationalData = new BarEntry(0f, new float[]{pDataNational[targetValueIndex], 100f-pDataNational[targetValueIndex]});
         entries.add(nationalData); // National
 
 
@@ -2160,7 +2164,6 @@ public class DataVisualizationActivity extends AppCompatActivity
         barDataSetList.add(set);
         BarData data = new BarData(barDataSetList); // TODO X Values
         chart.setData(data);
-
         overviewEntry.setStackedBarChart(chart);
         formatNationalBarAppearance(
                 recordType,
@@ -2169,6 +2172,15 @@ public class DataVisualizationActivity extends AppCompatActivity
                 chartDataValue.getxData(),
                 set, pDataSchool[targetValueIndex], pDataNational[targetValueIndex]); // Edit stack bar appearance
 
+        chart.setDrawGridBackground(true);
+        chart.setGridBackgroundColor(ColorThemes.cLightGray);
+        chart.getXAxis().setDrawGridLines(true);
+        chart.getXAxis().setGridColor(Color.WHITE);
+
+
+        chart.getXAxis().setLabelCount(2, true);
+
+        chart.setBorderColor(Color.WHITE);
         chart.notifyDataSetChanged(); // Call this to reflect chart data changes
         return chart;
     }
@@ -2208,16 +2220,21 @@ public class DataVisualizationActivity extends AppCompatActivity
         formatNationalBarAxis(chart);
         // TODO length check for color
 //        barData.getColors().set(0, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
+        // Set school value to green
+        barData.getColors().set(0, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
+        // Set national value to grey
+        barData.getColors().set(1, ColorThemes.cTealDefault);
+
 
         // Highlight % text if school > national
         if(pDataSchool > pDataNational) {
             // Set focus value to school value
             chartFocusValue.setText(""+roundedPercentValueSchool+"%");
 
-            // Set school value to green
-            barData.getColors().set(0, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
-            // Set national value to grey
-            barData.getColors().set(1, ColorThemes.cLightGray);
+//            // Set school value to green
+//            barData.getColors().set(0, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
+//            // Set national value to grey
+//            barData.getColors().set(1, ColorThemes.cLightGray);
 
             chartFocusValue.setTextColor(ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
         }
@@ -2225,13 +2242,14 @@ public class DataVisualizationActivity extends AppCompatActivity
             // Set focus value to national value
             chartFocusValue.setText(""+roundedPercentValueNational+"%");
 
-            // Set school value to green
-            barData.getColors().set(0, ColorThemes.cLightGray);
-            // Set national value to grey
-            barData.getColors().set(1, ColorThemes.cFail);
+//            // Set school value to green
+//            barData.getColors().set(0, ColorThemes.cLightGray);
+//            // Set national value to grey
+//            barData.getColors().set(1, ColorThemes.cFail);
 
-            chartFocusValue.setTextColor(ColorThemes.cFail);
+            chartFocusValue.setTextColor(ColorThemes.cTealDefault);
         }
+        chart.setBackgroundColor(Color.TRANSPARENT);
     }
 
     private int getRecordColumn(String recordName) {
@@ -2361,6 +2379,9 @@ public class DataVisualizationActivity extends AppCompatActivity
         else {
             chartFocusValue.setTextColor(ColorThemes.cPrimaryDark);
         }
+
+
+        chart.setBackgroundColor(Color.TRANSPARENT);
     }
 
     /**
