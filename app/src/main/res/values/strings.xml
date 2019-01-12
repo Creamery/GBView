@@ -16,6 +16,7 @@
 
 
     <string name="overview_title">School Health Statistics</string>
+    <string name="national_title">School to National Health Comparison</string>
     <string name="highlight_highest">Showing highest values per category</string>
     <string name="highlight_target">Showing target values per category</string>
 
