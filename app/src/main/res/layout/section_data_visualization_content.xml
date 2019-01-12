@@ -353,7 +353,7 @@
             android:id="@+id/cont_scroll_graph"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="5dp"
             android:background="@color/lightGrey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/space_overview_end"
@@ -422,7 +422,6 @@
                 android:id="@+id/cont_overview_avatar"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginBottom="10dp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -438,7 +437,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_weight="7.5">
+                    app:layout_constraintVertical_weight="7">
 
                     <Space
                         android:id="@+id/space_specific_circle_top"
@@ -448,7 +447,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_weight="0.25" />
+                        app:layout_constraintVertical_weight="0" />
 
                     <LinearLayout
                         android:id="@+id/cont_specific_chart"
@@ -490,13 +489,13 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cont_specific_chart"
-                        app:layout_constraintVertical_weight="1" />
+                        app:layout_constraintVertical_weight="1.25" />
 
                     <TextView
                         android:id="@+id/tv_specific_title"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:gravity="center"
+                        android:gravity="top|center_horizontal"
                         android:includeFontPadding="false"
                         android:text="@string/cd_blank"
                         android:textColor="@color/colorPrimaryDark"
@@ -513,17 +512,18 @@
                     android:id="@+id/cont_specific_bottom"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cont_specific_top"
-                    app:layout_constraintVertical_weight="2.5">
+                    app:layout_constraintVertical_weight="3">
 
                     <ScrollView
                         android:layout_width="0dp"
                         android:layout_height="0dp"
-                        android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="2dp"
                         android:fillViewport="true"
                         android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb_red"
                         app:layout_constraintBottom_toBottomOf="parent"
