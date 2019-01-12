@@ -643,6 +643,7 @@
                         android:layout_height="0dp"
                         android:gravity="center_vertical|center_horizontal"
                         android:text="@string/num_50"
+                        android:visibility="gone"
                         app:autoSizePresetSizes="@array/autosize_text_sizes"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"

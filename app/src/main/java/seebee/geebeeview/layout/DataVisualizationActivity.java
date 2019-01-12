@@ -2134,25 +2134,22 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         int targetValueIndex = 0;
         int targetNameIndex = getRecordColumn(recordType);
-        // percentData.length-1 so that the last value won't have a limit line
+
         for(int i = 0; i < chartDataValue.getxData().length; i++) {
             if(chartDataValue.getxData()[i].equals(ValueCounter.targetValueIndices[targetNameIndex])) { // Find target value to be highlighted later
                 targetValueIndex = i;
             }
-//            if(percentData[highestValueIndex] < percentData[i]) { // Find highest value to be highlighted later
-//                highestValueIndex = i;
-//            }
         }
 
 
 
         // Stacked bar entries. xIndex 0 is the bottom
         List<BarEntry> entries = new ArrayList<>();
-        BarEntry schoolData = new BarEntry(0f, pDataSchool[targetValueIndex]);
+        BarEntry schoolData = new BarEntry(1f, pDataSchool[targetValueIndex]);
         entries.add(schoolData); // School
 
-        BarEntry nationalData = new BarEntry(1f, pDataNational[targetValueIndex]);
-        entries.add(nationalData); // School
+        BarEntry nationalData = new BarEntry(0f, pDataNational[targetValueIndex]);
+        entries.add(nationalData); // National
 
 
 
@@ -2200,33 +2197,40 @@ public class DataVisualizationActivity extends AppCompatActivity
         chart.getLegend().setEnabled(false); // GRAPH LEGEND Show/hide stack label legend
         barData.setDrawValues(false); // Show/hide per bar labels
 
-//        LimitLine line;
-//        float sumX = 0;
-//        int highestValueIndex = 0;
-
-
-//        int roundedPercentValue = Math.round(percentData[highestValueIndex]);
         int roundedPercentValueSchool = Math.round(pDataSchool);
         int roundedPercentValueNational = Math.round(pDataNational);
 
 
         // Set focus value to school value
-        chartFocusValue.setText(""+roundedPercentValueSchool+"%");
-
+//        chartFocusValue.setText(""+roundedPercentValueSchool+"%");
         chartFocus.setText(StringConstants.getEditedFocusLabel(recordName, xLabels[targetValueIndex], targetValueIndex));
-//        chartFocus.setText(xLabels[highestValueIndex]);
-
 
         formatNationalBarAxis(chart);
         // TODO length check for color
-        barData.getColors().set(0, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
+//        barData.getColors().set(0, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
 
         // Highlight % text if school > national
         if(pDataSchool > pDataNational) {
+            // Set focus value to school value
+            chartFocusValue.setText(""+roundedPercentValueSchool+"%");
+
+            // Set school value to green
+            barData.getColors().set(0, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
+            // Set national value to grey
+            barData.getColors().set(1, ColorThemes.cLightGray);
+
             chartFocusValue.setTextColor(ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
         }
         else {
-            chartFocusValue.setTextColor(ColorThemes.cPrimaryDark);
+            // Set focus value to national value
+            chartFocusValue.setText(""+roundedPercentValueNational+"%");
+
+            // Set school value to green
+            barData.getColors().set(0, ColorThemes.cLightGray);
+            // Set national value to grey
+            barData.getColors().set(1, ColorThemes.cFail);
+
+            chartFocusValue.setTextColor(ColorThemes.cFail);
         }
     }
 
