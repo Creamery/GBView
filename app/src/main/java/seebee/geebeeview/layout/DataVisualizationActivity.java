@@ -44,9 +44,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.BubbleData;
-import com.github.mikephil.charting.data.BubbleDataSet;
-import com.github.mikephil.charting.data.BubbleEntry;
 import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -57,7 +54,6 @@ import com.github.mikephil.charting.data.ScatterDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.interfaces.datasets.IBubbleDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -139,19 +135,17 @@ public class DataVisualizationActivity extends AppCompatActivity
             stackedGrossMotor,
             stackedFineMotorDominant, stackedFineMotorNon, stackedFineMotorHold;
 
-
+    TextView tvRightScrollTitle;
     RelativeLayout graphSpecificBarSingle;
     BarChart barSpecific;
 
     int schoolID;
     String schoolName, date;
     PieChart pieChartLeft, pieChartRight;
-//    BarChart barChart;
-
     HorizontalBarChart stackedBarChart;
     ArrayList<OverviewEntry> overviewEntries;
     ArrayList<RelativeLayout> graphStackedBarCharts;
-//    String[] recordColumns;
+
     ArrayList<String> recordColumns;
     private String[] xDataContainer; // Only to be used by specific bar chart
 
@@ -170,6 +164,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     private String recordColumn = "BMI", rightChartContent = "National Profile";
 
     private String chartType = "Overview";
+    private String titleScrollRightOverview, titleScrollRightNational;
 
     private ViewGroup.LayoutParams paramsLeft, paramsRight, paramsCenter, paramsStacked;
     private ArrayList<ViewGroup.LayoutParams> paramsOverview;
@@ -334,6 +329,9 @@ public class DataVisualizationActivity extends AppCompatActivity
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_4_2));
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_4_3));
 
+        tvRightScrollTitle = findViewById(R.id.tv_name_r);
+        titleScrollRightOverview = getResources().getString(R.string.national_title);
+        titleScrollRightNational = getResources().getString(R.string.overview_title);
 
         initializeStackedGraphOverview();
         initializeStackGraphOnClickListener();
@@ -1721,13 +1719,129 @@ public class DataVisualizationActivity extends AppCompatActivity
         if(this.barSpecific != null) {
             this.barSpecific.clear();
         }
-        this.graphSpecificBarSingle.removeAllViews();
-        prepareSpecificBarChartData(recordColumns.get(recordIndex));
-        tvSpecificTitle.setText(recordColumns.get(recordIndex));
-    }
 
+        if(spChartType != null) {
+            int position = spChartType.getSelectedItemPosition();
+
+            this.graphSpecificBarSingle.removeAllViews();
+            switch(position) {
+                case INDEX_OVERVIEW:
+                    prepareSpecificBarChartDataOverview(recordColumns.get(recordIndex));
+                    break;
+                case INDEX_NATIONAL:
+                    prepareSpecificBarChartDataNational(recordColumns.get(recordIndex));
+                    break;
+                default:
+                    prepareSpecificBarChartDataOverview(recordColumns.get(recordIndex));
+            }
+            tvSpecificTitle.setText(recordColumns.get(recordIndex));
+        }
+
+    }
+    private void prepareSpecificBarChartDataNational(String recordType) {
+        ChartDataValue chartDataValue = prepareChartData(recordType);
+
+        this.barSpecific = new BarChart(this);
+        this.barSpecific.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Remove (?)
+        this.graphSpecificBarSingle.addView(this.barSpecific);
+
+
+        // Variables to hold the converted yData (from int to float) and sum
+        float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
+        float fSumSchool, fSumNational;
+
+        // Convert yData to float
+        fDataSchool = General.convertToFloat(chartDataValue.getyDataLeft());
+        fDataNational = General.convertToFloat(chartDataValue.getyDataRight());
+
+        // Get yData sum
+        fSumSchool = General.getArraySum(fDataSchool);
+        fSumNational = General.getArraySum(fDataNational);
+
+        // Convert to percentages
+        pDataSchool = General.computePercentEquivalent(fDataSchool, fSumSchool);
+        pDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
+
+
+
+        int index = 0;
+        ArrayList<BarEntry> yVals1 = new ArrayList<>();
+        for(int i = 0; i < pDataSchool.length; i++) {
+            yVals1.add(new BarEntry(i, pDataSchool[i]));
+            index += 2;
+        }
+
+        index = 1;
+        ArrayList<BarEntry> yVals2 = new ArrayList<>();
+        for(int i = 0; i < pDataNational.length; i++) {
+            yVals2.add(new BarEntry(i, pDataNational[i]));
+            index += 2;
+        }
+
+//        ArrayList<BarEntry> yVals1 = new ArrayList<>();
+//        for(int i = 0; i < pDataSchool.length; i++) {
+//            yVals1.add(new BarEntry(index, pDataSchool[i]));
+//            index ++;
+//        }
+//        for(int i = 0; i < pDataNational.length; i++) {
+//            yVals1.add(new BarEntry(index, chartDataValue.getyDataLeft()[i]));
+//            index ++;
+//        }
+
+
+        /* create bar chart dataset */
+        BarDataSet barDataSetSchool = new BarDataSet(yVals1, "");
+        BarDataSet barDataSetNational = new BarDataSet(yVals2, "");
+        // Set colors
+        barDataSetSchool.setColors(ColorThemes.getStackedColorSet(recordType));
+        barDataSetNational.setColors(ColorThemes.getStackedColorSet(recordType));
+
+//        barDataSetSchool.setColors(General.getColorSetLightGray(pDataSchool.length));
+//        barDataSetNational.setColors(General.getColorSetLightGray(pDataNational.length));
+
+        
+//        barDataSetNational.setColors(General.getColorSetTealDefault(pDataNational.length));
+
+//        List<IBarDataSet> barDataSetList = new ArrayList<>();
+//        barDataSetList.add(barDataSetSchool, barDataSetNational);
+
+        BarData barData = new BarData(barDataSetSchool, barDataSetNational);
+//        BarData barData = new BarData(barDataSetList);
+        this.barSpecific.getAxisLeft().setEnabled(false);
+        //BarData barData = new BarData(xData, barDataSet);
+        this.barSpecific.setData(barData);
+        this.barSpecific.getAxisLeft().setEnabled(false);
+        adjustSpecificBarChartParams();
+
+        formatBarSpecificAppearanceNational(barDataSetSchool, barDataSetNational, chartDataValue.getxData());
+
+        prepareBarSpecificLegend(this.barSpecific, chartDataValue.getxData(), ColorThemes.getStackedColorSet(recordType));
+
+
+        float groupSpace = 0.06f;
+        float barSpace = 0.02f; // x2 dataset
+        float barWidth = 0.45f;
+        barData.setBarWidth(barWidth);
+        // (0.02 + 0.45) * 2 + 0.06 = 1.00 -> interval per "group"
+        barSpecific.groupBars(-0.5f, groupSpace, barSpace); // perform the "explicit" grouping
+//        barSpecific.invalidate(); // refresh
+//        barSpecific.setTouchEnabled(true);
+
+// TODO color change on click
+//        int targetValueIndex = 0;
+//        int targetNameIndex = getRecordColumn(recordType);
+//        for(int i = 0; i < chartDataValue.getxData().length; i++) {
+//            if(chartDataValue.getxData()[i].equals(ValueCounter.targetValueIndices[targetNameIndex])) { // Find target value to be highlighted later
+//                targetValueIndex = i;
+//            }
+//        }
+//        int targetColor = ColorThemes.getStackedColorSet(recordType)[targetValueIndex];
+//        barSpecific.getData().getDataSets().get(0).getColors().set(targetValueIndex, targetColor);
+//        barSpecific.getData().getDataSets().get(1).getColors().set(targetValueIndex, targetColor);
+        this.barSpecific.notifyDataSetChanged();
+    }
     // Plug values into specific bar chart
-    private void prepareSpecificBarChartData(String recordType) { // TODO Implement
+    private void prepareSpecificBarChartDataOverview(String recordType) { // TODO Implement
         ChartDataValue chartDataValue = prepareChartData(recordType);
 
         this.barSpecific = new BarChart(this);
@@ -1824,7 +1938,15 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        legend.setCustom(entries);
 //        barSpecific.getLegend().setWordWrapEnabled(true);
     }
+    private void formatBarSpecificAppearanceNational(BarDataSet setSchool, BarDataSet setNational, String[] xLabels) {
+        setSchool.setBarBorderWidth(0.5f);
+        setSchool.setBarBorderColor(ColorThemes.cLightGray);
 
+        setNational.setBarBorderWidth(0.5f);
+        setNational.setBarBorderColor(ColorThemes.cLightGray);
+
+        formatBarSpecificAxis(this.barSpecific, xLabels);
+    }
     private void formatBarSpecificAppearance(BarDataSet set, String[] xLabels) {
         set.setBarBorderWidth(0.5f);
         set.setBarBorderColor(ColorThemes.cLightGray);
@@ -1934,6 +2056,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     private HorizontalBarChart prepareStackedOverview(String recordType, OverviewEntry overviewEntry) {
         HorizontalBarChart chart;
 
+        tvRightScrollTitle.setText(titleScrollRightOverview);
         ChartDataValue chartDataValue = prepareChartData(recordType);
 //        Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
@@ -1981,6 +2104,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private HorizontalBarChart prepareNationalOverview(String recordType, OverviewEntry overviewEntry) {
         HorizontalBarChart chart;
+        tvRightScrollTitle.setText(titleScrollRightNational);
 
         ChartDataValue chartDataValue = prepareChartData(recordType);
 //        Log.e("RECORD", recordType);

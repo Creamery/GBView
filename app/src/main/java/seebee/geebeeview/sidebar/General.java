@@ -23,6 +23,7 @@ public class General {
     private static final int[] csGray = new int[] {Color.LTGRAY, Color.GRAY, Color.DKGRAY, Color.GRAY, Color.LTGRAY};
     private static int[] csWhite = new int[] {Color.WHITE};
     private static int[] csLightGray = new int[] {ColorThemes.cLightGray};
+    private static int[] csTealDefault = new int[] {ColorThemes.cTealDefault};
 
     public static General getInstance() {
         return INSTANCE;
@@ -52,6 +53,20 @@ public class General {
         }
         return csLightGray;
     }
+
+    // Used for uniform colors in a bar chart
+    public static int[] getColorSetTealDefault(int entryCount) {
+        if(csTealDefault.length != entryCount) {
+            csTealDefault = new int[entryCount];
+            for(int i = 0; i < entryCount; i++) {
+                csTealDefault[i] = ColorThemes.cTealDefault;
+            }
+        }
+        return csTealDefault;
+    }
+
+
+
     /**
      * Returns the percent equivalent of the passed parameter [range of 0-100]
      * @param rawData
