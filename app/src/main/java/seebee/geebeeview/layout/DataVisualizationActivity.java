@@ -197,8 +197,11 @@ public class DataVisualizationActivity extends AppCompatActivity
         adjustGraphOverviewAppearance();
 
         addDatasetRefresh();
-        if(spChartType != null && spChartType.getSelectedItemPosition() == 0) {
-            showGraphOverview(); // Remember to make scroll view visible (set invisible in onCreate)
+//        if(spChartType != null && spChartType.getSelectedItemPosition() == 0) {
+//            showGraphOverview(); // Remember to make scroll view visible (set invisible in onCreate)
+//        }
+        if (spChartType != null) {
+            spinnerRefresh();
         }
     }
 
@@ -647,9 +650,33 @@ public class DataVisualizationActivity extends AppCompatActivity
         super.onResume();
         // Called when back button is pressed
 
-//        chartSelectRefresh();
-        addDatasetRefresh();
+//        addDatasetRefresh();
+//        refreshCharts();
 //        Log.e("RESUME", "resumed");
+
+
+    }
+    private void spinnerRefresh() {
+        removeGraphViews();
+        hideGraphOverview();
+        int position = spChartType.getSelectedItemPosition();
+        if(position == 0){ // Overview
+            // TODO place overview setup here if necessary)
+            showGraphOverview();
+            graphLayoutCenter.setVisibility(General.getVisibility(false));
+            if(spRecordColumn != null) {
+                spRecordColumn.setVisibility(General.getVisibility(false));
+            }
+        } else if(position == 1) { // Pie Chart
+            preparePieChart();
+        } else if (position == 2) { // Bar Chart
+            prepareBarChart();
+        } else if (position == 3) { // Scatter Chart TODO Remove?
+            prepareScatterChart();
+        }
+
+        refreshChartParams();
+        addDataSet();
     }
 
 
