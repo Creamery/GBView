@@ -2170,7 +2170,7 @@ public class DataVisualizationActivity extends AppCompatActivity
                 targetValueIndex,
                 overviewEntry,
                 chartDataValue.getxData(),
-                set, fDataSchool, pDataSchool); // Edit stack bar appearance
+                set, pDataSchool[targetValueIndex], pDataNational[targetValueIndex]); // Edit stack bar appearance
 
         chart.notifyDataSetChanged(); // Call this to reflect chart data changes
         return chart;
@@ -2180,8 +2180,8 @@ public class DataVisualizationActivity extends AppCompatActivity
                                              OverviewEntry overviewEntry,
                                              String[] xLabels,
                                              BarDataSet barData,
-                                             float[] rawData,
-                                             float[] percentData) {
+                                             float pDataSchool,
+                                             float pDataNational) {
         HorizontalBarChart chart = overviewEntry.getStackedBarChart();
         TextView chartFocus = overviewEntry.getTvFocusTitle();
         TextView chartFocusValue = overviewEntry.getTvFocusValue();
@@ -2191,7 +2191,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         barData.setValueFormatter(new StackedBarChartValueFormatter()); // Format values to ###.##% as specified i the passed parameter class
 
         // Set stack colors here
-        barData.setColors(General.getColorSetLightGray(percentData.length)); // TODO Dynamic colors
+        barData.setColors(General.getColorSetLightGray(2)); // TODO Dynamic colors
 
         barData.setStackLabels(xData);
         YAxis leftAxis = chart.getAxisLeft();
@@ -2200,25 +2200,30 @@ public class DataVisualizationActivity extends AppCompatActivity
         chart.getLegend().setEnabled(false); // GRAPH LEGEND Show/hide stack label legend
         barData.setDrawValues(false); // Show/hide per bar labels
 
-        LimitLine line;
-        float sumX = 0;
+//        LimitLine line;
+//        float sumX = 0;
 //        int highestValueIndex = 0;
 
 
 //        int roundedPercentValue = Math.round(percentData[highestValueIndex]);
-        int roundedPercentValue = Math.round(percentData[targetValueIndex]);
+        int roundedPercentValueSchool = Math.round(pDataSchool);
+        int roundedPercentValueNational = Math.round(pDataNational);
 
-        // Set focus value to highest value
-        chartFocusValue.setText(""+roundedPercentValue+"%");
+
+        // Set focus value to school value
+        chartFocusValue.setText(""+roundedPercentValueSchool+"%");
+
         chartFocus.setText(StringConstants.getEditedFocusLabel(recordName, xLabels[targetValueIndex], targetValueIndex));
 //        chartFocus.setText(xLabels[highestValueIndex]);
 
 
         formatNationalBarAxis(chart);
         // TODO length check for color
-        barData.getColors().set(targetValueIndex, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
-        if(roundedPercentValue > highlightPercentThreshold) {
-            chartFocusValue.setTextColor(barData.getColors().get(targetValueIndex));
+        barData.getColors().set(0, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
+
+        // Highlight % text if school > national
+        if(pDataSchool > pDataNational) {
+            chartFocusValue.setTextColor(ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
         }
         else {
             chartFocusValue.setTextColor(ColorThemes.cPrimaryDark);
