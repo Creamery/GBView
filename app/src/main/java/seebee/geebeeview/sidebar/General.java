@@ -7,6 +7,8 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 import seebee.geebeeview.R;
 
 /**
@@ -52,6 +54,14 @@ public class General {
             }
         }
         return csLightGray;
+    }
+
+    public static float[] toPrimitiveFloatArray(ArrayList<Float> floatList) {
+        float[] floatArray = new float[floatList.size()];
+        for(int i = 0; i < floatList.size(); i++) {
+            floatArray[i] = floatList.get(i);
+        }
+        return floatArray;
     }
 
     // Used for uniform colors in a bar chart

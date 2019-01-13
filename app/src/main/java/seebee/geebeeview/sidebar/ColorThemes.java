@@ -70,6 +70,12 @@ public class ColorThemes {
             cVISION_Normal, cVISION_Normal, cVISION_Normal, cVISION_Normal, cVISION_Normal};
 
 
+    public static int[] cstackVISION = new int[] {
+            cVISION_Severe,
+            cVISION_Moderate,
+            cVISION_Mild,
+            cVISION_Normal};
+
 
     // Gross Motor (3 items = Pass, Fail, N/A)
     public static int[] csTERNARY = new int[] {cPass, cFail, cBMI_NA};
@@ -80,7 +86,17 @@ public class ColorThemes {
     public static int[] csBINARY = new int[] {cPass, cFail};
 
 
+    public static int[] getMergedStackedColorSet(String recordColumn) {
+        switch (recordColumn) {
 
+            case "Visual Acuity Left":
+            case "Visual Acuity Right":
+                return cstackVISION;
+
+            default:
+                return getStackedColorSet(recordColumn);
+        }
+    }
 
 
     public static int[] getStackedColorSet(String recordColumn) {

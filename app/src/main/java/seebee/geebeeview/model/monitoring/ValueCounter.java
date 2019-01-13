@@ -9,8 +9,20 @@ import java.util.Map;
  */
 
 public class ValueCounter {
-    private static String[] lblVisualAcuity = {"20/200", "20/100", "20/70", "20/50", "20/40", "20/30", "20/25", "20/20",
-            "20/15", "20/10", "20/5"};
+    private static String[] lblVisualAcuity = {
+            "20/200", // Severe Loss
+            "20/100", "20/70", // Moderate Loss
+            "20/50", "20/40", "20/30", // Near-normal
+            "20/25", "20/20", "20/15", "20/10", "20/5"}; // Normal
+
+    // Visual Acuity (11 items) Must be equivalent to ColorThemes.csVISION
+//    public static String[] strVISION_BORDER = new String[] {
+//            "Severe Loss",
+//            "Moderate Loss", "Moderate Loss",
+//            "Near-normal", "Near-normal", "Near-normal",
+//            "Normal", "Normal", "Normal", "Normal", "Normal"};
+
+
     private final String TAG = "Value Counter";
     int[] possibleAge = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
     int[] tempCount;
