@@ -1,4 +1,4 @@
-package seebee.geebeeview.sidebar;
+package seebee.geebeeview.containers;
 
 import android.graphics.Color;
 

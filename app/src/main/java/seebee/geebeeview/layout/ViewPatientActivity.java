@@ -31,7 +31,6 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -56,7 +55,7 @@ import seebee.geebeeview.model.monitoring.BMICalculator;
 import seebee.geebeeview.model.monitoring.IdealValue;
 import seebee.geebeeview.model.monitoring.LineChartValueFormatter;
 import seebee.geebeeview.model.monitoring.Record;
-import seebee.geebeeview.sidebar.General;
+import seebee.geebeeview.containers.General;
 import seebee.geebeeview.sidebar.PatientSidebar;
 
 public class ViewPatientActivity extends AppCompatActivity {

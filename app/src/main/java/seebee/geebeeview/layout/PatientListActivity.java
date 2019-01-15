@@ -1,6 +1,5 @@
 package seebee.geebeeview.layout;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -13,20 +12,17 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import seebee.geebeeview.R;
-import seebee.geebeeview.adapter.DatasetAdapter;
 import seebee.geebeeview.adapter.PatientListAdapter;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.model.consultation.Patient;
 import seebee.geebeeview.model.consultation.School;
 import seebee.geebeeview.model.monitoring.Record;
-import seebee.geebeeview.sidebar.DataListSidebar;
-import seebee.geebeeview.sidebar.General;
+import seebee.geebeeview.containers.General;
 import seebee.geebeeview.sidebar.PatientListSidebar;
 
 public class PatientListActivity extends AppCompatActivity {

@@ -73,15 +73,15 @@ import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.graphs.ChartDataValue;
 import seebee.geebeeview.graphs.OverviewEntry;
 import seebee.geebeeview.graphs.StackedBarChartValueFormatter;
-import seebee.geebeeview.graphs.StringConstants;
+import seebee.geebeeview.containers.StringConstants;
 import seebee.geebeeview.model.account.Dataset;
 import seebee.geebeeview.model.consultation.School;
 import seebee.geebeeview.model.monitoring.PatientRecord;
 import seebee.geebeeview.model.monitoring.Record;
 import seebee.geebeeview.model.monitoring.ValueCounter;
-import seebee.geebeeview.sidebar.ColorThemes;
+import seebee.geebeeview.containers.ColorThemes;
 import seebee.geebeeview.sidebar.DataVisualizationSidebar;
-import seebee.geebeeview.sidebar.General;
+import seebee.geebeeview.containers.General;
 import seebee.geebeeview.spinner.CustomSpinnerAdapter;
 import seebee.geebeeview.spinner.CustomSpinnerItem;
 
@@ -1765,79 +1765,19 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 
 
-        float mergeSum = 0f;
-        int index = 0;
-        ArrayList<BarEntry> yVals1 = new ArrayList<>();
-        ArrayList<Float> mergeContainer = new ArrayList<>();
-        for(int i = 0; i < pDataSchool.length; i++) {
+        ArrayList<BarEntry> yValues1 = getMergedBarValues(pDataSchool, recordType);
+        ArrayList<BarEntry> yValues2 = getMergedBarValues(pDataNational, recordType);
 
-            if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.START) { // Check if value has to be merged (stacked, i.e. 20/25 to 20/5 in vision)
-                mergeContainer = new ArrayList<>();
-                mergeContainer.add(pDataSchool[i]);
-                mergeSum = pDataSchool[i];
-            }
-            else if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.CONT) {
-                mergeContainer.add(pDataSchool[i]);
-                mergeSum += pDataSchool[i];
-            }
-            else if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.END) {
+        // TODO Use this for unmerged bar graphs
+//        ArrayList<BarEntry> yValues1 = getUnmergedBarValues(pDataSchool);
+//        ArrayList<BarEntry> yValues2 = getUnmergedBarValues(pDataNational);
 
-                mergeContainer.add(pDataSchool[i]);
-                mergeSum += pDataSchool[i];
-                yVals1.add(new BarEntry(index, mergeSum));
-//                yVals1.add(new BarEntry(index, General.toPrimitiveFloatArray(mergeContainer)));
-                mergeSum = 0f;
-                index ++;
-            }
-            else {
-                yVals1.add(new BarEntry(index, pDataSchool[i]));
-                index ++;
-            }
-        }
-
-        index = 0;
-        ArrayList<BarEntry> yVals2 = new ArrayList<>();
-        mergeSum = 0f;
-        for(int i = 0; i < pDataNational.length; i++) {
-
-            if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.START) { // Check if value has to be merged (stacked, i.e. 20/25 to 20/5 in vision)
-                mergeContainer = new ArrayList<>();
-                mergeContainer.add(pDataNational[i]);
-                mergeSum = pDataNational[i];
-            }
-            else if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.CONT) {
-                mergeContainer.add(pDataNational[i]);
-                mergeSum += pDataNational[i];
-            }
-            else if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.END) {
-                mergeContainer.add(pDataSchool[i]);
-                mergeSum += pDataNational[i];
-//                yVals2.add(new BarEntry(index, General.toPrimitiveFloatArray(mergeContainer)));
-                yVals2.add(new BarEntry(index, mergeSum));
-                mergeSum = 0f;
-                index ++;
-            }
-            else {
-                yVals2.add(new BarEntry(index, pDataNational[i]));
-                index ++;
-
-            }
-        }
-
-//        ArrayList<BarEntry> yVals1 = new ArrayList<>();
-//        for(int i = 0; i < pDataSchool.length; i++) {
-//            yVals1.add(new BarEntry(index, pDataSchool[i]));
-//            index ++;
-//        }
-//        for(int i = 0; i < pDataNational.length; i++) {
-//            yVals1.add(new BarEntry(index, chartDataValue.getyDataLeft()[i]));
-//            index ++;
-//        }
 
 
         /* create bar chart dataset */
-        BarDataSet barDataSetSchool = new BarDataSet(yVals1, "");
-        BarDataSet barDataSetNational = new BarDataSet(yVals2, "");
+        BarDataSet barDataSetSchool = new BarDataSet(yValues1, "");
+        BarDataSet barDataSetNational = new BarDataSet(yValues2, "");
+
         // Set colors
         barDataSetSchool.setColors(ColorThemes.getMergedStackedColorSet(recordType));
         barDataSetNational.setColors(ColorThemes.getMergedStackedColorSet(recordType));
@@ -1866,7 +1806,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         prepareBarSpecificLegend(this.barSpecific, chartDataValue.getxData(), ColorThemes.getStackedColorSet(recordType));
 
 
-        float groupSpace = 0.06f;
+        float groupSpace = 0.06f; // TODO declare properly somewhere, maybe make constant
         float barSpace = 0.02f; // x2 dataset
         float barWidth = 0.45f;
         barData.setBarWidth(barWidth); // (0.02 + 0.45) * 2 + 0.06 = 1.00 -> interval per "group"
@@ -1888,6 +1828,57 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        barSpecific.getData().getDataSets().get(1).getColors().set(targetValueIndex, targetColor);
         this.barSpecific.notifyDataSetChanged();
     }
+
+    /**
+     * Returns a list of BarEntries that merge certain values (e.g. in Visual Acuity, instead of the 20/200, 20/100 <...> it merges values so that it
+     * will be Normal, Near-normal, Moderate Loss <...>
+     * @param pData
+     * @param recordType
+     * @return
+     */
+    public ArrayList<BarEntry> getMergedBarValues(float[] pData, String recordType) {
+        ArrayList<BarEntry> yBarValues = new ArrayList<>();
+        ArrayList<Float> mergeContainer = new ArrayList<>();
+
+        float mergeSum = 0f;
+        int index = 0;
+        for(int i = 0; i < pData.length; i++) {
+
+            if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.START) { // Check if value has to be merged (stacked, i.e. 20/25 to 20/5 in vision)
+                mergeContainer = new ArrayList<>();
+                mergeContainer.add(pData[i]);
+                mergeSum = pData[i];
+            }
+            else if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.CONT) {
+                mergeContainer.add(pData[i]);
+                mergeSum += pData[i];
+            }
+            else if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.END) {
+
+                mergeContainer.add(pData[i]);
+                mergeSum += pData[i];
+                yBarValues.add(new BarEntry(index, mergeSum));
+                mergeSum = 0f;
+                index ++;
+            }
+            else {
+                yBarValues.add(new BarEntry(index, pData[i]));
+                index ++;
+            }
+        }
+        return yBarValues;
+    }
+
+    public ArrayList<BarEntry> getUnmergedBarValues(float[] pData) {
+        ArrayList<BarEntry> yBarValues = new ArrayList<>();
+
+        for(int i = 0; i < pData.length; i++) {
+            yBarValues.add(new BarEntry(i, pData[i]));
+        }
+
+        return yBarValues;
+    }
+
     // Plug values into specific bar chart
     private void prepareSpecificBarChartDataOverview(String recordType) { // TODO Implement
         ChartDataValue chartDataValue = prepareChartData(recordType);
@@ -2158,6 +2149,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
         chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Removed
+
         // Variables to hold the converted yData (from int to float) and sum
         float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
         float fSumSchool, fSumNational;
@@ -2179,8 +2171,11 @@ public class DataVisualizationActivity extends AppCompatActivity
         int targetValueIndex = 0;
         int targetNameIndex = getRecordColumn(recordType);
 
-        for(int i = 0; i < chartDataValue.getxData().length; i++) {
-            if(chartDataValue.getxData()[i].equals(ValueCounter.targetValueIndices[targetNameIndex])) { // Find target value to be highlighted later
+        String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
+
+        for(int i = 0; i < barLabels.length; i++) {
+//            if(chartDataValue.getxData()[i].equals(ValueCounter.targetValueIndices[targetNameIndex])) { // Find target value to be highlighted later
+            if(barLabels[i].equals(ValueCounter.targetValueIndices[targetNameIndex])) { // Find target value to be highlighted later
                 targetValueIndex = i;
             }
         }

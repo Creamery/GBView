@@ -1,7 +1,6 @@
 package seebee.geebeeview.layout;
 
 import android.content.pm.ActivityInfo;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -38,8 +37,7 @@ import seebee.geebeeview.database.VolleySingleton;
 import seebee.geebeeview.model.account.Dataset;
 import seebee.geebeeview.model.consultation.School;
 import seebee.geebeeview.sidebar.DataListSidebar;
-import seebee.geebeeview.sidebar.DataVisualizationSidebar;
-import seebee.geebeeview.sidebar.General;
+import seebee.geebeeview.containers.General;
 
 public class DatasetListActivity extends AppCompatActivity {
     private final static String TAG =  "ViewDatasetListActivity";

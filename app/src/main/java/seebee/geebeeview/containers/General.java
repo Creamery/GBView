@@ -1,11 +1,10 @@
-package seebee.geebeeview.sidebar;
+package seebee.geebeeview.containers;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 

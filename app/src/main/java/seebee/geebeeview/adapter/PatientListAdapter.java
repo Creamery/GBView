@@ -2,7 +2,6 @@ package seebee.geebeeview.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
@@ -20,7 +19,7 @@ import seebee.geebeeview.R;
 import seebee.geebeeview.layout.ViewPatientActivity;
 import seebee.geebeeview.model.consultation.Patient;
 import seebee.geebeeview.model.monitoring.AgeCalculator;
-import seebee.geebeeview.sidebar.General;
+import seebee.geebeeview.containers.General;
 
 /**
  * Created by Joy on 7/11/2017.
