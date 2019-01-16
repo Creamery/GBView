@@ -734,13 +734,13 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        barChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
 //    }
 
-    public void prepareSpecificBarChart() { // TODO Implement specific bar chart resizing
-        /* adjust the size of the bar chart */
-
-//        paramsCenter = barChart.getLayoutParams();
-//        barChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
-//        barChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-    }
+//    public void prepareSpecificBarChart() { // TODO Implement specific bar chart resizing
+//        /* adjust the size of the bar chart */
+//
+////        paramsCenter = barChart.getLayoutParams();
+////        barChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
+////        barChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
+//    }
 
 
     public void prepareScatterChart() {
@@ -1781,18 +1781,11 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         // Set colors
         barDataSetSchool.setColors(ColorThemes.getMergedStackedColorSet(recordType));
-        barDataSetNational.setColors(ColorThemes.getMergedStackedColorSet(recordType));
+//        barDataSetNational.setColors(ColorThemes.getMergedStackedColorSet(recordType));
+        barDataSetNational.setColors(General.getColorSetTealDefault(barDataSetNational.getEntryCount()));
 //        barDataSetSchool.setColors(ColorThemes.getStackedColorSet(recordType));
 //        barDataSetNational.setColors(ColorThemes.getStackedColorSet(recordType));
 
-//        barDataSetSchool.setColors(General.getColorSetLightGray(pDataSchool.length));
-//        barDataSetNational.setColors(General.getColorSetLightGray(pDataNational.length));
-
-
-//        barDataSetNational.setColors(General.getColorSetTealDefault(pDataNational.length));
-
-//        List<IBarDataSet> barDataSetList = new ArrayList<>();
-//        barDataSetList.add(barDataSetSchool, barDataSetNational);
 
         BarData barData = new BarData(barDataSetSchool, barDataSetNational);
 //        BarData barData = new BarData(barDataSetList);
@@ -1805,8 +1798,19 @@ public class DataVisualizationActivity extends AppCompatActivity
         formatBarSpecificAppearanceNational(barDataSetSchool, barDataSetNational, chartDataValue.getxData());
 
 
+        // Adds "National Equivalent" in legend
         String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
-        prepareBarSpecificLegend(this.barSpecific, barLabels, ColorThemes.getMergedStackedColorSet(recordType));
+        ArrayList<String> barLabelList = new ArrayList<>(Arrays.asList(barLabels));
+
+        barLabelList.add("National Equivalent");
+        String[] barLabelWithNational = General.convertToString(barLabelList);
+
+        int[] legendColors = ColorThemes.getMergedStackedColorSet(recordType);
+        ArrayList<Integer> colorList = General.convertToInteger(legendColors);
+        colorList.add(ColorThemes.cTealDefault); // TODO change national color
+        int[] legendColorsWithNational = General.convertToInteger(colorList);
+
+        prepareBarSpecificLegend(this.barSpecific, barLabelWithNational, legendColorsWithNational);
 
 
         float groupSpace = 0.06f; // TODO declare properly somewhere, maybe make constant
@@ -1815,6 +1819,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         barData.setBarWidth(barWidth); // (0.02 + 0.45) * 2 + 0.06 = 1.00 -> interval per "group"
 
         barSpecific.groupBars(-0.5f, groupSpace, barSpace); // perform the "explicit" grouping
+
 //        barSpecific.invalidate(); // refresh
 //        barSpecific.setTouchEnabled(true);
 
@@ -2014,13 +2019,85 @@ public class DataVisualizationActivity extends AppCompatActivity
         setNational.setBarBorderWidth(0.5f);
         setNational.setBarBorderColor(ColorThemes.cLightGray);
 
-        formatBarSpecificAxis(this.barSpecific, xLabels);
+        formatBarSpecificNationalAxis(this.barSpecific, xLabels);
     }
     private void formatBarSpecificAppearance(BarDataSet set, String[] xLabels) {
         set.setBarBorderWidth(0.5f);
         set.setBarBorderColor(ColorThemes.cLightGray);
         formatBarSpecificAxis(this.barSpecific, xLabels);
     }
+    private void formatBarSpecificNationalAxis(BarChart chart, String[] xLabels) {
+
+        chart.getDescription().setEnabled(false);
+
+//        chart.getAxisLeft().setDrawLabels(false);
+//        chart.getAxisLeft().setDrawGridLines(false);
+//        chart.getAxisLeft().setDrawAxisLine(false);
+
+        chart.getAxisRight().setDrawLabels(false);
+//        chart.getAxisRight().setDrawGridLines(false);
+        chart.getAxisRight().setDrawAxisLine(false);
+
+        chart.getXAxis().setDrawLabels(false);
+        chart.getXAxis().setDrawGridLines(false);
+        chart.getXAxis().setDrawAxisLine(false);
+
+
+//        chart.setVisibleYRange(0f, 100f, leftAxis.getAxisDependency());
+//        leftAxis.setLabelCount(3, true);
+//        leftAxis.setAxisMinimum(0f);
+//        leftAxis.setAxisMaximum(100f);
+
+
+        // yAXIS
+        YAxis leftAxis = chart.getAxisLeft();
+        YAxis rightAxis = chart.getAxisRight();
+
+        leftAxis.removeAllLimitLines();
+        leftAxis.setAxisMaximum(100);
+        leftAxis.setAxisMinimum(0);
+        leftAxis.setLabelCount(5);
+
+        rightAxis.removeAllLimitLines();
+        rightAxis.setAxisMaximum(100);
+        rightAxis.setAxisMinimum(0);
+        rightAxis.setLabelCount(5);
+
+        // xAXIS LABELS
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+
+
+        LimitLine limitLine;
+        float groupSpace = 0.06f; // TODO declare properly somewhere, maybe make constant
+        float barSpace = 0.02f; // x2 dataset
+        float barWidth = 0.45f; // (0.02 + 0.45) * 2 + 0.06 = 1.00 -> interval per "group"
+        float linePosition = barSpace+barWidth+(groupSpace/2f);
+        int barCount = (chart.getBarData().getEntryCount()/2)+1;
+        int index = -1;
+        for(int i = 0; i < barCount; i++) {
+            limitLine = new LimitLine(index*linePosition, ""); // TODO label
+            index += 2;
+            limitLine.setLineColor(ColorThemes.cGray);
+            limitLine.setLineWidth(0.1f);
+            xAxis.addLimitLine(limitLine);
+        }
+
+
+
+        chart.setScaleEnabled(false);
+        chart.setDoubleTapToZoomEnabled(false);
+        chart.setPinchZoom(false);
+//        chart.setAutoScaleMinMaxEnabled(false);
+        chart.setTouchEnabled(false);
+
+//        chart.setVisibleYRangeMaximum(100f, YAxis.AxisDependency.LEFT);
+//        chart.getAxisLeft().setAxisMaximum(100f);
+//        chart.getAxisLeft().setAxisMinimum(0f);
+
+    }
+
 
     private void formatBarSpecificAxis(BarChart chart, String[] xLabels) {
 

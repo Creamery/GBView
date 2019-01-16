@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import seebee.geebeeview.R;
 
@@ -115,6 +116,37 @@ public class General {
 
         return floatData;
     }
+
+    public static String[] convertToString(ArrayList<String> listString) {
+        String[] stringData = new String[listString.size()];
+
+        for(int i = 0; i < listString.size(); i++) {
+            stringData[i] = listString.get(i);
+        }
+
+        return stringData;
+    }
+
+    public static ArrayList<Integer> convertToInteger(int[] intData) {
+        ArrayList<Integer> listInt = new ArrayList<>();
+
+        for(int i = 0; i < intData.length; i++) {
+            listInt.add(intData[i]);
+        }
+
+        return listInt;
+    }
+
+    public static int[] convertToInteger(ArrayList<Integer> listData) {
+        int[] intData = new int[listData.size()];
+
+        for(int i = 0; i < intData.length; i++) {
+            intData[i] = listData.get(i);
+        }
+
+        return intData;
+    }
+
     /**
      * Returns the sum of the passed parameter
      * @param array

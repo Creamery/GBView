@@ -10,6 +10,7 @@ public class ColorThemes {
     public static int cPrimaryDark = 0xFF004D40;
 
 
+    public static int cGray = Color.rgb(105, 105, 105);
     public static int cLightGray = Color.rgb(240, 240, 240);
     public static int cTealDefault = Color.rgb(29, 233, 182);
     public static int cNA = Color.rgb(212, 212, 212);
