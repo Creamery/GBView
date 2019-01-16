@@ -65,14 +65,24 @@ public class General {
     }
 
     // Used for uniform colors in a bar chart
-    public static int[] getColorSetTealDefault(int entryCount) {
-        if(csTealDefault.length != entryCount) {
-            csTealDefault = new int[entryCount];
-            for(int i = 0; i < entryCount; i++) {
-                csTealDefault[i] = ColorThemes.cTealDefault;
-            }
+//    public static int[] getColorSetTealDefault(int entryCount) {
+//        if(csTealDefault.length != entryCount) {
+//            csTealDefault = new int[entryCount];
+//            for(int i = 0; i < entryCount; i++) {
+//                csTealDefault[i] = ColorThemes.cTealDefault;
+//            }
+//        }
+//        return csTealDefault;
+//    }
+
+    // For other colors
+    public static int[] getColorSetByCount(int entryCount, int color) {
+        int[] colorSet = new int[entryCount];
+
+        for(int i = 0; i < entryCount; i++) {
+            colorSet[i] = color;
         }
-        return csTealDefault;
+        return colorSet;
     }
 
 

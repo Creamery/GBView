@@ -137,6 +137,7 @@ public class DataVisualizationActivity extends AppCompatActivity
             stackedFineMotorDominant, stackedFineMotorNon, stackedFineMotorHold;
 
     TextView tvRightScrollTitle;
+    TextView tvRightSubtitle;
     RelativeLayout graphSpecificBarSingle;
     BarChart barSpecific;
 
@@ -165,7 +166,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     private String recordColumn = "BMI", rightChartContent = "National Profile";
 
     private String chartType = "Overview";
-    private String titleScrollRightOverview, titleScrollRightNational;
+    private String titleScrollRightOverview, titleScrollRightNational, subtitleRightOverview, subtitleRightNational;
 
     private ViewGroup.LayoutParams paramsLeft, paramsRight, paramsCenter, paramsStacked;
     private ArrayList<ViewGroup.LayoutParams> paramsOverview;
@@ -331,8 +332,14 @@ public class DataVisualizationActivity extends AppCompatActivity
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_4_3));
 
         tvRightScrollTitle = findViewById(R.id.tv_name_r);
+        tvRightSubtitle = findViewById(R.id.tv_subtitle);
+
         titleScrollRightOverview = getResources().getString(R.string.overview_title);
         titleScrollRightNational = getResources().getString(R.string.national_title);
+
+        subtitleRightOverview = getResources().getString(R.string.highlight_highest);
+        subtitleRightNational = getResources().getString(R.string.highlight_target);
+
 
         initializeStackedGraphOverview();
         initializeStackGraphOnClickListener();
@@ -1782,7 +1789,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         // Set colors
         barDataSetSchool.setColors(ColorThemes.getMergedStackedColorSet(recordType));
 //        barDataSetNational.setColors(ColorThemes.getMergedStackedColorSet(recordType));
-        barDataSetNational.setColors(General.getColorSetTealDefault(barDataSetNational.getEntryCount()));
+        barDataSetNational.setColors(General.getColorSetByCount(barDataSetNational.getEntryCount(), ColorThemes.cNational));
 //        barDataSetSchool.setColors(ColorThemes.getStackedColorSet(recordType));
 //        barDataSetNational.setColors(ColorThemes.getStackedColorSet(recordType));
 
@@ -1807,7 +1814,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         int[] legendColors = ColorThemes.getMergedStackedColorSet(recordType);
         ArrayList<Integer> colorList = General.convertToInteger(legendColors);
-        colorList.add(ColorThemes.cTealDefault); // TODO change national color
+        colorList.add(ColorThemes.cNational); // TODO change national color
         int[] legendColorsWithNational = General.convertToInteger(colorList);
 
         prepareBarSpecificLegend(this.barSpecific, barLabelWithNational, legendColorsWithNational);
@@ -2203,6 +2210,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         HorizontalBarChart chart;
 
         tvRightScrollTitle.setText(titleScrollRightOverview);
+        tvRightSubtitle.setText(subtitleRightOverview);
+
         ChartDataValue chartDataValue = prepareChartData(recordType);
 //        Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
@@ -2254,7 +2263,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     private HorizontalBarChart prepareNationalOverview(String recordType, OverviewEntry overviewEntry) {
         HorizontalBarChart chart;
         tvRightScrollTitle.setText(titleScrollRightNational);
-
+        tvRightSubtitle.setText(subtitleRightNational);
         ChartDataValue chartDataValue = prepareChartData(recordType);
 //        Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
@@ -2382,8 +2391,8 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         // Set school value to green
         barData.getColors().set(0, ColorThemes.getMergedStackedColorSet(recordName)[targetValueIndex]);
-        // Set national value to grey
-        barData.getColors().set(1, ColorThemes.cTealDefault);
+        // Set national value to teal
+        barData.getColors().set(1, ColorThemes.cNational);
 
 
         // Highlight % text if school > national
@@ -2407,7 +2416,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 //            // Set national value to grey
 //            barData.getColors().set(1, ColorThemes.cFail);
 
-            chartFocusValue.setTextColor(ColorThemes.cTealDefault);
+            chartFocusValue.setTextColor(ColorThemes.cNational);
         }
         chart.setBackgroundColor(Color.TRANSPARENT);
     }
