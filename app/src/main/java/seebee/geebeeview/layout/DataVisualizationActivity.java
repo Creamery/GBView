@@ -1804,7 +1804,9 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         formatBarSpecificAppearanceNational(barDataSetSchool, barDataSetNational, chartDataValue.getxData());
 
-        prepareBarSpecificLegend(this.barSpecific, chartDataValue.getxData(), ColorThemes.getStackedColorSet(recordType));
+
+        String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
+        prepareBarSpecificLegend(this.barSpecific, barLabels, ColorThemes.getMergedStackedColorSet(recordType));
 
 
         float groupSpace = 0.06f; // TODO declare properly somewhere, maybe make constant
@@ -1922,8 +1924,8 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 
         // Variables to hold the converted yData (from int to float) and sum
-        float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
-        float fSumSchool; //, fSumNational;
+        float[] fDataSchool, pDataSchool, mDataSchool;
+        float fSumSchool;
 
         // Convert yData to float
         fDataSchool = General.convertToFloat(chartDataValue.getyDataLeft());
@@ -1931,30 +1933,24 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         // Get yData sum
         fSumSchool = General.getArraySum(fDataSchool);
-//        fSumNational = General.getArraySum(fDataNational);
 
         // Convert to percentages
         pDataSchool = General.computePercentEquivalent(fDataSchool, fSumSchool);
-//        pDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
 
-
+        // Convert to merged form if applicable
+        mDataSchool = getMergedFloatValues(pDataSchool, recordType);
 
         int index = 0;
         ArrayList<BarEntry> yVals1 = new ArrayList<>();
-        for(int i = 0; i < pDataSchool.length; i++) {
-            yVals1.add(new BarEntry(index, pDataSchool[i]));
+        for(int i = 0; i < mDataSchool.length; i++) {
+            yVals1.add(new BarEntry(index, mDataSchool[i]));
             index ++;
         }
-//        for(int i = 0; i < chartDataValue.getyDataLeft().length; i++) {
-//            yVals1.add(new BarEntry(index, chartDataValue.getyDataLeft()[i]));
-//            index ++;
-//        }
-
 
         /* create bar chart dataset */
         BarDataSet barDataSet = new BarDataSet(yVals1, "");
         // Set colors
-        barDataSet.setColors(ColorThemes.getStackedColorSet(recordType));
+        barDataSet.setColors(ColorThemes.getMergedStackedColorSet(recordType));
 
         List<IBarDataSet> barDataSetList = new ArrayList<>();
         barDataSetList.add(barDataSet);
@@ -1967,7 +1963,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         adjustSpecificBarChartParams();
         formatBarSpecificAppearance(barDataSet, chartDataValue.getxData());
 
-        prepareBarSpecificLegend(this.barSpecific, chartDataValue.getxData(), ColorThemes.getStackedColorSet(recordType));
+        String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
+        prepareBarSpecificLegend(this.barSpecific, barLabels, ColorThemes.getMergedStackedColorSet(recordType));
         this.barSpecific.notifyDataSetChanged();
     }
 
@@ -2134,25 +2131,24 @@ public class DataVisualizationActivity extends AppCompatActivity
         chart = new HorizontalBarChart(this);
         chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Removed
         // Variables to hold the converted yData (from int to float) and sum
-        float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
-        float fSumSchool, fSumNational;
+        float[] fDataSchool, fDataNational, pDataSchool, mDataSchool;
+        float fSumSchool;
 
         // Convert yData to float
         fDataSchool = General.convertToFloat(chartDataValue.getyDataLeft());
-        fDataNational = General.convertToFloat(chartDataValue.getyDataRight());
 
         // Get yData sum
         fSumSchool = General.getArraySum(fDataSchool);
-        fSumNational = General.getArraySum(fDataNational);
 
         // Convert to percentages
         pDataSchool = General.computePercentEquivalent(fDataSchool, fSumSchool);
-        pDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
 
+        // Get merged values if applicable
+        mDataSchool = getMergedFloatValues(pDataSchool, recordType);
 
         // Stacked bar entries. xIndex 0 is the bottom
         List<BarEntry> entries = new ArrayList<>();
-        BarEntry schoolData = new BarEntry(0f, pDataSchool);
+        BarEntry schoolData = new BarEntry(0f, mDataSchool);
         entries.add(schoolData); // School
 
         // BarDataSet second parameter is the label
@@ -2164,11 +2160,15 @@ public class DataVisualizationActivity extends AppCompatActivity
         chart.setData(data);
 
         overviewEntry.setStackedBarChart(chart);
+
+
+        String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
+
         formatStackBarAppearance(
                 recordType,
                 overviewEntry,
-                chartDataValue.getxData(),
-                set, fDataSchool, pDataSchool); // Edit stack bar appearance
+                barLabels,
+                set, fDataSchool, mDataSchool); // Edit stack bar appearance
 
         chart.notifyDataSetChanged(); // Call this to reflect chart data changes
         return chart;
@@ -2209,6 +2209,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
         targetValueIndex = Arrays.asList(barLabels).indexOf(StringConstants.getTargetLabel(recordType));
 
+        overviewEntry.getTvFocusTitle().setText(barLabels[targetValueIndex]);
 
         mDataSchool = getMergedFloatValues(pDataSchool, recordType);
         mDataNational = getMergedFloatValues(pDataNational, recordType);
@@ -2244,6 +2245,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         BarData data = new BarData(barDataSetList); // TODO X Values
         chart.setData(data);
         overviewEntry.setStackedBarChart(chart);
+
         formatNationalBarAppearance(
                 recordType,
                 targetValueIndex,
@@ -2453,7 +2455,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         formatStackedBarAxis(chart);
         // TODO length check for color
-        barData.getColors().set(highestValueIndex, ColorThemes.getStackedColorSet(recordName)[highestValueIndex]);
+        barData.getColors().set(highestValueIndex, ColorThemes.getMergedStackedColorSet(recordName)[highestValueIndex]);
         if(roundedPercentValue > highlightPercentThreshold) {
             chartFocusValue.setTextColor(barData.getColors().get(highestValueIndex));
         }

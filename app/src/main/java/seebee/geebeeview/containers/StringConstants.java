@@ -1,7 +1,5 @@
 package seebee.geebeeview.containers;
 
-import seebee.geebeeview.model.monitoring.ValueCounter;
-
 public class StringConstants {
 
     // Record columns
@@ -41,12 +39,18 @@ public class StringConstants {
             "Near-normal", "Near-normal", "Near-normal",
             "Normal", "Normal", "Normal", "Normal", "Normal"};
 
-    public static String[] strMERGED_VISION = new String[] {
+    public static String[] strVISION_MERGED = new String[] {
             "Severe Loss",
             "Moderate Loss",
             "Near-normal",
             "Normal"};
-
+    private static String[] strHEARING_MERGED = {
+            "Normal",
+            "Mild Loss",
+            "Moderate Loss",
+            "Moderately-Severe Loss",
+            "Severe Loss",
+            "Profound Loss"};
     public enum MergeType {
         START, CONT, END, NONE
     }
@@ -85,7 +89,7 @@ public class StringConstants {
         switch(recordColumn) {
             case COL_VA_LEFT:
             case COL_VA_RIGHT:
-                return strMERGED_VISION;
+                return strVISION_MERGED;
         }
         return originalLabels;
     }
@@ -98,18 +102,20 @@ public class StringConstants {
 
     public static MergeType isMergeStartingIndex(String recordName, int index) {
         switch (recordName) {
-            case "Visual Acuity Left":
-            case "Visual Acuity Right":
+            case COL_VA_LEFT:
+            case COL_VA_RIGHT:
                 return mergeVISION[index];
+
             default:
                 return MergeType.NONE;
         }
     }
     public static String getEditedFocusLabel(String recordName, String focusLabel, int index) {
         switch (recordName) {
-            case "Visual Acuity Left":
-            case "Visual Acuity Right":
-                return strVISION[index];
+            case COL_VA_LEFT:
+            case COL_VA_RIGHT:
+                return strVISION_MERGED[index];
+
             default:
                 return focusLabel;
         }
