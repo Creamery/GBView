@@ -29,10 +29,10 @@ public class ColorThemes {
     public static int cHEARING_Normal = cBMI_Normal;
     public static int cHEARING_Mild = Color.rgb(200, 227, 4);// cBMI_Underweight;
 
-    public static int cHEARING_Moderate = cBMI_Underweight;
-    public static int cHEARING_ModSevere = cBMI_Overweight;
+    public static int cHEARING_Moderate = Color.rgb(253, 239, 0);// cBMI_Underweight;
+    public static int cHEARING_ModSevere = Color.rgb(253, 186, 0);
 
-    public static int cHEARING_Severe = Color.rgb(253, 100, 0);;
+    public static int cHEARING_Severe = cBMI_Overweight;// Color.rgb(253, 100, 0);
     public static int cHEARING_Profound = cBMI_Obese;
 
     // Visual Acuity Left & Right (11 items = 20/200 || 20/100, 20/70 || 20/50, 20/40, 20/30 || 20/25, 20/20, 20/15, 20/10, 20/5)
