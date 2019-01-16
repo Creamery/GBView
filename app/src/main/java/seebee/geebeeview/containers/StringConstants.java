@@ -1,13 +1,17 @@
 package seebee.geebeeview.containers;
 
+import seebee.geebeeview.model.monitoring.ValueCounter;
+
 public class StringConstants {
 
-    public static final String COL_VISUAL_ACUITY_LEFT = "Visual Acuity Left";
-    public static final String COL_VISUAL_ACUITY_RIGHT = "Visual Acuity Right";
+    // Record columns
+    public static final String COL_BMI = "BMI";
+    public static final String COL_VA_LEFT = "Visual Acuity Left";
+    public static final String COL_VA_RIGHT = "Visual Acuity Right";
     public static final String COL_COLOR_VISION = "Color Vision";
 
-    public static final String COL_HEARING_LEFT = "Hearing Left";
-    public static final String COL_HEARING_RIGHT = "Hearing Right";
+    public static final String COL_HEAR_LEFT = "Hearing Left";
+    public static final String COL_HEAR_RIGHT = "Hearing Right";
 
     public static final String COL_GROSS_MOTOR = "Gross Motor";
 
@@ -15,6 +19,18 @@ public class StringConstants {
     public static final String COL_FINE_NON_DOMINANT = "Fine Motor (Non-Dominant Hand)";
     public static final String COL_FINE_HOLD = "Fine Motor (Hold)";
 
+    // Target values
+    public static final String TAR_BMI = "Normal";
+
+    public static final String TAR_VA = "Normal";
+    public static final String TAR_COLOR_VISION = "Normal";
+
+    public static final String TAR_HEAR = "Normal";
+
+    public static final String TAR_GROSS_MOTOR = "Pass";
+    public static final String TAR_FINE_DOMINANT = "Pass";
+    public static final String TAR_FINE_NON_DOMINANT = "Pass";
+    public static final String TAR_FINE_HOLD = "Hold";
 
 
 
@@ -34,13 +50,42 @@ public class StringConstants {
     public enum MergeType {
         START, CONT, END, NONE
     }
+    public static String getTargetLabel(String recordColumn) {
+        switch(recordColumn) {
 
+            case COL_BMI:
+                return TAR_BMI;
+
+            case COL_VA_LEFT:
+            case COL_VA_RIGHT:
+                return TAR_VA;
+
+            case COL_COLOR_VISION:
+                return TAR_COLOR_VISION;
+
+            case COL_HEAR_LEFT:
+            case COL_HEAR_RIGHT:
+                return TAR_HEAR;
+
+            case COL_GROSS_MOTOR:
+                return TAR_GROSS_MOTOR;
+
+            case COL_FINE_DOMINANT:
+            case COL_FINE_NON_DOMINANT:
+                return TAR_FINE_DOMINANT;
+
+            case COL_FINE_HOLD:
+                return TAR_FINE_HOLD;
+
+            default:
+                return TAR_BMI;
+        }
+    }
     public static String[] getMergedLabels(String recordColumn, String[] originalLabels) {
         switch(recordColumn) {
-            case COL_VISUAL_ACUITY_LEFT:
-            case COL_VISUAL_ACUITY_RIGHT:
+            case COL_VA_LEFT:
+            case COL_VA_RIGHT:
                 return strMERGED_VISION;
-
         }
         return originalLabels;
     }

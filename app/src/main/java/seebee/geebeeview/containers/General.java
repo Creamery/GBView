@@ -106,7 +106,15 @@ public class General {
 
         return floatData;
     }
+    public static float[] convertToFloat(ArrayList<Float> listFloat) {
+        float[] floatData = new float[listFloat.size()];
 
+        for(int i = 0; i < listFloat.size(); i++) {
+            floatData[i] = (float) listFloat.get(i);
+        }
+
+        return floatData;
+    }
     /**
      * Returns the sum of the passed parameter
      * @param array

@@ -69,7 +69,6 @@ public class ColorThemes {
             cVISION_Mild, cVISION_Mild, cVISION_Mild,
             cVISION_Normal, cVISION_Normal, cVISION_Normal, cVISION_Normal, cVISION_Normal};
 
-
     public static int[] cstackVISION = new int[] {
             cVISION_Severe,
             cVISION_Moderate,

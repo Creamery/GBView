@@ -59,6 +59,7 @@ import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1868,7 +1869,39 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
         return yBarValues;
     }
+    public float[] getMergedFloatValues(float[] pData, String recordType) {
+        ArrayList<BarEntry> yBarValues = new ArrayList<>();
+        ArrayList<Float> mergeContainer = new ArrayList<>();
 
+        float mergeSum = 0f;
+        int index = 0;
+        for(int i = 0; i < pData.length; i++) {
+
+            if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.START) { // Check if value has to be merged (stacked, i.e. 20/25 to 20/5 in vision)
+//                mergeContainer.add(pData[i]);
+                mergeSum = pData[i];
+            }
+            else if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.CONT) {
+//                mergeContainer.add(pData[i]);
+                mergeSum += pData[i];
+            }
+            else if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.END) {
+
+//                mergeContainer.add(pData[i]);
+                mergeSum += pData[i];
+                mergeContainer.add(mergeSum);
+                yBarValues.add(new BarEntry(index, mergeSum));
+                mergeSum = 0f;
+                index ++;
+            }
+            else {
+                mergeContainer.add(pData[i]);
+                yBarValues.add(new BarEntry(index, pData[i]));
+                index ++;
+            }
+        }
+        return General.convertToFloat(mergeContainer);
+    }
     public ArrayList<BarEntry> getUnmergedBarValues(float[] pData) {
         ArrayList<BarEntry> yBarValues = new ArrayList<>();
 
@@ -2151,7 +2184,10 @@ public class DataVisualizationActivity extends AppCompatActivity
         chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Removed
 
         // Variables to hold the converted yData (from int to float) and sum
-        float[] fDataSchool, fDataNational, pDataSchool, pDataNational;
+        float[] fDataSchool, fDataNational,
+                pDataSchool, pDataNational,
+                mDataSchool, mDataNational;
+
         float fSumSchool, fSumNational;
 
         // Convert yData to float
@@ -2167,29 +2203,34 @@ public class DataVisualizationActivity extends AppCompatActivity
         pDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
 
 
-
         int targetValueIndex = 0;
-        int targetNameIndex = getRecordColumn(recordType);
+//        int targetNameIndex = getRecordColumn(recordType);
 
         String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
+        targetValueIndex = Arrays.asList(barLabels).indexOf(StringConstants.getTargetLabel(recordType));
 
-        for(int i = 0; i < barLabels.length; i++) {
-//            if(chartDataValue.getxData()[i].equals(ValueCounter.targetValueIndices[targetNameIndex])) { // Find target value to be highlighted later
-            if(barLabels[i].equals(ValueCounter.targetValueIndices[targetNameIndex])) { // Find target value to be highlighted later
-                targetValueIndex = i;
-            }
-        }
+
+        mDataSchool = getMergedFloatValues(pDataSchool, recordType);
+        mDataNational = getMergedFloatValues(pDataNational, recordType);
+
+        Log.e("RECORD", recordType+" index "+targetValueIndex+" "+mDataNational[targetValueIndex]+" "+barLabels[targetValueIndex]);
+//        for(int i = 0; i < barLabels.length; i++) {
+////            if(chartDataValue.getxData()[i].equals(ValueCounter.targetValueIndices[targetNameIndex])) { // Find target value to be highlighted later
+//            if(barLabels[i].equals(ValueCounter.targetValueIndices[targetNameIndex])) { // Find target value to be highlighted later
+//                targetValueIndex = i;
+//            }
+//        }
 
 
 
         // Stacked bar entries. xIndex 0 is the bottom
         List<BarEntry> entries = new ArrayList<>();
-        BarEntry schoolData = new BarEntry(1f, pDataSchool[targetValueIndex]);
+        BarEntry schoolData = new BarEntry(1f, mDataSchool[targetValueIndex]);
 //        BarEntry schoolData = new BarEntry(1f, new float[]{pDataSchool[targetValueIndex], 100f-pDataSchool[targetValueIndex]});
         entries.add(schoolData); // School
 
 //        BarEntry nationalData = new BarEntry(0f, pDataNational[targetValueIndex]);
-        BarEntry nationalData = new BarEntry(0f, pDataNational[targetValueIndex]);
+        BarEntry nationalData = new BarEntry(0f, mDataNational[targetValueIndex]);
 //        BarEntry nationalData = new BarEntry(0f, new float[]{pDataNational[targetValueIndex], 100f-pDataNational[targetValueIndex]});
         entries.add(nationalData); // National
 
@@ -2207,8 +2248,8 @@ public class DataVisualizationActivity extends AppCompatActivity
                 recordType,
                 targetValueIndex,
                 overviewEntry,
-                chartDataValue.getxData(),
-                set, pDataSchool[targetValueIndex], pDataNational[targetValueIndex]); // Edit stack bar appearance
+                barLabels,
+                set, mDataSchool[targetValueIndex], mDataNational[targetValueIndex]); // Edit stack bar appearance
 
         chart.setDrawGridBackground(true);
         chart.setGridBackgroundColor(ColorThemes.cLightGray);
@@ -2258,8 +2299,10 @@ public class DataVisualizationActivity extends AppCompatActivity
         formatNationalBarAxis(chart);
         // TODO length check for color
 //        barData.getColors().set(0, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
+
+
         // Set school value to green
-        barData.getColors().set(0, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
+        barData.getColors().set(0, ColorThemes.getMergedStackedColorSet(recordName)[targetValueIndex]);
         // Set national value to grey
         barData.getColors().set(1, ColorThemes.cTealDefault);
 
@@ -2274,7 +2317,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 //            // Set national value to grey
 //            barData.getColors().set(1, ColorThemes.cLightGray);
 
-            chartFocusValue.setTextColor(ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
+            chartFocusValue.setTextColor(barData.getColors().get(0));
         }
         else {
             // Set focus value to national value
