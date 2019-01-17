@@ -108,6 +108,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     public static final int CHART_LEGEND_TEXT_COLOR = Color.GRAY;
     public static final int CHART_DESC_TEXT_COLOR = Color.GRAY;
     public static final int CHART_VALUE_TEXT_COLOR = Color.GRAY;
+    private int currentRecordColumn = 0;
 
     ArrayList<String> datasetList, filterList;
     TextHolderAdapter datasetAdapter;
@@ -1540,11 +1541,11 @@ public class DataVisualizationActivity extends AppCompatActivity
             switch(position) {
                 case INDEX_OVERVIEW:
                     prepareOverviewChartData();
-                    loadSpecificBarChart(spRecordColumn.getSelectedItemPosition());
+                    loadSpecificBarChart(this.currentRecordColumn);
                     break;
                 case INDEX_NATIONAL:
                     prepareNationalChartData();
-                    loadSpecificBarChart(spRecordColumn.getSelectedItemPosition());
+                    loadSpecificBarChart(this.currentRecordColumn);
                     break;
                 case INDEX_PIE:
                     preparePieChartData(pieChartLeft, yDataLeft);
@@ -1724,6 +1725,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         computeOverviewParams(overviewEntries, paramsOverview);
     }
     private void loadSpecificBarChart(int recordIndex) { // TODO Implement
+        this.currentRecordColumn = recordIndex;
         if(this.barSpecific != null) {
             this.barSpecific.clear();
         }
