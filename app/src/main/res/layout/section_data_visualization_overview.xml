@@ -57,72 +57,6 @@
                 android:layout_weight="0.175"
                 android:background="@color/white">
 
-                <Space
-                    android:id="@+id/space_overview_graph_left2"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/cont_patient_details"
-                    app:layout_constraintHorizontal_weight="0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Space
-                    android:id="@+id/space_overview_graph_right2"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="0"
-                    app:layout_constraintStart_toEndOf="@+id/cont_patient_details"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/constraintLayout3"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@color/white"
-                    app:layout_constraintBottom_toTopOf="@+id/cont_patient_details"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_weight="6.5">
-
-                    <ImageView
-                        android:id="@+id/imageView8"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:contentDescription="@string/cd_blank"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@color/white" />
-
-                    <TextView
-                        android:id="@+id/tv_name_r"
-                        style="@style/TitleText"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:padding="5dp"
-                        android:text="@string/overview_title"
-                        android:textAlignment="center"
-                        android:textAppearance="@style/DefaultText"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textStyle="bold"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="8"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </android.support.constraint.ConstraintLayout>
-
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/cont_patient_details"
                     android:layout_width="0dp"
@@ -296,6 +230,245 @@
                     </android.support.constraint.ConstraintLayout>
 
                 </android.support.constraint.ConstraintLayout>
+
+                <Space
+                    android:id="@+id/space_overview_graph_right2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="0"
+                    app:layout_constraintStart_toEndOf="@+id/cont_patient_details"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout3"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/white"
+                    app:layout_constraintBottom_toTopOf="@+id/cont_patient_details"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="6.5">
+
+                    <ImageView
+                        android:id="@+id/imageView8"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:contentDescription="@string/cd_blank"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@color/white" />
+
+                    <TextView
+                        android:id="@+id/tv_name_r"
+                        style="@style/TitleText"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:gravity="center"
+                        android:includeFontPadding="false"
+                        android:padding="5dp"
+                        android:text="@string/overview_title"
+                        android:textAlignment="center"
+                        android:textAppearance="@style/DefaultText"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textStyle="bold"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="8"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+                <Space
+                    android:id="@+id/space_overview_graph_left2"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/cont_patient_details"
+                    app:layout_constraintHorizontal_weight="0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_filter_details"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@color/lightGrey"
+                    app:layout_constraintBottom_toBottomOf="@id/cont_patient_details"
+                    app:layout_constraintEnd_toEndOf="@id/cont_patient_details"
+                    app:layout_constraintStart_toStartOf="@id/cont_patient_details"
+                    app:layout_constraintTop_toTopOf="@id/cont_patient_details">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cont_highlight_text_filter"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/lightGrey"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageView13_filter"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@color/white" />
+
+                        <Space
+                            android:id="@+id/space11_filter"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_subtitle_filter"
+                            app:layout_constraintHorizontal_weight="1.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_subtitle_filter"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_marginBottom="2dp"
+                            android:gravity="center_vertical|start"
+                            android:text="@string/highlight_highest"
+                            android:textAlignment="center"
+                            android:textColor="@color/theme_menu_button"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/space15_filter"
+                            app:layout_constraintHorizontal_weight="7"
+                            app:layout_constraintStart_toEndOf="@+id/space11_filter"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Space
+                            android:id="@+id/space15_filter"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="1.5"
+                            app:layout_constraintStart_toEndOf="@id/tv_subtitle_filter"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cont_highlight_2_filter"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginBottom="1dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="8.5"
+                        app:layout_constraintStart_toEndOf="@+id/cont_highlight_1_filter"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cont_highlight_1_filter"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@color/white"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/cont_highlight_2_filter"
+                        app:layout_constraintHorizontal_weight="1.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageView11_filter"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:adjustViewBounds="false"
+                            android:background="@color/theme_red50_sidebar_extend_item1"
+                            android:contentDescription="@string/cd_blank"
+                            android:cropToPadding="false"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageView10_filter"
+                            app:layout_constraintEnd_toEndOf="@+id/imageView10_filter"
+                            app:layout_constraintStart_toStartOf="@+id/imageView10_filter"
+                            app:layout_constraintTop_toTopOf="@+id/imageView10_filter" />
+
+                        <ImageView
+                            android:id="@+id/imageView10_filter"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/cd_blank"
+                            android:cropToPadding="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/img_visualize_icon" />
+
+                        <TextView
+                            android:id="@+id/tv_height_filter"
+                            style="@style/SmallLabelText"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginTop="5dp"
+
+
+                            android:layout_marginEnd="5dp"
+                            android:layout_weight="1"
+                            android:gravity="bottom"
+                            android:padding="0dp"
+                            android:text="@string/height"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:visibility="invisible"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes"
+                            app:layout_constraintBottom_toTopOf="@+id/tv_height_label_filter"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_weight="6" />
+
+                        <TextView
+                            android:id="@+id/tv_height_label_filter"
+                            style="@style/SmallLabelText"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="top"
+                            android:padding="0dp"
+                            android:text="@string/height"
+                            android:textAlignment="center"
+                            android:visibility="invisible"
+                            app:autoSizePresetSizes="@array/autosize_text_sizes"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_height_filter"
+                            app:layout_constraintVertical_weight="4" />
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout
