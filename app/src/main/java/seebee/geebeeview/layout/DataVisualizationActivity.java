@@ -2723,10 +2723,11 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         // Clear GRADE LEVEL filter
         for(int i = 0; i < filterList.size(); i++) {
-            if(filterList.get(i).contains("grade level")){
+//            if(filterList.get(i).contains("grade level")){
                 removeFilter(filterList.get(i));
-            }
+//            }
         }
+
     }
 
     @Override
@@ -2740,35 +2741,39 @@ public class DataVisualizationActivity extends AppCompatActivity
         //Log.d(AddFilterDialogFragment.TAG, "Filter: age "+ageEquator+" "+ageValue);
         Log.v(TAG, "grade level value = "+gradeLevelValue +"(before filtering)");
 
-        clearAllFilters();
+//        clearAllFilters();
+//        prepareRecord();
+
         /* filter records*/
-        if(!ageValue.contentEquals("")) {
-//            for(int i = 0; i < filterList.size(); i++) {
-//                if(filterList.get(i).contains("age")){
-//                    removeFilter(filterList.get(i));
-//                }
-//            }
+        if(!ageValue.trim().contentEquals("")) {
+            for(int i = 0; i < filterList.size(); i++) {
+                if(filterList.get(i).contains("age")){
+                    removeFilter(filterList.get(i));
+                }
+            }
             filterRecordsByAge(ageEquator, ageValue);
             prepareFilterList("age "+ageEquator+" "+ageValue);
         }
-        if(!genderValue.contentEquals("N/A")) {
-//            for(int i = 0; i < filterList.size(); i++) {
-//                if(filterList.get(i).contains("gender")){
-//                    removeFilter(filterList.get(i));
-//                }
-//            }
+        if(!genderValue.trim().contentEquals("N/A")) {
+            for(int i = 0; i < filterList.size(); i++) {
+                if(filterList.get(i).contains("gender")){
+                    removeFilter(filterList.get(i));
+                }
+            }
             filterRecordsByGender(genderValue);
             prepareFilterList("gender = "+genderValue);
         }
-        if(!gradeLevelValue.contentEquals("N/A")) {
-//            for(int i = 0; i < filterList.size(); i++) {
-//                if(filterList.get(i).contains("grade level")){
-//                    removeFilter(filterList.get(i));
-//                }
-//            }
+        if(!gradeLevelValue.trim().contentEquals("N/A")) {
+            for(int i = 0; i < filterList.size(); i++) {
+                if(filterList.get(i).contains("grade level")){
+                    removeFilter(filterList.get(i));
+                }
+            }
             filterRecordsByGradeLevel(gradeLevelValue);
             prepareFilterList("grade level = "+gradeLevelValue);
         }
+
+
         filterAdapter.notifyDataSetChanged();
         refreshCharts();
     }
