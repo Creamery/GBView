@@ -118,12 +118,16 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
                     else if(dataset.getStatus() == 1){
                         Toast.makeText(context, StringConstants.MSG_LOADING_GRAPHS,Toast.LENGTH_LONG).show();
                         // VISUALIZE (move to data visualization activity)
-                        new Thread(new Runnable() {
-                            public void run() {
-                                isLoadingGraph = true;
-                                openActivity(dataset);
-                            }
-                        }).start();
+
+                        if(!isLoadingGraph) {
+                            new Thread(new Runnable() {
+                                public void run() {
+                                    isLoadingGraph = true;
+                                    openActivity(dataset);
+                                }
+                            }).start();
+                        }
+
 //                        openActivity(dataset);
                     }
                 }
