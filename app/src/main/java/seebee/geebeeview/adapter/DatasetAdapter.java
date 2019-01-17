@@ -1,5 +1,6 @@
 package seebee.geebeeview.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -30,9 +31,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import seebee.geebeeview.R;
+import seebee.geebeeview.containers.StringConstants;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.database.VolleySingleton;
 import seebee.geebeeview.layout.DataVisualizationActivity;
+import seebee.geebeeview.layout.DatasetListActivity;
 import seebee.geebeeview.model.account.Dataset;
 import seebee.geebeeview.model.consultation.Patient;
 import seebee.geebeeview.model.consultation.School;
@@ -50,6 +53,7 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
     private DatabaseAdapter getbetterDb;
     private Button btnRefresh;
     private ConstraintLayout contHeader;
+    private boolean isLoadingGraph = false;
 
     public DatasetAdapter(ArrayList<Dataset> datasetList, Button btnReference, ConstraintLayout contReference) {
         this.datasetList = datasetList;
@@ -80,8 +84,18 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
             holder.btnStatus.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // move to data visualization activity
-                    openActivity(dataset);
+
+                    Toast.makeText(context, StringConstants.MSG_LOADING_GRAPHS,Toast.LENGTH_LONG).show();
+                    // VISUALIZE (move to data visualization activity)
+//                    openActivity(dataset);
+                    if(!isLoadingGraph) {
+                        new Thread(new Runnable() {
+                            public void run() {
+                                isLoadingGraph = true;
+                                openActivity(dataset);
+                            }
+                        }).start();
+                    }
                 }
             });
         } else {
@@ -92,6 +106,8 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
                 @Override
                 public void onClick(View v) {
                     if(dataset.getStatus() == 0){
+                        // DOWNLOAD
+                        Toast.makeText(context, "Downloading dataset...",Toast.LENGTH_LONG).show();
                         downloadDataset(dataset);
                         getbetterDb.updateDatasetStatus(dataset);
 //                        holder.btnStatus.setText(R.string.visualize);@
@@ -100,8 +116,15 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
                         dataset.setStatus(1);
                     }
                     else if(dataset.getStatus() == 1){
-                        // move to data visualization activity
-                        openActivity(dataset);
+                        Toast.makeText(context, StringConstants.MSG_LOADING_GRAPHS,Toast.LENGTH_LONG).show();
+                        // VISUALIZE (move to data visualization activity)
+                        new Thread(new Runnable() {
+                            public void run() {
+                                isLoadingGraph = true;
+                                openActivity(dataset);
+                            }
+                        }).start();
+//                        openActivity(dataset);
                     }
                 }
 
@@ -113,6 +136,8 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
         holder.tvDate.getLayoutParams().height = contHeader.getHeight();
         holder.tvSchoolName.getLayoutParams().height = contHeader.getHeight();
     }
+
+
     /* Open DataVisualizationActivity */
     private void openActivity(Dataset dataset) {
         Intent intent = new Intent(context, DataVisualizationActivity.class);
@@ -120,6 +145,7 @@ public class DatasetAdapter extends RecyclerView.Adapter<DatasetAdapter.DatasetV
         intent.putExtra(School.C_SCHOOL_ID, dataset.getSchoolID());
         intent.putExtra(Record.C_DATE_CREATED, dataset.getDateCreated());
         context.startActivity(intent);
+        isLoadingGraph = false;
     }
 
     @Override

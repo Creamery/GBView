@@ -17,6 +17,7 @@ public class StringConstants {
     public static final String COL_FINE_NON_DOMINANT = "Fine Motor (Non-Dominant Hand)";
     public static final String COL_FINE_HOLD = "Fine Motor (Hold)";
 
+    public static final String MSG_LOADING_GRAPHS = "Loading graphs. Please wait...";
     // Target values
     public static final String TAR_BMI = "Normal";
 

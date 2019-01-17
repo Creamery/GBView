@@ -10,7 +10,7 @@ public class ColorThemes {
     public static int cPrimaryDark = 0xFF004D40;
 
 
-    public static int cNational = Color.rgb(29, 233, 182); // TODO change this to change national signature color
+    public static int cNational = cPrimaryDark; // Color.rgb(29, 233, 182); // TODO change this to change national signature color
 
 
     public static int cGray = Color.rgb(105, 105, 105);

@@ -15,6 +15,8 @@
     <string name="dateCreated">Date</string>
 
 
+    <string name="loading">Loading...</string>
+
     <string name="overview_title">School Health Statistics</string>
     <string name="national_title">School to National Health Comparison</string>
     <string name="highlight_highest">Showing highest values per category</string>
