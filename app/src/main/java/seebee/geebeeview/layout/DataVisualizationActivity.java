@@ -519,7 +519,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         list.add(new CustomSpinnerItem(charts[0],R.drawable.img_circle_trans_greenhighlight)); // TODO change chart icons
         list.add(new CustomSpinnerItem(charts[1],R.drawable.img_circle_trans_greenhighlight));
         list.add(new CustomSpinnerItem(charts[2],R.drawable.img_circle_trans_greenhighlight));
-        list.add(new CustomSpinnerItem(charts[3],R.drawable.img_circle_trans_greenhighlight));
+//        list.add(new CustomSpinnerItem(charts[3],R.drawable.img_circle_trans_greenhighlight));
         CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(this,
                 R.layout.custom_spinner_image, R.id.tv_spinner, list);
 
