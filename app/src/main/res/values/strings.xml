@@ -17,6 +17,8 @@
 
     <string name="loading">Loading. Please wait...</string>
 
+    <string name="filter_template">Data is filtered by </string>
+    <string name="click_to_remove">Remove</string>
     <string name="overview_title">School Health Statistics</string>
     <string name="national_title">School to National Health Comparison</string>
     <string name="highlight_highest">Showing highest values per category</string>

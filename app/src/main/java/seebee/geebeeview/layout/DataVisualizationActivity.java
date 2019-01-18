@@ -1,5 +1,6 @@
 package seebee.geebeeview.layout;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -96,6 +97,10 @@ public class DataVisualizationActivity extends AppCompatActivity
     private final int INDEX_PIE = 2;
     private final int INDEX_SCATTER = 3;
 
+    private static float WEIGHT_FILTER_PROMPT = 0.06125f;
+    private static float WEIGHT_GRAPH_OVERVIEW_FULL = 0.85f;
+    private static float WEIGHT_GRAPH_OVERVIEW_SHRINK = WEIGHT_GRAPH_OVERVIEW_FULL-WEIGHT_FILTER_PROMPT;
+
     private float overviewHeightIncrease = 0f;
     private float highlightPercentThreshold = 60f; // In Overview, highlight percent greater than 60f
     private static final String TAG = "DataVisualActivity";
@@ -110,6 +115,9 @@ public class DataVisualizationActivity extends AppCompatActivity
     public static final int CHART_VALUE_TEXT_COLOR = Color.GRAY;
     private int currentRecordColumn = 0;
 
+    private String strFilterTemplate;
+    private String strRemove;
+
     ArrayList<String> datasetList, filterList;
     TextHolderAdapter datasetAdapter;
     FilterAdapter filterAdapter;
@@ -121,6 +129,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     ImageView ivBMIRef, ivVALRef, ivVARRef, ivCOLORRef, ivHEARLRef, ivHEARRRef, ivGMRef, ivFMDRef, ivFMNRef, ivFMHRef;
 
     ScrollView scrollGraphOverview;
+    ConstraintLayout contGraphOverviewParent, contFilterPrompt;
     ArrayList<ConstraintLayout> llBarSpecificLabels;
 
     RelativeLayout
@@ -137,8 +146,7 @@ public class DataVisualizationActivity extends AppCompatActivity
             stackedGrossMotor,
             stackedFineMotorDominant, stackedFineMotorNon, stackedFineMotorHold;
 
-    TextView tvRightScrollTitle;
-    TextView tvRightSubtitle;
+    TextView tvRightScrollTitle, tvRightSubtitle, tvFilterPrompt;
     RelativeLayout graphSpecificBarSingle;
     BarChart barSpecific;
 
@@ -209,7 +217,31 @@ public class DataVisualizationActivity extends AppCompatActivity
             spinnerRefresh();
         }
     }
+    private void showFilterPrompt() {
+        this.showFilterPrompt("");
+    }
 
+    private void showFilterPrompt(String strFilter) {
+        this.contFilterPrompt.setVisibility(View.VISIBLE);
+
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                0,
+                WEIGHT_GRAPH_OVERVIEW_SHRINK
+        );
+        this.contGraphOverviewParent.setLayoutParams(param);
+        tvFilterPrompt.setText(strFilterTemplate+strFilter+strRemove);
+    }
+    private void hideFilterPrompt() {
+        this.contFilterPrompt.setVisibility(View.GONE);
+
+        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                0,
+                WEIGHT_GRAPH_OVERVIEW_FULL
+        );
+        this.contGraphOverviewParent.setLayoutParams(param);
+    }
 
 
 
@@ -274,6 +306,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         graphLayoutCenter = (RelativeLayout) findViewById(R.id.graph_container_center); // Added
 
         scrollGraphOverview = (ScrollView) findViewById(R.id.scroll_graph_overview);
+        contGraphOverviewParent = (ConstraintLayout) findViewById(R.id.cont_graph_overview_spacing);
+        contFilterPrompt = (ConstraintLayout) findViewById(R.id.cont_right_items_prompt);
         hideGraphOverview(); // Initially make invisible
 
         // TODO Add Here
@@ -341,11 +375,21 @@ public class DataVisualizationActivity extends AppCompatActivity
         subtitleRightOverview = getResources().getString(R.string.highlight_highest);
         subtitleRightNational = getResources().getString(R.string.highlight_target);
 
-
+        strFilterTemplate = getResources().getString(R.string.filter_template)+" ";
+        strRemove = getResources().getString(R.string.click_to_remove);
+        tvFilterPrompt = findViewById(R.id.tv_subtitle_prompt);
         initializeStackedGraphOverview();
         initializeStackGraphOnClickListener();
         // TODO Set default font
 
+        contFilterPrompt.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                clearAllFilters();
+                hideFilterPrompt();
+            }
+        });
         /* set listener for button view hpi list */
         btnViewHPIList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -547,6 +591,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         tvDataHeader.setText(schoolName);
         tvDataHeaderYear.setText("Record Date: "+date);
         setupSidebarFunctionality();
+        hideFilterPrompt();
     }
 
 
@@ -2743,7 +2788,8 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 //        clearAllFilters();
 //        prepareRecord();
-
+        String strFilter = "";
+        int filterCount = 0;
         /* filter records*/
         if(!ageValue.trim().contentEquals("")) {
             for(int i = 0; i < filterList.size(); i++) {
@@ -2753,6 +2799,8 @@ public class DataVisualizationActivity extends AppCompatActivity
             }
             filterRecordsByAge(ageEquator, ageValue);
             prepareFilterList("age "+ageEquator+" "+ageValue);
+            strFilter += "age "+ageEquator.toString()+" "+ageValue;
+            filterCount ++;
         }
         if(!genderValue.trim().contentEquals("N/A")) {
             for(int i = 0; i < filterList.size(); i++) {
@@ -2762,6 +2810,11 @@ public class DataVisualizationActivity extends AppCompatActivity
             }
             filterRecordsByGender(genderValue);
             prepareFilterList("gender = "+genderValue);
+            if(!strFilter.equals("")) {
+                strFilter += ", ";
+            }
+            strFilter += genderValue;
+            filterCount ++;
         }
         if(!gradeLevelValue.trim().contentEquals("N/A")) {
             for(int i = 0; i < filterList.size(); i++) {
@@ -2771,11 +2824,22 @@ public class DataVisualizationActivity extends AppCompatActivity
             }
             filterRecordsByGradeLevel(gradeLevelValue);
             prepareFilterList("grade level = "+gradeLevelValue);
+
+            if(!strFilter.equals("")) {
+                if(filterCount > 1) {
+                    strFilter += ", and";
+                }
+                else {
+                    strFilter += " and";
+                }
+            }
+            strFilter += "grade "+gradeLevelValue;
         }
 
 
         filterAdapter.notifyDataSetChanged();
         refreshCharts();
+        showFilterPrompt(strFilter+". ");
     }
 
     private void filterRecordsByGender(String genderValue) {
