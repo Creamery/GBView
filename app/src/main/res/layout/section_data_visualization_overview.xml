@@ -371,7 +371,7 @@
                             android:gravity="center_vertical|start"
                             android:text="@string/highlight_highest"
                             android:textAlignment="center"
-                            android:textColor="@color/theme_menu_button"
+                            android:textColor="@color/theme_red50_sidebar_extend_item0"
                             app:autoSizePresetSizes="@array/autosize_text_sizes"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/space15_prompt"
@@ -421,7 +421,7 @@
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:adjustViewBounds="false"
-                            android:background="@color/theme_red50_sidebar_extend_item1"
+                            android:background="@color/theme_red50_sidebar_extend_item0"
                             android:contentDescription="@string/cd_blank"
                             android:cropToPadding="false"
                             app:layout_constraintBottom_toBottomOf="@+id/imageView10_prompt"
@@ -439,7 +439,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/img_visualize_icon" />
+                            app:srcCompat="@drawable/img_filter_icon" />
 
                         <TextView
                             android:id="@+id/tv_height_prompt"
