@@ -2786,7 +2786,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         //Log.d(AddFilterDialogFragment.TAG, "Filter: age "+ageEquator+" "+ageValue);
         Log.v(TAG, "grade level value = "+gradeLevelValue +"(before filtering)");
 
-//        clearAllFilters();
+        clearAllFilters();
 //        prepareRecord();
         String strFilter = "";
         int filterCount = 0;
@@ -2813,7 +2813,7 @@ public class DataVisualizationActivity extends AppCompatActivity
             if(!strFilter.equals("")) {
                 strFilter += ", ";
             }
-            strFilter += genderValue;
+            strFilter += genderValue.toLowerCase();
             filterCount ++;
         }
         if(!gradeLevelValue.trim().contentEquals("N/A")) {
