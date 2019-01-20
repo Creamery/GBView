@@ -2901,7 +2901,7 @@ public class DataVisualizationActivity extends AppCompatActivity
      * Re-filters the comparison records. Called after re-retrieval.
      */
     private void filterComparisonRecords() {
-        filterRecords(this.ageEquator, this.ageValue, this.genderValue, this.gradeLevelValue);
+        filterRightRecords(this.ageEquator, this.ageValue, this.genderValue, this.gradeLevelValue);
     }
 
     @Override
@@ -2991,6 +2991,29 @@ public class DataVisualizationActivity extends AppCompatActivity
         if(!strFilter.equals("")) {
             showFilterPrompt(strFilter+". ");
         }
+    }
+
+
+    public void filterRightRecords(String ageEquator, String ageValue, String genderValue, String gradeLevelValue) {
+        //Log.d(AddFilterDialogFragment.TAG, "Filter: age "+ageEquator+" "+ageValue);
+        Log.v(TAG, "grade level value = "+gradeLevelValue +"(before filtering)");
+
+        String strFilter = "";
+        int filterCount = 0;
+        /* filter records*/
+        if(!ageValue.trim().contentEquals("")) {
+            filterRecordsByAge(recordsRight, ageEquator, ageValue);
+        }
+        if(!genderValue.trim().contentEquals("N/A")) {
+            filterRecordsByGender(recordsRight, genderValue);
+        }
+        if(!gradeLevelValue.trim().contentEquals("N/A")) {
+            filterRecordsByGradeLevel(recordsRight, gradeLevelValue);
+        }
+
+
+        filterAdapter.notifyDataSetChanged();
+        addDataSet();
     }
 
     private void filterRecordsByGender(ArrayList<PatientRecord> records, String genderValue) {
