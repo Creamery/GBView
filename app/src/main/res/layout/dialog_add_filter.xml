@@ -2,6 +2,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -21,81 +22,300 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2.5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2.5dp"
         android:weightSum="1">
 
         <TextView
             style="@style/LabelText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="0.25"
+            android:gravity="center_vertical"
+            android:padding="0dp"
             android:text="@string/age"
-            android:textColor="@color/theme_menu_button" />
+            android:textColor="@color/theme_menu_button"
+            android:textSize="18sp" />
 
-        <Spinner
-            android:id="@+id/sp_age_filter"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cont_operator"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.25"
-            android:dropDownWidth="match_parent"
-            android:entries="@array/age_filter_array"></Spinner>
+            android:layout_marginEnd="0dp"
+            android:layout_weight="0.25">
+
+            <ImageView
+                android:id="@+id/iv_operator_outline"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank"
+                app:layout_constraintBottom_toBottomOf="@id/cont_outline"
+                app:layout_constraintEnd_toEndOf="@id/cont_outline"
+                app:layout_constraintStart_toStartOf="@id/cont_outline"
+                app:layout_constraintTop_toTopOf="@id/cont_outline" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_outline"
+
+
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:dropDownWidth="match_parent"
+                android:entries="@array/age_filter_array"
+                app:layout_constraintBottom_toBottomOf="@id/cont_operator_arrow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/cont_operator_arrow">
+
+
+                <Spinner
+                    android:id="@+id/sp_age_filter"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:layout_weight="0.25"
+                    android:background="@color/white"
+                    android:dropDownWidth="match_parent"
+                    android:entries="@array/age_filter_array"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></Spinner>
+            </android.support.constraint.ConstraintLayout>
+
+            <Space
+                android:id="@+id/space_operator"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/cont_operator_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/cont_operator_arrow_color"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/theme_menu_button"
+                android:contentDescription="@string/cd_blank"
+                app:layout_constraintBottom_toBottomOf="@+id/cont_operator_arrow"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="@+id/cont_operator_arrow"
+                app:layout_constraintStart_toStartOf="@+id/cont_operator_arrow"
+                app:layout_constraintTop_toTopOf="@+id/cont_operator_arrow" />
+
+            <ImageView
+                android:id="@+id/cont_operator_arrow"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="3dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/cd_blank"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/space_operator"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_scrolldown" />
+
+        </android.support.constraint.ConstraintLayout>
 
         <EditText
             android:id="@+id/et_filter"
             style="@style/DefaultText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="0dp"
             android:layout_weight="0.5"
+            android:background="@color/theme_yellow50_sidebar_extend_noitem"
             android:hint="@string/age"
-            android:inputType="numberDecimal" />
+            android:includeFontPadding="false"
+            android:inputType="numberDecimal"
+            android:textAlignment="center"
+            android:textColor="@color/theme_menu_button"
+            android:textSize="18sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2.5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2.5dp"
         android:weightSum="1">
 
         <TextView
             style="@style/LabelText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:gravity="center_vertical"
+            android:padding="0dp"
             android:text="@string/gender"
-            android:textColor="@color/theme_menu_button" />
+            android:textColor="@color/theme_menu_button"
+            android:textSize="18sp" />
 
-        <Spinner
-            android:id="@+id/sp_gender_filter"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cont_arrow3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
-            android:dropDownWidth="match_parent"
-            android:entries="@array/gender_filter_array"></Spinner>
+            android:layout_weight="0.75">
+
+
+            <ImageView
+                android:id="@+id/iv_operator_outline3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/sp_gender_filter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/white"
+                android:dropDownWidth="match_parent"
+                android:entries="@array/gender_filter_array"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></Spinner>
+
+            <ImageView
+                android:id="@+id/cont_operator_arrow_color3"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/theme_menu_button"
+                android:contentDescription="@string/cd_blank"
+                app:layout_constraintBottom_toBottomOf="@+id/cont_operator_arrow3"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="@+id/cont_operator_arrow3"
+                app:layout_constraintStart_toStartOf="@+id/cont_operator_arrow3"
+                app:layout_constraintTop_toTopOf="@+id/cont_operator_arrow3" />
+
+            <ImageView
+                android:id="@+id/cont_operator_arrow3"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="3dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/cd_blank"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_scrolldown" />
+        </android.support.constraint.ConstraintLayout>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="2.5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="2.5dp"
         android:weightSum="1">
 
         <TextView
             style="@style/LabelText"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.3"
+            android:layout_height="match_parent"
+            android:layout_weight="0.25"
+            android:gravity="center_vertical"
+            android:padding="0dp"
             android:text="@string/grade_level"
-            android:textColor="@color/theme_menu_button" />
+            android:textColor="@color/theme_menu_button"
+            android:textSize="18sp" />
 
-        <Spinner
-            android:id="@+id/sp_grade_level_filter"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.7"
-            android:dropDownWidth="match_parent"></Spinner>
+            android:layout_weight="0.75">
+
+            <ImageView
+                android:id="@+id/iv_operator_outline4"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/sp_grade_level_filter"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/white"
+                android:dropDownWidth="match_parent"
+                android:entries="@array/gender_filter_array"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></Spinner>
+
+            <ImageView
+                android:id="@+id/cont_operator_arrow_color2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="1dp"
+                android:background="@color/theme_menu_button"
+                android:contentDescription="@string/cd_blank"
+                app:layout_constraintBottom_toBottomOf="@+id/cont_operator_arrow2"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="@+id/cont_operator_arrow2"
+                app:layout_constraintStart_toStartOf="@+id/cont_operator_arrow2"
+                app:layout_constraintTop_toTopOf="@+id/cont_operator_arrow2" />
+
+            <ImageView
+                android:id="@+id/cont_operator_arrow2"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginEnd="3dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/cd_blank"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_scrolldown" />
+        </android.support.constraint.ConstraintLayout>
+
     </LinearLayout>
 
 </LinearLayout>
