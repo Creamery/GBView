@@ -180,7 +180,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     ArrayList<Dataset> datasets;
     /* attributes for addFilterDialog */
     ArrayList<String> gradeLevels;
-    private TextView tvDataset, tvFilter, tvChart, tvData, tvRightChart, tvDataHeader, tvDataHeaderYear, tvSpecificTitle;
+    private TextView tvDataset, tvFilter, tvChart, tvRightChart, tvDataHeader, tvDataHeaderYear, tvSpecificTitle;
     private Spinner spRecordColumn, spChartType, spRightChart;
     private String recordColumn = "BMI", rightChartContent = "National Profile";
 
@@ -304,7 +304,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        tvTitle = (TextView) findViewById(R.id.tv_data_visualization_title);
         tvDataset = (TextView) findViewById(R.id.tv_dv_dataset);
         tvFilter = (TextView) findViewById(R.id.tv_dv_filter);
-        tvData = (TextView) findViewById(R.id.tv_dv_data);
         tvRightChart = (TextView) findViewById(R.id.tv_dv_right_chart);
         btnAddDataset = (Button) findViewById(R.id.btn_add_dataset);
         btnAddFilter = (Button) findViewById(R.id.btn_add_filter);
