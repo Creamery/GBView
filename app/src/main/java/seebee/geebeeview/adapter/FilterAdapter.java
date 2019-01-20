@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import seebee.geebeeview.R;
+import seebee.geebeeview.model.monitoring.PatientRecord;
 
 /**
  * The FilterAdapter class is used to control and facilitate the methods
@@ -49,17 +50,17 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterAdap
             holder.tvFilterClose.setText("X");
         }
         /* when x button is clicked the item should be removed */
-        holder.tvFilterClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.removeFilter(filterList.get(position));
-                //filterList.remove(position);
-                if(filterList.size() == 0) {
-                    filterList.add("N/A");
-                }
-                notifyDataSetChanged();
-            }
-        });
+//        holder.tvFilterClose.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mListener.removeFilter(filterList.get(position));
+//                //filterList.remove(position);
+//                if(filterList.size() == 0) {
+//                    filterList.add("N/A");
+//                }
+//                notifyDataSetChanged();
+//            }
+//        }); // TODO removed
     }
 
     @Override
@@ -68,7 +69,8 @@ public class FilterAdapter extends RecyclerView.Adapter<FilterAdapter.FilterAdap
     }
 
     public interface FilterAdapterListener {
-        void removeFilter(String filter);
+//        void removeFilter(String filter);
+        void removeFilter(ArrayList<PatientRecord> records, String filter);
     }
 
     public class FilterAdapterViewHolder extends RecyclerView.ViewHolder {

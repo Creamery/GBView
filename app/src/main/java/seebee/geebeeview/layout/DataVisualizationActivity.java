@@ -436,6 +436,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         /* initialized the fitlered list */
         recordsLeft = new ArrayList<>();
+//        recordsRight = new ArrayList<>();
         getGradeLevels();
         getDatasetList();
         addDatasetToList(schoolName, date);
@@ -1305,8 +1306,18 @@ public class DataVisualizationActivity extends AppCompatActivity
         Log.v(TAG, "number of datasets: " + datasetList.size());
         datasetAdapter.notifyDataSetChanged();
         /* get records of patients taken in specified school and date from database */
+
+
         prepareRecord();
         addDatasetRefresh();
+    }
+
+    public void prepareRecord() {
+        if(recordsRight == null) {
+            prepareRightChartRecords(INDEX_NATIONAL);
+        }
+        prepareRecord(recordsLeft);
+        prepareRecord(recordsRight);
     }
 
     public void addDatasetRefresh() { // TODO spinner dynamic
@@ -1347,7 +1358,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         refreshCharts();
     }
 
-    private void prepareRecord(/*String schoolName, String date*/){
+    private void prepareRecord(ArrayList<PatientRecord> records/*String schoolName, String date*/){
         DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
         /* ready database for reading */
         try {
@@ -1357,7 +1368,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
         /* get patient records from database */
         //Log.d(TAG, "number of dataset = "+datasetList.size());
-        recordsLeft.clear();
+        records.clear();
         for(int i = 0; i < datasetList.size(); i++) {
             String dataset = datasetList.get(i);
             String school = dataset.substring(0, dataset.indexOf("("));
@@ -1366,14 +1377,16 @@ public class DataVisualizationActivity extends AppCompatActivity
             int schoolId = getSchoolId(school, date);
             //Log.d(TAG, "schoolId = "+schoolId);
             if(schoolId != -1) {
-                recordsLeft.addAll(getBetterDb.getRecordsFromSchool(schoolId, date));
+                records.addAll(getBetterDb.getRecordsFromSchool(schoolId, date));
                 Log.d(TAG, "added dataset: "+dataset);
             }
         }
 
-        if(recordsRight == null) {
-            prepareRightChartRecords(INDEX_NATIONAL);
-        }
+        // TODO records right equivalent
+//        if(recordsRight == null) {
+//            prepareRightChartRecords(INDEX_NATIONAL);
+//        }
+
         /* close database after query */
         getBetterDb.closeDatabase();
     }
@@ -1647,7 +1660,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 //                    preparePieChartData(pieChartRight, yDataRight);
 //                    break;
                 case INDEX_SCATTER:
-                    prepareScatterChartData();
+//                    prepareScatterChartData();
                     break;
             }
         }
@@ -1674,79 +1687,79 @@ public class DataVisualizationActivity extends AppCompatActivity
         return yVals1;
     }
 
-    private void prepareScatterChartData() {
-        ArrayList<Entry> yVals1, yVals2;
-        ArrayList<Integer> colors = getColorPalette();
-
-        List<IScatterDataSet> scatterDataSetList = new ArrayList<>();
-        ScatterData scatterData;
-        if(!recordColumn.contains("BMI")) {
-            yVals1 = createEntries(yDataLeft);
-            yVals2 = createEntries(yDataRight);
-
-            ScatterDataSet scatterDataSet = new ScatterDataSet(yVals1, "Chart Left");
-            ScatterDataSet scatterDataSet2 = new ScatterDataSet(yVals2, rightChartContent);
-            /* set the shape of drawn scatter point. */
-            scatterDataSet.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
-            scatterDataSet2.setScatterShape(ScatterChart.ScatterShape.TRIANGLE);
-            scatterDataSet.setColor(colors.get(0));
-            scatterDataSet2.setColor(colors.get(1));
-
-            scatterDataSetList.add(scatterDataSet);
-            scatterDataSetList.add(scatterDataSet2);
-
-//            scatterData = new ScatterData(xData, scatterDataSetList); // TODO deprecated
-            scatterData = new ScatterData(scatterDataSetList);
-
-
-            scatterChart.getLegend().resetCustom();
-        } else {
-            PatientRecord patientRecord; int age, category;
-            ScatterDataSet scatterDataSet;
-            for(int i = 0; i < recordsLeft.size(); i++) {
-                yVals1 = new ArrayList<>();
-                patientRecord = recordsLeft.get(i);
-                for(int j = 0; j < possibleAge.length; j++) {
-                    age = Integer.valueOf(possibleAge[j]);
-                    if(patientRecord.getAge() == age) {
-                        category = ValueCounter.getBMICategoryIndex(patientRecord.getBMIResultString());
-//                        yVals1.add(new Entry(patientRecord.getBMIResult(), j)); TODO edited
-                        yVals1.add(new Entry(j, patientRecord.getBMIResult()));
-                        scatterDataSet = new ScatterDataSet(yVals1, xData[category]);
-                        scatterDataSet.setColor(colors.get(category));
-                        scatterDataSet.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
-                        scatterDataSetList.add(scatterDataSet);
-                    }
-                }
-            }
-            Log.v(TAG, "Scatter List Size: "+scatterDataSetList.size());
-
-            scatterData = new ScatterData(scatterDataSetList);
-//            scatterData = new ScatterData(possibleAge, scatterDataSetList); TODO deprecated
-
-            Legend legend = scatterChart.getLegend();
-            int color[] = new int[xData.length];
-            for(int k = 0; k < xData.length; k++) {
-                color[k] = colors.get(k);
-            }
-//            legend.setCustom(color, xData); TODO deprecated
-            LegendEntry entry;
-            ArrayList<LegendEntry> entries = new ArrayList<LegendEntry>();
-            for(int i = 0; i < color.length; i++) {
-                entry = new LegendEntry();
-                entry.formColor = color[i];
-                entry.label = xData[i];
-                entries.add(entry);
-            }
-
-        }
-
-        scatterChart.setData(scatterData);
-
-        scatterChart.getAxisLeft().setEnabled(false);
-        customizeChart(scatterChart, scatterChart.getAxisRight());
-
-    }
+//    private void prepareScatterChartData() {
+//        ArrayList<Entry> yVals1, yVals2;
+//        ArrayList<Integer> colors = getColorPalette();
+//
+//        List<IScatterDataSet> scatterDataSetList = new ArrayList<>();
+//        ScatterData scatterData;
+//        if(!recordColumn.contains("BMI")) {
+//            yVals1 = createEntries(yDataLeft);
+//            yVals2 = createEntries(yDataRight);
+//
+//            ScatterDataSet scatterDataSet = new ScatterDataSet(yVals1, "Chart Left");
+//            ScatterDataSet scatterDataSet2 = new ScatterDataSet(yVals2, rightChartContent);
+//            /* set the shape of drawn scatter point. */
+//            scatterDataSet.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
+//            scatterDataSet2.setScatterShape(ScatterChart.ScatterShape.TRIANGLE);
+//            scatterDataSet.setColor(colors.get(0));
+//            scatterDataSet2.setColor(colors.get(1));
+//
+//            scatterDataSetList.add(scatterDataSet);
+//            scatterDataSetList.add(scatterDataSet2);
+//
+////            scatterData = new ScatterData(xData, scatterDataSetList); // TODO deprecated
+//            scatterData = new ScatterData(scatterDataSetList);
+//
+//
+//            scatterChart.getLegend().resetCustom();
+//        } else {
+//            PatientRecord patientRecord; int age, category;
+//            ScatterDataSet scatterDataSet;
+//            for(int i = 0; i < recordsLeft.size(); i++) {
+//                yVals1 = new ArrayList<>();
+//                patientRecord = recordsLeft.get(i);
+//                for(int j = 0; j < possibleAge.length; j++) {
+//                    age = Integer.valueOf(possibleAge[j]);
+//                    if(patientRecord.getAge() == age) {
+//                        category = ValueCounter.getBMICategoryIndex(patientRecord.getBMIResultString());
+////                        yVals1.add(new Entry(patientRecord.getBMIResult(), j)); TODO edited
+//                        yVals1.add(new Entry(j, patientRecord.getBMIResult()));
+//                        scatterDataSet = new ScatterDataSet(yVals1, xData[category]);
+//                        scatterDataSet.setColor(colors.get(category));
+//                        scatterDataSet.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
+//                        scatterDataSetList.add(scatterDataSet);
+//                    }
+//                }
+//            }
+//            Log.v(TAG, "Scatter List Size: "+scatterDataSetList.size());
+//
+//            scatterData = new ScatterData(scatterDataSetList);
+////            scatterData = new ScatterData(possibleAge, scatterDataSetList); TODO deprecated
+//
+//            Legend legend = scatterChart.getLegend();
+//            int color[] = new int[xData.length];
+//            for(int k = 0; k < xData.length; k++) {
+//                color[k] = colors.get(k);
+//            }
+////            legend.setCustom(color, xData); TODO deprecated
+//            LegendEntry entry;
+//            ArrayList<LegendEntry> entries = new ArrayList<LegendEntry>();
+//            for(int i = 0; i < color.length; i++) {
+//                entry = new LegendEntry();
+//                entry.formColor = color[i];
+//                entry.label = xData[i];
+//                entries.add(entry);
+//            }
+//
+//        }
+//
+//        scatterChart.setData(scatterData);
+//
+//        scatterChart.getAxisLeft().setEnabled(false);
+//        customizeChart(scatterChart, scatterChart.getAxisRight());
+//
+//    }
 
 //    private void prepareBarChartData() {
 //
@@ -2817,22 +2830,28 @@ public class DataVisualizationActivity extends AppCompatActivity
         // Clear AGE filter
         for(int i = 0; i < filterList.size(); i++) {
             if(filterList.get(i).contains("age")){
-                removeFilter(filterList.get(i));
+                removeFilters(recordsLeft, recordsRight, filterList.get(i));
+//                removeFilter(recordsLeft, filterList.get(i));
+//                removeFilter(recordsRight, filterList.get(i));
             }
         }
 
         // Clear GENDER filter
         for(int i = 0; i < filterList.size(); i++) {
             if(filterList.get(i).contains("gender")){
-                removeFilter(filterList.get(i));
+                removeFilters(recordsLeft, recordsRight, filterList.get(i));
+//                removeFilter(recordsLeft, filterList.get(i));
+//                removeFilter(recordsRight, filterList.get(i));
             }
         }
 
         // Clear GRADE LEVEL filter
         for(int i = 0; i < filterList.size(); i++) {
-//            if(filterList.get(i).contains("grade level")){
-                removeFilter(filterList.get(i));
-//            }
+            if(filterList.get(i).contains("grade level")){
+                removeFilters(recordsLeft, recordsRight, filterList.get(i));
+//            removeFilter(recordsLeft, filterList.get(i));
+//            removeFilter(recordsRight, filterList.get(i));
+            }
         }
 
     }
@@ -2856,10 +2875,13 @@ public class DataVisualizationActivity extends AppCompatActivity
         if(!ageValue.trim().contentEquals("")) {
             for(int i = 0; i < filterList.size(); i++) {
                 if(filterList.get(i).contains("age")){
-                    removeFilter(filterList.get(i));
+                    removeFilters(recordsLeft, recordsRight, filterList.get(i));
+//                    removeFilter(recordsLeft, filterList.get(i));
+//                    removeFilter(recordsRight, filterList.get(i));
                 }
             }
-            filterRecordsByAge(ageEquator, ageValue);
+            filterRecordsByAge(recordsLeft, ageEquator, ageValue);
+            filterRecordsByAge(recordsRight, ageEquator, ageValue);
             prepareFilterList("age "+ageEquator+" "+ageValue);
             strFilter += "age "+ageEquator.toString()+" "+ageValue;
             filterCount ++;
@@ -2867,10 +2889,13 @@ public class DataVisualizationActivity extends AppCompatActivity
         if(!genderValue.trim().contentEquals("N/A")) {
             for(int i = 0; i < filterList.size(); i++) {
                 if(filterList.get(i).contains("gender")){
-                    removeFilter(filterList.get(i));
+                    removeFilters(recordsLeft, recordsRight, filterList.get(i));
+//                    removeFilter(recordsLeft, filterList.get(i));
+//                    removeFilter(recordsRight, filterList.get(i));
                 }
             }
-            filterRecordsByGender(genderValue);
+            filterRecordsByGender(recordsLeft, genderValue);
+            filterRecordsByGender(recordsRight, genderValue);
             prepareFilterList("gender = "+genderValue);
             if(!strFilter.equals("")) {
                 strFilter += ", ";
@@ -2881,10 +2906,13 @@ public class DataVisualizationActivity extends AppCompatActivity
         if(!gradeLevelValue.trim().contentEquals("N/A")) {
             for(int i = 0; i < filterList.size(); i++) {
                 if(filterList.get(i).contains("grade level")){
-                    removeFilter(filterList.get(i));
+                    removeFilters(recordsLeft, recordsRight, filterList.get(i));
+//                    removeFilter(recordsLeft, filterList.get(i));
+//                    removeFilter(recordsRight, filterList.get(i));
                 }
             }
-            filterRecordsByGradeLevel(gradeLevelValue);
+            filterRecordsByGradeLevel(recordsLeft, gradeLevelValue);
+            filterRecordsByGradeLevel(recordsRight, gradeLevelValue);
             prepareFilterList("grade level = "+gradeLevelValue);
 
             if(!strFilter.equals("")) {
@@ -2904,26 +2932,26 @@ public class DataVisualizationActivity extends AppCompatActivity
         showFilterPrompt(strFilter+". ");
     }
 
-    private void filterRecordsByGender(String genderValue) {
+    private void filterRecordsByGender(ArrayList<PatientRecord> records, String genderValue) {
         Log.d(TAG, "Gender Filter: "+genderValue);
-        for(int i = 0; i < recordsLeft.size(); i ++) {
-            if(genderValue.contentEquals("Female") && !recordsLeft.get(i).getGender()) {
-                recordsLeft.remove(i);
+        for(int i = 0; i < records.size(); i ++) {
+            if(genderValue.contentEquals("Female") && !records.get(i).getGender()) {
+                records.remove(i);
                 i--;
 
-            } else if(genderValue.contentEquals("Male") && recordsLeft.get(i).getGender()){
-                recordsLeft.remove(i);
+            } else if(genderValue.contentEquals("Male") && records.get(i).getGender()){
+                records.remove(i);
                 i--;
             }
         }
-//        for(int i = 0; i < recordsLeft.size(); i++) {
-//            Log.d(TAG, "Filtered Gender = "+recordsLeft.get(i).getGender());
+//        for(int i = 0; i < records.size(); i++) {
+//            Log.d(TAG, "Filtered Gender = "+records.get(i).getGender());
 //        }
     }
 
-    private void filterRecordsByAge(String filterEquator, String filterValue) {
+    private void filterRecordsByAge(ArrayList<PatientRecord> records, String filterEquator, String filterValue) {
         // sort list according to age, ascending order
-        Collections.sort(recordsLeft, new Comparator<PatientRecord>() {
+        Collections.sort(records, new Comparator<PatientRecord>() {
             @Override
             public int compare(PatientRecord o1, PatientRecord o2) {
                 if(o1.getAge() > o2.getAge()) {
@@ -2935,58 +2963,70 @@ public class DataVisualizationActivity extends AppCompatActivity
             }
         });
         int value = Integer.valueOf(filterValue);
-        int index = getIndexByProperty(value);
+        int index = getIndexByProperty(records, value);
         Log.d(TAG, "Index: "+ index);
         ArrayList<PatientRecord> tempArray = new ArrayList<>();
         if(index != -1) {
             if(filterEquator.contains("=")) {
-                int endIndex = getIndexByProperty(value+1);
+                int endIndex = getIndexByProperty(records,value+1);
                 if(endIndex == -1) {
-                    tempArray.addAll(recordsLeft.subList(index, recordsLeft.size()-1));
+                    tempArray.addAll(records.subList(index, records.size()-1));
                 } else {
-                    tempArray.addAll(recordsLeft.subList(index, endIndex));
+                    tempArray.addAll(records.subList(index, endIndex));
                 }
             }
             if(filterEquator.contains("<")) {
-                tempArray.addAll(recordsLeft.subList(0, index));
+                tempArray.addAll(records.subList(0, index));
             } else if(filterEquator.contains(">")) {
-                tempArray.addAll(recordsLeft.subList(index, recordsLeft.size() - 1));
+                tempArray.addAll(records.subList(index, records.size() - 1));
             }
-            recordsLeft.clear();
-            recordsLeft.addAll(tempArray);
-//            for(int i = 0; i < recordsLeft.size(); i++) {
-//                Log.d(TAG, "Age: "+ recordsLeft.get(i).getAge());
+            records.clear();
+            records.addAll(tempArray);
+//            for(int i = 0; i < records.size(); i++) {
+//                Log.d(TAG, "Age: "+ records.get(i).getAge());
 //            }
         } else {
             Toast.makeText(this, "There is no one with that age!", Toast.LENGTH_SHORT).show();
         }
+
+        // Also filter comparison equivalent
+//        filterRecordsByAgeComparison(filterEquator, filterValue);
     }
+
     /* Get index of the first record with the specified age value*/
-    private int getIndexByProperty(int value) {
-        for(int i = 0; i < recordsLeft.size(); i++) {
-            if(recordsLeft.get(i).getAge() == value) {
+    private int getIndexByProperty(ArrayList<PatientRecord> records, int value) {
+        for(int i = 0; i < records.size(); i++) {
+            if(records.get(i).getAge() == value) {
                 return i;
             }
         }
         return -1;
     }
 
-    private void filterRecordsByGradeLevel(String gradeLevel) {
+    private void filterRecordsByGradeLevel(ArrayList<PatientRecord> records, String gradeLevel) {
         Log.d(TAG, "Grade Level Filter: "+gradeLevel);
-        for(int i = 0; i < recordsLeft.size(); i++) {
-            if(!recordsLeft.get(i).getGradeLevel().contentEquals(gradeLevel)) {
-                //Log.d(TAG, "filter record: "+ recordsLeft.get(i).getGradeLevel());
-                recordsLeft.remove(i);
+        for(int i = 0; i < records.size(); i++) {
+            if(!records.get(i).getGradeLevel().contentEquals(gradeLevel)) {
+                //Log.d(TAG, "filter record: "+ records.get(i).getGradeLevel());
+                records.remove(i);
                 i--;
             }
         }
     }
 
-    @Override
-    public void removeFilter(String filter) {
+    public void removeFilters(ArrayList<PatientRecord> recordLeft, ArrayList<PatientRecord> recordsRight, String filter) {
         prepareRecord();
         Log.d(TAG, "Removed Filter: "+filter);
         filterList.remove(filter);
+        removeFilter(recordsLeft, filter);
+        removeFilter(recordsRight, filter);
+
+    }
+    @Override
+    public void removeFilter(ArrayList<PatientRecord> records, String filter) {
+//        prepareRecord();
+//        Log.d(TAG, "Removed Filter: "+filter);
+//        filterList.remove(filter);
 
         if(filterList.size() > 0) {
             String filterLeft = filterList.get(0);
@@ -2994,15 +3034,15 @@ public class DataVisualizationActivity extends AppCompatActivity
                 filterLeft = filterList.get(i);
                 Log.d(TAG, "Filter Left: "+filterLeft);
                 if(filterLeft.contains("age")) {
-                    filterRecordsByAge(String.valueOf(filterLeft.charAt(4)), filterLeft.substring(6));
+                    filterRecordsByAge(records, String.valueOf(filterLeft.charAt(4)), filterLeft.substring(6));
                 } else if(filterLeft.contains("gender")) {
-                    filterRecordsByGender(filterLeft.substring(9));
+                    filterRecordsByGender(records, filterLeft.substring(9));
                 } else if(filterLeft.contains("grade level")) {
-                    filterRecordsByGradeLevel(String.valueOf(filterLeft.substring(14)));
+                    filterRecordsByGradeLevel(records, String.valueOf(filterLeft.substring(14)));
                 }
             }
         }
-        Log.d(TAG, "Displayed records: "+ recordsLeft.size());
+        Log.d(TAG, "Displayed records: "+ records.size());
 
         refreshCharts();
     }
