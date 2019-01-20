@@ -3,10 +3,8 @@ package seebee.geebeeview.layout;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteConstraintException;
-import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -21,7 +19,7 @@ import java.sql.SQLException;
 import seebee.geebeeview.R;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.model.account.User;
-import seebee.geebeeview.sidebar.General;
+import seebee.geebeeview.containers.General;
 
 public class MainActivity extends AppCompatActivity {
 

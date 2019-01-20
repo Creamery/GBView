@@ -15,6 +15,14 @@
     <string name="dateCreated">Date</string>
 
 
+    <string name="loading">Loading. Please wait...</string>
+
+    <string name="filter_template">Data is filtered by </string>
+    <string name="click_to_remove">Tap to remove</string>
+    <string name="overview_title">School Health Statistics</string>
+    <string name="national_title">School to National Health Comparison</string>
+    <string name="highlight_highest">Showing highest values per category</string>
+    <string name="highlight_target">Showing target values per category</string>
 
     <string name="sidebar_no_options">No options available</string>
 
@@ -80,6 +88,11 @@
     <string name="bmi">BMI</string>
     <string name="remarks">Remarks</string>
 
+
+    <string name="overview">Overview</string>
+    <string name="num_50">50%</string>
+
+
     <string name="patient_remarks">Patient</string>
     <string name="record_remarks">Record</string>
 
@@ -101,6 +114,14 @@
     <string name="non_dominant">Non-Dominant</string>
     <string name="hold">Hold</string>
 
+
+    <string name="hearing_left">Hearing Left</string>
+    <string name="hearing_right">Hearing Right</string>
+
+    <string name="fine_motor_dominant">Fine Motor (Dominant)</string>
+    <string name="fine_motor_non_dominant">Fine Motor (Non-dominant)</string>
+    <string name="fine_motor_hold">Fine Motor (Hold)</string>
+
     <string name="view_hpi">CONSULTATION RECORDS</string>
     <string name="view_immunization">IMMUNIZATION RECORDS</string>
     <string name="refresh_dataset_list">REFRESH</string>
@@ -118,6 +139,15 @@
     <string name="close">X</string>
 
     <string name="no_immunizaiton">Patient has no immunization records!</string>
+
+
+    <string-array name="vision_labels_array">
+        <item>BMI</item>
+        <item>Visual Acuity Left</item>
+        <item>Visual Acuity Right</item>
+        <item>Color Vision</item>
+        <item>Hearing Left</item>
+    </string-array>
 
     <string-array name="record_column_array">
         <item>BMI</item>
@@ -148,10 +178,9 @@
     </string-array>
 
     <string-array name="chart_type_array">
-        <item>Pie Chart</item>
-        <item>Bar Chart</item>
-        <item>Scatter Chart</item>
-        <item>Bubble Chart</item>
+        <item>School Health Overview</item>
+        <item>National Comparison</item>
+        <item>Municipality Comparison</item>
     </string-array>
 
     <string-array name="right_chart_content_array">

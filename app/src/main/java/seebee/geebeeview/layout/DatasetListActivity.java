@@ -1,7 +1,6 @@
 package seebee.geebeeview.layout;
 
 import android.content.pm.ActivityInfo;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -38,8 +37,7 @@ import seebee.geebeeview.database.VolleySingleton;
 import seebee.geebeeview.model.account.Dataset;
 import seebee.geebeeview.model.consultation.School;
 import seebee.geebeeview.sidebar.DataListSidebar;
-import seebee.geebeeview.sidebar.DataVisualizationSidebar;
-import seebee.geebeeview.sidebar.General;
+import seebee.geebeeview.containers.General;
 
 public class DatasetListActivity extends AppCompatActivity {
     private final static String TAG =  "ViewDatasetListActivity";
@@ -68,16 +66,21 @@ public class DatasetListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                Toast.makeText(getApplicationContext(), "Refreshing list...",Toast.LENGTH_SHORT).show();
                 // Close sidebar if extended
-                if(sidebarManager.isSidebarOpen()) {
-                    Toast.makeText(getApplicationContext(), "Refreshing list...",Toast.LENGTH_SHORT).show();
-                    sidebarManager.getBtnOpenSidebar().performClick();
-                }
+//                if(sidebarManager.isSidebarOpen()) {
+//                    sidebarManager.getBtnOpenSidebar().performClick();
+//                }
+                Toast.makeText(getApplicationContext(), "Refreshing list. Please wait...",Toast.LENGTH_SHORT).show();
 
-                prepareDatasetList();
-//                Toast.makeText(getApplicationContext(), "Refreshing list...",Toast.LENGTH_SHORT).show();
+
+                // Run on thread to show toast
+                new Thread(new Runnable() {
+                    public void run() {
+                        prepareDatasetList();
+                    }
+                }).start();
+
+//                prepareDatasetList();
             }
         });
 
@@ -127,6 +130,17 @@ public class DatasetListActivity extends AppCompatActivity {
 //
 //        setupSidebarFunctionality();
     }
+
+//    public void promptLoadingGraphs() {
+////        Toast.makeText(getApplicationContext(), "Loading graphs...",Toast.LENGTH_LONG).show();
+//        this.runOnUiThread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Toast.makeText(getApplicationContext(), "Loading graphs...",Toast.LENGTH_LONG).show();
+//            }
+//        });
+//
+//    }
 
     public void setupSidebarFunctionality () {
         // TODO About, Immun, HPI functionality
@@ -219,15 +233,30 @@ public class DatasetListActivity extends AppCompatActivity {
         //datasetList.addAll(getBetterDb.getAllDatasets());
         for(Dataset dataset:getBetterDb.getAllDatasets()) {
             datasetList.add(dataset);
-
-            datasetAdapter.notifyDataSetChanged();
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    datasetAdapter.notifyDataSetChanged();
+                }
+            });
         }
         //Log.d("NUMBER OF DATA PLS", "WTF" + Integer.toString(getBetterDb.getAllDatasets().size()));
         /* close database after insert */
         getBetterDb.closeDatabase();
 
         //Log.v("DatasetListActivity", "number of datasets = " + datasetList.size());
-        datasetAdapter.notifyDataSetChanged();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                datasetAdapter.notifyDataSetChanged();
+
+                if(sidebarManager != null && sidebarManager.isSidebarOpen()) {
+                    sidebarManager.getBtnOpenSidebar().performClick();
+                    Toast.makeText(getApplicationContext(), "Update complete",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
     private void updateDatasets(){

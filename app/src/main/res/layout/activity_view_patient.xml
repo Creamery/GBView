@@ -757,7 +757,8 @@
                 android:padding="3dp"
                 android:text="@string/patient_record"
                 android:textAppearance="@style/DefaultText"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/theme_sidebar_extend_item0"
+                android:textStyle="bold"
                 app:autoSizePresetSizes="@array/autosize_text_sizes" />
         </RelativeLayout>
 

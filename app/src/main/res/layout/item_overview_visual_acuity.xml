@@ -1,0 +1,723 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/cont_stack_visual_acuity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cont_stack_va_left"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <Space
+                android:id="@+id/space14_va_left"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="8.25"
+                app:layout_constraintStart_toEndOf="@+id/iv_va_left_size_ref"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_va_left_size_ref"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="false"
+                android:contentDescription="@string/cd_blank"
+                android:cropToPadding="false"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/space14_va_left"
+                app:layout_constraintHorizontal_weight="1.75"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/img_sidebar_empty" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_graph_va_left_details"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="6">
+
+                <Space
+                    android:id="@+id/space_va_left_top_details"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_start_va_left"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="2" />
+
+                <Space
+                    android:id="@+id/space_va_left_bottom_details"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/space_va_left_center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/space_end_va_left"
+                    app:layout_constraintVertical_weight="2" />
+
+                <Space
+                    android:id="@+id/space_end_va_left"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/space_va_left_bottom_details"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1.5"
+                    app:layout_constraintStart_toEndOf="@+id/space_va_left_center"
+                    app:layout_constraintTop_toBottomOf="@+id/space_va_left_top_details"
+                    app:layout_constraintVertical_weight="6" />
+
+                <Space
+                    android:id="@+id/space_graph_container_va_left_start"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/graph_container_va_left"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RelativeLayout
+                    android:id="@+id/graph_container_va_left"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="1dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical|center_horizontal|fill"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/space_graph_container_va_left_end"
+                    app:layout_constraintHorizontal_weight="8"
+                    app:layout_constraintStart_toEndOf="@+id/space_graph_container_va_left_start"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </RelativeLayout>
+
+                <Space
+                    android:id="@+id/space_graph_container_va_left_end"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/graph_container_va_left"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/space_va_left_center"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/space_end_va_left"
+                    app:layout_constraintHorizontal_weight="7"
+                    app:layout_constraintStart_toEndOf="@+id/tv_start_va_left"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </android.support.constraint.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_start_va_left"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toTopOf="@+id/space_va_left_bottom_details"
+                    app:layout_constraintEnd_toStartOf="@+id/space_va_left_center"
+                    app:layout_constraintHorizontal_weight="1.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/space_va_left_top_details"
+                    app:layout_constraintVertical_weight="6" />
+
+                <Space
+                    android:id="@+id/space_end_va_left_padding"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_end_va_left"
+                    app:layout_constraintHorizontal_weight="8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_end_va_left"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/num_50"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toTopOf="@+id/space_va_left_bottom_details"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="2"
+                    app:layout_constraintStart_toEndOf="@+id/space_end_va_left_padding"
+                    app:layout_constraintTop_toBottomOf="@+id/space_va_left_top_details"
+                    app:layout_constraintVertical_weight="6" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_va_left_graph_focus_title"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="50dp"
+                android:gravity="bottom"
+                android:text="@string/left"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                app:layout_constraintBottom_toTopOf="@+id/tv_va_left_graph_center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent
+"
+                app:layout_constraintVertical_weight="2.5" />
+
+            <TextView
+                android:id="@+id/tv_va_left_graph_center"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="4dp"
+                android:gravity="center_vertical"
+                android:textAlignment="center"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                app:layout_constraintBottom_toTopOf="@+id/space_va_left_bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_va_left_graph_focus_title"
+                app:layout_constraintVertical_weight="5" />
+
+            <Space
+                android:id="@+id/space_va_left_bottom"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_va_left_graph_center"
+                app:layout_constraintVertical_weight="2" />
+
+            <Space
+                android:id="@+id/space_va_left_title_top"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_va_left_graph_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="7" />
+
+            <TextView
+                android:id="@+id/tv_va_left_graph_title"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/overview"
+                android:textAlignment="center"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/space_va_left_title_top"
+                app:layout_constraintVertical_weight="3" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cont_stack_va_right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <Space
+                android:id="@+id/space14_va_right"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="8.25"
+                app:layout_constraintStart_toEndOf="@+id/iv_va_right_size_ref"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_va_right_size_ref"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="false"
+                android:contentDescription="@string/cd_blank"
+                android:cropToPadding="false"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/space14_va_right"
+                app:layout_constraintHorizontal_weight="1.75"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/img_sidebar_empty" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_graph_va_right_details"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="6">
+
+                <Space
+                    android:id="@+id/space_va_right_top_details"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_start_va_right"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="2" />
+
+                <Space
+                    android:id="@+id/space_va_right_bottom_details"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/space_va_right_center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/space_end_va_right"
+                    app:layout_constraintVertical_weight="2" />
+
+                <Space
+                    android:id="@+id/space_end_va_right"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/space_va_right_bottom_details"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1.5"
+                    app:layout_constraintStart_toEndOf="@+id/space_va_right_center"
+                    app:layout_constraintTop_toBottomOf="@+id/space_va_right_top_details"
+                    app:layout_constraintVertical_weight="6" />
+
+                <Space
+                    android:id="@+id/space_graph_container_va_right_start"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/graph_container_va_right"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RelativeLayout
+                    android:id="@+id/graph_container_va_right"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="1dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical|center_horizontal|fill"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/space_graph_container_va_right_end"
+                    app:layout_constraintHorizontal_weight="8"
+                    app:layout_constraintStart_toEndOf="@+id/space_graph_container_va_right_start"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </RelativeLayout>
+
+                <Space
+                    android:id="@+id/space_graph_container_va_right_end"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/graph_container_va_right"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/space_va_right_center"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/space_end_va_right"
+                    app:layout_constraintHorizontal_weight="7"
+                    app:layout_constraintStart_toEndOf="@+id/tv_start_va_right"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </android.support.constraint.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_start_va_right"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toTopOf="@+id/space_va_right_bottom_details"
+                    app:layout_constraintEnd_toStartOf="@+id/space_va_right_center"
+                    app:layout_constraintHorizontal_weight="1.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/space_va_right_top_details"
+                    app:layout_constraintVertical_weight="6" />
+
+                <Space
+                    android:id="@+id/space_end_va_right_padding"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_end_va_right"
+                    app:layout_constraintHorizontal_weight="8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_end_va_right"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/num_50"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toTopOf="@+id/space_va_right_bottom_details"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="2"
+                    app:layout_constraintStart_toEndOf="@+id/space_end_va_right_padding"
+                    app:layout_constraintTop_toBottomOf="@+id/space_va_right_top_details"
+                    app:layout_constraintVertical_weight="6" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_va_right_graph_focus_title"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="50dp"
+                android:gravity="bottom"
+                android:text="@string/right"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                app:layout_constraintBottom_toTopOf="@+id/tv_va_right_graph_center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent
+"
+                app:layout_constraintVertical_weight="2.5" />
+
+            <TextView
+                android:id="@+id/tv_va_right_graph_center"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="4dp"
+                android:gravity="center_vertical"
+                android:textAlignment="center"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                app:layout_constraintBottom_toTopOf="@+id/space_va_right_bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_va_right_graph_focus_title"
+                app:layout_constraintVertical_weight="5" />
+
+            <Space
+                android:id="@+id/space_va_right_bottom"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_va_right_graph_center"
+                app:layout_constraintVertical_weight="2" />
+
+            <Space
+                android:id="@+id/space_va_right_title_top"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_va_right_graph_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="7" />
+
+            <TextView
+                android:id="@+id/tv_va_right_graph_title"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/overview"
+                android:textAlignment="center"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/space_va_right_title_top"
+                app:layout_constraintVertical_weight="3" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cont_stack_va_color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <Space
+                android:id="@+id/space14_va_color"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="8.25"
+                app:layout_constraintStart_toEndOf="@+id/iv_va_color_size_ref"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_va_color_size_ref"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="false"
+                android:contentDescription="@string/cd_blank"
+                android:cropToPadding="false"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/space14_va_color"
+                app:layout_constraintHorizontal_weight="1.75"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/img_sidebar_empty" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_graph_va_color_details"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="6">
+
+                <Space
+                    android:id="@+id/space_va_color_top_details"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_start_va_color"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="2" />
+
+                <Space
+                    android:id="@+id/space_va_color_bottom_details"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/space_va_color_center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/space_end_va_color"
+                    app:layout_constraintVertical_weight="2" />
+
+                <Space
+                    android:id="@+id/space_end_va_color"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/space_va_color_bottom_details"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1.5"
+                    app:layout_constraintStart_toEndOf="@+id/space_va_color_center"
+                    app:layout_constraintTop_toBottomOf="@+id/space_va_color_top_details"
+                    app:layout_constraintVertical_weight="6" />
+
+                <Space
+                    android:id="@+id/space_graph_container_va_color_start"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/graph_container_va_color"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <RelativeLayout
+                    android:id="@+id/graph_container_va_color"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="1dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical|center_horizontal|fill"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/space_graph_container_va_color_end"
+                    app:layout_constraintHorizontal_weight="8"
+                    app:layout_constraintStart_toEndOf="@+id/space_graph_container_va_color_start"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </RelativeLayout>
+
+                <Space
+                    android:id="@+id/space_graph_container_va_color_end"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="1"
+                    app:layout_constraintStart_toEndOf="@id/graph_container_va_color"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/space_va_color_center"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/space_end_va_color"
+                    app:layout_constraintHorizontal_weight="7"
+                    app:layout_constraintStart_toEndOf="@+id/tv_start_va_color"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </android.support.constraint.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_start_va_color"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:gravity="center_vertical"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toTopOf="@+id/space_va_color_bottom_details"
+                    app:layout_constraintEnd_toStartOf="@+id/space_va_color_center"
+                    app:layout_constraintHorizontal_weight="1.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/space_va_color_top_details"
+                    app:layout_constraintVertical_weight="6" />
+
+                <Space
+                    android:id="@+id/space_end_va_color_padding"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cont_tv_end_va_color"
+                    app:layout_constraintHorizontal_weight="8"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_tv_end_va_color"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/space_va_color_bottom_details"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="2"
+                    app:layout_constraintStart_toEndOf="@+id/space_end_va_color_padding"
+                    app:layout_constraintTop_toBottomOf="@+id/space_va_color_top_details"
+                    app:layout_constraintVertical_weight="6" >
+
+                    <TextView
+                        android:id="@+id/tv_end_va_color"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/num_50"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_end_va_color_bottom"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_end_va_color_bottom"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/num_50"
+                        android:visibility="gone"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_end_va_color" />
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_va_color_graph_focus_title"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="50dp"
+                android:gravity="bottom"
+                android:text="@string/color_vision"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                app:layout_constraintBottom_toTopOf="@+id/tv_va_color_graph_center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent
+"
+                app:layout_constraintVertical_weight="2.5" />
+
+            <TextView
+                android:id="@+id/tv_va_color_graph_center"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="4dp"
+                android:gravity="center_vertical"
+                android:textAlignment="center"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                app:layout_constraintBottom_toTopOf="@+id/space_va_color_bottom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_va_color_graph_focus_title"
+                app:layout_constraintVertical_weight="5" />
+
+            <Space
+                android:id="@+id/space_va_color_bottom"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_va_color_graph_center"
+                app:layout_constraintVertical_weight="2" />
+
+            <Space
+                android:id="@+id/space_va_color_title_top"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/tv_va_color_graph_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_weight="7" />
+
+            <TextView
+                android:id="@+id/tv_va_color_graph_title"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:text="@string/overview"
+                android:textAlignment="center"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/space_va_color_title_top"
+                app:layout_constraintVertical_weight="3" />
+
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

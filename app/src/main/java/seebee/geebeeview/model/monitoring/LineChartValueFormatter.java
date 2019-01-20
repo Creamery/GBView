@@ -2,10 +2,13 @@ package seebee.geebeeview.model.monitoring;
 
 import android.util.Log;
 
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.formatter.YAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+//import com.github.mikephil.charting.formatter.ValueFormatter;
+//import com.github.mikephil.charting.formatter.YAxisValueFormatter;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 
@@ -17,14 +20,24 @@ public class LineChartValueFormatter  {
     //private final static float[] visualAcuity = {-200f, -100f, -70f, -50f, -40f, -30f, -30f, -25f, 20f, -15f, -10f, -5f};
     private final static String TAG = "LineChartValueFormatter";
 
-    public static YAxisValueFormatter getYAxisValueFormatterBMI(final IdealValue idealValue) {
-        return new YAxisValueFormatter() {
+    public static IAxisValueFormatter getYAxisValueFormatterBMI(final IdealValue idealValue) {
+        return new IAxisValueFormatter() {
             @Override
-            public String getFormattedValue(float v, YAxis yAxis) {
+            public String getFormattedValue(float v, AxisBase axisBase) {
                 return ConvertBMI(v, idealValue);
             }
         };
     }
+
+    // TODO deprecated
+//    public static YAxisValueFormatter getYAxisValueFormatterBMI(final IdealValue idealValue) {
+//        return new YAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, YAxis yAxis) {
+//                return ConvertBMI(v, idealValue);
+//            }
+//        };
+//    }
 
     private static String ConvertBMI(float v, IdealValue idealValue) {
         String result = "";
@@ -74,15 +87,26 @@ public class LineChartValueFormatter  {
         return value;
     }
 
-    public static YAxisValueFormatter getYAxisValueFormatterVisualAcuity() {
+    public static IAxisValueFormatter getYAxisValueFormatterVisualAcuity() {
         Log.v(TAG, "getYAxisValueFormatter");
-        return new YAxisValueFormatter() {
+        return new IAxisValueFormatter() {
             @Override
-            public String getFormattedValue(float v, YAxis yAxis) {
+            public String getFormattedValue(float v, AxisBase axisBase) {
                 return ConvertVisualAcuity(v);
             }
         };
     }
+
+    // TODO Deprecated
+//    public static IAxisValueFormatter  getYAxisValueFormatterVisualAcuity() {
+//        Log.v(TAG, "getYAxisValueFormatter");
+//        return new YAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, YAxis yAxis) {
+//                return ConvertVisualAcuity(v);
+//            }
+//        };
+//    }
 
     private static String ConvertVisualAcuity(float v) {
         String result;
@@ -114,14 +138,24 @@ public class LineChartValueFormatter  {
         return result;
     }
 
-    public static ValueFormatter getValueFormatterVisualAcuity() {
-        return new ValueFormatter() {
+    public static IValueFormatter getValueFormatterVisualAcuity() {
+        return new IValueFormatter() {
             @Override
             public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
                 return ConvertVisualAcuity(v);
             }
         };
     }
+
+    // TODO deprecated
+//    public static ValueFormatter getValueFormatterVisualAcuity() {
+//        return new ValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
+//                return ConvertVisualAcuity(v);
+//            }
+//        };
+//    }
 
     public static float ConvertColorVision(String colorVision) {
         float result;
@@ -132,15 +166,23 @@ public class LineChartValueFormatter  {
         }
         return result;
     }
-
-    public static YAxisValueFormatter getYAxisValueFormatterColorVision() {
-        return new YAxisValueFormatter() {
+    public static IAxisValueFormatter getYAxisValueFormatterColorVision() {
+        return new IAxisValueFormatter() {
             @Override
-            public String getFormattedValue(float v, YAxis yAxis) {
+            public String getFormattedValue(float v, AxisBase axisBase) {
                 return ConvertColorVision(v);
             }
         };
     }
+    // TODO deprecated
+//    public static YAxisValueFormatter getYAxisValueFormatterColorVision() {
+//        return new YAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, YAxis yAxis) {
+//                return ConvertColorVision(v);
+//            }
+//        };
+//    }
 
     private static String ConvertColorVision(float v) {
         String result;
@@ -152,14 +194,24 @@ public class LineChartValueFormatter  {
         return result;
     }
 
-    public static ValueFormatter getValueFormatterColorVision() {
-        return new ValueFormatter() {
+    public static IValueFormatter getValueFormatterColorVision() {
+        return new IValueFormatter() {
             @Override
             public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
                 return ConvertColorVision(v);
             }
         };
     }
+
+    // TODO derpecated
+//    public static ValueFormatter getValueFormatterColorVision() {
+//        return new ValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
+//                return ConvertColorVision(v);
+//            }
+//        };
+//    }
 
     public static float ConvertHearing(String hearing) {
         float result = 0;
@@ -198,23 +250,43 @@ public class LineChartValueFormatter  {
         return result;
     }
 
-    public static YAxisValueFormatter getYAxisValueFormatterHearing() {
-        return new YAxisValueFormatter() {
+
+    public static IAxisValueFormatter getYAxisValueFormatterHearing() {
+        return new IAxisValueFormatter() {
             @Override
-            public String getFormattedValue(float v, YAxis yAxis) {
+            public String getFormattedValue(float v, AxisBase axisBase) {
                 return ConvertHearing(v);
             }
         };
     }
 
-    public static ValueFormatter getValueFormatterHearing() {
-        return new ValueFormatter() {
+    public static IValueFormatter getValueFormatterHearing() {
+        return new IValueFormatter() {
             @Override
             public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
                 return ConvertHearing(v);
             }
         };
     }
+
+    // TODO deprecated
+//    public static YAxisValueFormatter getYAxisValueFormatterHearing() {
+//        return new YAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, YAxis yAxis) {
+//                return ConvertHearing(v);
+//            }
+//        };
+//    }
+//
+//    public static ValueFormatter getValueFormatterHearing() {
+//        return new ValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
+//                return ConvertHearing(v);
+//            }
+//        };
+//    }
 
     private static String ConvertMotor(float v) {
         String result = "N/A";
@@ -225,18 +297,17 @@ public class LineChartValueFormatter  {
         }
         return result;
     }
-
-    public static YAxisValueFormatter getYAxisValueFormatterMotor() {
-        return new YAxisValueFormatter() {
+    public static IAxisValueFormatter getYAxisValueFormatterMotor() {
+        return new IAxisValueFormatter() {
             @Override
-            public String getFormattedValue(float v, YAxis yAxis) {
+            public String getFormattedValue(float v, AxisBase axisBase) {
                 return ConvertMotor(v);
             }
         };
     }
 
-    public static ValueFormatter getValueFormatterMotor() {
-        return new ValueFormatter() {
+    public static IValueFormatter getValueFormatterMotor() {
+        return new IValueFormatter() {
             @Override
             public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
                 return ConvertMotor(v);
@@ -244,12 +315,40 @@ public class LineChartValueFormatter  {
         };
     }
 
-    public static ValueFormatter getValueFormatterBMI(final IdealValue idealValue) {
-        return new ValueFormatter() {
+    public static IValueFormatter getValueFormatterBMI(final IdealValue idealValue) {
+        return new IValueFormatter() {
             @Override
             public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
                 return ConvertBMI(v, idealValue);
             }
         };
     }
+
+    // TODO deprecated
+//    public static YAxisValueFormatter getYAxisValueFormatterMotor() {
+//        return new YAxisValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, YAxis yAxis) {
+//                return ConvertMotor(v);
+//            }
+//        };
+//    }
+//
+//    public static ValueFormatter getValueFormatterMotor() {
+//        return new ValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
+//                return ConvertMotor(v);
+//            }
+//        };
+//    }
+//
+//    public static ValueFormatter getValueFormatterBMI(final IdealValue idealValue) {
+//        return new ValueFormatter() {
+//            @Override
+//            public String getFormattedValue(float v, Entry entry, int i, ViewPortHandler viewPortHandler) {
+//                return ConvertBMI(v, idealValue);
+//            }
+//        };
+//    }
 }

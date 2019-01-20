@@ -9,8 +9,14 @@ import java.util.Map;
  */
 
 public class ValueCounter {
-    private static String[] lblVisualAcuity = {"20/200", "20/100", "20/70", "20/50", "20/40", "20/30", "20/25", "20/20",
-            "20/15", "20/10", "20/5"};
+    private static String[] lblVisualAcuity = {
+            "20/200", // Severe Loss
+            "20/100", "20/70", // Moderate Loss
+            "20/50", "20/40", "20/30", // Near-normal
+            "20/25", "20/20", "20/15", "20/10", "20/5"}; // Normal
+
+    // Visual Acuity (11 items) Must be equivalent to ColorThemes.csVISION
+
     private final String TAG = "Value Counter";
     int[] possibleAge = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
     int[] tempCount;
@@ -19,8 +25,8 @@ public class ValueCounter {
     private int[] valVisualAcuityRight = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private String[] lblColorVision = {"Normal", "Abnormal"};
     private int[] valColorVision = {0, 0};
-    private String[] lblHearing = {"Normal Hearing", "Mild Hearing Loss", "Moderate Hearing Loss",
-            "Moderately-Servere Hearing Loss", "Severe Hearing Loss", "Profound Hearing Loss"};
+    private String[] lblHearing = {"Normal", "Mild Loss", "Moderate Loss",
+            "Moderately-Severe Loss", "Severe Loss", "Profound Loss"};
     private int[] valHearingLeft = {0, 0, 0, 0, 0, 0};
     private int[] valHearingRight = {0, 0, 0, 0, 0, 0};
     private String[] lblGrossMotor = {"Pass", "Fail", "N/A"};
@@ -33,6 +39,19 @@ public class ValueCounter {
     private String[] lblBMI = {"Underweight", "Normal", "Overweight", "Obese", "N/A"};
     private int[] valBMI = {0, 0, 0, 0, 0};
     private ArrayList<PatientRecord> patientRecords;
+
+
+
+    // BMI, VA_L, VA_R, COLOR, HEAR_L, HEAR_R, GM, FM_D, FM_NON, FM_H
+//    private static final int[] idealValueIndices = {1, };
+    public static final String[] targetValueIndices = {
+            "Normal", // BMI
+            "20/20", "20/20", "Normal", // VA
+            "Normal", "Normal", // HEAR
+            "Pass", // GM
+            "Pass", "Pass", "Hold"}; // FM
+
+
 
     public ValueCounter(ArrayList<PatientRecord> patientRecords) {
         this.patientRecords = patientRecords;

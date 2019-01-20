@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false">
+
+    <ScrollView
+        android:id="@+id/scroll_graph_overview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="15dp"
+        android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb_red"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/cont_graph_all"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="30dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_section_heading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/bmi"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+            <ImageView
+                android:id="@+id/iv_bar5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_stack_bmi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+                <Space
+                    android:id="@+id/space14"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_weight="8.25"
+                    app:layout_constraintStart_toEndOf="@+id/iv_bmi_size_ref"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_conversion_absoluteHeight="1dp"
+                    tools:layout_conversion_absoluteWidth="1dp" />
+
+                <ImageView
+                    android:id="@+id/iv_bmi_size_ref"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="false"
+                    android:contentDescription="@string/cd_blank"
+                    android:cropToPadding="false"
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/space14"
+                    app:layout_constraintHorizontal_weight="1.75"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/img_sidebar_empty"
+                    tools:layout_conversion_absoluteHeight="200dp"
+                    tools:layout_conversion_absoluteWidth="200dp" />
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_graph_bmi_details"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="6">
+
+                    <Space
+                        android:id="@+id/space_bmi_top_details"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/tv_start_bmi"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_weight="2" />
+
+                    <Space
+                        android:id="@+id/space_bmi_bottom_details"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/space_bmi_center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/space_end_bmi"
+                        app:layout_constraintVertical_weight="2" />
+
+                    <Space
+                        android:id="@+id/space_end_bmi"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toTopOf="@+id/space_bmi_bottom_details"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1.5"
+                        app:layout_constraintStart_toEndOf="@+id/space_bmi_center"
+                        app:layout_constraintTop_toBottomOf="@+id/space_bmi_top_details"
+                        app:layout_constraintVertical_weight="6" />
+
+                    <Space
+                        android:id="@+id/space_graph_container_bmi_start"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/graph_container_bmi"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <RelativeLayout
+                        android:id="@+id/graph_container_bmi"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginStart="1dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical|center_horizontal|fill"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/space_graph_container_bmi_end"
+                        app:layout_constraintHorizontal_weight="8"
+                        app:layout_constraintStart_toEndOf="@+id/space_graph_container_bmi_start"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_conversion_absoluteHeight="1dp"
+                        tools:layout_conversion_absoluteWidth="1dp">
+
+                    </RelativeLayout>
+
+                    <Space
+                        android:id="@+id/space_graph_container_bmi_end"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@id/graph_container_bmi"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/space_bmi_center"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/space_end_bmi"
+                        app:layout_constraintHorizontal_weight="7"
+                        app:layout_constraintStart_toEndOf="@+id/tv_start_bmi"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:layout_conversion_absoluteHeight="1dp"
+                        tools:layout_conversion_absoluteWidth="1dp">
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/tv_start_bmi"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center_vertical"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toTopOf="@+id/space_bmi_bottom_details"
+                        app:layout_constraintEnd_toStartOf="@+id/space_bmi_center"
+                        app:layout_constraintHorizontal_weight="1.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/space_bmi_top_details"
+                        app:layout_constraintVertical_weight="6" />
+
+                    <Space
+                        android:id="@+id/space_end_bmi_padding"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_end_bmi"
+                        app:layout_constraintHorizontal_weight="8"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_end_bmi"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/num_50"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toTopOf="@+id/space_bmi_bottom_details"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="2"
+                        app:layout_constraintStart_toEndOf="@+id/space_end_bmi_padding"
+                        app:layout_constraintTop_toBottomOf="@+id/space_bmi_top_details"
+                        app:layout_constraintVertical_weight="6" />
+
+                </android.support.constraint.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_bmi_graph_focus_title"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="50dp"
+                    android:gravity="bottom"
+                    android:text="@string/bmi"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_bmi_graph_center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent
+"
+                    app:layout_constraintVertical_weight="2.5"
+                    tools:layout_conversion_absoluteHeight="19dp"
+                    tools:layout_conversion_absoluteWidth="26dp" />
+
+                <TextView
+                    android:id="@+id/tv_bmi_graph_center"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="4dp"
+                    android:gravity="center_vertical"
+                    android:textAlignment="center"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toTopOf="@+id/space_bmi_bottom"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_bmi_graph_focus_title"
+                    app:layout_constraintVertical_weight="5" />
+
+                <Space
+                    android:id="@+id/space_bmi_bottom"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_bmi_graph_center"
+                    app:layout_constraintVertical_weight="2" />
+
+                <Space
+                    android:id="@+id/space_bmi_title_top"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toTopOf="@+id/tv_bmi_graph_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_weight="7" />
+
+                <TextView
+                    android:id="@+id/tv_bmi_graph_title"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    android:gravity="center"
+                    android:text="@string/overview"
+                    android:textAlignment="center"
+                    app:autoSizePresetSizes="@array/autosize_text_sizes"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/space_bmi_title_top"
+                    app:layout_constraintVertical_weight="3"
+                    tools:layout_conversion_absoluteHeight="19dp"
+                    tools:layout_conversion_absoluteWidth="26dp" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_section_heading2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/visual_acuity"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+            <ImageView
+                android:id="@+id/iv_bar"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank" />
+
+            <include
+                android:id="@+id/include_stack_visual_acuity"
+                layout="@layout/item_overview_visual_acuity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_section_heading3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/hearing"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+            <ImageView
+                android:id="@+id/iv_bar2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank" />
+
+            <include
+                android:id="@+id/include_stack_hearing"
+                layout="@layout/item_overview_hearing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_section_heading4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/gross_motor"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+            <ImageView
+                android:id="@+id/iv_bar3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank" />
+
+            <include
+                android:id="@+id/include_stack_gross_motor"
+                layout="@layout/item_overview_gross_motor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_section_heading5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="5dp"
+                android:text="@string/fine_motor"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
+            <ImageView
+                android:id="@+id/iv_bar4"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/lightGrey"
+                android:contentDescription="@string/cd_blank" />
+
+            <include
+                android:id="@+id/include_stack_fine_motor"
+                layout="@layout/item_overview_fine_motor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

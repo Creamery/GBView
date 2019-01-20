@@ -72,7 +72,7 @@
     <color name="theme_amber50_sidebar_extend_item2">#FFD740</color>
     <color name="theme_amber50_sidebar_extend_item3">#FFE57F</color>
 
-    <color name="theme_amber50_sidebar_extend_noitem">#FFECB3</color>
+    <color name="theme_amber50_sidebar_extend_noitem">#ffecb3</color>
 
     <!-- Cyan50 Theme Colors -->
     <color name="theme_cyan50_sidebar_extend_item0">#00B8D4</color>

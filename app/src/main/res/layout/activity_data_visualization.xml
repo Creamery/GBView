@@ -36,41 +36,6 @@
             app:layout_constraintTop_toBottomOf="@+id/topbar"
             app:layout_constraintVertical_weight="9">
 
-            <LinearLayout
-                android:id="@+id/cont_graph_container"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:baselineAligned="false"
-                android:orientation="horizontal"
-                android:weightSum="1"
-                app:layout_constraintBottom_toBottomOf="@+id/graph_container_center"
-                app:layout_constraintEnd_toEndOf="@+id/spaceright"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cont_graph_items"
-                app:layout_constraintVertical_weight="8.5">
-
-                <RelativeLayout
-                    android:id="@+id/graph_container_left"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:gravity="top">
-
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/graph_container_right"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:clipToPadding="false"
-                    android:gravity="top">
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
             <Space
                 android:id="@+id/spaceright"
                 android:layout_width="0dp"
@@ -83,83 +48,93 @@
                 app:layout_constraintVertical_weight="3" />
 
             <android.support.constraint.ConstraintLayout
-                android:id="@+id/cont_graph_items"
+                android:id="@+id/ll_contents"
+                style="@style/DefaultBackground"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toTopOf="@+id/graph_container_center"
+                android:background="@color/white"
+                android:clipToPadding="false"
+                android:orientation="vertical"
+                android:padding="0dp"
+                android:visibility="visible"
+                android:weightSum="10"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="8.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_weight="1.5">
+                app:layout_constraintTop_toTopOf="parent">
 
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/cont_graph_spinner"
+
+                <include
+                    android:id="@+id/include_visualization_overview"
+                    layout="@layout/section_data_visualization_overview"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_weight="1.5">
-
-                    <android.support.constraint.ConstraintLayout
-                        android:id="@+id/constraintLayout22"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/tv_dv_data"
-                            style="@style/LabelText"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-
-                            android:layout_weight="0.2"
-                            android:gravity="center"
-                            android:text="@string/displayed_data"
-                            app:autoSizePresetSizes="@array/autosize_text_sizes"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/sp_record_column"
-                            app:layout_constraintHorizontal_weight="3"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <Spinner
-                            android:id="@+id/sp_record_column"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-
-                            android:layout_weight="0.2"
-                            android:entries="@array/record_column_array"
-                            android:gravity="center"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_weight="7"
-                            app:layout_constraintStart_toEndOf="@+id/tv_dv_data"
-                            app:layout_constraintTop_toTopOf="parent"></Spinner>
-                    </android.support.constraint.ConstraintLayout>
-
-                </android.support.constraint.ConstraintLayout>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
 
-            <RelativeLayout
-                android:id="@+id/graph_container_center"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:gravity="top"
-                app:layout_constraintBottom_toBottomOf="@+id/spaceleft"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.081"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_graph_items"
+                android:layout_width="114dp"
+                android:layout_height="27dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/spacetop"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/cont_graph_items"
-                app:layout_constraintVertical_weight="8.5">
+                app:layout_constraintTop_toTopOf="@+id/spaceleft"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_weight="1.5">
 
-            </RelativeLayout>
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/constraintLayout22"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_dv_data"
+                        style="@style/LabelText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+
+                        android:layout_weight="0.2"
+                        android:gravity="center"
+                        android:text="@string/displayed_data"
+                        android:visibility="gone"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/sp_record_column"
+                        app:layout_constraintHorizontal_weight="3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Spinner
+                        android:id="@+id/sp_record_column"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+
+                        android:layout_weight="0.2"
+                        android:entries="@array/record_column_array"
+                        android:gravity="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="7"
+                        app:layout_constraintStart_toEndOf="@+id/tv_dv_data"
+                        app:layout_constraintTop_toTopOf="parent"></Spinner>
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_dv_right_chart"
@@ -227,75 +202,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_weight="3" />
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/cont_graph_overview"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/cont_overview_avatar"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:visibility="invisible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/cont_overview_details"
-                    app:layout_constraintHorizontal_weight="3.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <ImageView
-                        android:id="@+id/imageView6"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:contentDescription="@string/cd_blank"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/temp_mascot_256" />
-                </android.support.constraint.ConstraintLayout>
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/cont_overview_details"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_weight="6.5"
-                    app:layout_constraintStart_toEndOf="@+id/cont_overview_avatar"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <android.support.constraint.ConstraintLayout
-                            android:id="@+id/cont_overview_bmi"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                        </android.support.constraint.ConstraintLayout>
-
-                        <android.support.constraint.ConstraintLayout
-                            android:id="@+id/cont_overview_visual_acuity"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                        </android.support.constraint.ConstraintLayout>
-
-                    </LinearLayout>
-                </android.support.constraint.ConstraintLayout>
-            </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
 
@@ -397,67 +303,15 @@
                     android:padding="3dp"
                     android:text="@string/data_visualization"
                     android:textAppearance="@style/DefaultText"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/theme_red50_sidebar_extend_item1"
+                    android:textStyle="bold"
                     app:autoSizePresetSizes="@array/autosize_text_sizes" />
             </RelativeLayout>
 
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.4" />
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1">
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/constraintLayout23"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/tv_dv_chart"
-                        style="@style/LabelText"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-
-                        android:layout_weight="0.1"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:padding="0dp"
-                        android:text="@string/chart"
-                        android:visibility="gone"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/sp_chart_type"
-                        app:layout_constraintHorizontal_weight="3"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Spinner
-                        android:id="@+id/sp_chart_type"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-
-
-                        android:layout_marginStart="1dp"
-                        android:layout_weight="0.2"
-                        android:dropDownWidth="match_parent"
-                        android:entries="@array/chart_type_array"
-                        android:gravity="center"
-                        android:padding="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="7"
-                        app:layout_constraintStart_toEndOf="@+id/tv_dv_chart"
-                        app:layout_constraintTop_toTopOf="parent"></Spinner>
-                </android.support.constraint.ConstraintLayout>
-            </android.support.constraint.ConstraintLayout>
+                android:layout_weight="0.5" />
 
         </LinearLayout>
 
