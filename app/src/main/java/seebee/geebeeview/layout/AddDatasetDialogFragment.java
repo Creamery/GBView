@@ -39,7 +39,7 @@ public class AddDatasetDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_add_dataset, null);
         // pass null because it is a dialog
         builder.setView(view)
-                .setTitle(R.string.add_dataset)
+//                .setTitle(R.string.add_dataset)
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -65,7 +65,7 @@ public class AddDatasetDialogFragment extends DialogFragment {
             setList.add(datasetList.get(i).getSchoolName() + " ("+datasetList.get(i).getDateCreated()+")");
         }
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(getActivity(),
-                R.layout.custom_spinner, setList);
+                R.layout.custom_spinner_light_filter_base, setList);
         spAddDataset.setAdapter(spinnerAdapter);
 
         spAddDataset.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
