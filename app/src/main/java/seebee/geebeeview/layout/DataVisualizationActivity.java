@@ -2160,7 +2160,7 @@ public class DataVisualizationActivity extends AppCompatActivity
             entryColor = entry.findViewById(R.id.iv_legend_color);
             entryText.setText(legendText[i]);
             entryColor.setBackgroundColor(colorThemes[i]);
-            ((ConstraintLayout)this.llBarSpecificLabels.get(i)).addView(entry);
+            (this.llBarSpecificLabels.get(i)).addView(entry);
         }
 //        List<LegendEntry> entries = new ArrayList<LegendEntry>();
 //        LegendEntry entry;
