@@ -48,7 +48,7 @@ public class AddFilterDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_add_filter, null);
         // pass null because it is a dialog
         builder.setView(view)
-                .setTitle(R.string.add_filter)
+//                .setTitle("") // TODO removed
                 // Add action buttons
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override

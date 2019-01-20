@@ -1,58 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:text="@string/add_filter"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:autoSizePresetSizes="@array/autosize_text_sizes" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:weightSum="1">
+
         <TextView
             style="@style/LabelText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/age"/>
+            android:layout_weight="0.25"
+            android:text="@string/age"
+            android:textColor="@color/theme_menu_button" />
+
         <Spinner
             android:id="@+id/sp_age_filter"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:entries="@array/age_filter_array">
-        </Spinner>
+            android:layout_weight="0.25"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/age_filter_array"></Spinner>
+
         <EditText
             android:id="@+id/et_filter"
             style="@style/DefaultText"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:hint="@string/age"
             android:inputType="numberDecimal" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:weightSum="1">
+
         <TextView
             style="@style/LabelText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/gender"/>
+            android:layout_weight="0.3"
+            android:text="@string/gender"
+            android:textColor="@color/theme_menu_button" />
+
         <Spinner
             android:id="@+id/sp_gender_filter"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:entries="@array/gender_filter_array">
-        </Spinner>
+            android:layout_weight="0.7"
+            android:dropDownWidth="match_parent"
+            android:entries="@array/gender_filter_array"></Spinner>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:weightSum="1">
+
         <TextView
             style="@style/LabelText"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/grade_level"/>
+            android:layout_weight="0.3"
+            android:text="@string/grade_level"
+            android:textColor="@color/theme_menu_button" />
+
         <Spinner
             android:id="@+id/sp_grade_level_filter"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        </Spinner>
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.7"
+            android:dropDownWidth="match_parent"></Spinner>
     </LinearLayout>
 
 </LinearLayout>
