@@ -280,12 +280,79 @@
                         android:textAppearance="@style/DefaultText"
                         android:textColor="@color/colorPrimaryDark"
                         android:textStyle="bold"
+                        android:visibility="invisible"
                         app:autoSizePresetSizes="@array/autosize_text_sizes"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_weight="8"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cont_chart_type"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/space_chart_type"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_chart_type_arrow_color"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_chart_type_arrow"
+                            app:layout_constraintHorizontal_weight="9.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/iv_chart_type_arrow_color" />
+
+                        <Spinner
+                            android:id="@+id/sp_chart_type"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+
+
+                            android:dropDownWidth="match_parent"
+                            android:entries="@array/chart_type_array"
+                            android:gravity="center"
+                            android:padding="0dp"
+                            android:popupBackground="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"></Spinner>
+
+                        <ImageView
+                            android:id="@+id/iv_chart_type_arrow_color"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_chart_type_arrow"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintEnd_toEndOf="@+id/iv_chart_type_arrow"
+                            app:layout_constraintStart_toStartOf="@+id/iv_chart_type_arrow"
+                            app:layout_constraintTop_toTopOf="@+id/iv_chart_type_arrow"
+                            app:srcCompat="@color/theme_red50_sidebar_extend_item1" />
+
+                        <ImageView
+                            android:id="@+id/iv_chart_type_arrow"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_weight="0.5"
+                            app:layout_constraintStart_toEndOf="@+id/space_chart_type"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/btn_scrolldown" />
+                    </android.support.constraint.ConstraintLayout>
                 </android.support.constraint.ConstraintLayout>
 
                 <Space

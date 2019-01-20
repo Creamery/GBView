@@ -311,59 +311,7 @@
             <Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.4" />
-
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1">
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/constraintLayout23"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <TextView
-                        android:id="@+id/tv_dv_chart"
-                        style="@style/LabelText"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-
-                        android:layout_weight="0.1"
-                        android:gravity="center"
-                        android:includeFontPadding="false"
-                        android:padding="0dp"
-                        android:text="@string/chart"
-                        android:visibility="gone"
-                        app:autoSizePresetSizes="@array/autosize_text_sizes"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/sp_chart_type"
-                        app:layout_constraintHorizontal_weight="3"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Spinner
-                        android:id="@+id/sp_chart_type"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-
-
-                        android:layout_weight="0.2"
-                        android:dropDownWidth="match_parent"
-                        android:entries="@array/chart_type_array"
-                        android:gravity="center"
-                        android:padding="0dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="7"
-                        app:layout_constraintStart_toEndOf="@+id/tv_dv_chart"
-                        app:layout_constraintTop_toTopOf="parent"></Spinner>
-                </android.support.constraint.ConstraintLayout>
-            </android.support.constraint.ConstraintLayout>
+                android:layout_weight="0.5" />
 
         </LinearLayout>
 

@@ -94,7 +94,8 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private final int INDEX_OVERVIEW = 0;
     private final int INDEX_NATIONAL = 1;
-    private final int INDEX_PIE = 2;
+    private final int INDEX_MUNICIPAL = 2;
+//    private final int INDEX_PIE = 2;
     private final int INDEX_SCATTER = 3;
 
     private static float WEIGHT_FILTER_PROMPT = 0.06125f;
@@ -214,8 +215,10 @@ public class DataVisualizationActivity extends AppCompatActivity
 //            showGraphOverview(); // Remember to make scroll view visible (set invisible in onCreate)
 //        }
         if (spChartType != null) {
+//            ((CustomSpinnerAdapter) spChartType.getAdapter()).adjustFontSize(100); // TODO font size
             spinnerRefresh();
         }
+
     }
     private void showFilterPrompt() {
         this.showFilterPrompt("");
@@ -292,7 +295,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        tvTitle = (TextView) findViewById(R.id.tv_data_visualization_title);
         tvDataset = (TextView) findViewById(R.id.tv_dv_dataset);
         tvFilter = (TextView) findViewById(R.id.tv_dv_filter);
-        tvChart = (TextView) findViewById(R.id.tv_dv_chart);
         tvData = (TextView) findViewById(R.id.tv_dv_data);
         tvRightChart = (TextView) findViewById(R.id.tv_dv_right_chart);
         btnAddDataset = (Button) findViewById(R.id.btn_add_dataset);
@@ -498,30 +500,22 @@ public class DataVisualizationActivity extends AppCompatActivity
         createCharts();
 
 
-//        ArrayAdapter<String> spChartAdapter = new ArrayAdapter<>(this,
-//                R.layout.custom_spinner, getResources().getStringArray(R.array.chart_type_array));
-//        ArrayAdapter<String> spChartAdapter = new ArrayAdapter<>(this,
-//                R.layout.custom_spinner_image, R.id.tv_spinner, getResources().getStringArray(R.array.chart_type_array));
-
-        // TODO spinner
-//        String[] chartNames = getResources().getStringArray(R.array.chart_type_array);
-//        int chartIcons[] = {R.drawable.img_templogo, R.drawable.img_templogo, R.drawable.img_templogo, R.drawable.img_templogo};
-
-//        CustomSpinnerAdapter customAdapter = new CustomSpinnerAdapter(getApplicationContext(),chartIcons,chartNames);
-
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//                R.layout.custom_spinner_image, R.id.tv_spinner, getResources().getStringArray(R.array.chart_type_array));
-
-//        spChartType.setAdapter(new CustomSpinnerAdapter(this, R.layout.custom_spinner_image, getSpinnerList()));
-
         String[] charts = getResources().getStringArray(R.array.chart_type_array);
-        ArrayList<CustomSpinnerItem> list=new ArrayList<>();
+
+        // Image spinner
+        ArrayList<CustomSpinnerItem> list = new ArrayList<>();
         list.add(new CustomSpinnerItem(charts[0],R.drawable.img_circle_trans_greenhighlight)); // TODO change chart icons
         list.add(new CustomSpinnerItem(charts[1],R.drawable.img_circle_trans_greenhighlight));
         list.add(new CustomSpinnerItem(charts[2],R.drawable.img_circle_trans_greenhighlight));
+//        list.add(new CustomSpinnerItem(charts[2],R.drawable.img_circle_trans_greenhighlight));
 //        list.add(new CustomSpinnerItem(charts[3],R.drawable.img_circle_trans_greenhighlight));
         CustomSpinnerAdapter adapter = new CustomSpinnerAdapter(this,
                 R.layout.custom_spinner_image, R.id.tv_spinner, list);
+        spChartType.setAdapter(adapter);
+
+        // Text spinner
+//        ArrayAdapter<String> spChartAdapter = new ArrayAdapter<>(this,
+//                R.layout.custom_spinner, getResources().getStringArray(R.array.chart_type_array));
 
 
         spChartType.setAdapter(adapter);
@@ -541,13 +535,13 @@ public class DataVisualizationActivity extends AppCompatActivity
 
                 // hide control of right chart for scatter and bubble plot
                 // **edited, only show on Pie
-                if(position == INDEX_PIE) {
-                    spRightChart.setVisibility(View.VISIBLE);
-                    tvRightChart.setVisibility(View.VISIBLE);
-                } else {
-                    spRightChart.setVisibility(View.GONE);
-                    tvRightChart.setVisibility(View.GONE);
-                }
+//                if(position == INDEX_PIE) {
+//                    spRightChart.setVisibility(View.VISIBLE);
+//                    tvRightChart.setVisibility(View.VISIBLE);
+//                } else {
+//                    spRightChart.setVisibility(View.GONE);
+//                    tvRightChart.setVisibility(View.GONE);
+//                } // TODO commented out
 
                 refreshChartParams();
                 addDataSet();
@@ -569,24 +563,24 @@ public class DataVisualizationActivity extends AppCompatActivity
             }
         });
 
-        ArrayAdapter<String> spRightChartAdapter = new ArrayAdapter<>(this,
-                R.layout.custom_spinner, getResources().getStringArray(R.array.right_chart_content_array));
-        spRightChart.setAdapter(spRightChartAdapter);
-        spRightChart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                rightChartContent = parent.getItemAtPosition(position).toString();
-                Log.v(TAG, "Right Chart Content: "+rightChartContent);
-                prepareRightChartRecords();
-                refreshCharts();
-                // todo: add code here
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                rightChartContent = parent.getItemAtPosition(0).toString();
-            }
-        });
+//        ArrayAdapter<String> spRightChartAdapter = new ArrayAdapter<>(this, // TODO commented out
+//                R.layout.custom_spinner, getResources().getStringArray(R.array.right_chart_content_array));
+//        spRightChart.setAdapter(spRightChartAdapter);
+//        spRightChart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                rightChartContent = parent.getItemAtPosition(position).toString();
+//                Log.v(TAG, "Right Chart Content: "+rightChartContent);
+//                prepareRightChartRecords();
+//                refreshCharts();
+//                // todo: add code here
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                rightChartContent = parent.getItemAtPosition(0).toString();
+//            }
+//        });
 
         tvDataHeader.setText(schoolName);
         tvDataHeaderYear.setText("Record Date: "+date);
@@ -718,8 +712,9 @@ public class DataVisualizationActivity extends AppCompatActivity
                 spinnerOverview();
                 break;
 
-            case INDEX_PIE:
-                spinnerPie();
+            case INDEX_MUNICIPAL:
+                spinnerMunicipal();
+//                spinnerPie();
                 break;
 
             case INDEX_NATIONAL:
@@ -731,6 +726,11 @@ public class DataVisualizationActivity extends AppCompatActivity
                 break;
         }
     }
+    private void spinnerMunicipal() {
+        spinnerOverview();
+        prepareRightChartRecords(INDEX_MUNICIPAL);
+        refreshCharts();
+    }
 
 
     private void spinnerPie() {
@@ -739,6 +739,8 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private void spinnerNational() {
         spinnerOverview();
+        prepareRightChartRecords(INDEX_NATIONAL);
+        refreshCharts();
     }
 
     private void spinnerScatter() {
@@ -943,19 +945,32 @@ public class DataVisualizationActivity extends AppCompatActivity
         /* change the contents of the chart */
         int position = spChartType.getSelectedItemPosition();
 
-        if(pieChartLeft != null) { // TODO check this condition
+        if(overviewEntries != null && overviewEntries.size() > 0 && overviewEntries.get(0).getStackedBarChart() != null) {
             prepareChartData();
             if(position == INDEX_OVERVIEW) {
                 clearOverviewCharts();
-            } else if(position == INDEX_PIE) {
-                pieChartLeft.clear();
-            } else if(position == INDEX_NATIONAL) {
+            } else if(position == INDEX_MUNICIPAL || position == INDEX_NATIONAL) {
                 clearNationalCharts();
             } else if (position == INDEX_SCATTER) {
                 scatterChart.clear();
             }
             addDataSet();
         }
+
+
+//        if(pieChartLeft != null) { // TODO check this condition
+//            prepareChartData();
+//            if(position == INDEX_OVERVIEW) {
+//                clearOverviewCharts();
+//            } else if(position == INDEX_PIE) {
+//                pieChartLeft.clear();
+//            } else if(position == INDEX_NATIONAL) {
+//                clearNationalCharts();
+//            } else if (position == INDEX_SCATTER) {
+//                scatterChart.clear();
+//            }
+//            addDataSet();
+//        }
     }
 
     // Clear all overview charts
@@ -1307,10 +1322,10 @@ public class DataVisualizationActivity extends AppCompatActivity
 //                spRecordColumn.setVisibility(General.getVisibility(false));
 //            }
 //        } else
-        if(position == INDEX_PIE || position == INDEX_SCATTER) { // Pie Chart
-//            preparePieChart();
-            getSpinnerFunction(position);
-        }
+//        if(position == INDEX_PIE || position == INDEX_SCATTER) { // Pie Chart TODO commented out
+////            preparePieChart();
+//            getSpinnerFunction(position);
+//        }
 //        else if (position == 2) { // Bar Chart
 //            prepareBarChart();
 //        }
@@ -1320,13 +1335,13 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         // hide control of right chart for scatter and bubble plot
         // **edited, only show on Pie
-        if(position == INDEX_PIE) {
-            spRightChart.setVisibility(View.VISIBLE);
-            tvRightChart.setVisibility(View.VISIBLE);
-        } else {
-            spRightChart.setVisibility(View.GONE);
-            tvRightChart.setVisibility(View.GONE);
-        }
+//        if(position == INDEX_PIE) { // TODO commented out
+//            spRightChart.setVisibility(View.VISIBLE);
+//            tvRightChart.setVisibility(View.VISIBLE);
+//        } else {
+//            spRightChart.setVisibility(View.GONE);
+//            tvRightChart.setVisibility(View.GONE);
+//        }
 
         refreshChartParams();
         refreshCharts();
@@ -1357,13 +1372,37 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
 
         if(recordsRight == null) {
-            prepareRightChartRecords();
+            prepareRightChartRecords(INDEX_NATIONAL);
         }
         /* close database after query */
         getBetterDb.closeDatabase();
     }
 
-    private void prepareRightChartRecords() {
+//    private void prepareRightChartRecords() {
+//        DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
+//        /* ready database for reading */
+//        try {
+//            getBetterDb.openDatabaseForRead();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        /* get patient records from database */
+//        String year = date.substring(date.length()-4);
+//        if(rightChartContent.contains("National")) {
+//            recordsRight = getBetterDb.getAllRecordsOnYear(year);
+//        } else if(rightChartContent.contains("Region")){
+//            recordsRight = getBetterDb.getRecordsFromRegionOnYear(schoolID, year);
+//        } else if(rightChartContent.contains("Province")) {
+//            recordsRight = getBetterDb.getRecordsFromProvinceOnYear(schoolID, year);
+//        } else { // same municipality
+//            recordsRight = getBetterDb.getRecordsFromMunicipalityOnYear(schoolID, year);
+//        }
+//        Log.v(TAG, "right records size: "+recordsRight.size());
+//        /* close database after query */
+//        getBetterDb.closeDatabase();
+//    }
+
+    private void prepareRightChartRecords(int comparisonType) {
         DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
         /* ready database for reading */
         try {
@@ -1373,16 +1412,26 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
         /* get patient records from database */
         String year = date.substring(date.length()-4);
-        if(rightChartContent.contains("National")) {
-            recordsRight = getBetterDb.getAllRecordsOnYear(year);
-        } else if(rightChartContent.contains("Region")){
-            recordsRight = getBetterDb.getRecordsFromRegionOnYear(schoolID, year);
-        } else if(rightChartContent.contains("Province")) {
-            recordsRight = getBetterDb.getRecordsFromProvinceOnYear(schoolID, year);
-        } else { // same municipality
-            recordsRight = getBetterDb.getRecordsFromMunicipalityOnYear(schoolID, year);
+
+        switch(comparisonType) {
+            case INDEX_NATIONAL:
+                recordsRight = getBetterDb.getAllRecordsOnYear(year);
+                break;
+            case INDEX_MUNICIPAL:
+                recordsRight = getBetterDb.getRecordsFromMunicipalityOnYear(schoolID, year);
+                break;
+            default:
         }
-        Log.v(TAG, "right records size: "+recordsRight.size());
+//        if(rightChartContent.contains("National")) {
+//            recordsRight = getBetterDb.getAllRecordsOnYear(year);
+//        } else if(rightChartContent.contains("Region")){
+//            recordsRight = getBetterDb.getRecordsFromRegionOnYear(schoolID, year);
+//        } else if(rightChartContent.contains("Province")) {
+//            recordsRight = getBetterDb.getRecordsFromProvinceOnYear(schoolID, year);
+//        } else { // same municipality
+//            recordsRight = getBetterDb.getRecordsFromMunicipalityOnYear(schoolID, year);
+//        }
+
         /* close database after query */
         getBetterDb.closeDatabase();
     }
@@ -1589,13 +1638,14 @@ public class DataVisualizationActivity extends AppCompatActivity
                     loadSpecificBarChart(this.currentRecordColumn);
                     break;
                 case INDEX_NATIONAL:
+                case INDEX_MUNICIPAL:
                     prepareNationalChartData();
                     loadSpecificBarChart(this.currentRecordColumn);
                     break;
-                case INDEX_PIE:
-                    preparePieChartData(pieChartLeft, yDataLeft);
-                    preparePieChartData(pieChartRight, yDataRight);
-                    break;
+//                case INDEX_PIE:
+//                    preparePieChartData(pieChartLeft, yDataLeft);
+//                    preparePieChartData(pieChartRight, yDataRight);
+//                    break;
                 case INDEX_SCATTER:
                     prepareScatterChartData();
                     break;
@@ -1784,6 +1834,7 @@ public class DataVisualizationActivity extends AppCompatActivity
                     prepareSpecificBarChartDataOverview(recordColumns.get(recordIndex));
                     break;
                 case INDEX_NATIONAL:
+                case INDEX_MUNICIPAL:
                     prepareSpecificBarChartDataNational(recordColumns.get(recordIndex));
                     break;
                 default:
@@ -1856,7 +1907,18 @@ public class DataVisualizationActivity extends AppCompatActivity
         String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
         ArrayList<String> barLabelList = new ArrayList<>(Arrays.asList(barLabels));
 
-        barLabelList.add("National Equivalent");
+        switch(spChartType.getSelectedItemPosition()) {
+            case INDEX_MUNICIPAL:
+                barLabelList.add("Municipal Equivalent");
+                break;
+            case INDEX_NATIONAL:
+                barLabelList.add("National Equivalent");
+                break;
+            default:
+                barLabelList.add("National Equivalent");
+        }
+
+
         String[] barLabelWithNational = General.convertToString(barLabelList);
 
         int[] legendColors = ColorThemes.getMergedStackedColorSet(recordType);

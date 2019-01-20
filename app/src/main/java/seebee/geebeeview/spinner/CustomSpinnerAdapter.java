@@ -24,6 +24,11 @@ public class CustomSpinnerAdapter extends ArrayAdapter<CustomSpinnerItem> {
         inflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.groupid=groupid;
     }
+    public void adjustFontSize (float size){
+        View itemView = inflater.inflate(groupid, null, false);
+        TextView textView = itemView.findViewById(R.id.tv_spinner);
+        textView.setTextSize(size);
+    }
 
     public View getView(int position, View convertView, ViewGroup parent ){
         View itemView=inflater.inflate(groupid,parent,false);
