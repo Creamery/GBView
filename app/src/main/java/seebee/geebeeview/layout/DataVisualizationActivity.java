@@ -3061,12 +3061,16 @@ public class DataVisualizationActivity extends AppCompatActivity
                 case FILTER_EQUALS:
                     index = getIndexByProperty(records, value, FILTER_EQUALS);
                     Log.d(TAG, "= Index: "+ index);
-                    endIndex = endIndex = getIndexByProperty(records,value+1, FILTER_EQUALS);
-                    if(index == -1 || endIndex == -1) {
+                    endIndex = getIndexByProperty(records,value+1, FILTER_EQUALS);
+                    if(index != -1 && endIndex != -1) {
+                        tempArray.addAll(records.subList(index, endIndex));
+//                        tempArray.addAll(records.subList(index, records.size()-1));
+                    }
+                    else if(index != -1 && endIndex == -1){
                         tempArray.addAll(records.subList(index, records.size()-1));
                     }
                     else {
-                        tempArray.addAll(records.subList(index, endIndex));
+                        Toast.makeText(this, "There is no one with that age!", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case FILTER_LESS_THAN:
