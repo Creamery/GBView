@@ -49,6 +49,7 @@ import java.util.Collections;
 import java.util.List;
 
 import seebee.geebeeview.R;
+import seebee.geebeeview.containers.StringConstants;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.graphs.PatientChartIAxisFormatter;
 import seebee.geebeeview.model.consultation.Patient;
@@ -763,51 +764,41 @@ public class ViewPatientActivity extends AppCompatActivity {
 //            });
         }
 
-        formatLineChartAxis(lineChart);
+        formatLineChartAxis(lineChart, recordColumn.trim());
         lineChart.notifyDataSetChanged();
     }
 
-    private void formatLineChartAxis(LineChart chart) {
-//        Record record = patientRecords.get(patientRecords.size()-1);
-//        String recordDate = record.getDateCreated();
-//        YAxis leftAxis = chart.getAxisLeft();
-//        leftAxis.setAxisMaximum(patient.getAge(recordDate));
-//        leftAxis.setAxisMinimum(ValueCounter.possibleAge[0]);
-//        leftAxis.setLabelCount(5);
-
-        // the labels that should be drawn on the XAxis
-        final String[] quarters = new String[] { "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19" };
-        final int[] possibleAge = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
-
-        ArrayList<Integer> listAge = new ArrayList<>();
-        Record record = patientRecords.get(patientRecords.size()-1);
-        String recordDate = record.getDateCreated();
-        int age = patient.getAge(recordDate);
-        for(int i = 0; i < patientRecords.size(); i++) {
-            listAge.add(patient.getAge(patientRecords.get(i).getDateCreated()));
-        }
-        Collections.sort(listAge);
-        int ageSize = 20-listAge.get(0);
-        String[] strAgeList = new String[ageSize];
-//        for(int i = 0; i < listAge.size(); i++) {
-//            strAgeList[i] = listAge.get(i)+"";
-//            Log.e("AGE", strAgeList[i]);
-//        }
-//        for(int i = 0; i < 20; i++) {
-        int ageCount = 0;
-        int i = 0 ;
-        do {
-            ageCount = listAge.get(0)+i;
-            strAgeList[i] = ageCount+"";
-            Log.e("AGE", strAgeList[i]);
-            i++;
-        } while(ageCount < 19);
-        IAxisValueFormatter formatter = new PatientChartIAxisFormatter(strAgeList);
-//        IAxisValueFormatter formatter = new PatientChartIAxisFormatter(quarters);
+    private void formatLineChartAxis(LineChart chart, String recordType) {
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
-        xAxis.setValueFormatter(formatter);
+        xAxis.setTextSize(10);
+
+        switch(recordType) {
+            case StringConstants.COL_BMI:
+                ArrayList<Integer> listAge = new ArrayList<>();
+                Record record = patientRecords.get(patientRecords.size()-1);
+                String recordDate = record.getDateCreated();
+                int age = patient.getAge(recordDate);
+                for(int i = 0; i < patientRecords.size(); i++) {
+                    listAge.add(patient.getAge(patientRecords.get(i).getDateCreated()));
+                }
+                Collections.sort(listAge);
+                int ageSize = 20-listAge.get(0);
+                String[] strAgeList = new String[ageSize];
+
+                int ageCount;
+                int i = 0 ;
+                do {
+                    ageCount = listAge.get(0)+i;
+                    strAgeList[i] = ageCount+"";
+                    Log.e("AGE", strAgeList[i]);
+                    i++;
+                } while(ageCount < 19);
+                IAxisValueFormatter formatter = new PatientChartIAxisFormatter(strAgeList);
+                xAxis.setValueFormatter(formatter);
+                break;
+        }
     }
     private LineDataSet createLineDataSet(int index) {
         String datasetDescription;
