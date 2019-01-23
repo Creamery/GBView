@@ -314,6 +314,7 @@
                             android:layout_height="0dp"
 
 
+                            android:background="@color/white"
                             android:dropDownWidth="match_parent"
                             android:entries="@array/chart_type_array"
                             android:gravity="center"

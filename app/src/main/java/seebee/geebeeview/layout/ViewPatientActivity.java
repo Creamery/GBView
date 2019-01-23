@@ -45,10 +45,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import seebee.geebeeview.R;
+import seebee.geebeeview.containers.StringConstants;
 import seebee.geebeeview.database.DatabaseAdapter;
+import seebee.geebeeview.graphs.PatientChartIAxisFormatter;
 import seebee.geebeeview.model.consultation.Patient;
 import seebee.geebeeview.model.monitoring.AgeCalculator;
 import seebee.geebeeview.model.monitoring.BMICalculator;
@@ -56,6 +59,7 @@ import seebee.geebeeview.model.monitoring.IdealValue;
 import seebee.geebeeview.model.monitoring.LineChartValueFormatter;
 import seebee.geebeeview.model.monitoring.Record;
 import seebee.geebeeview.containers.General;
+import seebee.geebeeview.model.monitoring.ValueCounter;
 import seebee.geebeeview.sidebar.PatientSidebar;
 
 public class ViewPatientActivity extends AppCompatActivity {
@@ -651,6 +655,11 @@ public class ViewPatientActivity extends AppCompatActivity {
             /* addIdealValues if column is either height, weight, or BMI */
             if(addIdealValues && age >= 5 && age <= 19) {
                 getIdealValues(age);
+                if(idealValue != null) {
+                    idealValue.printIdealValue();
+                    Log.e("IDEAL", idealValue.getP2SD()+" "+idealValue.getYear());
+
+                }
 //                //Log.v(TAG, recordColumn+"(-3SD): "+idealValue.getN3SD()); TODO edited
 //                /* add -2SD from ideal value data to patient entry, index 3 */
 //                lineData.addEntry(new Entry(idealValue.getP2SD(), i), 2);
@@ -665,18 +674,23 @@ public class ViewPatientActivity extends AppCompatActivity {
 //                /* add -3SD from ideal value data to patient entry, index 2 */
 //                lineData.addEntry(new Entry(idealValue.getN3SD(), i), 7);
 
-                /* add -2SD from ideal value data to patient entry, index 3 */
-                lineData.addEntry(new Entry(i, idealValue.getP2SD()), 2);
-                /* add -1SD from ideal value data to patient entry, index 4 */
-                lineData.addEntry(new Entry(i, idealValue.getP1SD()), 3);
-                /* add median of ideal value data to patient entry, index 5 */
-                lineData.addEntry(new Entry(i, idealValue.getMedian()), 4);
-                /* add 1SD from ideal value data to patient entry, index 6 */
-                lineData.addEntry(new Entry(i, idealValue.getN1SD()), 5);
-                /* add 2SD from ideal value data to patient entry, index 7 */
-                lineData.addEntry(new Entry(i, idealValue.getN2SD()), 6);
-                /* add -3SD from ideal value data to patient entry, index 2 */
-                lineData.addEntry(new Entry(i, idealValue.getN3SD()), 7);
+                if(idealValue != null) {
+                    /* add -2SD from ideal value data to patient entry, index 3 */
+                    lineData.addEntry(new Entry(i, idealValue.getP2SD()), 2);
+                    /* add -1SD from ideal value data to patient entry, index 4 */
+                    lineData.addEntry(new Entry(i, idealValue.getP1SD()), 3);
+                    /* add median of ideal value data to patient entry, index 5 */
+                    lineData.addEntry(new Entry(i, idealValue.getMedian()), 4);
+                    /* add 1SD from ideal value data to patient entry, index 6 */
+                    lineData.addEntry(new Entry(i, idealValue.getN1SD()), 5);
+                    /* add 2SD from ideal value data to patient entry, index 7 */
+                    lineData.addEntry(new Entry(i, idealValue.getN2SD()), 6);
+                    /* add -3SD from ideal value data to patient entry, index 2 */
+                    lineData.addEntry(new Entry(i, idealValue.getN3SD()), 7);
+                }
+                else {
+                    Log.e("IDEAL", "idealValue is null");
+                }
             }
         }
 
@@ -759,8 +773,43 @@ public class ViewPatientActivity extends AppCompatActivity {
 //                }
 //            });
         }
+
+        formatLineChartAxis(lineChart, recordColumn.trim());
+        lineChart.notifyDataSetChanged();
     }
 
+    private void formatLineChartAxis(LineChart chart, String recordType) {
+
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        xAxis.setTextSize(10);
+
+        switch(recordType) {
+            case StringConstants.COL_BMI:
+                ArrayList<Integer> listAge = new ArrayList<>();
+                Record record = patientRecords.get(patientRecords.size()-1);
+                String recordDate = record.getDateCreated();
+                int age = patient.getAge(recordDate);
+                for(int i = 0; i < patientRecords.size(); i++) {
+                    listAge.add(patient.getAge(patientRecords.get(i).getDateCreated()));
+                }
+                Collections.sort(listAge);
+                int ageSize = 20-listAge.get(0);
+                String[] strAgeList = new String[ageSize];
+
+                int ageCount;
+                int i = 0 ;
+                do {
+                    ageCount = listAge.get(0)+i;
+                    strAgeList[i] = ageCount+"";
+                    Log.e("AGE", strAgeList[i]);
+                    i++;
+                } while(ageCount < 19);
+                IAxisValueFormatter formatter = new PatientChartIAxisFormatter(strAgeList);
+                xAxis.setValueFormatter(formatter);
+                break;
+        }
+    }
     private LineDataSet createLineDataSet(int index) {
         String datasetDescription;
         int lineColor;
@@ -827,7 +876,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         LineDataSet lineDataset = new LineDataSet(null, datasetDescription);
         lineDataset.setColor(lineColor);
         lineDataset.setLineWidth(lineWidth);
-        lineDataset.setValueTextSize(15f);
+        lineDataset.setValueTextSize(10f);
 
         if(index == 0) {
             lineDataset.setCircleColor(Color.WHITE);
@@ -871,6 +920,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         l.setForm(Legend.LegendForm.LINE);
         l.setTextColor(Color.BLACK);
         l.setTextSize(LEGEND_TEXT_SIZE);
+
         // customize content of legend
         int color[] = {Color.BLUE, ColorTemplate.getHoloBlue()};
         String label[] = {"Patient", "Average"};

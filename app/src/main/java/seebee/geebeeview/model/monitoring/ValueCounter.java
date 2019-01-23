@@ -18,7 +18,7 @@ public class ValueCounter {
     // Visual Acuity (11 items) Must be equivalent to ColorThemes.csVISION
 
     private final String TAG = "Value Counter";
-    int[] possibleAge = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
+    public static int[] possibleAge = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};
     int[] tempCount;
     Map<Integer, int[]> countBMIPerAge;
     private int[] valVisualAcuityLeft = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};

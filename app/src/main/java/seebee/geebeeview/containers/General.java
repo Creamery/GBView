@@ -94,12 +94,22 @@ public class General {
      * @return
      */
     public static float[] computePercentEquivalent(float[] rawData, float rawDataSum) {
-        float[] percentData = new float[rawData.length];
+        float[] percentData;
+        if(rawData != null) {
+            percentData = new float[rawData.length];
 
-        for(int i = 0; i < rawData.length; i++) {
-            percentData[i] = (rawData[i]/rawDataSum)*100f;
+            for(int i = 0; i < rawData.length; i++) {
+                if(rawDataSum == 0) {
+                    percentData[i] = 0;
+                }
+                else {
+                    percentData[i] = (rawData[i]/rawDataSum)*100f;
+                }
+            }
+
+            return percentData;
         }
-
+        percentData = new float[]{0};
         return percentData;
     }
 
@@ -163,11 +173,14 @@ public class General {
      * @return
      */
     public static float getArraySum(float[] array) {
-        float sum = 0;
-        for(int i = 0; i < array.length; i++) {
-            sum += array[i];
+        if(array != null) {
+            float sum = 0;
+            for (int i = 0; i < array.length; i++) {
+                sum += array[i];
+            }
+            return sum;
         }
-        return sum;
+        return 0;
     }
 
 

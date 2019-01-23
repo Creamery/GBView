@@ -192,10 +192,8 @@
 
     <string-array name="age_filter_array">
         <item>&lt;</item>
-        <item>&lt;=</item>
         <item>=</item>
         <item>&gt;</item>
-        <item>&gt;=</item>
     </string-array>
 
     <string-array name="gender_filter_array">
