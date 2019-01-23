@@ -2,6 +2,9 @@ package seebee.geebeeview.containers;
 
 public class StringConstants {
 
+    // For tabs in patient view
+    public static final String COL_HEIGHT = "Height";
+    public static final String COL_WEIGHT = "Weight";
     // Record columns
     public static final String COL_BMI = "BMI";
     public static final String COL_VA_LEFT = "Visual Acuity Left";
@@ -31,7 +34,12 @@ public class StringConstants {
     public static final String TAR_FINE_NON_DOMINANT = "Pass";
     public static final String TAR_FINE_HOLD = "Hold";
 
-
+    // Indices
+    public static final int INDEX_HEART = 0;
+    public static final int INDEX_EYE = 1;
+    public static final int INDEX_EAR = 2;
+    public static final int INDEX_BODY = 3;
+    public static final int INDEX_HAND = 4;
 
     // Visual Acuity (11 items) Must be equivalent to ColorThemes.csVISION
     public static String[] strVISION = new String[] {
@@ -55,6 +63,8 @@ public class StringConstants {
     public enum MergeType {
         START, CONT, END, NONE
     }
+
+
     public static String getTargetLabel(String recordColumn) {
         switch(recordColumn) {
 
@@ -86,6 +96,8 @@ public class StringConstants {
                 return TAR_BMI;
         }
     }
+
+
     public static String[] getMergedLabels(String recordColumn, String[] originalLabels) {
         switch(recordColumn) {
             case COL_VA_LEFT:

@@ -9,7 +9,7 @@ import java.util.Map;
  */
 
 public class ValueCounter {
-    private static String[] lblVisualAcuity = {
+    public static final String[] lblVisualAcuity = {
             "20/200", // Severe Loss
             "20/100", "20/70", // Moderate Loss
             "20/50", "20/40", "20/30", // Near-normal

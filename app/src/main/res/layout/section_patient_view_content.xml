@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -49,6 +50,8 @@
                         android:id="@+id/constraintLayout23"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:clickable="true"
+                        android:focusable="true"
                         app:layout_constraintBottom_toTopOf="@id/cont_item1_color"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -98,11 +101,35 @@
                             android:id="@+id/iv_item1_color"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:layout_marginEnd="1dp"
+                            android:background="@color/theme_lightgreen50_sidebar_extend_item0"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_item1_color2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_item1_color2"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="@color/theme_lightgreen50_sidebar_extend_item0"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_item1_color3"
+                            app:layout_constraintStart_toEndOf="@+id/iv_item1_color"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_item1_color3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="1dp"
                             android:background="@color/theme_lightgreen50_sidebar_extend_item0"
                             android:contentDescription="@string/cd_blank"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/iv_item1_color2"
                             app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.constraint.ConstraintLayout>
@@ -125,6 +152,8 @@
                         android:id="@+id/constraintLayout24"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:clickable="true"
+                        android:focusable="true"
                         app:layout_constraintBottom_toTopOf="@id/cont_item2_color"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -174,12 +203,38 @@
                             android:id="@+id/iv_item2_color"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:layout_marginEnd="1dp"
+                            android:adjustViewBounds="false"
+                            android:background="@color/theme_lightgreen50_sidebar_extend_item0"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_item2_color2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_item2_color2"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:adjustViewBounds="false"
+                            android:background="@color/theme_lightgreen50_sidebar_extend_item0"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_item2_color3"
+                            app:layout_constraintStart_toEndOf="@+id/iv_item2_color"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_item2_color3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="1dp"
                             android:adjustViewBounds="false"
                             android:background="@color/theme_lightgreen50_sidebar_extend_item0"
                             android:contentDescription="@string/cd_blank"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/iv_item2_color2"
                             app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
 
@@ -203,6 +258,8 @@
                         android:id="@+id/constraintLayout25"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:clickable="true"
+                        android:focusable="true"
                         app:layout_constraintBottom_toTopOf="@id/cont_item3_color"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -251,12 +308,25 @@
                             android:id="@+id/iv_item3_color"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:layout_marginEnd="1dp"
+                            android:adjustViewBounds="false"
+                            android:background="@color/theme_lightgreen50_sidebar_extend_item0"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_item3_color2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_item3_color2"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
                             android:adjustViewBounds="false"
                             android:background="@color/theme_lightgreen50_sidebar_extend_item0"
                             android:contentDescription="@string/cd_blank"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/iv_item3_color"
                             app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.constraint.ConstraintLayout>
@@ -279,6 +349,8 @@
                         android:id="@+id/constraintLayout26"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:clickable="true"
+                        android:focusable="true"
                         app:layout_constraintBottom_toTopOf="@id/cont_item4_color"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -356,6 +428,8 @@
                         android:id="@+id/constraintLayout27"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:clickable="true"
+                        android:focusable="true"
                         app:layout_constraintBottom_toTopOf="@id/cont_item5_color"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -405,12 +479,38 @@
                             android:id="@+id/iv_item5_color"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:layout_marginEnd="1dp"
+                            android:adjustViewBounds="false"
+                            android:background="@color/theme_lightgreen50_sidebar_extend_item0"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_item5_color2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_item5_color2"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:adjustViewBounds="false"
+                            android:background="@color/theme_lightgreen50_sidebar_extend_item0"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/iv_item5_color3"
+                            app:layout_constraintStart_toEndOf="@+id/iv_item5_color"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_item5_color3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="1dp"
                             android:adjustViewBounds="false"
                             android:background="@color/theme_lightgreen50_sidebar_extend_item0"
                             android:contentDescription="@string/cd_blank"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/iv_item5_color2"
                             app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
                 </android.support.constraint.ConstraintLayout>

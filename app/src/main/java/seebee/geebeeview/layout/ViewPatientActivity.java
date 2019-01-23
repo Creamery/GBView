@@ -49,6 +49,7 @@ import java.util.Collections;
 import java.util.List;
 
 import seebee.geebeeview.R;
+import seebee.geebeeview.containers.ColorThemes;
 import seebee.geebeeview.containers.StringConstants;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.graphs.PatientChartIAxisFormatter;
@@ -73,11 +74,22 @@ public class ViewPatientActivity extends AppCompatActivity {
     private TextView tvData, tvDate, tvHeight, tvWeight, tvVisualLeft, tvVisualRight, tvColorVision, tvHearingLeft,
             tvHearingRight, tvGrossMotor, tvFineMotorD, tvFineMotorND, tvFineMotorHold, tvRecordRemark;
     private ImageView ivPatient, ivGender;
+
+    // ImageViews for the colors on the tabs
+    private ImageView
+            ivColorBMI, ivColorHeight, ivColorWeight,
+            ivColorVAL, ivColorVAR, ivColorColor,
+            ivColorHearR, ivColorHearL,
+            ivColorGross,
+            ivColorFineD, ivColorFineND, ivColorFineH;
+
+    // Heart - BMI, Height, Weight ; Eye - VA Left, VA Right, Color Vision ; Ear - Hearing Left, Hearing Right
+    // Body - Gross Motor ; Hand - Fine Dominant, Fine Non-dominant, Fine Hold
+    private ConstraintLayout contHeart, contEye, contEar, contBody, contHand;
+
     private Button btnViewHPI, btnViewImmunization;
     private Spinner spRecordDate;
-//    private LinearLayout llAbout1, llAbout2, llAbout3, llAbout4;
     private ConstraintLayout contAboutTitle0, contAboutTitle1, contAboutTitle2, contAboutTitle3, contAboutTitle4;
-    private TextView tvAboutTitle1, tvAboutTitle2, tvAboutTitle3, tvAboutTitle4;
 
 
     private PatientSidebar sidebarManager;
@@ -106,10 +118,10 @@ public class ViewPatientActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
         adjustDetailFontSize();
 
-        tvAboutTitle1 = (TextView) findViewById(R.id.tv_about_title1);
-        tvAboutTitle2 = (TextView) findViewById(R.id.tv_about_title2);
-        tvAboutTitle3 = (TextView) findViewById(R.id.tv_about_title3);
-        tvAboutTitle4 = (TextView) findViewById(R.id.tv_about_title4);
+//        tvAboutTitle1 = (TextView) findViewById(R.id.tv_about_title1);
+//        tvAboutTitle2 = (TextView) findViewById(R.id.tv_about_title2);
+//        tvAboutTitle3 = (TextView) findViewById(R.id.tv_about_title3);
+//        tvAboutTitle4 = (TextView) findViewById(R.id.tv_about_title4);
 
         contAboutTitle0 = (ConstraintLayout) findViewById(R.id.cont_about_item0_image);
         contAboutTitle1 = (ConstraintLayout) findViewById(R.id.cont_about_item1_image);
@@ -193,7 +205,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         viewMedicalRecord = (View) findViewById(R.id.sectionMedicalRecord);
 
-
+        setupTabFunctionality();
 
         /* set button so that it will go to the HPIListActivity */
         btnViewHPI.setOnClickListener(new View.OnClickListener() {
@@ -338,6 +350,135 @@ public class ViewPatientActivity extends AppCompatActivity {
         Log.e("DEBUG", "Exiting OnCreate");
     }
 
+    public void setupTabColors(Record patientRecord, String bmiText) {
+        int age = patient.getAge(patientRecord.getDateCreated());
+        IdealValue idealRecordValues;
+//        ivColorBMI.setBackgroundColor(ColorThemes.getColor(StringConstants.COL_BMI, bmiText));
+        String recordType;
+
+        recordType = StringConstants.COL_BMI;
+        ivColorBMI.setBackgroundColor(ColorThemes.getColor(recordType, bmiText));
+
+        if(age >= 5 && age <= 19) {
+            recordType = StringConstants.COL_HEIGHT;
+            idealRecordValues = getIdealValues(recordType, age);
+            if(idealRecordValues !=  null) {
+                float height = idealRecordValues.getMedian();
+                // If patient height is higher/equal to median, green ; else, red
+                if(patientRecord.getHeight() >= height) {
+                    ivColorHeight.setBackgroundColor(ColorThemes.cPass);
+                }
+                else {
+                    ivColorHeight.setBackgroundColor(ColorThemes.cFail);
+                }
+            }
+
+            recordType = StringConstants.COL_WEIGHT;
+            idealRecordValues = getIdealValues(recordType, age);
+            if(idealRecordValues !=  null) {
+                float weight = idealRecordValues.getMedian();
+                // If patient weight is higher/equal to median, green ; else, red
+                if(patientRecord.getWeight() >= weight) {
+                    ivColorWeight.setBackgroundColor(ColorThemes.cPass);
+                }
+                else {
+                    ivColorWeight.setBackgroundColor(ColorThemes.cFail);
+                }
+            }
+        }
+
+        recordType = StringConstants.COL_VA_LEFT;
+        ivColorVAL.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getVisualAcuityLeft()));
+        ivColorVAR.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getVisualAcuityRight()));
+
+        recordType = StringConstants.COL_COLOR_VISION;
+        ivColorColor.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getColorVision()));
+//        Log.e("TAB", recordType+" Color Vision "+patientRecord.getColorVision());
+
+        recordType = StringConstants.COL_HEAR_LEFT;
+        ivColorHearL.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getHearingLeft()));
+        ivColorHearR.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getHearingRight()));
+//        Log.e("TAB", "Hear Left "+patientRecord.getHearingLeft());
+//        Log.e("TAB", "Hear Right "+patientRecord.getHearingRight());
+
+        recordType = StringConstants.COL_GROSS_MOTOR;
+        ivColorGross.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getGrossMotorString()));
+
+//        Log.e("TAB", "Gross Motor "+patientRecord.getGrossMotorString());
+
+        recordType = StringConstants.COL_FINE_DOMINANT;
+        ivColorFineD.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getFineMotorString(patientRecord.getFineMotorDominant())));
+        ivColorFineND.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getFineMotorString(patientRecord.getFineMotorNDominant())));
+        ivColorFineH.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getFineMotorString(patientRecord.getFineMotorHold())));
+
+//        Log.e("TAB", "Fine D "+patientRecord.getFineMotorString(patientRecord.getFineMotorDominant()));
+//        Log.e("TAB", "Fine ND "+patientRecord.getFineMotorString(patientRecord.getFineMotorNDominant()));
+//        Log.e("TAB", "Fine H "+patientRecord.getFineMotorString(patientRecord.getFineMotorHold()));
+    }
+
+    public boolean hasIdealValue(String recordColumn) {
+            if(recordColumn.contains(StringConstants.COL_WEIGHT) || recordColumn.contains(StringConstants.COL_HEIGHT) || recordColumn.contains(StringConstants.COL_BMI)) {
+                return true;
+            }
+            return false;
+    }
+
+    public void setupTabFunctionality() {
+
+        ivColorBMI = findViewById(R.id.iv_item1_color);
+        ivColorHeight = findViewById(R.id.iv_item1_color2);
+        ivColorWeight = findViewById(R.id.iv_item1_color3);
+
+        ivColorVAL = findViewById(R.id.iv_item2_color);
+        ivColorVAR = findViewById(R.id.iv_item2_color2);
+        ivColorColor = findViewById(R.id.iv_item2_color3);
+
+        ivColorHearL = findViewById(R.id.iv_item3_color);
+        ivColorHearR = findViewById(R.id.iv_item3_color2);
+
+        ivColorGross = findViewById(R.id.iv_item4_color);
+
+        ivColorFineD = findViewById(R.id.iv_item5_color);
+        ivColorFineND = findViewById(R.id.iv_item5_color2);
+        ivColorFineH = findViewById(R.id.iv_item5_color3);
+
+        contHeart = findViewById(R.id.constraintLayout23);
+        contEye = findViewById(R.id.constraintLayout24);
+        contEar = findViewById(R.id.constraintLayout25);
+        contBody = findViewById(R.id.constraintLayout26);
+        contHand = findViewById(R.id.constraintLayout27);
+
+        contHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spRecordColumn.setSelection(StringConstants.INDEX_HEART);
+            }
+        });
+        contEye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spRecordColumn.setSelection(StringConstants.INDEX_EYE);
+            }
+        });
+        contEar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spRecordColumn.setSelection(StringConstants.INDEX_EAR);
+            }
+        });
+        contBody.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spRecordColumn.setSelection(StringConstants.INDEX_BODY);
+            }
+        });
+        contHand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spRecordColumn.setSelection(StringConstants.INDEX_HAND);
+            }
+        });
+    }
     public void setupSidebarFunctionality () {
         // TODO About, Immun, HPI functionality
         sidebarManager = new PatientSidebar(
@@ -547,6 +688,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         /* display age and grade level according to recordDate */
         tvAge.setText(patient.getAge(recordDate)+"");
         tvGradeLevel.setText(record.getGradeLevel());
+
+        setupTabColors(record, getBMIText(bmi));
 //        Log.d("ABOUTLOG", "GradeLevel: "+record.getGradeLevel());
     }
 
@@ -1047,6 +1190,34 @@ public class ViewPatientActivity extends AppCompatActivity {
         idealValue = getBetterDb.getIdealValue(column, patient.getGender(), age);
         /* close database after retrieval */
         getBetterDb.closeDatabase();
+    }
+
+    private IdealValue getIdealValues(String recordType, int age) {
+        IdealValue idealRecordValue = null;
+        String column;
+
+        // TODO optimize. Try to access DB less
+        if(hasIdealValue(recordType)) {
+            DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
+            /* ready database for reading */
+            try {
+                getBetterDb.openDatabaseForRead();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            /* get ideal value from database */
+            if(recordType.contains("Height")) {
+                column = Record.C_HEIGHT;
+            } else if(recordType.contains("Weight")) {
+                column = Record.C_WEIGHT;
+            } else {
+                column = "bmi";
+            }
+            idealRecordValue = getBetterDb.getIdealValue(column, patient.getGender(), age);
+            /* close database after retrieval */
+            getBetterDb.closeDatabase();
+        }
+        return idealRecordValue;
     }
 
     private void getAverageRecords() {
