@@ -655,6 +655,11 @@ public class ViewPatientActivity extends AppCompatActivity {
             /* addIdealValues if column is either height, weight, or BMI */
             if(addIdealValues && age >= 5 && age <= 19) {
                 getIdealValues(age);
+                if(idealValue != null) {
+                    idealValue.printIdealValue();
+                    Log.e("IDEAL", idealValue.getP2SD()+" "+idealValue.getYear());
+
+                }
 //                //Log.v(TAG, recordColumn+"(-3SD): "+idealValue.getN3SD()); TODO edited
 //                /* add -2SD from ideal value data to patient entry, index 3 */
 //                lineData.addEntry(new Entry(idealValue.getP2SD(), i), 2);
@@ -669,18 +674,23 @@ public class ViewPatientActivity extends AppCompatActivity {
 //                /* add -3SD from ideal value data to patient entry, index 2 */
 //                lineData.addEntry(new Entry(idealValue.getN3SD(), i), 7);
 
-                /* add -2SD from ideal value data to patient entry, index 3 */
-                lineData.addEntry(new Entry(i, idealValue.getP2SD()), 2);
-                /* add -1SD from ideal value data to patient entry, index 4 */
-                lineData.addEntry(new Entry(i, idealValue.getP1SD()), 3);
-                /* add median of ideal value data to patient entry, index 5 */
-                lineData.addEntry(new Entry(i, idealValue.getMedian()), 4);
-                /* add 1SD from ideal value data to patient entry, index 6 */
-                lineData.addEntry(new Entry(i, idealValue.getN1SD()), 5);
-                /* add 2SD from ideal value data to patient entry, index 7 */
-                lineData.addEntry(new Entry(i, idealValue.getN2SD()), 6);
-                /* add -3SD from ideal value data to patient entry, index 2 */
-                lineData.addEntry(new Entry(i, idealValue.getN3SD()), 7);
+                if(idealValue != null) {
+                    /* add -2SD from ideal value data to patient entry, index 3 */
+                    lineData.addEntry(new Entry(i, idealValue.getP2SD()), 2);
+                    /* add -1SD from ideal value data to patient entry, index 4 */
+                    lineData.addEntry(new Entry(i, idealValue.getP1SD()), 3);
+                    /* add median of ideal value data to patient entry, index 5 */
+                    lineData.addEntry(new Entry(i, idealValue.getMedian()), 4);
+                    /* add 1SD from ideal value data to patient entry, index 6 */
+                    lineData.addEntry(new Entry(i, idealValue.getN1SD()), 5);
+                    /* add 2SD from ideal value data to patient entry, index 7 */
+                    lineData.addEntry(new Entry(i, idealValue.getN2SD()), 6);
+                    /* add -3SD from ideal value data to patient entry, index 2 */
+                    lineData.addEntry(new Entry(i, idealValue.getN3SD()), 7);
+                }
+                else {
+                    Log.e("IDEAL", "idealValue is null");
+                }
             }
         }
 
