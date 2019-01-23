@@ -55,15 +55,34 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/iv_item1_image"
+                            android:id="@+id/iv_item1_image_color"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:layout_marginStart="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/theme_menu_button"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_item1_image"
+                            app:layout_constraintEnd_toEndOf="@+id/iv_item1_image"
+                            app:layout_constraintStart_toStartOf="@+id/iv_item1_image"
+                            app:layout_constraintTop_toTopOf="@+id/iv_item1_image" />
+
+                        <ImageView
+                            android:id="@+id/iv_item1_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:adjustViewBounds="true"
                             android:contentDescription="@string/cd_blank"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/img_sidebar_visualize" />
+                            app:srcCompat="@drawable/img_heart_icon_flip" />
+
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -112,15 +131,34 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
+                            android:id="@+id/iv_item2_image_color"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/theme_menu_button"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_item2_image"
+                            app:layout_constraintEnd_toEndOf="@+id/iv_item2_image"
+                            app:layout_constraintStart_toStartOf="@+id/iv_item2_image"
+                            app:layout_constraintTop_toTopOf="@+id/iv_item2_image" />
+
+                        <ImageView
                             android:id="@+id/iv_item2_image"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:adjustViewBounds="true"
                             android:contentDescription="@string/cd_blank"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/img_sidebar_visualize" />
+                            app:srcCompat="@drawable/img_visualize_icon_flip_alter" />
+
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -171,15 +209,33 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/iv_item3_image"
+                            android:id="@+id/iv_item3_image_color"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:layout_marginStart="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/theme_menu_button"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_item3_image"
+                            app:layout_constraintEnd_toEndOf="@+id/iv_item3_image"
+                            app:layout_constraintStart_toStartOf="@+id/iv_item3_image"
+                            app:layout_constraintTop_toTopOf="@+id/iv_item3_image" />
+
+                        <ImageView
+                            android:id="@+id/iv_item3_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:adjustViewBounds="true"
                             android:contentDescription="@string/cd_blank"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/img_sidebar_visualize" />
+                            app:srcCompat="@drawable/img_ear_icon_flip" />
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -229,15 +285,34 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/iv_item4_image"
+                            android:id="@+id/iv_item4_image_color"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:layout_marginStart="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/theme_menu_button"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_item4_image"
+                            app:layout_constraintEnd_toEndOf="@+id/iv_item4_image"
+                            app:layout_constraintStart_toStartOf="@+id/iv_item4_image"
+                            app:layout_constraintTop_toTopOf="@+id/iv_item4_image" />
+
+                        <ImageView
+                            android:id="@+id/iv_item4_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:adjustViewBounds="true"
                             android:contentDescription="@string/cd_blank"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/img_sidebar_visualize" />
+                            app:srcCompat="@drawable/img_sidebar_about_flip" />
+
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
@@ -287,15 +362,34 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/iv_item5_image"
+                            android:id="@+id/iv_item5_image_color"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:layout_marginStart="1dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_marginEnd="1dp"
+                            android:layout_marginBottom="1dp"
+                            android:background="@color/theme_menu_button"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_item5_image"
+                            app:layout_constraintEnd_toEndOf="@+id/iv_item5_image"
+                            app:layout_constraintStart_toStartOf="@+id/iv_item5_image"
+                            app:layout_constraintTop_toTopOf="@+id/iv_item5_image" />
+
+                        <ImageView
+                            android:id="@+id/iv_item5_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginBottom="2dp"
+                            android:adjustViewBounds="true"
                             android:contentDescription="@string/cd_blank"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:srcCompat="@drawable/img_sidebar_visualize" />
+                            app:srcCompat="@drawable/img_hand_icon_flip" />
+
                     </android.support.constraint.ConstraintLayout>
 
                     <android.support.constraint.ConstraintLayout
