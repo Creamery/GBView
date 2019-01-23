@@ -647,21 +647,59 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <LinearLayout
+                    <android.support.constraint.ConstraintLayout
                         android:id="@+id/graph_item1"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginBottom="1dp"
                         android:background="@color/white"
                         android:orientation="vertical"
+                        android:weightSum="1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/graph_item2"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
-                    </LinearLayout>
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraintLayout23"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toTopOf="@id/iv_item1_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_conversion_absoluteHeight="47dp"
+                            tools:layout_conversion_absoluteWidth="118dp">
 
-                    <LinearLayout
+                            <ImageView
+                                android:id="@+id/iv_item1_image"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:contentDescription="@string/cd_blank"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/img_sidebar_visualize"
+                                tools:layout_conversion_absoluteHeight="47dp"
+                                tools:layout_conversion_absoluteWidth="118dp" />
+                        </android.support.constraint.ConstraintLayout>
+
+                        <ImageView
+                            android:id="@+id/iv_item1_color"
+                            android:layout_width="0dp"
+                            android:layout_height="5dp"
+                            android:background="@color/theme_lightgreen50_sidebar_extend_item0"
+                            android:contentDescription="@string/cd_blank"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout23"
+                            tools:layout_conversion_absoluteHeight="5dp"
+                            tools:layout_conversion_absoluteWidth="118dp" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
                         android:id="@+id/graph_item2"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -673,9 +711,62 @@
                         app:layout_constraintEnd_toStartOf="@+id/graph_item3"
                         app:layout_constraintStart_toEndOf="@+id/graph_item1"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"></LinearLayout>
+                        app:layout_constraintVertical_bias="0.0">
 
-                    <LinearLayout
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraintLayout24"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toTopOf="@id/cont_item2_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_conversion_absoluteHeight="47dp"
+                            tools:layout_conversion_absoluteWidth="117dp">
+
+                            <ImageView
+                                android:id="@+id/iv_item2_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:contentDescription="@string/cd_blank"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/img_sidebar_visualize"
+                                tools:layout_conversion_absoluteHeight="47dp"
+                                tools:layout_conversion_absoluteWidth="117dp"
+                                tools:layout_editor_absoluteX="491dp"
+                                tools:layout_editor_absoluteY="53dp" />
+                        </android.support.constraint.ConstraintLayout>
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/cont_item2_color"
+                            android:layout_width="0dp"
+                            android:layout_height="5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout24">
+
+                            <ImageView
+                                android:id="@+id/iv_item2_color"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:adjustViewBounds="false"
+                                android:background="@color/theme_lightgreen50_sidebar_extend_item0"
+                                android:contentDescription="@string/cd_blank"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:layout_conversion_absoluteHeight="5dp"
+                                tools:layout_conversion_absoluteWidth="117dp" />
+                        </android.support.constraint.ConstraintLayout>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
                         android:id="@+id/graph_item3"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
@@ -689,7 +780,57 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0">
 
-                    </LinearLayout>
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/constraintLayout25"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toTopOf="@id/cont_item3_color"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_conversion_absoluteHeight="47dp"
+                            tools:layout_conversion_absoluteWidth="117dp">
+
+                            <ImageView
+                                android:id="@+id/iv_item3_image"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:contentDescription="@string/cd_blank"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/img_sidebar_visualize"
+                                tools:layout_conversion_absoluteHeight="47dp"
+                                tools:layout_conversion_absoluteWidth="117dp" />
+                        </android.support.constraint.ConstraintLayout>
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/cont_item3_color"
+                            android:layout_width="0dp"
+                            android:layout_height="5dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout25"
+                            tools:layout_conversion_absoluteHeight="1dp"
+                            tools:layout_conversion_absoluteWidth="117dp">
+
+                            <ImageView
+                                android:id="@+id/iv_item3_color"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:adjustViewBounds="false"
+                                android:background="@color/theme_lightgreen50_sidebar_extend_item0"
+                                android:contentDescription="@string/cd_blank"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:layout_conversion_absoluteHeight="1dp"
+                                tools:layout_conversion_absoluteWidth="117dp" />
+                        </android.support.constraint.ConstraintLayout>
+                    </android.support.constraint.ConstraintLayout>
 
                     <LinearLayout
                         android:id="@+id/graph_item4"
