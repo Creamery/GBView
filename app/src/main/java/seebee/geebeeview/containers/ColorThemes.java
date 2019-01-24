@@ -1,6 +1,9 @@
 package seebee.geebeeview.containers;
 
 import android.graphics.Color;
+import android.util.Log;
+
+import seebee.geebeeview.model.monitoring.ValueCounter;
 
 /**
  * Specify colors here
@@ -8,8 +11,6 @@ import android.graphics.Color;
 public class ColorThemes {
 
     public static int cPrimaryDark = 0xFF004D40;
-
-
     public static int cNational = cPrimaryDark; // Color.rgb(29, 233, 182); // TODO change this to change national signature color
 
 
@@ -18,6 +19,11 @@ public class ColorThemes {
     public static int cTealDefault = Color.rgb(29, 233, 182);
     public static int cNA = Color.rgb(212, 212, 212);
     public static int cCyanAccent = Color.rgb(0, 229, 255);
+
+
+    public static int cTabDeselect = Color.WHITE;
+    public static int cTabSelect = 0xFF00c7a9;
+
 
     // BMI (5 items = Underweight, Normal, Overweight, Obese, N/A)
     public static int cBMI_Underweight = Color.rgb(253, 212, 0);
@@ -89,6 +95,105 @@ public class ColorThemes {
     public static int[] csBINARY = new int[] {cPass, cFail};
 
 
+    public static int getColor(String recordColumn, String recordValue) {
+        switch (recordColumn) {
+            case StringConstants.COL_BMI:
+                switch (recordValue) {
+                    case "Underweight":
+                        return csBMI[0];
+                    case "Normal":
+                        return csBMI[1];
+                    case "Overweight":
+                        return csBMI[2];
+                    case "Obese":
+                        return csBMI[3];
+                    default:
+                        return cLightGray;
+                }
+//            case StringConstants.COL_HEIGHT:
+//                break;
+//            case StringConstants.COL_WEIGHT:
+//                break;
+
+            case StringConstants.COL_VA_LEFT:
+            case StringConstants.COL_VA_RIGHT:
+                recordValue = recordValue.trim();
+                if(recordValue.contains(ValueCounter.lblVisualAcuity[0])) {
+                    return cstackVISION[0];
+                }
+                else if(recordValue.contains(ValueCounter.lblVisualAcuity[1]) || recordValue.contains(ValueCounter.lblVisualAcuity[2])) {
+                    return cstackVISION[1];
+                }
+                else if(recordValue.contains(ValueCounter.lblVisualAcuity[3]) ||
+                        recordValue.contains(ValueCounter.lblVisualAcuity[4]) ||
+                        recordValue.contains(ValueCounter.lblVisualAcuity[5])) {
+                    return cstackVISION[2];
+                }
+                else if(recordValue.contains(ValueCounter.lblVisualAcuity[6]) ||
+                        recordValue.contains(ValueCounter.lblVisualAcuity[7]) ||
+                        recordValue.contains(ValueCounter.lblVisualAcuity[8]) ||
+                        recordValue.contains(ValueCounter.lblVisualAcuity[9]) ||
+                        recordValue.contains(ValueCounter.lblVisualAcuity[10])) {
+                    return cstackVISION[3];
+                }
+                else {
+                    return cLightGray;
+                }
+
+            case StringConstants.COL_COLOR_VISION:
+
+                switch(recordValue) {
+                    case "Normal":
+                        return csBINARY[0];
+                    case "Abnormal":
+                        return csBINARY[1];
+                    default:
+                        return cLightGray;
+                }
+
+            case StringConstants.COL_HEAR_LEFT:
+            case StringConstants.COL_HEAR_RIGHT:
+                if(recordValue.contains("Normal")) {
+                    return csHEARING[0];
+                }
+                else if(recordValue.contains("Mild")) {
+                    return csHEARING[1];
+                }
+                else if(recordValue.contains("Moderate") && recordValue.contains("Severe")) {
+                    return csHEARING[3];
+                }
+                else if(recordValue.contains("Moderate")) {
+                    return csHEARING[2];
+                }
+                else if(recordValue.contains("Severe")) {
+                    return csHEARING[4];
+                }
+                else if(recordValue.contains("Profound")) {
+                    return csHEARING[5];
+                }
+                else {
+                    return cLightGray;
+                }
+
+
+            case StringConstants.COL_GROSS_MOTOR:
+            case StringConstants.COL_FINE_DOMINANT:
+            case StringConstants.COL_FINE_NON_DOMINANT:
+            case StringConstants.COL_FINE_HOLD:
+                recordValue = recordValue.trim();
+                switch (recordValue) {
+                    case "Pass":
+                        return csBINARY[0];
+                    case "Fail":
+                        return csBINARY[1];
+                    default:
+                        return cLightGray;
+                }
+        }
+//        Log.e("TAB", "DEFAULT "+recordColumn+" "+recordValue);
+        return cLightGray;
+    }
+
     public static int[] getMergedStackedColorSet(String recordColumn) {
         switch (recordColumn) {
 
@@ -102,6 +207,7 @@ public class ColorThemes {
     }
 
 
+    // TODO change switch cases to constants defined by StringConstants
     public static int[] getStackedColorSet(String recordColumn) {
         switch (recordColumn) {
             case "BMI":

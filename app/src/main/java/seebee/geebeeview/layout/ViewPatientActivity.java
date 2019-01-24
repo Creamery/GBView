@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -49,6 +50,7 @@ import java.util.Collections;
 import java.util.List;
 
 import seebee.geebeeview.R;
+import seebee.geebeeview.containers.ColorThemes;
 import seebee.geebeeview.containers.StringConstants;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.graphs.PatientChartIAxisFormatter;
@@ -59,7 +61,6 @@ import seebee.geebeeview.model.monitoring.IdealValue;
 import seebee.geebeeview.model.monitoring.LineChartValueFormatter;
 import seebee.geebeeview.model.monitoring.Record;
 import seebee.geebeeview.containers.General;
-import seebee.geebeeview.model.monitoring.ValueCounter;
 import seebee.geebeeview.sidebar.PatientSidebar;
 
 public class ViewPatientActivity extends AppCompatActivity {
@@ -73,11 +74,28 @@ public class ViewPatientActivity extends AppCompatActivity {
     private TextView tvData, tvDate, tvHeight, tvWeight, tvVisualLeft, tvVisualRight, tvColorVision, tvHearingLeft,
             tvHearingRight, tvGrossMotor, tvFineMotorD, tvFineMotorND, tvFineMotorHold, tvRecordRemark;
     private ImageView ivPatient, ivGender;
+
+    private ArrayList<Drawable> tabIconsSelect;
+    private ArrayList<Drawable> tabIconsDeselect;
+
+    // ImageViews for the colors on the tabs
+    private ImageView
+            ivColorBMI, ivColorHeight, ivColorWeight,
+            ivColorVAL, ivColorVAR, ivColorColor,
+            ivColorHearR, ivColorHearL,
+            ivColorGross,
+            ivColorFineD, ivColorFineND, ivColorFineH;
+    
+    // ImageViews for the tab icons
+    private ImageView ivImageHeart, ivImageEye, ivImageEar, ivImageBody, ivImageHand;
+
+    // Heart - BMI, Height, Weight ; Eye - VA Left, VA Right, Color Vision ; Ear - Hearing Left, Hearing Right
+    // Body - Gross Motor ; Hand - Fine Dominant, Fine Non-dominant, Fine Hold
+    private ConstraintLayout contHeart, contEye, contEar, contBody, contHand;
+
     private Button btnViewHPI, btnViewImmunization;
     private Spinner spRecordDate;
-//    private LinearLayout llAbout1, llAbout2, llAbout3, llAbout4;
     private ConstraintLayout contAboutTitle0, contAboutTitle1, contAboutTitle2, contAboutTitle3, contAboutTitle4;
-    private TextView tvAboutTitle1, tvAboutTitle2, tvAboutTitle3, tvAboutTitle4;
 
 
     private PatientSidebar sidebarManager;
@@ -87,10 +105,11 @@ public class ViewPatientActivity extends AppCompatActivity {
     private int patientID;
     private Patient patient;
     private ArrayList<Record> patientRecords, averageRecords;
-    private IdealValue idealValue;
+//    private IdealValue idealValue;
 
-    private RelativeLayout graphLayout;
-    private LineChart lineChart;
+    private RelativeLayout graphLayout1, graphLayout2, graphLayout3;
+    private ConstraintLayout contGraphLayout1, contGraphLayout2, contGraphLayout3;
+    private LineChart lineChart1, lineChart2, lineChart3;
 //    private RadarChart radarChart;
     private Spinner spRecordColumn;
     private String recordColumn = "BMI";
@@ -106,17 +125,16 @@ public class ViewPatientActivity extends AppCompatActivity {
         super.onWindowFocusChanged(hasFocus);
         adjustDetailFontSize();
 
-        tvAboutTitle1 = (TextView) findViewById(R.id.tv_about_title1);
-        tvAboutTitle2 = (TextView) findViewById(R.id.tv_about_title2);
-        tvAboutTitle3 = (TextView) findViewById(R.id.tv_about_title3);
-        tvAboutTitle4 = (TextView) findViewById(R.id.tv_about_title4);
+//        tvAboutTitle1 = (TextView) findViewById(R.id.tv_about_title1);
+//        tvAboutTitle2 = (TextView) findViewById(R.id.tv_about_title2);
+//        tvAboutTitle3 = (TextView) findViewById(R.id.tv_about_title3);
+//        tvAboutTitle4 = (TextView) findViewById(R.id.tv_about_title4);
 
         contAboutTitle0 = (ConstraintLayout) findViewById(R.id.cont_about_item0_image);
         contAboutTitle1 = (ConstraintLayout) findViewById(R.id.cont_about_item1_image);
         contAboutTitle2 = (ConstraintLayout) findViewById(R.id.cont_about_item2_image);
         contAboutTitle3 = (ConstraintLayout) findViewById(R.id.cont_about_item3_image);
         contAboutTitle4 = (ConstraintLayout) findViewById(R.id.cont_about_item4_image);
-
 
 
         tvMedicalRecordTitle = (TextView) findViewById(R.id.tv_scrollbar_title);
@@ -178,7 +196,15 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvFineMotorHold = (TextView) findViewById(R.id.tv_fine_motor_hold);
         tvRecordRemark = (TextView) findViewById(R.id.tv_record_remark);
         /* connect graph container to here */
-        graphLayout = (RelativeLayout) findViewById(R.id.patient_chart_container);
+        graphLayout1 = (RelativeLayout) findViewById(R.id.patient_chart_container1);
+        graphLayout2 = (RelativeLayout) findViewById(R.id.patient_chart_container2);
+        graphLayout3 = (RelativeLayout) findViewById(R.id.patient_chart_container3);
+
+        contGraphLayout1 = findViewById(R.id.cont_chart_container1);
+        contGraphLayout2 = findViewById(R.id.cont_chart_container2);
+        contGraphLayout3 = findViewById(R.id.cont_chart_container3);
+
+
         /* connect spinner here */
         spRecordColumn = (Spinner) findViewById(R.id.sp_vp_record_column);
         spRecordDate = (Spinner) findViewById(R.id.sp_record_date);
@@ -193,7 +219,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         viewMedicalRecord = (View) findViewById(R.id.sectionMedicalRecord);
 
-
+        setupTabFunctionality();
 
         /* set button so that it will go to the HPIListActivity */
         btnViewHPI.setOnClickListener(new View.OnClickListener() {
@@ -267,7 +293,8 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         /* set up spinner selector */
         ArrayAdapter<String> spRecordAdapter = new ArrayAdapter<>(this, R.layout.custom_spinner,
-                getResources().getStringArray(R.array.record_column_array_num));
+                getResources().getStringArray(R.array.record_column_array_num_tabs));
+//                getResources().getStringArray(R.array.record_column_array_num));
         spRecordColumn.setAdapter(spRecordAdapter);
         spRecordColumn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -277,18 +304,20 @@ public class ViewPatientActivity extends AppCompatActivity {
                         "Displayed Data: " + parent.getItemAtPosition(position).toString(),
                         Toast.LENGTH_SHORT).show();
                 /* change the contents of the chart */
-                if(lineChart != null) {
-                    lineChart.clear();
-                    prepareLineChartData();
+                prepareLineChartData(position);
+//                if(lineChart != null) {
+//                    lineChart.clear();
+//                    prepareLineChartData();
 //                    lineChart.setDescription(recordColumn);
-                    // TODO Edited
-                    Description desc = new Description();
-                    desc.setText(recordColumn);
-                    lineChart.setDescription(desc);
+                    // TODO Edited (removed)
+//                    Description desc = new Description();
+//                    desc.setText(recordColumn);
+//                    lineChart.setDescription(desc);
+
 //                } else {
 //                    radarChart.clear();
 //                    prepareRadarChartData();
-                }
+//                }
             }
 
             @Override
@@ -310,9 +339,9 @@ public class ViewPatientActivity extends AppCompatActivity {
         addChartToView();
 //        Log.e("DEBUG", "Entering prepareLineChart");
 
-        prepareLineChart();
+        prepareLineCharts();
 //        Log.e("DEBUG", "Entering prepareLineChartData");
-        prepareLineChartData();
+        prepareLineChartData(spRecordColumn.getSelectedItemPosition()); // TODO
 
 
         Log.e("DEBUG", "Record List");
@@ -338,6 +367,170 @@ public class ViewPatientActivity extends AppCompatActivity {
         Log.e("DEBUG", "Exiting OnCreate");
     }
 
+    private void clearAllGraphs() {
+        if(lineChart1 != null) {
+            lineChart1.clear();
+        }
+        if(lineChart2 != null) {
+            lineChart2.clear();
+        }
+        if(lineChart2 != null) {
+            lineChart2.clear();
+        }
+    }
+
+    public void setupTabColors(Record patientRecord, String bmiText) {
+        int age = patient.getAge(patientRecord.getDateCreated());
+        IdealValue idealRecordValues;
+//        ivColorBMI.setBackgroundColor(ColorThemes.getColor(StringConstants.COL_BMI, bmiText));
+        String recordType;
+
+        recordType = StringConstants.COL_BMI;
+        ivColorBMI.setBackgroundColor(ColorThemes.getColor(recordType, bmiText));
+
+        if(age >= 5 && age <= 19) {
+            recordType = StringConstants.COL_HEIGHT;
+
+            idealRecordValues = getIdealValues(recordType, age);
+            if(idealRecordValues !=  null) {
+                float height = idealRecordValues.getMedian();
+                // If patient height is higher/equal to median, green ; else, red
+                if(patientRecord.getHeight() >= height) {
+                    ivColorHeight.setBackgroundColor(ColorThemes.cPass);
+                }
+                else {
+                    ivColorHeight.setBackgroundColor(ColorThemes.cFail);
+                }
+            }
+
+            recordType = StringConstants.COL_WEIGHT;
+            idealRecordValues = getIdealValues(recordType, age);
+            if(idealRecordValues !=  null) {
+                float weight = idealRecordValues.getMedian();
+                // If patient weight is higher/equal to median, green ; else, red
+                if(patientRecord.getWeight() >= weight) {
+                    ivColorWeight.setBackgroundColor(ColorThemes.cPass);
+                }
+                else {
+                    ivColorWeight.setBackgroundColor(ColorThemes.cFail);
+                }
+            }
+        }
+
+        recordType = StringConstants.COL_VA_LEFT;
+        ivColorVAL.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getVisualAcuityLeft()));
+        ivColorVAR.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getVisualAcuityRight()));
+
+        recordType = StringConstants.COL_COLOR_VISION;
+        ivColorColor.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getColorVision()));
+//        Log.e("TAB", recordType+" Color Vision "+patientRecord.getColorVision());
+
+        recordType = StringConstants.COL_HEAR_LEFT;
+        ivColorHearL.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getHearingLeft()));
+        ivColorHearR.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getHearingRight()));
+//        Log.e("TAB", "Hear Left "+patientRecord.getHearingLeft());
+//        Log.e("TAB", "Hear Right "+patientRecord.getHearingRight());
+
+        recordType = StringConstants.COL_GROSS_MOTOR;
+        ivColorGross.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getGrossMotorString()));
+
+//        Log.e("TAB", "Gross Motor "+patientRecord.getGrossMotorString());
+
+        recordType = StringConstants.COL_FINE_DOMINANT;
+        ivColorFineD.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getFineMotorString(patientRecord.getFineMotorDominant())));
+        ivColorFineND.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getFineMotorString(patientRecord.getFineMotorNDominant())));
+        ivColorFineH.setBackgroundColor(ColorThemes.getColor(recordType, patientRecord.getFineMotorString(patientRecord.getFineMotorHold())));
+
+//        Log.e("TAB", "Fine D "+patientRecord.getFineMotorString(patientRecord.getFineMotorDominant()));
+//        Log.e("TAB", "Fine ND "+patientRecord.getFineMotorString(patientRecord.getFineMotorNDominant()));
+//        Log.e("TAB", "Fine H "+patientRecord.getFineMotorString(patientRecord.getFineMotorHold()));
+    }
+
+    public boolean hasIdealValue(String recordColumn) {
+            if(recordColumn.contains(StringConstants.COL_WEIGHT) || recordColumn.contains(StringConstants.COL_HEIGHT) || recordColumn.contains(StringConstants.COL_BMI)) {
+                return true;
+            }
+            return false;
+    }
+
+    public void setupTabFunctionality() {
+        this.tabIconsSelect = new ArrayList<>();
+        tabIconsSelect.add(ContextCompat.getDrawable(this, R.drawable.img_heart_icon_fill));
+        tabIconsSelect.add(ContextCompat.getDrawable(this, R.drawable.img_visualize_icon_fill_alter));
+        tabIconsSelect.add(ContextCompat.getDrawable(this, R.drawable.img_ear_icon_fill));
+        tabIconsSelect.add(ContextCompat.getDrawable(this, R.drawable.img_sidebar_about_fill));
+        tabIconsSelect.add(ContextCompat.getDrawable(this, R.drawable.img_hand_icon_fill));
+
+        this.tabIconsDeselect = new ArrayList<>();
+        tabIconsDeselect.add(ContextCompat.getDrawable(this, R.drawable.img_heart_icon_flip));
+        tabIconsDeselect.add(ContextCompat.getDrawable(this, R.drawable.img_visualize_icon_flip_alter));
+        tabIconsDeselect.add(ContextCompat.getDrawable(this, R.drawable.img_ear_icon_flip));
+        tabIconsDeselect.add(ContextCompat.getDrawable(this, R.drawable.img_sidebar_about_flip));
+        tabIconsDeselect.add(ContextCompat.getDrawable(this, R.drawable.img_hand_icon_flip));
+
+        ivImageHeart = findViewById(R.id.iv_item1_image);
+        ivImageEye = findViewById(R.id.iv_item2_image);
+        ivImageEar = findViewById(R.id.iv_item3_image);
+
+        ivImageBody = findViewById(R.id.iv_item4_image);
+        ivImageHand = findViewById(R.id.iv_item5_image);
+
+
+
+        ivColorBMI = findViewById(R.id.iv_item1_color);
+        ivColorHeight = findViewById(R.id.iv_item1_color2);
+        ivColorWeight = findViewById(R.id.iv_item1_color3);
+
+        ivColorVAL = findViewById(R.id.iv_item2_color);
+        ivColorVAR = findViewById(R.id.iv_item2_color2);
+        ivColorColor = findViewById(R.id.iv_item2_color3);
+
+        ivColorHearL = findViewById(R.id.iv_item3_color);
+        ivColorHearR = findViewById(R.id.iv_item3_color2);
+
+        ivColorGross = findViewById(R.id.iv_item4_color);
+
+        ivColorFineD = findViewById(R.id.iv_item5_color);
+        ivColorFineND = findViewById(R.id.iv_item5_color2);
+        ivColorFineH = findViewById(R.id.iv_item5_color3);
+        
+        contHeart = findViewById(R.id.constraintLayout23);
+        contEye = findViewById(R.id.constraintLayout24);
+        contEar = findViewById(R.id.constraintLayout25);
+        contBody = findViewById(R.id.constraintLayout26);
+        contHand = findViewById(R.id.constraintLayout27);
+
+        contHeart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spRecordColumn.setSelection(StringConstants.INDEX_HEART);
+            }
+        });
+        contEye.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spRecordColumn.setSelection(StringConstants.INDEX_EYE);
+            }
+        });
+        contEar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spRecordColumn.setSelection(StringConstants.INDEX_EAR);
+            }
+        });
+        contBody.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spRecordColumn.setSelection(StringConstants.INDEX_BODY);
+            }
+        });
+        contHand.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spRecordColumn.setSelection(StringConstants.INDEX_HAND);
+            }
+        });
+    }
     public void setupSidebarFunctionality () {
         // TODO About, Immun, HPI functionality
         sidebarManager = new PatientSidebar(
@@ -547,6 +740,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         /* display age and grade level according to recordDate */
         tvAge.setText(patient.getAge(recordDate)+"");
         tvGradeLevel.setText(record.getGradeLevel());
+
+        setupTabColors(record, getBMIText(bmi));
 //        Log.d("ABOUTLOG", "GradeLevel: "+record.getGradeLevel());
     }
 
@@ -584,44 +779,158 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void prepareLineChartData() {
+
+    private void hideAllGraphs() {
+        if(contGraphLayout1 != null) {
+            contGraphLayout1.setVisibility(View.GONE);
+        }
+        if(contGraphLayout2 != null) {
+            contGraphLayout2.setVisibility(View.GONE);
+        }
+        if(contGraphLayout3 != null) {
+            contGraphLayout3.setVisibility(View.GONE);
+        }
+    }
+
+    private void showGraphs(int count) {
+        switch(count) {
+            case 3:
+                contGraphLayout1.setVisibility(View.VISIBLE);
+            case 2:
+                contGraphLayout2.setVisibility(View.VISIBLE);
+            case 1:
+                contGraphLayout3.setVisibility(View.VISIBLE);
+            default:
+        }
+    }
+
+    private void selectTab(int tabIndex) {
+        deselectAllTabs();
+        switch(tabIndex) {
+            case StringConstants.INDEX_HEART:
+                this.ivImageHeart.setImageDrawable(tabIconsSelect.get(StringConstants.INDEX_HEART));
+                contHeart.setBackgroundColor(ColorThemes.cTabSelect);
+                break;
+            case StringConstants.INDEX_EYE:
+                this.ivImageEye.setImageDrawable(tabIconsSelect.get(StringConstants.INDEX_EYE));
+                contEye.setBackgroundColor(ColorThemes.cTabSelect);
+                break;
+            case StringConstants.INDEX_EAR:
+                this.ivImageEar.setImageDrawable(tabIconsSelect.get(StringConstants.INDEX_EAR));
+                contEar.setBackgroundColor(ColorThemes.cTabSelect);
+                break;
+            case StringConstants.INDEX_BODY:
+                this.ivImageBody.setImageDrawable(tabIconsSelect.get(StringConstants.INDEX_BODY));
+                contBody.setBackgroundColor(ColorThemes.cTabSelect);
+                break;
+            case StringConstants.INDEX_HAND:
+                this.ivImageHand.setImageDrawable(tabIconsSelect.get(StringConstants.INDEX_HAND));
+                contHand.setBackgroundColor(ColorThemes.cTabSelect);
+                break;
+        }
+    }
+
+    private void deselectAllTabs() {
+        this.ivImageHeart.setImageDrawable(tabIconsDeselect.get(StringConstants.INDEX_HEART));
+        this.ivImageEye.setImageDrawable(tabIconsDeselect.get(StringConstants.INDEX_EYE));
+        this.ivImageEar.setImageDrawable(tabIconsDeselect.get(StringConstants.INDEX_EAR));
+        this.ivImageBody.setImageDrawable(tabIconsDeselect.get(StringConstants.INDEX_BODY));
+        this.ivImageHand.setImageDrawable(tabIconsDeselect.get(StringConstants.INDEX_HAND));
+
+        contHeart.setBackgroundColor(ColorThemes.cTabDeselect);
+        contEye.setBackgroundColor(ColorThemes.cTabDeselect);
+        contEar.setBackgroundColor(ColorThemes.cTabDeselect);
+        contBody.setBackgroundColor(ColorThemes.cTabDeselect);
+        contHand.setBackgroundColor(ColorThemes.cTabDeselect);
+    }
+
+    private void prepareLineChartData(int selectedItem) {
+        clearAllGraphs();
+        hideAllGraphs();
+        Log.e("SELECT", selectedItem+"");
+        switch(selectedItem) {
+
+            case StringConstants.INDEX_EYE:
+                Log.e("SELECT", "EYE");
+                prepareLineChartData(lineChart1, StringConstants.COL_VA_LEFT);
+                prepareLineChartData(lineChart2, StringConstants.COL_VA_RIGHT);
+                prepareLineChartData(lineChart3, StringConstants.COL_COLOR_VISION);
+                showGraphs(3);
+                selectTab(selectedItem);
+                break;
+            case StringConstants.INDEX_EAR:
+                prepareLineChartData(lineChart1, StringConstants.COL_HEAR_LEFT);
+                prepareLineChartData(lineChart2, StringConstants.COL_HEAR_RIGHT);
+                showGraphs(2);
+                selectTab(selectedItem);
+                break;
+            case StringConstants.INDEX_BODY:
+                prepareLineChartData(lineChart1, StringConstants.COL_GROSS_MOTOR);
+                showGraphs(1);
+                selectTab(selectedItem);
+                break;
+            case StringConstants.INDEX_HAND:
+                prepareLineChartData(lineChart1, StringConstants.COL_FINE_DOMINANT);
+                prepareLineChartData(lineChart2, StringConstants.COL_FINE_NON_DOMINANT);
+                prepareLineChartData(lineChart3, StringConstants.COL_FINE_HOLD);
+                showGraphs(3);
+                selectTab(selectedItem);
+                break;
+
+            case StringConstants.INDEX_HEART:
+                Log.e("SELECT", "HEART");
+                prepareLineChartData(lineChart1, StringConstants.COL_BMI);
+                prepareLineChartData(lineChart2, StringConstants.COL_HEIGHT);
+                prepareLineChartData(lineChart3, StringConstants.COL_WEIGHT);
+                showGraphs(3);
+                selectTab(selectedItem);
+            default:
+        }
+    }
+
+    private void prepareLineChartData(LineChart lineChart, String recordValue) {
+        IdealValue idealRecordValues = null;
         LineData lineData = new LineData();
         lineData.setValueTextColor(Color.WHITE);
+
+        Description desc = new Description();
+        desc.setText(recordValue);
+        lineChart.setDescription(desc);
 
         // add data to line chart
         lineChart.setData(lineData);
 
         /* dataset containing values from patient, index 0 */
-        LineDataSet patientDataset = createLineDataSet(0);
+        LineDataSet patientDataset = createLineDataSet(recordValue, 0);
         lineData.addDataSet(patientDataset);
 
 
         /* add dataset containing average record values from patients with same age */
-        lineData.addDataSet(createLineDataSet(1));
+        lineData.addDataSet(createLineDataSet(recordValue, 1));
 
         /* add ideal values only if record */
-        boolean addIdealValues = recordColumn.contains("Height") || recordColumn.contains("Weight") || recordColumn.contains("BMI");
+        boolean addIdealValues = recordValue.contains("Height") || recordValue.contains("Weight") || recordValue.contains("BMI");
 
         if(addIdealValues) {
             LineDataSet n2Dataset, n1Dataset, medianDataset, p1Dataset, p2Dataset;
             /* dataset containing values from 2SD */
-            p2Dataset = createLineDataSet(7);
+            p2Dataset = createLineDataSet(recordValue, 7);
             lineData.addDataSet(p2Dataset);
             /* dataset containing values from 1SD */
-            p1Dataset = createLineDataSet(6);
+            p1Dataset = createLineDataSet(recordValue, 6);
             lineData.addDataSet(p1Dataset);
             /* dataset containing values from median */
-            medianDataset = createLineDataSet(5);
+            medianDataset = createLineDataSet(recordValue, 5);
             lineData.addDataSet(medianDataset);
             /* dataset containing values from -1SD, index 3 */
-            n1Dataset = createLineDataSet(4);
+            n1Dataset = createLineDataSet(recordValue, 4);
             lineData.addDataSet(n1Dataset);
             /* dataset containing values from -2SD, index 2 */
-            n2Dataset = createLineDataSet(3);
+            n2Dataset = createLineDataSet(recordValue, 3);
             lineData.addDataSet(n2Dataset);
-            if(recordColumn.contentEquals("BMI")) {
+            if(recordValue.contentEquals("BMI")) {
                 /* dataset containing values from -3SD, index 7 */
-                LineDataSet n3Dataset = createLineDataSet(2);
+                LineDataSet n3Dataset = createLineDataSet(recordValue, 2);
                 lineData.addDataSet(n3Dataset);
             }
         }
@@ -634,14 +943,14 @@ public class ViewPatientActivity extends AppCompatActivity {
         for(int i = 0; i < patientRecords.size(); i++) {
             record = patientRecords.get(i);
 
-            yVal = getColumnValue(record);
-            //Log.v(TAG, recordColumn+": "+yVal);
+            yVal = getColumnValue(recordValue, record);
+            //Log.v(TAG, recordValue+": "+yVal);
             /* add patient data to patient entry, index 0 */
 //            lineData.addEntry(new Entry(yVal, i), 0); TODO edited
             lineData.addEntry(new Entry(i, yVal), 0);
 
             /* add average record values of patients of the same age, index 1 */
-            yVal = getColumnValue(averageRecords.get(i));
+            yVal = getColumnValue(recordValue, averageRecords.get(i));
             lineData.addEntry(new Entry(i, yVal), 1);
 //            lineData.addEntry(new Entry(yVal, i), 1); TODO edited
 
@@ -654,107 +963,96 @@ public class ViewPatientActivity extends AppCompatActivity {
 
             /* addIdealValues if column is either height, weight, or BMI */
             if(addIdealValues && age >= 5 && age <= 19) {
-                getIdealValues(age);
-                if(idealValue != null) {
-                    idealValue.printIdealValue();
-                    Log.e("IDEAL", idealValue.getP2SD()+" "+idealValue.getYear());
+                idealRecordValues = getIdealValues(recordValue, age);
+                if(idealRecordValues != null) {
+                    idealRecordValues.printIdealValue();
+                    Log.e("IDEAL", idealRecordValues.getP2SD()+" "+idealRecordValues.getYear());
 
                 }
-//                //Log.v(TAG, recordColumn+"(-3SD): "+idealValue.getN3SD()); TODO edited
-//                /* add -2SD from ideal value data to patient entry, index 3 */
-//                lineData.addEntry(new Entry(idealValue.getP2SD(), i), 2);
-//                /* add -1SD from ideal value data to patient entry, index 4 */
-//                lineData.addEntry(new Entry(idealValue.getP1SD(), i), 3);
-//                /* add median of ideal value data to patient entry, index 5 */
-//                lineData.addEntry(new Entry(idealValue.getMedian(), i), 4);
-//                /* add 1SD from ideal value data to patient entry, index 6 */
-//                lineData.addEntry(new Entry(idealValue.getN1SD(), i), 5);
-//                /* add 2SD from ideal value data to patient entry, index 7 */
-//                lineData.addEntry(new Entry(idealValue.getN2SD(), i), 6);
-//                /* add -3SD from ideal value data to patient entry, index 2 */
-//                lineData.addEntry(new Entry(idealValue.getN3SD(), i), 7);
 
-                if(idealValue != null) {
+                if(idealRecordValues != null) {
                     /* add -2SD from ideal value data to patient entry, index 3 */
-                    lineData.addEntry(new Entry(i, idealValue.getP2SD()), 2);
+                    lineData.addEntry(new Entry(i, idealRecordValues.getP2SD()), 2);
                     /* add -1SD from ideal value data to patient entry, index 4 */
-                    lineData.addEntry(new Entry(i, idealValue.getP1SD()), 3);
+                    lineData.addEntry(new Entry(i, idealRecordValues.getP1SD()), 3);
                     /* add median of ideal value data to patient entry, index 5 */
-                    lineData.addEntry(new Entry(i, idealValue.getMedian()), 4);
+                    lineData.addEntry(new Entry(i, idealRecordValues.getMedian()), 4);
                     /* add 1SD from ideal value data to patient entry, index 6 */
-                    lineData.addEntry(new Entry(i, idealValue.getN1SD()), 5);
+                    lineData.addEntry(new Entry(i, idealRecordValues.getN1SD()), 5);
                     /* add 2SD from ideal value data to patient entry, index 7 */
-                    lineData.addEntry(new Entry(i, idealValue.getN2SD()), 6);
+                    lineData.addEntry(new Entry(i, idealRecordValues.getN2SD()), 6);
                     /* add -3SD from ideal value data to patient entry, index 2 */
-                    lineData.addEntry(new Entry(i, idealValue.getN3SD()), 7);
+                    lineData.addEntry(new Entry(i, idealRecordValues.getN3SD()), 7);
                 }
                 else {
-                    Log.e("IDEAL", "idealValue is null");
+                    Log.e("IDEAL", "idealRecordValues is null");
                 }
             }
         }
 
-        setLineChartValueFormatter(lineData);
+        setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
         lineChart.getLineData().setDrawValues(false);
         // notify chart data has changed
         lineChart.notifyDataSetChanged();
-
     }
 
-    private float getColumnValue(Record record) {
+    private float getColumnValue(String recordValue, Record record) {
         float x;
-        switch (recordColumn) {
+        switch (recordValue) {
             default:
-            case "Height (in cm)": x = Double.valueOf(record.getHeight()).floatValue();
+            case StringConstants.COL_HEIGHT: x = Double.valueOf(record.getHeight()).floatValue();
+//            case "Height (in cm)": x = Double.valueOf(record.getHeight()).floatValue();
                 break;
-            case "Weight (in kg)": x = Double.valueOf(record.getWeight()).floatValue();
+            case StringConstants.COL_WEIGHT: x = Double.valueOf(record.getWeight()).floatValue();
+//            case "Weight (in kg)": x = Double.valueOf(record.getWeight()).floatValue();
                 break;
-            case "BMI": x = BMICalculator.computeBMIMetric(
+            case StringConstants.COL_BMI: x = BMICalculator.computeBMIMetric(
                     Double.valueOf(record.getHeight()).intValue(),
                     Double.valueOf(record.getWeight()).intValue());
                 break;
-            case "Visual Acuity Left":
+            case StringConstants.COL_VA_LEFT:
                 x = LineChartValueFormatter.ConvertVisualAcuity(record.getVisualAcuityLeft());
                 break;
-            case "Visual Acuity Right":
+            case StringConstants.COL_VA_RIGHT:
                 x = LineChartValueFormatter.ConvertVisualAcuity(record.getVisualAcuityRight());
                 break;
-            case "Color Vision":
+            case StringConstants.COL_COLOR_VISION:
                 x = LineChartValueFormatter.ConvertColorVision(record.getColorVision());
                 break;
-            case "Hearing Left":
+            case StringConstants.COL_HEAR_LEFT:
                 x = LineChartValueFormatter.ConvertHearing(record.getHearingLeft());
                 break;
-            case "Hearing Right":
+            case StringConstants.COL_HEAR_RIGHT:
                 x = LineChartValueFormatter.ConvertHearing(record.getHearingRight());
                 break;
-            case "Gross Motor": x = record.getGrossMotor();
+            case StringConstants.COL_GROSS_MOTOR: x = record.getGrossMotor();
                 break;
-            case "Fine Motor (Dominant Hand)": x = record.getFineMotorDominant();
+            case StringConstants.COL_FINE_DOMINANT: x = record.getFineMotorDominant();
                 break;
-            case "Fine Motor (Non-Dominant Hand)": x = record.getFineMotorNDominant();
+            case StringConstants.COL_FINE_NON_DOMINANT: x = record.getFineMotorNDominant();
                 break;
-            case "Fine Motor (Hold)": x = record.getFineMotorHold();
+            case StringConstants.COL_FINE_HOLD: x = record.getFineMotorHold();
                 break;
         }
 
         return x;
     }
 
-    private void setLineChartValueFormatter(LineData lineData) {
-        if(recordColumn.contains("BMI")) {
+    private void setLineChartValueFormatter(String recordValue, LineChart lineChart, LineData lineData, IdealValue idealRecordValue) {
+        if(recordValue.contains(StringConstants.COL_BMI)) {
             //lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterBMI(idealValue));
-            lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterBMI(idealValue));
-        } else if(recordColumn.contains("Visual Acuity")) {
+            if(idealRecordValue != null)
+                lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterBMI(idealRecordValue));
+        } else if(recordValue.contains("Visual Acuity")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterVisualAcuity());
             lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterVisualAcuity());
-        } else if(recordColumn.contains("Color Vision")) {
+        } else if(recordValue.contains("Color Vision")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterColorVision());
             lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterColorVision());
-        } else if(recordColumn.contains("Hearing")) {
+        } else if(recordValue.contains("Hearing")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterHearing());
             lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterHearing());
-        } else if(recordColumn.contains("Motor")) {
+        } else if(recordValue.contains("Motor")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterMotor());
             lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterMotor());
         } else {
@@ -774,18 +1072,19 @@ public class ViewPatientActivity extends AppCompatActivity {
 //            });
         }
 
-        formatLineChartAxis(lineChart, recordColumn.trim());
+        formatLineChartAxis(lineChart, recordValue.trim());
         lineChart.notifyDataSetChanged();
     }
 
     private void formatLineChartAxis(LineChart chart, String recordType) {
 
         XAxis xAxis = chart.getXAxis();
+        xAxis.removeAllLimitLines();
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         xAxis.setTextSize(10);
 
-        switch(recordType) {
-            case StringConstants.COL_BMI:
+//        switch(recordType) {
+//            case StringConstants.COL_BMI:
                 ArrayList<Integer> listAge = new ArrayList<>();
                 Record record = patientRecords.get(patientRecords.size()-1);
                 String recordDate = record.getDateCreated();
@@ -807,10 +1106,10 @@ public class ViewPatientActivity extends AppCompatActivity {
                 } while(ageCount < 19);
                 IAxisValueFormatter formatter = new PatientChartIAxisFormatter(strAgeList);
                 xAxis.setValueFormatter(formatter);
-                break;
-        }
+//                break;
+//        }
     }
-    private LineDataSet createLineDataSet(int index) {
+    private LineDataSet createLineDataSet(String recordValue, int index) {
         String datasetDescription;
         int lineColor;
         float lineWidth = 3f;
@@ -835,7 +1134,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             case 3: datasetDescription = "3rd";
                 lineColor = Color.RED;
 //                fillColor = Color.BLACK;
-                if(recordColumn.equals("BMI")) {
+                if(recordValue.equals("BMI")) {
                     datasetDescription = "Thinness";
                     fillColor = Color.MAGENTA;
                     drawFilled = true;
@@ -843,7 +1142,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 break;
             case 4: datasetDescription = "15th";
                 lineColor = Color.YELLOW;
-                if(recordColumn.equals("BMI")) {
+                if(recordValue.equals("BMI")) {
                     datasetDescription = "";
                     lineColor = Color.TRANSPARENT;
 //                    valueTextColor = Color.TRANSPARENT;
@@ -851,13 +1150,13 @@ public class ViewPatientActivity extends AppCompatActivity {
                 break;
             case 5: datasetDescription = "50th";
                 lineColor = Color.GREEN;
-                if(recordColumn.equals("BMI")) {
+                if(recordValue.equals("BMI")) {
                     datasetDescription = "Normal";
                 }
                 break;
             case 6: datasetDescription = "85th";
                 lineColor = Color.YELLOW;
-                if(recordColumn.equals("BMI")) {
+                if(recordValue.equals("BMI")) {
                     datasetDescription = "Overweight";
                     fillColor = Color.GREEN;
                     drawFilled = true;
@@ -865,7 +1164,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 break;
             case 7: datasetDescription = "97th";
                 lineColor = Color.RED;
-                if(recordColumn.equals("BMI")) {
+                if(recordValue.equals("BMI")) {
                     datasetDescription = "Obesity";
                     fillColor = Color.YELLOW;
                     drawFilled = true;
@@ -947,14 +1246,21 @@ public class ViewPatientActivity extends AppCompatActivity {
     }
 
 
-    private void prepareLineChart() {
+    private void prepareLineCharts() {
+        prepareLineChart(lineChart1);
+        prepareLineChart(lineChart2);
+        prepareLineChart(lineChart3);
+    }
+
+    private void prepareLineChart(LineChart lineChart) {
         // enable draging and scalinng
-        lineChart.setDragEnabled(true);
-        lineChart.setScaleEnabled(true);
+        lineChart.setDragEnabled(false);
+        lineChart.setScaleEnabled(false);
         lineChart.setDrawGridBackground(false);
 
         // enable pinch zoom to avoid scaling x and y separately
-        lineChart.setPinchZoom(true);
+        lineChart.setPinchZoom(false);
+        lineChart.setDoubleTapToZoomEnabled(false);
 
         YAxis yl = lineChart.getAxisLeft();
         yl.setTextColor(Color.WHITE);
@@ -962,39 +1268,61 @@ public class ViewPatientActivity extends AppCompatActivity {
         yl.setDrawGridLines(true);
 
         YAxis y12 = lineChart.getAxisLeft();
-        y12.setEnabled(false);
+        y12.setEnabled(true);
     }
 
     private void createCharts() {
         /* create line chart */
-        lineChart = new LineChart(this);
-        customizeChart(lineChart);
+        lineChart1 = new LineChart(this);
+        customizeChart(lineChart1);
+
+        lineChart2 = new LineChart(this);
+        customizeChart(lineChart2);
+
+        lineChart3 = new LineChart(this);
+        customizeChart(lineChart3);
         /* create radar chart */
 //        radarChart = new RadarChart(this);
 //        customizeChart(radarChart);
     }
 
-    private Chart getCurrentChart(){
-        Chart chart;
-        switch (chartType) {
-            default:
-            case "Line Chart": chart = lineChart;
-                break;
-//            case "Radar Chart": chart = radarChart;
+//    private Chart getCurrentChart(){
+//        Chart chart;
+//        switch (chartType) {
+//            default:
+//            case "Line Chart": chart = lineChart;
 //                break;
-        }
-        return chart;
-    }
+////            case "Radar Chart": chart = radarChart;
+////                break;
+//        }
+//        return chart;
+//    }
 
     private void addChartToView() {
-        Chart chart = getCurrentChart();
-        chart.clear();
-        graphLayout.addView(chart);
-        ViewGroup.LayoutParams params = chart.getLayoutParams();
+
+        lineChart1.clear();
+        graphLayout1.addView(lineChart1);
+        ViewGroup.LayoutParams params = lineChart1.getLayoutParams();
         /* match chart size to layout size */
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        chart.notifyDataSetChanged();
+        lineChart1.notifyDataSetChanged();
+
+        lineChart2.clear();
+        graphLayout2.addView(lineChart2);
+        params = lineChart2.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        /* match chart size to layout size */
+        lineChart2.notifyDataSetChanged();
+
+        lineChart3.clear();
+        graphLayout3.addView(lineChart3);
+        params = lineChart3.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        /* match chart size to layout size */
+        lineChart3.notifyDataSetChanged();
     }
 
     private void getPatientData() {
@@ -1027,26 +1355,54 @@ public class ViewPatientActivity extends AppCompatActivity {
         Log.v(TAG, "number of records: "+patientRecords.size());
     }
 
-    private void getIdealValues(int age) {
+//    private void getIdealValues(int age) {
+//        String column;
+//        DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
+//        /* ready database for reading */
+//        try {
+//            getBetterDb.openDatabaseForRead();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        /* get ideal value from database */
+//        if(recordColumn.contains("Height")) {
+//            column = Record.C_HEIGHT;
+//        } else if(recordColumn.contains("Weight")) {
+//            column = Record.C_WEIGHT;
+//        } else {
+//            column = "bmi";
+//        }
+//        idealValue = getBetterDb.getIdealValue(column, patient.getGender(), age);
+//        /* close database after retrieval */
+//        getBetterDb.closeDatabase();
+//    }
+
+    private IdealValue getIdealValues(String recordType, int age) {
+        IdealValue idealRecordValue = null;
         String column;
-        DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
-        /* ready database for reading */
-        try {
-            getBetterDb.openDatabaseForRead();
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        // TODO optimize. Try to access DB less
+        if(hasIdealValue(recordType)) {
+            DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
+            /* ready database for reading */
+            try {
+                getBetterDb.openDatabaseForRead();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            /* get ideal value from database */
+            if(recordType.contains(StringConstants.COL_HEIGHT)) {
+                column = Record.C_HEIGHT;
+            } else if(recordType.contains(StringConstants.COL_WEIGHT)) {
+                column = Record.C_WEIGHT;
+            } else {
+                column = "bmi";
+            }
+            idealRecordValue = getBetterDb.getIdealValue(column, patient.getGender(), age);
+            /* close database after retrieval */
+            getBetterDb.closeDatabase();
         }
-        /* get ideal value from database */
-        if(recordColumn.contains("Height")) {
-            column = Record.C_HEIGHT;
-        } else if(recordColumn.contains("Weight")) {
-            column = Record.C_WEIGHT;
-        } else {
-            column = "bmi";
-        }
-        idealValue = getBetterDb.getIdealValue(column, patient.getGender(), age);
-        /* close database after retrieval */
-        getBetterDb.closeDatabase();
+        return idealRecordValue;
     }
 
     private void getAverageRecords() {
