@@ -62,31 +62,31 @@ public class LineChartValueFormatter  {
         float value;
         int lowestValue = StringConstants.VA_LOWEST_VALUE;
         switch (visualAcuity) {
-            case "20/200": value = lowestValue-200f;
+            case "20/200": value = 11;
                 break;
-            case "20/100": value = lowestValue-100f;
+            case "20/100": value = 10;
                 break;
-            case "20/70": value = lowestValue-70f;
+            case "20/70": value = 9;
                 break;
-            case "20/50": value = lowestValue-50f;
+            case "20/50": value = 8;
                 break;
-            case "20/40": value = lowestValue-40f;
+            case "20/40": value = 7;
                 break;
-            case "20/30": value = lowestValue-30f;
+            case "20/30": value = 6;
                 break;
-            case "20/25": value = lowestValue-25f;
+            case "20/25": value = 5;
                 break;
-            case "20/20": value = lowestValue-20f;
+            case "20/20": value = 4;
                 break;
-            case "20/15": value = lowestValue-15f;
+            case "20/15": value = 3;
                 break;
-            case "20/10": value = lowestValue-10f;
+            case "20/10": value = 2;
                 break;
-            case "20/5": value = lowestValue-5f;
+            case "20/5": value = 1;
                 break;
 
             default:
-                value = lowestValue-20f;
+                value = 0;
         }
         return value;
     }
@@ -144,31 +144,30 @@ public class LineChartValueFormatter  {
 
     private static String ConvertVisualAcuity(float v) {
 
-        String result;
-        int lowestValue = StringConstants.VA_LOWEST_VALUE;
-        if(v <= lowestValue-200f) {
+        String result = "";
+        if(v == 11) {
             result = "20/200";
-        } else if(v <= lowestValue-100f) {
+        } else if(v == 10) {
             result = "20/100";
-        } else if(v <= lowestValue-70f) {
+        } else if(v == 9) {
             result = "20/70";
-        } else if(v <= lowestValue-50f) {
+        } else if(v == 8) {
             result = "20/50";
-        } else if(v <= lowestValue-40f) {
+        } else if(v == 7) {
             result = "20/40";
-        } else if(v <= lowestValue-30f) {
+        } else if(v == 6) {
             result = "20/30";
-        } else if(v <= lowestValue-25f) {
+        } else if(v == 5) {
             result = "20/25";
-        } else if(v <= lowestValue-20f) {
+        } else if(v == 4) {
             result = "20/20";
-        } else if(v <= lowestValue-15f) {
+        } else if(v == 3) {
             result = "20/15";
-        } else if(v <= lowestValue-10f) {
+        } else if(v == 2) {
             result = "20/10";
-        } else if(v <= lowestValue-5f) {
+        } else if(v == 1) {
             result = "20/5";
-        } else {
+        } else if (v == 0){
             result = "N/A";
         }
         return result;

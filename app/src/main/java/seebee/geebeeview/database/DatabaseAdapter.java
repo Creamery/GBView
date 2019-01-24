@@ -1087,6 +1087,7 @@ public class DatabaseAdapter {
                 "FROM tbl_record AS r, tbl_patient AS p " +
                 "WHERE r.patient_id = p.patient_id " +
                 "AND r.date_created LIKE '%"+recordYear+"'" +
+
                 "AND p.birthday LIKE '%"+birthYear+"'";
 
         Cursor c = getBetterDb.rawQuery(sql, null);
@@ -1103,12 +1104,14 @@ public class DatabaseAdapter {
                 Record.C_GROSS_MOTOR, Record.C_FINE_MOTOR_DOMINANT, Record.C_FINE_MOTOR_N_DOMINANT,
                 Record.C_FINE_MOTOR_HOLD};
 
+        Log.e("VAVG", c.getColumnCount()+" va left "+c.getString(0));
         for(int i = 0; i < recordColumns.length; i++) {
             c = getMostFrequentValue(birthYear, recordYear, recordColumns[i]);
             if(c.moveToFirst()) {
                 switch (recordColumns[i]) {
                     case Record.C_VISUAL_ACUITY_LEFT:
                         record.setVisualAcuityLeft(c.getString(0));
+                        Log.e("VAVG", c.getColumnCount()+" va left "+c.getString(0));
                         break;
                     case Record.C_VISUAL_ACUITY_RIGHT:
                         record.setVisualAcuityRight(c.getString(0));

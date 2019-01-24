@@ -937,17 +937,34 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         YAxis yAxisLeft = lineChart.getAxisLeft();
         int maxLabelCount = General.getMaxLabelCount(recordValue);
-//        yAxisLeft.setLabelCount(maxLabelCount, true);
-        yAxisLeft.setGranularityEnabled(true);
-        yAxisLeft.setGranularity(maxLabelCount);
-        yAxisLeft.setDrawZeroLine(true);
-        XAxis xAxis = lineChart.getXAxis();
-//        xAxis.setAxisMaximum(200);
-        xAxis.setAxisMinimum(0);
-        lineChart.setAutoScaleMinMaxEnabled(false);
 
+//        yAxisLeft.setLabelCount(maxLabelCount, true);
+//        yAxisLeft.setGranularityEnabled(true);
+//        yAxisLeft.setGranularity(1);
+
+        if(recordValue.contains("Visual")) {
+            yAxisLeft.setAxisMaximum(maxLabelCount+1);
+
+//            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
+
+            yAxisLeft.setLabelCount(maxLabelCount);
+            yAxisLeft.setAxisMaximum(maxLabelCount+1f);
+            yAxisLeft.setAxisMinimum(0-0.5f);
+
+        }
+        else {
+//            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
+            yAxisLeft.resetAxisMaximum();
+            yAxisLeft.resetAxisMinimum();
+        }
+
+//        yAxisLeft.setDrawZeroLine(true);
+        XAxis xAxis = lineChart.getXAxis();
+//        lineChart.setAutoScaleMinMaxEnabled(false);
+        xAxis.setDrawAxisLine(false);
         lineChart.getLineData().setDrawValues(false);
 
+//        lineChart.setViewPortOffsets(100, 100, 100, 100);
         /* add ideal values only if record */
         boolean addIdealValues = recordValue.contains("Height") || recordValue.contains("Weight") || recordValue.contains("BMI");
 
@@ -981,14 +998,13 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 
 
-        Record record;
+        Record record, average;
         float yVal; int age;
         ArrayList<Entry> patientEntries = new ArrayList<>();
         ArrayList<Entry> n3Entries = new ArrayList<>();
-
+        getAverageRecords(patientRecords);
         for(int i = 0; i < patientRecords.size(); i++) {
             record = patientRecords.get(i);
-
             yVal = getColumnValue(recordValue, record);
             //Log.v(TAG, recordValue+": "+yVal);
             /* add patient data to patient entry, index 0 */
@@ -996,7 +1012,10 @@ public class ViewPatientActivity extends AppCompatActivity {
             lineData.addEntry(new Entry(i, yVal), 1);
             Log.e("RECORD", "patient "+recordValue+" : "+yVal);
             /* add average record values of patients of the same age, index 1 */
+
             yVal = getColumnValue(recordValue, averageRecords.get(i));
+            if(recordValue.contains("Visual"))
+              Log.e("VAVG", averageRecords.get(i).getVisualAcuityLeft()+" "+getColumnValue(recordValue, averageRecords.get(i)));
             lineData.addEntry(new Entry(i, yVal), 0);
 //            lineData.addEntry(new Entry(yVal, i), 1); TODO edited
 
@@ -1039,6 +1058,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
         // notify chart data has changed
         lineChart.notifyDataSetChanged();
+        lineChart.invalidate();
     }
 
     private float getColumnValue(String recordValue, Record record) {
@@ -1057,6 +1077,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 break;
             case StringConstants.COL_VA_LEFT:
                 x = LineChartValueFormatter.ConvertVisualAcuity(record.getVisualAcuityLeft());
+                Log.e("VA", "x is "+x);
                 break;
             case StringConstants.COL_VA_RIGHT:
                 x = LineChartValueFormatter.ConvertVisualAcuity(record.getVisualAcuityRight());
@@ -1121,6 +1142,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         formatLineChartAxis(lineChart, recordValue.trim());
         lineChart.notifyDataSetChanged();
+        lineChart.invalidate();
     }
 
     private void formatLineChartAxis(LineChart chart, String recordType) {
@@ -1312,13 +1334,14 @@ public class ViewPatientActivity extends AppCompatActivity {
         YAxis yAxisLeft = lineChart.getAxisLeft();
         yAxisLeft.setDrawGridLines(true);
         yAxisLeft.setEnabled(true);
-        yAxisLeft.setAxisMinimum(-2.5f);
+//        yAxisLeft.setAxisMinimum(-2.5f);
         yAxisLeft.setGranularity(1);
 //        yAxisLeft.setLabelCount(3, true);
 //        yAxisLeft.setXOffset(7f);
 
 
         xAxis.setAvoidFirstLastClipping(true);
+        lineChart.invalidate();
 //        lineChart.setExtraOffsets(10,10,10,10);
 //        lineChart.offsetTopAndBottom(50);
 //        xAxis.setYOffset(10);
@@ -1463,6 +1486,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         lineChart1.notifyDataSetChanged();
+        lineChart1.invalidate();
 
         lineChart2.clear();
         graphLayout2.addView(lineChart2);
@@ -1471,6 +1495,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         /* match chart size to layout size */
         lineChart2.notifyDataSetChanged();
+        lineChart2.invalidate();
 
         lineChart3.clear();
         graphLayout3.addView(lineChart3);
@@ -1479,6 +1504,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         /* match chart size to layout size */
         lineChart3.notifyDataSetChanged();
+        lineChart3.invalidate();
     }
 
     private void getPatientData() {
@@ -1578,6 +1604,25 @@ public class ViewPatientActivity extends AppCompatActivity {
         getBetterDb.closeDatabase();
         Log.v(TAG, "number of average records: "+averageRecords.size());
     }
+
+    private void getAverageRecords(ArrayList<Record> patientRecords) {
+        DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
+        /* ready database for reading */
+        try {
+            getBetterDb.openDatabaseForRead();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        /* get average records from database */
+        averageRecords = new ArrayList<>();
+        for(int i = 0; i < patientRecords.size(); i++) {
+            averageRecords.add(getBetterDb.getAverageRecord(patient, patientRecords.get(i).getDateCreated()));
+        }
+        /* close database after retrieval */
+        getBetterDb.closeDatabase();
+        Log.v(TAG, "number of average records: "+averageRecords.size());
+    }
+
 
     private void prepareRecordDateSpinner() {
         List<String> recordDateList = new ArrayList<>();
