@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -74,6 +75,9 @@ public class ViewPatientActivity extends AppCompatActivity {
             tvHearingRight, tvGrossMotor, tvFineMotorD, tvFineMotorND, tvFineMotorHold, tvRecordRemark;
     private ImageView ivPatient, ivGender;
 
+    private ArrayList<Drawable> tabIconsSelect;
+    private ArrayList<Drawable> tabIconsDeselect;
+
     // ImageViews for the colors on the tabs
     private ImageView
             ivColorBMI, ivColorHeight, ivColorWeight,
@@ -81,6 +85,9 @@ public class ViewPatientActivity extends AppCompatActivity {
             ivColorHearR, ivColorHearL,
             ivColorGross,
             ivColorFineD, ivColorFineND, ivColorFineH;
+    
+    // ImageViews for the tab icons
+    private ImageView ivImageHeart, ivImageEye, ivImageEar, ivImageBody, ivImageHand;
 
     // Heart - BMI, Height, Weight ; Eye - VA Left, VA Right, Color Vision ; Ear - Hearing Left, Hearing Right
     // Body - Gross Motor ; Hand - Fine Dominant, Fine Non-dominant, Fine Hold
@@ -128,7 +135,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         contAboutTitle2 = (ConstraintLayout) findViewById(R.id.cont_about_item2_image);
         contAboutTitle3 = (ConstraintLayout) findViewById(R.id.cont_about_item3_image);
         contAboutTitle4 = (ConstraintLayout) findViewById(R.id.cont_about_item4_image);
-
 
 
         tvMedicalRecordTitle = (TextView) findViewById(R.id.tv_scrollbar_title);
@@ -448,6 +454,28 @@ public class ViewPatientActivity extends AppCompatActivity {
     }
 
     public void setupTabFunctionality() {
+        this.tabIconsSelect = new ArrayList<>();
+        tabIconsSelect.add(ContextCompat.getDrawable(this, R.drawable.img_heart_icon_fill));
+        tabIconsSelect.add(ContextCompat.getDrawable(this, R.drawable.img_visualize_icon_fill_alter));
+        tabIconsSelect.add(ContextCompat.getDrawable(this, R.drawable.img_ear_icon_fill));
+        tabIconsSelect.add(ContextCompat.getDrawable(this, R.drawable.img_sidebar_about_fill));
+        tabIconsSelect.add(ContextCompat.getDrawable(this, R.drawable.img_hand_icon_fill));
+
+        this.tabIconsDeselect = new ArrayList<>();
+        tabIconsDeselect.add(ContextCompat.getDrawable(this, R.drawable.img_heart_icon_flip));
+        tabIconsDeselect.add(ContextCompat.getDrawable(this, R.drawable.img_visualize_icon_flip_alter));
+        tabIconsDeselect.add(ContextCompat.getDrawable(this, R.drawable.img_ear_icon_flip));
+        tabIconsDeselect.add(ContextCompat.getDrawable(this, R.drawable.img_sidebar_about_flip));
+        tabIconsDeselect.add(ContextCompat.getDrawable(this, R.drawable.img_hand_icon_flip));
+
+        ivImageHeart = findViewById(R.id.iv_item1_image);
+        ivImageEye = findViewById(R.id.iv_item2_image);
+        ivImageEar = findViewById(R.id.iv_item3_image);
+
+        ivImageBody = findViewById(R.id.iv_item4_image);
+        ivImageHand = findViewById(R.id.iv_item5_image);
+
+
 
         ivColorBMI = findViewById(R.id.iv_item1_color);
         ivColorHeight = findViewById(R.id.iv_item1_color2);
@@ -465,7 +493,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         ivColorFineD = findViewById(R.id.iv_item5_color);
         ivColorFineND = findViewById(R.id.iv_item5_color2);
         ivColorFineH = findViewById(R.id.iv_item5_color3);
-
+        
         contHeart = findViewById(R.id.constraintLayout23);
         contEye = findViewById(R.id.constraintLayout24);
         contEar = findViewById(R.id.constraintLayout25);
@@ -776,6 +804,45 @@ public class ViewPatientActivity extends AppCompatActivity {
         }
     }
 
+    private void selectTab(int tabIndex) {
+        deselectAllTabs();
+        switch(tabIndex) {
+            case StringConstants.INDEX_HEART:
+                this.ivImageHeart.setImageDrawable(tabIconsSelect.get(StringConstants.INDEX_HEART));
+                contHeart.setBackgroundColor(ColorThemes.cTabSelect);
+                break;
+            case StringConstants.INDEX_EYE:
+                this.ivImageEye.setImageDrawable(tabIconsSelect.get(StringConstants.INDEX_EYE));
+                contEye.setBackgroundColor(ColorThemes.cTabSelect);
+                break;
+            case StringConstants.INDEX_EAR:
+                this.ivImageEar.setImageDrawable(tabIconsSelect.get(StringConstants.INDEX_EAR));
+                contEar.setBackgroundColor(ColorThemes.cTabSelect);
+                break;
+            case StringConstants.INDEX_BODY:
+                this.ivImageBody.setImageDrawable(tabIconsSelect.get(StringConstants.INDEX_BODY));
+                contBody.setBackgroundColor(ColorThemes.cTabSelect);
+                break;
+            case StringConstants.INDEX_HAND:
+                this.ivImageHand.setImageDrawable(tabIconsSelect.get(StringConstants.INDEX_HAND));
+                contHand.setBackgroundColor(ColorThemes.cTabSelect);
+                break;
+        }
+    }
+
+    private void deselectAllTabs() {
+        this.ivImageHeart.setImageDrawable(tabIconsDeselect.get(StringConstants.INDEX_HEART));
+        this.ivImageEye.setImageDrawable(tabIconsDeselect.get(StringConstants.INDEX_EYE));
+        this.ivImageEar.setImageDrawable(tabIconsDeselect.get(StringConstants.INDEX_EAR));
+        this.ivImageBody.setImageDrawable(tabIconsDeselect.get(StringConstants.INDEX_BODY));
+        this.ivImageHand.setImageDrawable(tabIconsDeselect.get(StringConstants.INDEX_HAND));
+
+        contHeart.setBackgroundColor(ColorThemes.cTabDeselect);
+        contEye.setBackgroundColor(ColorThemes.cTabDeselect);
+        contEar.setBackgroundColor(ColorThemes.cTabDeselect);
+        contBody.setBackgroundColor(ColorThemes.cTabDeselect);
+        contHand.setBackgroundColor(ColorThemes.cTabDeselect);
+    }
 
     private void prepareLineChartData(int selectedItem) {
         clearAllGraphs();
@@ -789,21 +856,25 @@ public class ViewPatientActivity extends AppCompatActivity {
                 prepareLineChartData(lineChart2, StringConstants.COL_VA_RIGHT);
                 prepareLineChartData(lineChart3, StringConstants.COL_COLOR_VISION);
                 showGraphs(3);
+                selectTab(selectedItem);
                 break;
             case StringConstants.INDEX_EAR:
                 prepareLineChartData(lineChart1, StringConstants.COL_HEAR_LEFT);
                 prepareLineChartData(lineChart2, StringConstants.COL_HEAR_RIGHT);
                 showGraphs(2);
+                selectTab(selectedItem);
                 break;
             case StringConstants.INDEX_BODY:
                 prepareLineChartData(lineChart1, StringConstants.COL_GROSS_MOTOR);
                 showGraphs(1);
+                selectTab(selectedItem);
                 break;
             case StringConstants.INDEX_HAND:
                 prepareLineChartData(lineChart1, StringConstants.COL_FINE_DOMINANT);
                 prepareLineChartData(lineChart2, StringConstants.COL_FINE_NON_DOMINANT);
                 prepareLineChartData(lineChart3, StringConstants.COL_FINE_HOLD);
                 showGraphs(3);
+                selectTab(selectedItem);
                 break;
 
             case StringConstants.INDEX_HEART:
@@ -812,6 +883,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 prepareLineChartData(lineChart2, StringConstants.COL_HEIGHT);
                 prepareLineChartData(lineChart3, StringConstants.COL_WEIGHT);
                 showGraphs(3);
+                selectTab(selectedItem);
             default:
         }
     }
@@ -969,7 +1041,8 @@ public class ViewPatientActivity extends AppCompatActivity {
     private void setLineChartValueFormatter(String recordValue, LineChart lineChart, LineData lineData, IdealValue idealRecordValue) {
         if(recordValue.contains(StringConstants.COL_BMI)) {
             //lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterBMI(idealValue));
-            lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterBMI(idealRecordValue));
+            if(idealRecordValue != null)
+                lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterBMI(idealRecordValue));
         } else if(recordValue.contains("Visual Acuity")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterVisualAcuity());
             lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterVisualAcuity());
@@ -1181,12 +1254,13 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     private void prepareLineChart(LineChart lineChart) {
         // enable draging and scalinng
-        lineChart.setDragEnabled(true);
-        lineChart.setScaleEnabled(true);
+        lineChart.setDragEnabled(false);
+        lineChart.setScaleEnabled(false);
         lineChart.setDrawGridBackground(false);
 
         // enable pinch zoom to avoid scaling x and y separately
-        lineChart.setPinchZoom(true);
+        lineChart.setPinchZoom(false);
+        lineChart.setDoubleTapToZoomEnabled(false);
 
         YAxis yl = lineChart.getAxisLeft();
         yl.setTextColor(Color.WHITE);
@@ -1194,7 +1268,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         yl.setDrawGridLines(true);
 
         YAxis y12 = lineChart.getAxisLeft();
-        y12.setEnabled(false);
+        y12.setEnabled(true);
     }
 
     private void createCharts() {

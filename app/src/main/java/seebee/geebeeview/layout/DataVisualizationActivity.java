@@ -1942,10 +1942,9 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         BarData barData = new BarData(barDataSetSchool, barDataSetNational);
 //        BarData barData = new BarData(barDataSetList);
-        this.barSpecific.getAxisLeft().setEnabled(false);
         //BarData barData = new BarData(xData, barDataSet);
         this.barSpecific.setData(barData);
-        this.barSpecific.getAxisLeft().setEnabled(false);
+        this.barSpecific.getAxisLeft().setEnabled(true);
         adjustSpecificBarChartParams();
 
         formatBarSpecificAppearanceNational(barDataSetSchool, barDataSetNational, chartDataValue.getxData());

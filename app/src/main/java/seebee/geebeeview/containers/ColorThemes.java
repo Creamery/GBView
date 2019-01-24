@@ -11,8 +11,6 @@ import seebee.geebeeview.model.monitoring.ValueCounter;
 public class ColorThemes {
 
     public static int cPrimaryDark = 0xFF004D40;
-
-
     public static int cNational = cPrimaryDark; // Color.rgb(29, 233, 182); // TODO change this to change national signature color
 
 
@@ -21,6 +19,11 @@ public class ColorThemes {
     public static int cTealDefault = Color.rgb(29, 233, 182);
     public static int cNA = Color.rgb(212, 212, 212);
     public static int cCyanAccent = Color.rgb(0, 229, 255);
+
+
+    public static int cTabDeselect = Color.WHITE;
+    public static int cTabSelect = 0xFF00c7a9;
+
 
     // BMI (5 items = Underweight, Normal, Overweight, Obese, N/A)
     public static int cBMI_Underweight = Color.rgb(253, 212, 0);
