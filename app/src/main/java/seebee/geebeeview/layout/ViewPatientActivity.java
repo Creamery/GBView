@@ -5,7 +5,11 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
@@ -40,6 +44,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 //import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.File;
@@ -745,6 +750,8 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         setupTabColors(record, getBMIText(bmi));
 
+
+
         addLimitLineMarker(listAge.indexOf(patient.getAge(spRecordDate.getSelectedItem().toString())));
 //        Log.d("ABOUTLOG", "GradeLevel: "+record.getGradeLevel());
     }
@@ -902,44 +909,77 @@ public class ViewPatientActivity extends AppCompatActivity {
         Description desc = new Description();
         desc.setText(recordValue);
         lineChart.setDescription(desc);
+//        lineChart.getDescription().setEnabled(false); // TODO uncomment after editing
 
         // add data to line chart
         lineChart.setData(lineData);
 
         /* dataset containing values from patient, index 0 */
-        LineDataSet patientDataset = createLineDataSet(recordValue, 0);
+        LineDataSet patientDataset = createLineDataSet(recordValue, 1);
         lineData.addDataSet(patientDataset);
-
-
         /* add dataset containing average record values from patients with same age */
-        lineData.addDataSet(createLineDataSet(recordValue, 1));
+        lineData.addDataSet(createLineDataSet(recordValue, 0));
+
+
+        // TODO chart axis
+        // Get the paint renderer to create the line shading.
+        Paint paint = lineChart.getRenderer().getPaintRender();
+        int height = lineChart.getHeight();
+
+
+        // Gradient TODO
+//        LinearGradient linGrad = new LinearGradient(0, 0, 0, height, ColorThemes.csBMI, new float[] {0, 1, 2, 3, 4}, Shader.TileMode.REPEAT);
+////        LinearGradient linGrad = new LinearGradient(0, 0, 0, height,
+////                getResources().getColor(R.color.greenHighlight),
+////                getResources().getColor(R.color.theme_red50_sidebar_extend_item1),
+////                Shader.TileMode.REPEAT);
+//        paint.setShader(linGrad);
+
+        YAxis yAxisLeft = lineChart.getAxisLeft();
+        int maxLabelCount = General.getMaxLabelCount(recordValue);
+//        yAxisLeft.setLabelCount(maxLabelCount, true);
+        yAxisLeft.setGranularityEnabled(true);
+        yAxisLeft.setGranularity(maxLabelCount);
+        yAxisLeft.setDrawZeroLine(true);
+        XAxis xAxis = lineChart.getXAxis();
+//        xAxis.setAxisMaximum(200);
+        xAxis.setAxisMinimum(0);
+        lineChart.setAutoScaleMinMaxEnabled(false);
+
+        lineChart.getLineData().setDrawValues(false);
 
         /* add ideal values only if record */
         boolean addIdealValues = recordValue.contains("Height") || recordValue.contains("Weight") || recordValue.contains("BMI");
 
-        if(addIdealValues) {
-            LineDataSet n2Dataset, n1Dataset, medianDataset, p1Dataset, p2Dataset;
-            /* dataset containing values from 2SD */
-            p2Dataset = createLineDataSet(recordValue, 7);
-            lineData.addDataSet(p2Dataset);
-            /* dataset containing values from 1SD */
-            p1Dataset = createLineDataSet(recordValue, 6);
-            lineData.addDataSet(p1Dataset);
-            /* dataset containing values from median */
-            medianDataset = createLineDataSet(recordValue, 5);
-            lineData.addDataSet(medianDataset);
-            /* dataset containing values from -1SD, index 3 */
-            n1Dataset = createLineDataSet(recordValue, 4);
-            lineData.addDataSet(n1Dataset);
-            /* dataset containing values from -2SD, index 2 */
-            n2Dataset = createLineDataSet(recordValue, 3);
-            lineData.addDataSet(n2Dataset);
-            if(recordValue.contentEquals("BMI")) {
-                /* dataset containing values from -3SD, index 7 */
-                LineDataSet n3Dataset = createLineDataSet(recordValue, 2);
-                lineData.addDataSet(n3Dataset);
-            }
-        }
+//        if(addIdealValues) {
+//            LineDataSet n2Dataset, n1Dataset, medianDataset, p1Dataset, p2Dataset;
+//            /* dataset containing values from 2SD */
+//            p2Dataset = createLineDataSet(recordValue, 7);
+//            lineData.addDataSet(p2Dataset);
+//            /* dataset containing values from 1SD */
+//            p1Dataset = createLineDataSet(recordValue, 6);
+//            lineData.addDataSet(p1Dataset);
+//            /* dataset containing values from median */
+//            medianDataset = createLineDataSet(recordValue, 5);
+//            lineData.addDataSet(medianDataset);
+//            /* dataset containing values from -1SD, index 3 */
+//            n1Dataset = createLineDataSet(recordValue, 4);
+//            lineData.addDataSet(n1Dataset);
+//            /* dataset containing values from -2SD, index 2 */
+//            n2Dataset = createLineDataSet(recordValue, 3);
+//            lineData.addDataSet(n2Dataset);
+//            if(recordValue.contentEquals("BMI")) {
+//                /* dataset containing values from -3SD, index 7 */
+//                LineDataSet n3Dataset = createLineDataSet(recordValue, 2);
+//                lineData.addDataSet(n3Dataset);
+//            }
+//        }
+
+
+
+
+
+
 
         Record record;
         float yVal; int age;
@@ -953,11 +993,11 @@ public class ViewPatientActivity extends AppCompatActivity {
             //Log.v(TAG, recordValue+": "+yVal);
             /* add patient data to patient entry, index 0 */
 //            lineData.addEntry(new Entry(yVal, i), 0); TODO edited
-            lineData.addEntry(new Entry(i, yVal), 0);
-
+            lineData.addEntry(new Entry(i, yVal), 1);
+            Log.e("RECORD", "patient "+recordValue+" : "+yVal);
             /* add average record values of patients of the same age, index 1 */
             yVal = getColumnValue(recordValue, averageRecords.get(i));
-            lineData.addEntry(new Entry(i, yVal), 1);
+            lineData.addEntry(new Entry(i, yVal), 0);
 //            lineData.addEntry(new Entry(yVal, i), 1); TODO edited
 
 
@@ -996,9 +1036,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         }
 
-
         setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
-        lineChart.getLineData().setDrawValues(false);
         // notify chart data has changed
         lineChart.notifyDataSetChanged();
     }
@@ -1046,25 +1084,27 @@ public class ViewPatientActivity extends AppCompatActivity {
     }
 
     private void setLineChartValueFormatter(String recordValue, LineChart lineChart, LineData lineData, IdealValue idealRecordValue) {
+
+        YAxis axisLabel = lineChart.getAxisLeft();
         if(recordValue.contains(StringConstants.COL_BMI)) {
             //lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterBMI(idealValue));
             if(idealRecordValue != null)
-                lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterBMI(idealRecordValue));
+                axisLabel.setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterBMI(idealRecordValue));
         } else if(recordValue.contains("Visual Acuity")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterVisualAcuity());
-            lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterVisualAcuity());
+            axisLabel.setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterVisualAcuity());
         } else if(recordValue.contains("Color Vision")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterColorVision());
-            lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterColorVision());
+            axisLabel.setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterColorVision());
         } else if(recordValue.contains("Hearing")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterHearing());
-            lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterHearing());
+            axisLabel.setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterHearing());
         } else if(recordValue.contains("Motor")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterMotor());
-            lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterMotor());
+            axisLabel.setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterMotor());
         } else {
             lineData.setValueFormatter(lineChart.getDefaultValueFormatter());
-            lineChart.getAxisRight().setValueFormatter(new IAxisValueFormatter() {
+            axisLabel.setValueFormatter(new IAxisValueFormatter() {
                 @Override
                 public String getFormattedValue(float v, AxisBase axisBase) {
                     return Float.toString(v);
@@ -1085,10 +1125,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     private void formatLineChartAxis(LineChart chart, String recordType) {
 
-        XAxis xAxis = chart.getXAxis();
-        xAxis.removeAllLimitLines();
-        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
-        xAxis.setTextSize(10);
+
 
 //        switch(recordType) {
 //            case StringConstants.COL_BMI:
@@ -1111,7 +1148,10 @@ public class ViewPatientActivity extends AppCompatActivity {
             Log.e("AGE", strAgeList[i]);
             i++;
         } while(ageCount < 19);
+
+
         IAxisValueFormatter formatter = new PatientChartIAxisFormatter(strAgeList);
+        XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(formatter);
 
 //        addLimitLineMarker(listAge.indexOf(age));
@@ -1179,23 +1219,12 @@ public class ViewPatientActivity extends AppCompatActivity {
                 break;
         }
 
+//        LineDataSet lineDataset = new LineDataSet(null, "");
         LineDataSet lineDataset = new LineDataSet(null, datasetDescription);
-        lineDataset.setColor(lineColor);
-        lineDataset.setLineWidth(lineWidth);
-        lineDataset.setValueTextSize(10f);
 
-        if(index == 0) {
-            lineDataset.setCircleColor(Color.WHITE);
-            lineDataset.setCircleRadius(3f);
-            lineDataset.setFillAlpha(4);
-            lineDataset.setFillColor(lineColor);
-            lineDataset.setHighLightColor(Color.rgb(244, 11, 11));
-        } else {
-            lineDataset.setDrawCircles(false);
-            lineDataset.setValueTextColor(lineColor);
-            lineDataset.setDrawFilled(drawFilled);
-            lineDataset.setFillColor(fillColor);
-        }
+        customizeLineChart(lineDataset, index, lineColor);
+
+
 
         return lineDataset;
     }
@@ -1265,18 +1294,93 @@ public class ViewPatientActivity extends AppCompatActivity {
         lineChart.setScaleEnabled(false);
         lineChart.setDrawGridBackground(false);
 
-        // enable pinch zoom to avoid scaling x and y separately
+        // disable pinch zoom
         lineChart.setPinchZoom(false);
         lineChart.setDoubleTapToZoomEnabled(false);
 
-        YAxis yl = lineChart.getAxisLeft();
-        yl.setTextColor(Color.WHITE);
-        //yl.setAxisMaxValue(120f);
-        yl.setDrawGridLines(true);
 
-        YAxis y12 = lineChart.getAxisLeft();
-        y12.setEnabled(true);
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.removeAllLimitLines();
+        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
+        xAxis.setTextSize(10);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        YAxis yAxisRight = lineChart.getAxisRight();
+//        yAxisRight.setLabelCount(yAxisRight.getLabelCount());
+        yAxisRight.setTextColor(Color.TRANSPARENT);
+        yAxisRight.setDrawGridLines(false);
+
+        YAxis yAxisLeft = lineChart.getAxisLeft();
+        yAxisLeft.setDrawGridLines(true);
+        yAxisLeft.setEnabled(true);
+        yAxisLeft.setAxisMinimum(-2.5f);
+        yAxisLeft.setGranularity(1);
+//        yAxisLeft.setLabelCount(3, true);
+//        yAxisLeft.setXOffset(7f);
+
+
+        xAxis.setAvoidFirstLastClipping(true);
+//        lineChart.setExtraOffsets(10,10,10,10);
+//        lineChart.offsetTopAndBottom(50);
+//        xAxis.setYOffset(10);
+//        yAxisLeft.setSpaceBottom(0.5f);
+//        xAxis.setEnabled(false);
+
     }
+
+    public void customizeLineChart(LineDataSet lineDataSet, int index, int lineColor) {
+
+        lineDataSet.setColor(lineColor);
+        lineDataSet.setLineWidth(5f);
+        lineDataSet.setValueTextSize(10f);
+        if(index == 0 || index == 1) { // Patient
+
+//            lineDataSet.setHighLightColor(Color.rgb(244, 11, 11));
+
+            lineDataSet.setCircleRadius(7f);
+            lineDataSet.setCircleColor(lineColor);
+
+            lineDataSet.setCircleHoleRadius(3f);
+            lineDataSet.setCircleColorHole(Color.WHITE);
+
+//            lineDataSet.setFillAlpha(4);
+//            lineDataSet.setFillColor(Color.RED);
+        } else { // Ideal Values
+            lineDataSet.setDrawCircles(false);
+            lineDataSet.setLineWidth(2f);
+//            lineDataSet.setValueTextColor(Color.BLUE);
+//            lineDataSet.setDrawValues(true);
+//            lineDataSet.setDrawFilled(true);
+//            lineDataSet.setFillColor(Color.GREEN);
+        }
+
+
+//        int datasetSize = chart.getLineData().getDataSets().size();
+//
+//        for(int i = 0; i < datasetSize; i++) {
+//            lineDataSet = chart.getLineData().getDataSets().get(i);
+//            lineDataSet.color.setCircleHoleRadius(4f);
+//            lineDataSet.setCircleColor(ColorThemes.cTabSelect);
+////        int[] colors = General.getColorSetByCount(lineDataset.getEntryCount(), ColorThemes.cTabSelect);
+////        if(listAge != null) {
+////            colors[listAge.indexOf(patientRecords.get(spRecordDate.getSelectedItemPosition()))] = ColorThemes.cTabDeselect;
+////        }
+////        lineDataset.setCircleColors(colors);
+//        chart.setCircleColorHole(Color.WHITE);
+//        lineDataset.setDrawCircleHole(true);
+//        }
+//        chart.setCircleHoleRadius(4f);
+//        chart.setCircleColor(ColorThemes.cTabSelect);
+////        int[] colors = General.getColorSetByCount(lineDataset.getEntryCount(), ColorThemes.cTabSelect);
+////        if(listAge != null) {
+////            colors[listAge.indexOf(patientRecords.get(spRecordDate.getSelectedItemPosition()))] = ColorThemes.cTabDeselect;
+////        }
+////        lineDataset.setCircleColors(colors);
+//        chart.setCircleColorHole(Color.WHITE);
+//        lineDataset.setDrawCircleHole(true);
+    }
+
+
+
     public void addLimitLineMarker(int index) {
         XAxis xAxis;
         Log.e("MARKER", "Entered add limit line, index "+index);
@@ -1288,6 +1392,8 @@ public class ViewPatientActivity extends AppCompatActivity {
             limitLine.setLineColor(ColorThemes.cFail);
             limitLine.setLineWidth(1f);
             xAxis.addLimitLine(limitLine);
+            xAxis.setDrawLimitLinesBehindData(true);
+
             lineChart1.notifyDataSetChanged();
             lineChart1.invalidate();
         }
@@ -1299,6 +1405,8 @@ public class ViewPatientActivity extends AppCompatActivity {
             limitLine.setLineColor(ColorThemes.cFail);
             limitLine.setLineWidth(1f);
             xAxis.addLimitLine(limitLine);
+            xAxis.setDrawLimitLinesBehindData(true);
+
             lineChart2.notifyDataSetChanged();
             lineChart2.invalidate();
         }
@@ -1310,9 +1418,13 @@ public class ViewPatientActivity extends AppCompatActivity {
             limitLine.setLineColor(ColorThemes.cFail);
             limitLine.setLineWidth(1f);
             xAxis.addLimitLine(limitLine);
+            xAxis.setDrawLimitLinesBehindData(true);
+
             lineChart3.notifyDataSetChanged();
             lineChart3.invalidate();
         }
+
+
     }
 
     private void createCharts() {

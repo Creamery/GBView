@@ -11,6 +11,8 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import seebee.geebeeview.containers.StringConstants;
+
 
 /**
  * Created by Joy on 7/18/2017.
@@ -56,36 +58,68 @@ public class LineChartValueFormatter  {
         }
         return result;
     }
-
     public static float ConvertVisualAcuity(String visualAcuity) {
         float value;
+        int lowestValue = StringConstants.VA_LOWEST_VALUE;
         switch (visualAcuity) {
-            case "20/200": value = -200f;
+            case "20/200": value = lowestValue-200f;
                 break;
-            case "20/100": value = -100f;
+            case "20/100": value = lowestValue-100f;
                 break;
-            case "20/70": value = -70f;
+            case "20/70": value = lowestValue-70f;
                 break;
-            case "20/50": value = -50f;
+            case "20/50": value = lowestValue-50f;
                 break;
-            case "20/40": value = -40f;
+            case "20/40": value = lowestValue-40f;
                 break;
-            case "20/30": value = -30f;
+            case "20/30": value = lowestValue-30f;
                 break;
-            case "20/25": value = -25f;
+            case "20/25": value = lowestValue-25f;
                 break;
+            case "20/20": value = lowestValue-20f;
+                break;
+            case "20/15": value = lowestValue-15f;
+                break;
+            case "20/10": value = lowestValue-10f;
+                break;
+            case "20/5": value = lowestValue-5f;
+                break;
+
             default:
-            case "20/20": value = -20f;
-                break;
-            case "20/15": value = -15f;
-                break;
-            case "20/10": value = -10f;
-                break;
-            case "20/5": value = -5f;
-                break;
+                value = lowestValue-20f;
         }
         return value;
     }
+    // TODO delete when done (original conversion for line chart)
+//    public static float ConvertVisualAcuity(String visualAcuity) {
+//        float value;
+//        switch (visualAcuity) {
+//            case "20/200": value = -200f;
+//                break;
+//            case "20/100": value = -100f;
+//                break;
+//            case "20/70": value = -70f;
+//                break;
+//            case "20/50": value = -50f;
+//                break;
+//            case "20/40": value = -40f;
+//                break;
+//            case "20/30": value = -30f;
+//                break;
+//            case "20/25": value = -25f;
+//                break;
+//            default:
+//            case "20/20": value = -20f;
+//                break;
+//            case "20/15": value = -15f;
+//                break;
+//            case "20/10": value = -10f;
+//                break;
+//            case "20/5": value = -5f;
+//                break;
+//        }
+//        return value;
+//    }
 
     public static IAxisValueFormatter getYAxisValueFormatterVisualAcuity() {
         Log.v(TAG, "getYAxisValueFormatter");
@@ -109,34 +143,66 @@ public class LineChartValueFormatter  {
 //    }
 
     private static String ConvertVisualAcuity(float v) {
+
         String result;
-        if(v <= -200f) {
+        int lowestValue = StringConstants.VA_LOWEST_VALUE;
+        if(v <= lowestValue-200f) {
             result = "20/200";
-        } else if(v <= -100f) {
+        } else if(v <= lowestValue-100f) {
             result = "20/100";
-        } else if(v <= -70f) {
+        } else if(v <= lowestValue-70f) {
             result = "20/70";
-        } else if(v <= -50f) {
+        } else if(v <= lowestValue-50f) {
             result = "20/50";
-        } else if(v <= -40f) {
+        } else if(v <= lowestValue-40f) {
             result = "20/40";
-        } else if(v <= -30f) {
+        } else if(v <= lowestValue-30f) {
             result = "20/30";
-        } else if(v <= -25f) {
+        } else if(v <= lowestValue-25f) {
             result = "20/25";
-        } else if(v <= -20f) {
+        } else if(v <= lowestValue-20f) {
             result = "20/20";
-        } else if(v <= -15f) {
+        } else if(v <= lowestValue-15f) {
             result = "20/15";
-        } else if(v <= -10f) {
+        } else if(v <= lowestValue-10f) {
             result = "20/10";
-        } else if(v <= -5f) {
+        } else if(v <= lowestValue-5f) {
             result = "20/5";
         } else {
             result = "N/A";
         }
         return result;
     }
+    // Original visual acuity value formatter TODO delete when done
+//    private static String ConvertVisualAcuity(float v) {
+//        String result;
+//        if(v <= -200f) {
+//            result = "20/200";
+//        } else if(v <= -100f) {
+//            result = "20/100";
+//        } else if(v <= -70f) {
+//            result = "20/70";
+//        } else if(v <= -50f) {
+//            result = "20/50";
+//        } else if(v <= -40f) {
+//            result = "20/40";
+//        } else if(v <= -30f) {
+//            result = "20/30";
+//        } else if(v <= -25f) {
+//            result = "20/25";
+//        } else if(v <= -20f) {
+//            result = "20/20";
+//        } else if(v <= -15f) {
+//            result = "20/15";
+//        } else if(v <= -10f) {
+//            result = "20/10";
+//        } else if(v <= -5f) {
+//            result = "20/5";
+//        } else {
+//            result = "N/A";
+//        }
+//        return result;
+//    }
 
     public static IValueFormatter getValueFormatterVisualAcuity() {
         return new IValueFormatter() {
@@ -215,18 +281,19 @@ public class LineChartValueFormatter  {
 
     public static float ConvertHearing(String hearing) {
         float result = 0;
+        int lowestValue = StringConstants.HEARING_LOWEST_VALUE;
         switch (hearing) {
-            case "Normal Hearing": result = 1;
+            case "Normal Hearing": result = lowestValue+1;
                 break;
-            case "Mild Hearing Loss": result = -1;
+            case "Mild Hearing Loss": result = lowestValue-1;
                 break;
-            case "Moderate Hearing Loss": result = -2;
+            case "Moderate Hearing Loss": result = lowestValue-2;
                 break;
-            case "Moderately-Servere Hearing Loss": result = -3;
+            case "Moderately-Servere Hearing Loss": result = lowestValue-3;
                 break;
-            case "Severe Hearing Loss": result = -4;
+            case "Severe Hearing Loss": result = lowestValue-4;
                 break;
-            case "Profound Hearing Loss": result = -5;
+            case "Profound Hearing Loss": result = lowestValue-5;
                 break;
         }
         return result;
@@ -234,17 +301,18 @@ public class LineChartValueFormatter  {
 
     private static String ConvertHearing(float value) {
         String result = "N/A";
-        if(value >= 1) {
+        int lowestValue = StringConstants.HEARING_LOWEST_VALUE;
+        if(value >= lowestValue+1) {
             result = "Normal Hearing";
-        } else if(value >= -1) {
+        } else if(value >= lowestValue-1) {
             result = "Mild Hearing Loss";
-        } else if(value >= -2) {
+        } else if(value >= lowestValue-2) {
             result = "Moderate Hearing Loss";
-        } else if(value >= -3) {
+        } else if(value >= lowestValue-3) {
             result = "Moderately-Servere Hearing Loss";
-        } else if(value >= -4) {
+        } else if(value >= lowestValue-4) {
             result = "Severe Hearing Loss";
-        } else if(value >= -5){
+        } else if(value >= lowestValue-5){
             result = "Profound Hearing Loss";
         }
         return result;

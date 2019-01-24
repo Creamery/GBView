@@ -23,20 +23,20 @@ public class ValueCounter {
     Map<Integer, int[]> countBMIPerAge;
     private int[] valVisualAcuityLeft = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private int[] valVisualAcuityRight = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    private String[] lblColorVision = {"Normal", "Abnormal"};
+    public static String[] lblColorVision = {"Normal", "Abnormal"};
     private int[] valColorVision = {0, 0};
-    private String[] lblHearing = {"Normal", "Mild Loss", "Moderate Loss",
+    public static String[] lblHearing = {"Normal", "Mild Loss", "Moderate Loss",
             "Moderately-Severe Loss", "Severe Loss", "Profound Loss"};
     private int[] valHearingLeft = {0, 0, 0, 0, 0, 0};
     private int[] valHearingRight = {0, 0, 0, 0, 0, 0};
-    private String[] lblGrossMotor = {"Pass", "Fail", "N/A"};
+    public static String[] lblGrossMotor = {"Pass", "Fail", "N/A"};
     private int[] valGrossMotor = {0, 0, 0};
-    private String[] lblFineMotor = {"Pass", "Fail"};
+    public static String[] lblFineMotor = {"Pass", "Fail"};
     private int[] valFineMotorDom = {0, 0};
     private int[] valFineMotorNonDom = {0, 0};
     private String[] lblFineMotorHold = {"Hold", "Not Hold"};
     private int[] valFineMotorHold = {0, 0};
-    private String[] lblBMI = {"Underweight", "Normal", "Overweight", "Obese", "N/A"};
+    public static String[] lblBMI = {"Underweight", "Normal", "Overweight", "Obese", "N/A"};
     private int[] valBMI = {0, 0, 0, 0, 0};
     private ArrayList<PatientRecord> patientRecords;
 

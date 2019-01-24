@@ -41,13 +41,22 @@ public class StringConstants {
     public static final int INDEX_BODY = 3;
     public static final int INDEX_HAND = 4;
 
+    public static int VA_LOWEST_VALUE = 200; // 5 is for padding purposes
+    public static int HEARING_LOWEST_VALUE = 5; // 5 is for padding purposes
+
     // Visual Acuity (11 items) Must be equivalent to ColorThemes.csVISION
     public static String[] strVISION = new String[] {
             "Severe Loss",
             "Moderate Loss", "Moderate Loss",
             "Near-normal", "Near-normal", "Near-normal",
             "Normal", "Normal", "Normal", "Normal", "Normal"};
-
+    private static String[] strBMI = {
+            "Underweight",
+            "Normal",
+            "Moderate Loss",
+            "Moderately-Severe Loss",
+            "Severe Loss",
+            "Profound Loss"};
     public static String[] strVISION_MERGED = new String[] {
             "Severe Loss",
             "Moderate Loss",

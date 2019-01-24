@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seebee.geebeeview.R;
+import seebee.geebeeview.model.monitoring.ValueCounter;
 
 /**
  * A Singleton class that holds reusable functions to be used by any class, mainly for conversion or retrieval
@@ -45,6 +46,27 @@ public class General {
         return csWhite;
     }
 
+    public static int getMaxLabelCount(String recordValue) {
+        switch(recordValue) {
+            case StringConstants.COL_BMI:
+                return ValueCounter.lblBMI.length;
+            case StringConstants.COL_VA_LEFT:
+            case StringConstants.COL_VA_RIGHT:
+                return ValueCounter.lblVisualAcuity.length;
+            case StringConstants.COL_COLOR_VISION:
+                return ValueCounter.lblColorVision.length;
+            case StringConstants.COL_HEAR_LEFT:
+            case StringConstants.COL_HEAR_RIGHT:
+                return ValueCounter.lblHearing.length;
+            case StringConstants.COL_GROSS_MOTOR:
+                return ValueCounter.lblGrossMotor.length;
+            case StringConstants.COL_FINE_DOMINANT:
+            case StringConstants.COL_FINE_NON_DOMINANT:
+            case StringConstants.COL_FINE_HOLD:
+                return ValueCounter.lblFineMotor.length;
+        }
+        return 10;
+    }
     // Used for uniform colors in a stacked bar chart
     public static int[] getColorSetLightGray(int entryCount) {
         if(csLightGray.length != entryCount) {
