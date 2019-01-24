@@ -32,6 +32,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -77,6 +78,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     private ArrayList<Drawable> tabIconsSelect;
     private ArrayList<Drawable> tabIconsDeselect;
+    ArrayList<Integer> listAge;
 
     // ImageViews for the colors on the tabs
     private ImageView
@@ -742,6 +744,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvGradeLevel.setText(record.getGradeLevel());
 
         setupTabColors(record, getBMIText(bmi));
+
+        addLimitLineMarker(listAge.indexOf(patient.getAge(spRecordDate.getSelectedItem().toString())));
 //        Log.d("ABOUTLOG", "GradeLevel: "+record.getGradeLevel());
     }
 
@@ -886,6 +890,8 @@ public class ViewPatientActivity extends AppCompatActivity {
                 selectTab(selectedItem);
             default:
         }
+
+        addLimitLineMarker(listAge.indexOf(patient.getAge(spRecordDate.getSelectedItem().toString())));
     }
 
     private void prepareLineChartData(LineChart lineChart, String recordValue) {
@@ -990,6 +996,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         }
 
+
         setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
         lineChart.getLineData().setDrawValues(false);
         // notify chart data has changed
@@ -1085,29 +1092,29 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 //        switch(recordType) {
 //            case StringConstants.COL_BMI:
-                ArrayList<Integer> listAge = new ArrayList<>();
-                Record record = patientRecords.get(patientRecords.size()-1);
-                String recordDate = record.getDateCreated();
-                int age = patient.getAge(recordDate);
-                for(int i = 0; i < patientRecords.size(); i++) {
-                    listAge.add(patient.getAge(patientRecords.get(i).getDateCreated()));
-                }
-                Collections.sort(listAge);
-                int ageSize = 20-listAge.get(0);
-                String[] strAgeList = new String[ageSize];
+        this.listAge = new ArrayList<>();
+        Record record = patientRecords.get(patientRecords.size()-1);
+        String recordDate = record.getDateCreated();
+        int age = patient.getAge(recordDate);
+        for(int i = 0; i < patientRecords.size(); i++) {
+            listAge.add(patient.getAge(patientRecords.get(i).getDateCreated()));
+        }
+        Collections.sort(listAge);
+        int ageSize = 20-listAge.get(0);
+        String[] strAgeList = new String[ageSize];
 
-                int ageCount;
-                int i = 0 ;
-                do {
-                    ageCount = listAge.get(0)+i;
-                    strAgeList[i] = ageCount+"";
-                    Log.e("AGE", strAgeList[i]);
-                    i++;
-                } while(ageCount < 19);
-                IAxisValueFormatter formatter = new PatientChartIAxisFormatter(strAgeList);
-                xAxis.setValueFormatter(formatter);
-//                break;
-//        }
+        int ageCount;
+        int i = 0 ;
+        do {
+            ageCount = listAge.get(0)+i;
+            strAgeList[i] = ageCount+"";
+            Log.e("AGE", strAgeList[i]);
+            i++;
+        } while(ageCount < 19);
+        IAxisValueFormatter formatter = new PatientChartIAxisFormatter(strAgeList);
+        xAxis.setValueFormatter(formatter);
+
+//        addLimitLineMarker(listAge.indexOf(age));
     }
     private LineDataSet createLineDataSet(String recordValue, int index) {
         String datasetDescription;
@@ -1269,6 +1276,43 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         YAxis y12 = lineChart.getAxisLeft();
         y12.setEnabled(true);
+    }
+    public void addLimitLineMarker(int index) {
+        XAxis xAxis;
+        Log.e("MARKER", "Entered add limit line, index "+index);
+        if(lineChart1 != null) {
+            Log.e("MARKER", "lineChart1");
+            xAxis = lineChart1.getXAxis();
+            xAxis.removeAllLimitLines();
+            LimitLine limitLine = new LimitLine(index, "");
+            limitLine.setLineColor(ColorThemes.cFail);
+            limitLine.setLineWidth(1f);
+            xAxis.addLimitLine(limitLine);
+            lineChart1.notifyDataSetChanged();
+            lineChart1.invalidate();
+        }
+        if(lineChart2 != null) {
+            Log.e("MARKER", "lineChart2");
+            xAxis = lineChart2.getXAxis();
+            xAxis.removeAllLimitLines();
+            LimitLine limitLine = new LimitLine(index, "");
+            limitLine.setLineColor(ColorThemes.cFail);
+            limitLine.setLineWidth(1f);
+            xAxis.addLimitLine(limitLine);
+            lineChart2.notifyDataSetChanged();
+            lineChart2.invalidate();
+        }
+        if(lineChart3 != null) {
+            Log.e("MARKER", "lineChart3");
+            xAxis = lineChart3.getXAxis();
+            xAxis.removeAllLimitLines();
+            LimitLine limitLine = new LimitLine(index, "");
+            limitLine.setLineColor(ColorThemes.cFail);
+            limitLine.setLineWidth(1f);
+            xAxis.addLimitLine(limitLine);
+            lineChart3.notifyDataSetChanged();
+            lineChart3.invalidate();
+        }
     }
 
     private void createCharts() {
@@ -1447,11 +1491,10 @@ public class ViewPatientActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Record lastRecord = patientRecords.get(patientRecords.size()-1);
-                displayRecord(lastRecord);
+//                Record lastRecord = patientRecords.get(patientRecords.size()-1);
+//                displayRecord(lastRecord);
             }
         });
-
     }
 
     private void convertBlobToFile(byte[] soundBytes) {
