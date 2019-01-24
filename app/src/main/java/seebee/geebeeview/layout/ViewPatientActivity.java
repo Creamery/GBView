@@ -98,7 +98,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     private int patientID;
     private Patient patient;
     private ArrayList<Record> patientRecords, averageRecords;
-    private IdealValue idealValue;
+//    private IdealValue idealValue;
 
     private RelativeLayout graphLayout1, graphLayout2, graphLayout3;
     private LineChart lineChart1, lineChart2, lineChart3;
@@ -377,6 +377,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         if(age >= 5 && age <= 19) {
             recordType = StringConstants.COL_HEIGHT;
+
             idealRecordValues = getIdealValues(recordType, age);
             if(idealRecordValues !=  null) {
                 float height = idealRecordValues.getMedian();
@@ -744,37 +745,72 @@ public class ViewPatientActivity extends AppCompatActivity {
 //    }
 
 
+    private void hideAllGraphs() {
+        if(graphLayout1 != null) {
+            graphLayout1.setVisibility(View.GONE);
+        }
+        if(graphLayout2 != null) {
+            graphLayout2.setVisibility(View.GONE);
+        }
+        if(graphLayout3 != null) {
+            graphLayout3.setVisibility(View.GONE);
+        }
+    }
+
+    private void showGraphs(int count) {
+        switch(count) {
+            case 3:
+                graphLayout3.setVisibility(View.VISIBLE);
+            case 2:
+                graphLayout2.setVisibility(View.VISIBLE);
+            case 1:
+                graphLayout1.setVisibility(View.VISIBLE);
+            default:
+        }
+    }
+
+
     private void prepareLineChartData(int selectedItem) {
         clearAllGraphs();
+        hideAllGraphs();
+        Log.e("SELECT", selectedItem+"");
         switch(selectedItem) {
 
             case StringConstants.INDEX_EYE:
+                Log.e("SELECT", "EYE");
                 prepareLineChartData(lineChart1, StringConstants.COL_VA_LEFT);
                 prepareLineChartData(lineChart2, StringConstants.COL_VA_RIGHT);
                 prepareLineChartData(lineChart3, StringConstants.COL_COLOR_VISION);
+                showGraphs(3);
                 break;
             case StringConstants.INDEX_EAR:
                 prepareLineChartData(lineChart1, StringConstants.COL_HEAR_LEFT);
                 prepareLineChartData(lineChart2, StringConstants.COL_HEAR_RIGHT);
+                showGraphs(2);
                 break;
             case StringConstants.INDEX_BODY:
                 prepareLineChartData(lineChart1, StringConstants.COL_GROSS_MOTOR);
+                showGraphs(1);
                 break;
             case StringConstants.INDEX_HAND:
                 prepareLineChartData(lineChart1, StringConstants.COL_FINE_DOMINANT);
                 prepareLineChartData(lineChart2, StringConstants.COL_FINE_NON_DOMINANT);
                 prepareLineChartData(lineChart3, StringConstants.COL_FINE_HOLD);
+                showGraphs(3);
                 break;
 
             case StringConstants.INDEX_HEART:
+                Log.e("SELECT", "HEART");
                 prepareLineChartData(lineChart1, StringConstants.COL_BMI);
                 prepareLineChartData(lineChart2, StringConstants.COL_HEIGHT);
                 prepareLineChartData(lineChart3, StringConstants.COL_WEIGHT);
+                showGraphs(3);
             default:
         }
     }
 
     private void prepareLineChartData(LineChart lineChart, String recordValue) {
+        IdealValue idealRecordValues = null;
         LineData lineData = new LineData();
         lineData.setValueTextColor(Color.WHITE);
 
@@ -786,12 +822,12 @@ public class ViewPatientActivity extends AppCompatActivity {
         lineChart.setData(lineData);
 
         /* dataset containing values from patient, index 0 */
-        LineDataSet patientDataset = createLineDataSet(0);
+        LineDataSet patientDataset = createLineDataSet(recordValue, 0);
         lineData.addDataSet(patientDataset);
 
 
         /* add dataset containing average record values from patients with same age */
-        lineData.addDataSet(createLineDataSet(1));
+        lineData.addDataSet(createLineDataSet(recordValue, 1));
 
         /* add ideal values only if record */
         boolean addIdealValues = recordValue.contains("Height") || recordValue.contains("Weight") || recordValue.contains("BMI");
@@ -799,23 +835,23 @@ public class ViewPatientActivity extends AppCompatActivity {
         if(addIdealValues) {
             LineDataSet n2Dataset, n1Dataset, medianDataset, p1Dataset, p2Dataset;
             /* dataset containing values from 2SD */
-            p2Dataset = createLineDataSet(7);
+            p2Dataset = createLineDataSet(recordValue, 7);
             lineData.addDataSet(p2Dataset);
             /* dataset containing values from 1SD */
-            p1Dataset = createLineDataSet(6);
+            p1Dataset = createLineDataSet(recordValue, 6);
             lineData.addDataSet(p1Dataset);
             /* dataset containing values from median */
-            medianDataset = createLineDataSet(5);
+            medianDataset = createLineDataSet(recordValue, 5);
             lineData.addDataSet(medianDataset);
             /* dataset containing values from -1SD, index 3 */
-            n1Dataset = createLineDataSet(4);
+            n1Dataset = createLineDataSet(recordValue, 4);
             lineData.addDataSet(n1Dataset);
             /* dataset containing values from -2SD, index 2 */
-            n2Dataset = createLineDataSet(3);
+            n2Dataset = createLineDataSet(recordValue, 3);
             lineData.addDataSet(n2Dataset);
             if(recordValue.contentEquals("BMI")) {
                 /* dataset containing values from -3SD, index 7 */
-                LineDataSet n3Dataset = createLineDataSet(2);
+                LineDataSet n3Dataset = createLineDataSet(recordValue, 2);
                 lineData.addDataSet(n3Dataset);
             }
         }
@@ -828,14 +864,14 @@ public class ViewPatientActivity extends AppCompatActivity {
         for(int i = 0; i < patientRecords.size(); i++) {
             record = patientRecords.get(i);
 
-            yVal = getColumnValue(record);
+            yVal = getColumnValue(recordValue, record);
             //Log.v(TAG, recordValue+": "+yVal);
             /* add patient data to patient entry, index 0 */
 //            lineData.addEntry(new Entry(yVal, i), 0); TODO edited
             lineData.addEntry(new Entry(i, yVal), 0);
 
             /* add average record values of patients of the same age, index 1 */
-            yVal = getColumnValue(averageRecords.get(i));
+            yVal = getColumnValue(recordValue, averageRecords.get(i));
             lineData.addEntry(new Entry(i, yVal), 1);
 //            lineData.addEntry(new Entry(yVal, i), 1); TODO edited
 
@@ -848,107 +884,95 @@ public class ViewPatientActivity extends AppCompatActivity {
 
             /* addIdealValues if column is either height, weight, or BMI */
             if(addIdealValues && age >= 5 && age <= 19) {
-                getIdealValues(age);
-                if(idealValue != null) {
-                    idealValue.printIdealValue();
-                    Log.e("IDEAL", idealValue.getP2SD()+" "+idealValue.getYear());
+                idealRecordValues = getIdealValues(recordValue, age);
+                if(idealRecordValues != null) {
+                    idealRecordValues.printIdealValue();
+                    Log.e("IDEAL", idealRecordValues.getP2SD()+" "+idealRecordValues.getYear());
 
                 }
-//                //Log.v(TAG, recordValue+"(-3SD): "+idealValue.getN3SD()); TODO edited
-//                /* add -2SD from ideal value data to patient entry, index 3 */
-//                lineData.addEntry(new Entry(idealValue.getP2SD(), i), 2);
-//                /* add -1SD from ideal value data to patient entry, index 4 */
-//                lineData.addEntry(new Entry(idealValue.getP1SD(), i), 3);
-//                /* add median of ideal value data to patient entry, index 5 */
-//                lineData.addEntry(new Entry(idealValue.getMedian(), i), 4);
-//                /* add 1SD from ideal value data to patient entry, index 6 */
-//                lineData.addEntry(new Entry(idealValue.getN1SD(), i), 5);
-//                /* add 2SD from ideal value data to patient entry, index 7 */
-//                lineData.addEntry(new Entry(idealValue.getN2SD(), i), 6);
-//                /* add -3SD from ideal value data to patient entry, index 2 */
-//                lineData.addEntry(new Entry(idealValue.getN3SD(), i), 7);
 
-                if(idealValue != null) {
+                if(idealRecordValues != null) {
                     /* add -2SD from ideal value data to patient entry, index 3 */
-                    lineData.addEntry(new Entry(i, idealValue.getP2SD()), 2);
+                    lineData.addEntry(new Entry(i, idealRecordValues.getP2SD()), 2);
                     /* add -1SD from ideal value data to patient entry, index 4 */
-                    lineData.addEntry(new Entry(i, idealValue.getP1SD()), 3);
+                    lineData.addEntry(new Entry(i, idealRecordValues.getP1SD()), 3);
                     /* add median of ideal value data to patient entry, index 5 */
-                    lineData.addEntry(new Entry(i, idealValue.getMedian()), 4);
+                    lineData.addEntry(new Entry(i, idealRecordValues.getMedian()), 4);
                     /* add 1SD from ideal value data to patient entry, index 6 */
-                    lineData.addEntry(new Entry(i, idealValue.getN1SD()), 5);
+                    lineData.addEntry(new Entry(i, idealRecordValues.getN1SD()), 5);
                     /* add 2SD from ideal value data to patient entry, index 7 */
-                    lineData.addEntry(new Entry(i, idealValue.getN2SD()), 6);
+                    lineData.addEntry(new Entry(i, idealRecordValues.getN2SD()), 6);
                     /* add -3SD from ideal value data to patient entry, index 2 */
-                    lineData.addEntry(new Entry(i, idealValue.getN3SD()), 7);
+                    lineData.addEntry(new Entry(i, idealRecordValues.getN3SD()), 7);
                 }
                 else {
-                    Log.e("IDEAL", "idealValue is null");
+                    Log.e("IDEAL", "idealRecordValues is null");
                 }
             }
         }
 
-        setLineChartValueFormatter(lineChart, lineData);
+        setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
         lineChart.getLineData().setDrawValues(false);
         // notify chart data has changed
         lineChart.notifyDataSetChanged();
-
     }
 
-    private float getColumnValue(Record record) {
+    private float getColumnValue(String recordValue, Record record) {
         float x;
-        switch (recordColumn) {
+        switch (recordValue) {
             default:
-            case "Height (in cm)": x = Double.valueOf(record.getHeight()).floatValue();
+            case StringConstants.COL_HEIGHT: x = Double.valueOf(record.getHeight()).floatValue();
+//            case "Height (in cm)": x = Double.valueOf(record.getHeight()).floatValue();
                 break;
-            case "Weight (in kg)": x = Double.valueOf(record.getWeight()).floatValue();
+            case StringConstants.COL_WEIGHT: x = Double.valueOf(record.getWeight()).floatValue();
+//            case "Weight (in kg)": x = Double.valueOf(record.getWeight()).floatValue();
                 break;
-            case "BMI": x = BMICalculator.computeBMIMetric(
+            case StringConstants.COL_BMI: x = BMICalculator.computeBMIMetric(
                     Double.valueOf(record.getHeight()).intValue(),
                     Double.valueOf(record.getWeight()).intValue());
                 break;
-            case "Visual Acuity Left":
+            case StringConstants.COL_VA_LEFT:
                 x = LineChartValueFormatter.ConvertVisualAcuity(record.getVisualAcuityLeft());
                 break;
-            case "Visual Acuity Right":
+            case StringConstants.COL_VA_RIGHT:
                 x = LineChartValueFormatter.ConvertVisualAcuity(record.getVisualAcuityRight());
                 break;
-            case "Color Vision":
+            case StringConstants.COL_COLOR_VISION:
                 x = LineChartValueFormatter.ConvertColorVision(record.getColorVision());
                 break;
-            case "Hearing Left":
+            case StringConstants.COL_HEAR_LEFT:
                 x = LineChartValueFormatter.ConvertHearing(record.getHearingLeft());
                 break;
-            case "Hearing Right":
+            case StringConstants.COL_HEAR_RIGHT:
                 x = LineChartValueFormatter.ConvertHearing(record.getHearingRight());
                 break;
-            case "Gross Motor": x = record.getGrossMotor();
+            case StringConstants.COL_GROSS_MOTOR: x = record.getGrossMotor();
                 break;
-            case "Fine Motor (Dominant Hand)": x = record.getFineMotorDominant();
+            case StringConstants.COL_FINE_DOMINANT: x = record.getFineMotorDominant();
                 break;
-            case "Fine Motor (Non-Dominant Hand)": x = record.getFineMotorNDominant();
+            case StringConstants.COL_FINE_NON_DOMINANT: x = record.getFineMotorNDominant();
                 break;
-            case "Fine Motor (Hold)": x = record.getFineMotorHold();
+            case StringConstants.COL_FINE_HOLD: x = record.getFineMotorHold();
                 break;
         }
 
         return x;
     }
 
-    private void setLineChartValueFormatter(LineChart lineChart, LineData lineData) {
-        if(recordColumn.contains("BMI")) {
+    private void setLineChartValueFormatter(String recordValue, LineChart lineChart, LineData lineData, IdealValue idealRecordValue) {
+        if(recordValue.contains(StringConstants.COL_BMI)) {
             //lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterBMI(idealValue));
-            lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterBMI(idealValue));
-        } else if(recordColumn.contains("Visual Acuity")) {
+            lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterBMI(idealRecordValue));
+        } else if(recordValue.contains("Visual Acuity")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterVisualAcuity());
             lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterVisualAcuity());
-        } else if(recordColumn.contains("Color Vision")) {
+        } else if(recordValue.contains("Color Vision")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterColorVision());
             lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterColorVision());
-        } else if(recordColumn.contains("Hearing")) {
+        } else if(recordValue.contains("Hearing")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterHearing());
             lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterHearing());
-        } else if(recordColumn.contains("Motor")) {
+        } else if(recordValue.contains("Motor")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterMotor());
             lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterMotor());
         } else {
@@ -968,18 +992,19 @@ public class ViewPatientActivity extends AppCompatActivity {
 //            });
         }
 
-        formatLineChartAxis(lineChart, recordColumn.trim());
+        formatLineChartAxis(lineChart, recordValue.trim());
         lineChart.notifyDataSetChanged();
     }
 
     private void formatLineChartAxis(LineChart chart, String recordType) {
 
         XAxis xAxis = chart.getXAxis();
+        xAxis.removeAllLimitLines();
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         xAxis.setTextSize(10);
 
-        switch(recordType) {
-            case StringConstants.COL_BMI:
+//        switch(recordType) {
+//            case StringConstants.COL_BMI:
                 ArrayList<Integer> listAge = new ArrayList<>();
                 Record record = patientRecords.get(patientRecords.size()-1);
                 String recordDate = record.getDateCreated();
@@ -1001,10 +1026,10 @@ public class ViewPatientActivity extends AppCompatActivity {
                 } while(ageCount < 19);
                 IAxisValueFormatter formatter = new PatientChartIAxisFormatter(strAgeList);
                 xAxis.setValueFormatter(formatter);
-                break;
-        }
+//                break;
+//        }
     }
-    private LineDataSet createLineDataSet(int index) {
+    private LineDataSet createLineDataSet(String recordValue, int index) {
         String datasetDescription;
         int lineColor;
         float lineWidth = 3f;
@@ -1029,7 +1054,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             case 3: datasetDescription = "3rd";
                 lineColor = Color.RED;
 //                fillColor = Color.BLACK;
-                if(recordColumn.equals("BMI")) {
+                if(recordValue.equals("BMI")) {
                     datasetDescription = "Thinness";
                     fillColor = Color.MAGENTA;
                     drawFilled = true;
@@ -1037,7 +1062,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 break;
             case 4: datasetDescription = "15th";
                 lineColor = Color.YELLOW;
-                if(recordColumn.equals("BMI")) {
+                if(recordValue.equals("BMI")) {
                     datasetDescription = "";
                     lineColor = Color.TRANSPARENT;
 //                    valueTextColor = Color.TRANSPARENT;
@@ -1045,13 +1070,13 @@ public class ViewPatientActivity extends AppCompatActivity {
                 break;
             case 5: datasetDescription = "50th";
                 lineColor = Color.GREEN;
-                if(recordColumn.equals("BMI")) {
+                if(recordValue.equals("BMI")) {
                     datasetDescription = "Normal";
                 }
                 break;
             case 6: datasetDescription = "85th";
                 lineColor = Color.YELLOW;
-                if(recordColumn.equals("BMI")) {
+                if(recordValue.equals("BMI")) {
                     datasetDescription = "Overweight";
                     fillColor = Color.GREEN;
                     drawFilled = true;
@@ -1059,7 +1084,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 break;
             case 7: datasetDescription = "97th";
                 lineColor = Color.RED;
-                if(recordColumn.equals("BMI")) {
+                if(recordValue.equals("BMI")) {
                     datasetDescription = "Obesity";
                     fillColor = Color.YELLOW;
                     drawFilled = true;
@@ -1217,16 +1242,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
         /* match chart size to layout size */
         lineChart3.notifyDataSetChanged();
-
-
-//        Chart chart = getCurrentChart();
-//        chart.clear();
-//        graphLayout1.addView(chart);
-//        ViewGroup.LayoutParams params = chart.getLayoutParams();
-//        /* match chart size to layout size */
-//        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-//        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-//        chart.notifyDataSetChanged();
     }
 
     private void getPatientData() {
@@ -1259,27 +1274,27 @@ public class ViewPatientActivity extends AppCompatActivity {
         Log.v(TAG, "number of records: "+patientRecords.size());
     }
 
-    private void getIdealValues(int age) {
-        String column;
-        DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
-        /* ready database for reading */
-        try {
-            getBetterDb.openDatabaseForRead();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        /* get ideal value from database */
-        if(recordColumn.contains("Height")) {
-            column = Record.C_HEIGHT;
-        } else if(recordColumn.contains("Weight")) {
-            column = Record.C_WEIGHT;
-        } else {
-            column = "bmi";
-        }
-        idealValue = getBetterDb.getIdealValue(column, patient.getGender(), age);
-        /* close database after retrieval */
-        getBetterDb.closeDatabase();
-    }
+//    private void getIdealValues(int age) {
+//        String column;
+//        DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
+//        /* ready database for reading */
+//        try {
+//            getBetterDb.openDatabaseForRead();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        /* get ideal value from database */
+//        if(recordColumn.contains("Height")) {
+//            column = Record.C_HEIGHT;
+//        } else if(recordColumn.contains("Weight")) {
+//            column = Record.C_WEIGHT;
+//        } else {
+//            column = "bmi";
+//        }
+//        idealValue = getBetterDb.getIdealValue(column, patient.getGender(), age);
+//        /* close database after retrieval */
+//        getBetterDb.closeDatabase();
+//    }
 
     private IdealValue getIdealValues(String recordType, int age) {
         IdealValue idealRecordValue = null;
@@ -1295,9 +1310,9 @@ public class ViewPatientActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             /* get ideal value from database */
-            if(recordType.contains("Height")) {
+            if(recordType.contains(StringConstants.COL_HEIGHT)) {
                 column = Record.C_HEIGHT;
-            } else if(recordType.contains("Weight")) {
+            } else if(recordType.contains(StringConstants.COL_WEIGHT)) {
                 column = Record.C_WEIGHT;
             } else {
                 column = "bmi";
