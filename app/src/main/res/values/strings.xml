@@ -176,7 +176,13 @@
         <item>Fine Motor (Non-Dominant Hand)</item>
         <item>Fine Motor (Hold)</item>
     </string-array>
-
+    <string-array name="record_column_array_num_tabs">
+        <item>BMI</item>
+        <item>Vision</item>
+        <item>Hearing</item>
+        <item>Gross Motor</item>
+        <item>Fine Motor</item>
+    </string-array>
     <string-array name="chart_type_array">
         <item>School Health Overview</item>
         <item>National Comparison</item>

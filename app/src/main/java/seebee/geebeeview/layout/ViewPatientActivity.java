@@ -60,7 +60,6 @@ import seebee.geebeeview.model.monitoring.IdealValue;
 import seebee.geebeeview.model.monitoring.LineChartValueFormatter;
 import seebee.geebeeview.model.monitoring.Record;
 import seebee.geebeeview.containers.General;
-import seebee.geebeeview.model.monitoring.ValueCounter;
 import seebee.geebeeview.sidebar.PatientSidebar;
 
 public class ViewPatientActivity extends AppCompatActivity {
@@ -101,8 +100,8 @@ public class ViewPatientActivity extends AppCompatActivity {
     private ArrayList<Record> patientRecords, averageRecords;
     private IdealValue idealValue;
 
-    private RelativeLayout graphLayout;
-    private LineChart lineChart;
+    private RelativeLayout graphLayout1, graphLayout2, graphLayout3;
+    private LineChart lineChart1, lineChart2, lineChart3;
 //    private RadarChart radarChart;
     private Spinner spRecordColumn;
     private String recordColumn = "BMI";
@@ -190,7 +189,9 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvFineMotorHold = (TextView) findViewById(R.id.tv_fine_motor_hold);
         tvRecordRemark = (TextView) findViewById(R.id.tv_record_remark);
         /* connect graph container to here */
-        graphLayout = (RelativeLayout) findViewById(R.id.patient_chart_container);
+        graphLayout1 = (RelativeLayout) findViewById(R.id.patient_chart_container1);
+        graphLayout2 = (RelativeLayout) findViewById(R.id.patient_chart_container2);
+        graphLayout3 = (RelativeLayout) findViewById(R.id.patient_chart_container3);
         /* connect spinner here */
         spRecordColumn = (Spinner) findViewById(R.id.sp_vp_record_column);
         spRecordDate = (Spinner) findViewById(R.id.sp_record_date);
@@ -279,7 +280,8 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         /* set up spinner selector */
         ArrayAdapter<String> spRecordAdapter = new ArrayAdapter<>(this, R.layout.custom_spinner,
-                getResources().getStringArray(R.array.record_column_array_num));
+                getResources().getStringArray(R.array.record_column_array_num_tabs));
+//                getResources().getStringArray(R.array.record_column_array_num));
         spRecordColumn.setAdapter(spRecordAdapter);
         spRecordColumn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -289,18 +291,20 @@ public class ViewPatientActivity extends AppCompatActivity {
                         "Displayed Data: " + parent.getItemAtPosition(position).toString(),
                         Toast.LENGTH_SHORT).show();
                 /* change the contents of the chart */
-                if(lineChart != null) {
-                    lineChart.clear();
-                    prepareLineChartData();
+                prepareLineChartData(position);
+//                if(lineChart != null) {
+//                    lineChart.clear();
+//                    prepareLineChartData();
 //                    lineChart.setDescription(recordColumn);
-                    // TODO Edited
-                    Description desc = new Description();
-                    desc.setText(recordColumn);
-                    lineChart.setDescription(desc);
+                    // TODO Edited (removed)
+//                    Description desc = new Description();
+//                    desc.setText(recordColumn);
+//                    lineChart.setDescription(desc);
+
 //                } else {
 //                    radarChart.clear();
 //                    prepareRadarChartData();
-                }
+//                }
             }
 
             @Override
@@ -322,9 +326,9 @@ public class ViewPatientActivity extends AppCompatActivity {
         addChartToView();
 //        Log.e("DEBUG", "Entering prepareLineChart");
 
-        prepareLineChart();
+        prepareLineCharts();
 //        Log.e("DEBUG", "Entering prepareLineChartData");
-        prepareLineChartData();
+        prepareLineChartData(spRecordColumn.getSelectedItemPosition()); // TODO
 
 
         Log.e("DEBUG", "Record List");
@@ -348,6 +352,18 @@ public class ViewPatientActivity extends AppCompatActivity {
         });
 
         Log.e("DEBUG", "Exiting OnCreate");
+    }
+
+    private void clearAllGraphs() {
+        if(lineChart1 != null) {
+            lineChart1.clear();
+        }
+        if(lineChart2 != null) {
+            lineChart2.clear();
+        }
+        if(lineChart2 != null) {
+            lineChart2.clear();
+        }
     }
 
     public void setupTabColors(Record patientRecord, String bmiText) {
@@ -727,9 +743,44 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        }
 //    }
 
-    private void prepareLineChartData() {
+
+    private void prepareLineChartData(int selectedItem) {
+        clearAllGraphs();
+        switch(selectedItem) {
+
+            case StringConstants.INDEX_EYE:
+                prepareLineChartData(lineChart1, StringConstants.COL_VA_LEFT);
+                prepareLineChartData(lineChart2, StringConstants.COL_VA_RIGHT);
+                prepareLineChartData(lineChart3, StringConstants.COL_COLOR_VISION);
+                break;
+            case StringConstants.INDEX_EAR:
+                prepareLineChartData(lineChart1, StringConstants.COL_HEAR_LEFT);
+                prepareLineChartData(lineChart2, StringConstants.COL_HEAR_RIGHT);
+                break;
+            case StringConstants.INDEX_BODY:
+                prepareLineChartData(lineChart1, StringConstants.COL_GROSS_MOTOR);
+                break;
+            case StringConstants.INDEX_HAND:
+                prepareLineChartData(lineChart1, StringConstants.COL_FINE_DOMINANT);
+                prepareLineChartData(lineChart2, StringConstants.COL_FINE_NON_DOMINANT);
+                prepareLineChartData(lineChart3, StringConstants.COL_FINE_HOLD);
+                break;
+
+            case StringConstants.INDEX_HEART:
+                prepareLineChartData(lineChart1, StringConstants.COL_BMI);
+                prepareLineChartData(lineChart2, StringConstants.COL_HEIGHT);
+                prepareLineChartData(lineChart3, StringConstants.COL_WEIGHT);
+            default:
+        }
+    }
+
+    private void prepareLineChartData(LineChart lineChart, String recordValue) {
         LineData lineData = new LineData();
         lineData.setValueTextColor(Color.WHITE);
+
+        Description desc = new Description();
+        desc.setText(recordValue);
+        lineChart.setDescription(desc);
 
         // add data to line chart
         lineChart.setData(lineData);
@@ -743,7 +794,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         lineData.addDataSet(createLineDataSet(1));
 
         /* add ideal values only if record */
-        boolean addIdealValues = recordColumn.contains("Height") || recordColumn.contains("Weight") || recordColumn.contains("BMI");
+        boolean addIdealValues = recordValue.contains("Height") || recordValue.contains("Weight") || recordValue.contains("BMI");
 
         if(addIdealValues) {
             LineDataSet n2Dataset, n1Dataset, medianDataset, p1Dataset, p2Dataset;
@@ -762,7 +813,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             /* dataset containing values from -2SD, index 2 */
             n2Dataset = createLineDataSet(3);
             lineData.addDataSet(n2Dataset);
-            if(recordColumn.contentEquals("BMI")) {
+            if(recordValue.contentEquals("BMI")) {
                 /* dataset containing values from -3SD, index 7 */
                 LineDataSet n3Dataset = createLineDataSet(2);
                 lineData.addDataSet(n3Dataset);
@@ -778,7 +829,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             record = patientRecords.get(i);
 
             yVal = getColumnValue(record);
-            //Log.v(TAG, recordColumn+": "+yVal);
+            //Log.v(TAG, recordValue+": "+yVal);
             /* add patient data to patient entry, index 0 */
 //            lineData.addEntry(new Entry(yVal, i), 0); TODO edited
             lineData.addEntry(new Entry(i, yVal), 0);
@@ -803,7 +854,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                     Log.e("IDEAL", idealValue.getP2SD()+" "+idealValue.getYear());
 
                 }
-//                //Log.v(TAG, recordColumn+"(-3SD): "+idealValue.getN3SD()); TODO edited
+//                //Log.v(TAG, recordValue+"(-3SD): "+idealValue.getN3SD()); TODO edited
 //                /* add -2SD from ideal value data to patient entry, index 3 */
 //                lineData.addEntry(new Entry(idealValue.getP2SD(), i), 2);
 //                /* add -1SD from ideal value data to patient entry, index 4 */
@@ -837,7 +888,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         }
 
-        setLineChartValueFormatter(lineData);
+        setLineChartValueFormatter(lineChart, lineData);
         lineChart.getLineData().setDrawValues(false);
         // notify chart data has changed
         lineChart.notifyDataSetChanged();
@@ -884,7 +935,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         return x;
     }
 
-    private void setLineChartValueFormatter(LineData lineData) {
+    private void setLineChartValueFormatter(LineChart lineChart, LineData lineData) {
         if(recordColumn.contains("BMI")) {
             //lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterBMI(idealValue));
             lineChart.getAxisRight().setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterBMI(idealValue));
@@ -1090,7 +1141,13 @@ public class ViewPatientActivity extends AppCompatActivity {
     }
 
 
-    private void prepareLineChart() {
+    private void prepareLineCharts() {
+        prepareLineChart(lineChart1);
+        prepareLineChart(lineChart2);
+        prepareLineChart(lineChart3);
+    }
+
+    private void prepareLineChart(LineChart lineChart) {
         // enable draging and scalinng
         lineChart.setDragEnabled(true);
         lineChart.setScaleEnabled(true);
@@ -1110,34 +1167,66 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     private void createCharts() {
         /* create line chart */
-        lineChart = new LineChart(this);
-        customizeChart(lineChart);
+        lineChart1 = new LineChart(this);
+        customizeChart(lineChart1);
+
+        lineChart2 = new LineChart(this);
+        customizeChart(lineChart2);
+
+        lineChart3 = new LineChart(this);
+        customizeChart(lineChart3);
         /* create radar chart */
 //        radarChart = new RadarChart(this);
 //        customizeChart(radarChart);
     }
 
-    private Chart getCurrentChart(){
-        Chart chart;
-        switch (chartType) {
-            default:
-            case "Line Chart": chart = lineChart;
-                break;
-//            case "Radar Chart": chart = radarChart;
+//    private Chart getCurrentChart(){
+//        Chart chart;
+//        switch (chartType) {
+//            default:
+//            case "Line Chart": chart = lineChart;
 //                break;
-        }
-        return chart;
-    }
+////            case "Radar Chart": chart = radarChart;
+////                break;
+//        }
+//        return chart;
+//    }
 
     private void addChartToView() {
-        Chart chart = getCurrentChart();
-        chart.clear();
-        graphLayout.addView(chart);
-        ViewGroup.LayoutParams params = chart.getLayoutParams();
+
+        lineChart1.clear();
+        graphLayout1.addView(lineChart1);
+        ViewGroup.LayoutParams params = lineChart1.getLayoutParams();
         /* match chart size to layout size */
         params.height = ViewGroup.LayoutParams.MATCH_PARENT;
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        chart.notifyDataSetChanged();
+        lineChart1.notifyDataSetChanged();
+
+        lineChart2.clear();
+        graphLayout2.addView(lineChart2);
+        params = lineChart2.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        /* match chart size to layout size */
+        lineChart2.notifyDataSetChanged();
+
+        lineChart3.clear();
+        graphLayout3.addView(lineChart3);
+        params = lineChart3.getLayoutParams();
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+        /* match chart size to layout size */
+        lineChart3.notifyDataSetChanged();
+
+
+//        Chart chart = getCurrentChart();
+//        chart.clear();
+//        graphLayout1.addView(chart);
+//        ViewGroup.LayoutParams params = chart.getLayoutParams();
+//        /* match chart size to layout size */
+//        params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+//        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
+//        chart.notifyDataSetChanged();
     }
 
     private void getPatientData() {
