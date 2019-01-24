@@ -101,6 +101,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 //    private IdealValue idealValue;
 
     private RelativeLayout graphLayout1, graphLayout2, graphLayout3;
+    private ConstraintLayout contGraphLayout1, contGraphLayout2, contGraphLayout3;
     private LineChart lineChart1, lineChart2, lineChart3;
 //    private RadarChart radarChart;
     private Spinner spRecordColumn;
@@ -192,6 +193,12 @@ public class ViewPatientActivity extends AppCompatActivity {
         graphLayout1 = (RelativeLayout) findViewById(R.id.patient_chart_container1);
         graphLayout2 = (RelativeLayout) findViewById(R.id.patient_chart_container2);
         graphLayout3 = (RelativeLayout) findViewById(R.id.patient_chart_container3);
+
+        contGraphLayout1 = findViewById(R.id.cont_chart_container1);
+        contGraphLayout2 = findViewById(R.id.cont_chart_container2);
+        contGraphLayout3 = findViewById(R.id.cont_chart_container3);
+
+
         /* connect spinner here */
         spRecordColumn = (Spinner) findViewById(R.id.sp_vp_record_column);
         spRecordDate = (Spinner) findViewById(R.id.sp_record_date);
@@ -746,25 +753,25 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 
     private void hideAllGraphs() {
-        if(graphLayout1 != null) {
-            graphLayout1.setVisibility(View.GONE);
+        if(contGraphLayout1 != null) {
+            contGraphLayout1.setVisibility(View.GONE);
         }
-        if(graphLayout2 != null) {
-            graphLayout2.setVisibility(View.GONE);
+        if(contGraphLayout2 != null) {
+            contGraphLayout2.setVisibility(View.GONE);
         }
-        if(graphLayout3 != null) {
-            graphLayout3.setVisibility(View.GONE);
+        if(contGraphLayout3 != null) {
+            contGraphLayout3.setVisibility(View.GONE);
         }
     }
 
     private void showGraphs(int count) {
         switch(count) {
             case 3:
-                graphLayout3.setVisibility(View.VISIBLE);
+                contGraphLayout1.setVisibility(View.VISIBLE);
             case 2:
-                graphLayout2.setVisibility(View.VISIBLE);
+                contGraphLayout2.setVisibility(View.VISIBLE);
             case 1:
-                graphLayout1.setVisibility(View.VISIBLE);
+                contGraphLayout3.setVisibility(View.VISIBLE);
             default:
         }
     }
