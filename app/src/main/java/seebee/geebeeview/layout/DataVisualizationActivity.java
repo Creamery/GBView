@@ -2124,12 +2124,22 @@ public class DataVisualizationActivity extends AppCompatActivity
         barDataSetList.add(barDataSet);
 
         BarData barData = new BarData(barDataSetList);
-        this.barSpecific.getAxisLeft().setEnabled(false);
         //BarData barData = new BarData(xData, barDataSet);
         this.barSpecific.setData(barData);
-        this.barSpecific.getAxisLeft().setEnabled(false);
+        this.barSpecific.getAxisLeft().setEnabled(true);
+        this.barSpecific.getAxisRight().setEnabled(false);
+//        this.barSpecific.getAxisRight().setDrawAxisLine(true);
         adjustSpecificBarChartParams();
         formatBarSpecificAppearance(barDataSet, chartDataValue.getxData());
+
+
+//        YAxis rightAxis = barSpecific.getAxisRight();
+//        YAxis leftAxis = barSpecific.getAxisLeft();
+        XAxis xAxis = barSpecific.getXAxis();
+        LimitLine limitLine = new LimitLine(barSpecific.getBarData().getEntryCount()-0.5f, ""); // TODO label
+        limitLine.setLineColor(ColorThemes.cGray);
+        limitLine.setLineWidth(0.1f);
+        xAxis.addLimitLine(limitLine);
 
         String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
         prepareBarSpecificLegend(this.barSpecific, barLabels, ColorThemes.getMergedStackedColorSet(recordType));
