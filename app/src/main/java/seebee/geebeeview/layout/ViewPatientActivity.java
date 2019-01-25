@@ -316,19 +316,6 @@ public class ViewPatientActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
                 /* change the contents of the chart */
                 prepareLineChartData(position);
-//                if(lineChart != null) {
-//                    lineChart.clear();
-//                    prepareLineChartData();
-//                    lineChart.setDescription(recordColumn);
-                    // TODO Edited (removed)
-//                    Description desc = new Description();
-//                    desc.setText(recordColumn);
-//                    lineChart.setDescription(desc);
-
-//                } else {
-//                    radarChart.clear();
-//                    prepareRadarChartData();
-//                }
             }
 
             @Override
@@ -381,12 +368,18 @@ public class ViewPatientActivity extends AppCompatActivity {
     private void clearAllGraphs() {
         if(lineChart1 != null) {
             lineChart1.clear();
+            lineChart1.notifyDataSetChanged();
+            lineChart1.invalidate();
         }
         if(lineChart2 != null) {
             lineChart2.clear();
+            lineChart2.notifyDataSetChanged();
+            lineChart2.invalidate();
         }
-        if(lineChart2 != null) {
-            lineChart2.clear();
+        if(lineChart3 != null) {
+            lineChart3.clear();
+            lineChart3.notifyDataSetChanged();
+            lineChart3.invalidate();
         }
     }
 
@@ -814,11 +807,11 @@ public class ViewPatientActivity extends AppCompatActivity {
     private void showGraphs(int count) {
         switch(count) {
             case 3:
-                contGraphLayout1.setVisibility(View.VISIBLE);
+                contGraphLayout3.setVisibility(View.VISIBLE);
             case 2:
                 contGraphLayout2.setVisibility(View.VISIBLE);
             case 1:
-                contGraphLayout3.setVisibility(View.VISIBLE);
+                contGraphLayout1.setVisibility(View.VISIBLE);
             default:
         }
     }
@@ -869,18 +862,19 @@ public class ViewPatientActivity extends AppCompatActivity {
         Log.e("SELECT", selectedItem+"");
         switch(selectedItem) {
 
+            case StringConstants.INDEX_EAR:
+                Log.e("SELECT", "EAR");
+                prepareLineChartData(lineChart1, StringConstants.COL_HEAR_LEFT);
+                prepareLineChartData(lineChart2, StringConstants.COL_HEAR_RIGHT);
+                showGraphs(2);
+                selectTab(selectedItem);
+                break;
             case StringConstants.INDEX_EYE:
                 Log.e("SELECT", "EYE");
                 prepareLineChartData(lineChart1, StringConstants.COL_VA_LEFT);
                 prepareLineChartData(lineChart2, StringConstants.COL_VA_RIGHT);
                 prepareLineChartData(lineChart3, StringConstants.COL_COLOR_VISION);
                 showGraphs(3);
-                selectTab(selectedItem);
-                break;
-            case StringConstants.INDEX_EAR:
-                prepareLineChartData(lineChart1, StringConstants.COL_HEAR_LEFT);
-                prepareLineChartData(lineChart2, StringConstants.COL_HEAR_RIGHT);
-                showGraphs(2);
                 selectTab(selectedItem);
                 break;
             case StringConstants.INDEX_BODY:
@@ -903,7 +897,6 @@ public class ViewPatientActivity extends AppCompatActivity {
                 prepareLineChartData(lineChart3, StringConstants.COL_WEIGHT);
                 showGraphs(3);
                 selectTab(selectedItem);
-            default:
         }
         int age = patient.getAge(spRecordDate.getSelectedItem().toString());
         addLimitLineMarker(listAge.indexOf(age), age);
@@ -1080,6 +1073,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 }
             }
         }
+        Log.e("PATIENTRECORDS", recordValue+" "+patientDataset.getEntryCount()+"");
         customizeLineChart(recordValue, patientDataset, 1, ColorThemes.cPrimaryDark);
         customizeLineChart(recordValue, averageDataset, 0, ColorThemes.cTealDefaultDark);
         setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
