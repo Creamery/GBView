@@ -42,21 +42,22 @@ public class LineChartValueFormatter  {
 //    }
 
     private static String ConvertBMI(float v, IdealValue idealValue) {
-        String result = "";
-        if(idealValue != null) {
-            if (v <= idealValue.getN3SD()) {
-                result = "Severe Thinness";
-            } else if (v > idealValue.getN3SD() && v <= idealValue.getN2SD()) {
-                result = "Thinness";
-            } else if (v > idealValue.getN2SD() && v < idealValue.getP1SD()) {
-                result = "Normal";
-            } else if (v >= idealValue.getP1SD() && v < idealValue.getP2SD()) {
-                result = "Overweight";
-            } else if (v >= idealValue.getP2SD()) {
-                result = "Obese";
-            }
-        }
-        return result;
+        return v+"";
+//        String result = "";
+//        if(idealValue != null) {
+//            if (v <= idealValue.getN3SD()) {
+//                result = "Severe Thinness";
+//            } else if (v > idealValue.getN3SD() && v <= idealValue.getN2SD()) {
+//                result = "Thinness";
+//            } else if (v > idealValue.getN2SD() && v < idealValue.getP1SD()) {
+//                result = "Normal";
+//            } else if (v >= idealValue.getP1SD() && v < idealValue.getP2SD()) {
+//                result = "Overweight";
+//            } else if (v >= idealValue.getP2SD()) {
+//                result = "Obese";
+//            }
+//        }
+//        return result;
     }
     public static float ConvertVisualAcuity(String visualAcuity) {
         float value;

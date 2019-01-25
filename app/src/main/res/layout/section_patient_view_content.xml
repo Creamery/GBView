@@ -15,8 +15,24 @@
         android:weightSum="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <Spinner
+            android:id="@+id/sp_vp_record_column"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:background="@color/white"
+            android:entries="@array/record_column_array_num"
+            android:gravity="center"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></Spinner>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -37,6 +53,7 @@
                     android:id="@+id/graph_item1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginTop="1dp"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -140,6 +157,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -247,6 +265,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -339,6 +358,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -419,6 +439,7 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="1dp"
+                    android:layout_marginTop="1dp"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -527,7 +548,7 @@
             android:id="@+id/cont_patient_graph"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.8">
+            android:layout_weight="0.75">
 
             <ScrollView
                 android:id="@+id/scroll_patient_graphs"
@@ -557,11 +578,47 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/cont_patient_chart_title1"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toTopOf="@+id/patient_chart_container1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_patient_chart_title1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/cd_blank"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/imageView9"
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:background="@color/lightGrey"
+                                android:contentDescription="@string/cd_blank"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/tv_patient_chart_title1"
+                                app:layout_constraintStart_toStartOf="@+id/tv_patient_chart_title1"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="1.0" />
+                        </android.support.constraint.ConstraintLayout>
+
                         <ImageView
                             android:id="@+id/iv_patient_chart_cont1_ref"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/cd_blank"
+                            android:padding="10dp"
                             android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -573,10 +630,12 @@
                             android:id="@+id/patient_chart_container1"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            android:clipToPadding="false"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toBottomOf="@+id/cont_patient_chart_title1"
+                            app:layout_constraintVertical_weight="9">
 
                         </RelativeLayout>
 
@@ -595,11 +654,48 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/cont_patient_chart_title2"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toTopOf="@+id/patient_chart_container2"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_patient_chart_title2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/cd_blank"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintVertical_weight="9"
+                                app:layout_constraintTop_toBottomOf="@id/cont_patient_chart_title2" />
+
+                            <ImageView
+                                android:id="@+id/imageView10"
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:background="@color/lightGrey"
+                                android:contentDescription="@string/cd_blank"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/tv_patient_chart_title2"
+                                app:layout_constraintStart_toStartOf="@+id/tv_patient_chart_title2"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="1.0" />
+                        </android.support.constraint.ConstraintLayout>
+
                         <ImageView
                             android:id="@+id/iv_patient_chart_cont2_ref"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/cd_blank"
+                            android:padding="10dp"
                             android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -614,7 +710,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toBottomOf="@id/cont_patient_chart_title2"
+                            app:layout_constraintVertical_weight="9">
 
                         </RelativeLayout>
 
@@ -633,11 +730,48 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/cont_patient_chart_title3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toTopOf="@+id/patient_chart_container3"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_weight="1">
+
+                            <TextView
+                                android:id="@+id/tv_patient_chart_title3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:text="@string/cd_blank"
+                                android:textColor="@color/colorPrimaryDark"
+                                android:textStyle="bold"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/cont_patient_chart_title3"
+                                app:layout_constraintVertical_weight="9" />
+
+                            <ImageView
+                                android:id="@+id/imageView11"
+                                android:layout_width="0dp"
+                                android:layout_height="1dp"
+                                android:background="@color/lightGrey"
+                                android:contentDescription="@string/cd_blank"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="@+id/tv_patient_chart_title3"
+                                app:layout_constraintStart_toStartOf="@+id/tv_patient_chart_title3"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintVertical_bias="1.0" />
+                        </android.support.constraint.ConstraintLayout>
+
                         <ImageView
                             android:id="@+id/iv_patient_chart_cont3_ref"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/cd_blank"
+                            android:padding="10dp"
                             android:visibility="invisible"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -649,10 +783,11 @@
                             android:id="@+id/patient_chart_container3"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
+                            app:layout_constraintVertical_weight="9"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent">
+                            app:layout_constraintTop_toBottomOf="@id/cont_patient_chart_title3">
 
                         </RelativeLayout>
 
@@ -666,7 +801,7 @@
             android:id="@+id/constraintLayout10"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1">
+            android:layout_weight="0.5">
 
         </android.support.constraint.ConstraintLayout>
 

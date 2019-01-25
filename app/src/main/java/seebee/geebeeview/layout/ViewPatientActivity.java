@@ -77,7 +77,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     private ConstraintLayout contRecordDate;
 
     private TextView tvName, tvBirthday, tvDominantHand, tvAge, tvGradeLevel, tvBMI, tvPatientRemark, tvMedicalRecordTitle, tvRecordDateTitle;
-    private TextView tvData, tvDate, tvHeight, tvWeight, tvVisualLeft, tvVisualRight, tvColorVision, tvHearingLeft,
+    private TextView tvDate, tvHeight, tvWeight, tvVisualLeft, tvVisualRight, tvColorVision, tvHearingLeft,
             tvHearingRight, tvGrossMotor, tvFineMotorD, tvFineMotorND, tvFineMotorHold, tvRecordRemark;
     private ImageView ivPatient, ivGender;
 
@@ -95,7 +95,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     
     // ImageViews for the tab icons
     private ImageView ivImageHeart, ivImageEye, ivImageEar, ivImageBody, ivImageHand;
-
+    private TextView tvLineChartTitle1, tvLineChartTitle2, tvLineChartTitle3;
     // Heart - BMI, Height, Weight ; Eye - VA Left, VA Right, Color Vision ; Ear - Hearing Left, Hearing Right
     // Body - Gross Motor ; Hand - Fine Dominant, Fine Non-dominant, Fine Hold
     private ConstraintLayout contHeart, contEye, contEar, contBody, contHand;
@@ -187,7 +187,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         tvGradeLevel = (TextView) findViewById(R.id.tv_grade_level);
         tvPatientRemark = (TextView) findViewById(R.id.tv_patient_remark);
         /* connect views in layout to show record of last check up */
-        tvData = (TextView) findViewById(R.id.tv_vp_data);
+//        tvData = (TextView) findViewById(R.id.tv_vp_data);
         tvDate = (TextView) findViewById(R.id.tv_vp_date);
         tvBMI = (TextView) findViewById(R.id.tv_bmi);
         tvHeight = (TextView) findViewById(R.id.tv_height);
@@ -210,6 +210,10 @@ public class ViewPatientActivity extends AppCompatActivity {
         contGraphLayout1 = findViewById(R.id.cont_chart_container1);
         contGraphLayout2 = findViewById(R.id.cont_chart_container2);
         contGraphLayout3 = findViewById(R.id.cont_chart_container3);
+
+        tvLineChartTitle1 = findViewById(R.id.tv_patient_chart_title1);
+        tvLineChartTitle2 = findViewById(R.id.tv_patient_chart_title2);
+        tvLineChartTitle3 = findViewById(R.id.tv_patient_chart_title3);
 
 
         /* connect spinner here */
@@ -905,15 +909,30 @@ public class ViewPatientActivity extends AppCompatActivity {
         addLimitLineMarker(listAge.indexOf(age), age);
     }
 
+    private void prepareLineChartTitle(LineChart lineChart, String recordValue) {
+
+        if(lineChart == lineChart1) {
+            tvLineChartTitle1.setText(recordValue);
+        }
+        else if(lineChart == lineChart2) {
+            tvLineChartTitle2.setText(recordValue);
+        }
+        else if(lineChart == lineChart3) {
+            tvLineChartTitle3.setText(recordValue);
+        }
+    }
+
     private void prepareLineChartData(LineChart lineChart, String recordValue) {
+        prepareLineChartTitle(lineChart, recordValue);
+
         IdealValue idealRecordValues = null;
         LineData lineData = new LineData();
         lineData.setValueTextColor(Color.WHITE);
 
-        Description desc = new Description();
-        desc.setText(recordValue);
-        lineChart.setDescription(desc);
-//        lineChart.getDescription().setEnabled(false); // TODO uncomment after editing
+//        Description desc = new Description();
+//        desc.setText("");
+//        lineChart.setDescription(desc);
+        lineChart.getDescription().setEnabled(false);
 
         // add data to line chart
         lineChart.setData(lineData);
@@ -952,11 +971,16 @@ public class ViewPatientActivity extends AppCompatActivity {
             lineChart.setAutoScaleMinMaxEnabled(false);
             int maxLabelCount = General.getMaxLabelCount(recordValue);
             yAxisLeft.setAxisMaximum(maxLabelCount+1);
-//            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
             yAxisLeft.setLabelCount(maxLabelCount);
             yAxisLeft.setAxisMaximum(maxLabelCount+1f);
             yAxisLeft.setAxisMinimum(0-0.5f);
 
+        }
+        else if (recordValue == StringConstants.COL_BMI){
+//            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
+            lineChart.setAutoScaleMinMaxEnabled(true);
+            yAxisLeft.setAxisMaximum(30f);
+            yAxisLeft.setAxisMinimum(0-0.5f);
         }
         else {
 //            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
@@ -1111,8 +1135,9 @@ public class ViewPatientActivity extends AppCompatActivity {
         YAxis axisLabel = lineChart.getAxisLeft();
         if(recordValue.contains(StringConstants.COL_BMI)) {
             //lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterBMI(idealValue));
-            if(idealRecordValue != null)
-                axisLabel.setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterBMI(idealRecordValue));
+            axisLabel.setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterBMI(idealRecordValue));
+//            if(idealRecordValue != null)
+//                axisLabel.setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterBMI(idealRecordValue));
         } else if(recordValue.contains("Visual Acuity")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterVisualAcuity());
             axisLabel.setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterVisualAcuity());
