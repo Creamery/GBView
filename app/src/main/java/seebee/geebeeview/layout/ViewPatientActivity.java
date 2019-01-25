@@ -977,8 +977,20 @@ public class ViewPatientActivity extends AppCompatActivity {
             int maxLabelCount = General.getMaxLabelCount(recordValue);
             yAxisLeft.setLabelCount(maxLabelCount);
             Log.e("LBL", maxLabelCount+"");
-            yAxisLeft.setAxisMaximum(maxLabelCount+1);
-            yAxisLeft.setAxisMinimum(-1);
+
+            if(maxLabelCount == 3) {
+                yAxisLeft.setAxisMaximum(maxLabelCount);
+                yAxisLeft.setAxisMinimum(-1);
+            }
+            else if(maxLabelCount == 2) {
+                yAxisLeft.setLabelCount(maxLabelCount+2);
+                yAxisLeft.setAxisMaximum(maxLabelCount);
+                yAxisLeft.setAxisMinimum(-1);
+            }
+            else {
+                yAxisLeft.setAxisMaximum(maxLabelCount+1);
+                yAxisLeft.setAxisMinimum(-1);
+            }
 
         }
 
@@ -1117,11 +1129,11 @@ public class ViewPatientActivity extends AppCompatActivity {
 //                x = record.getGrossMotor();
                 x = LineChartValueFormatter.ConvertGrossMotor(record.getGrossMotorString());
                 break;
-            case StringConstants.COL_FINE_DOMINANT: x = record.getFineMotorDominant();
+            case StringConstants.COL_FINE_DOMINANT: x =  LineChartValueFormatter.ConvertMotorLabel(record.getFineMotorDominant());
                 break;
-            case StringConstants.COL_FINE_NON_DOMINANT: x = record.getFineMotorNDominant();
+            case StringConstants.COL_FINE_NON_DOMINANT: x = LineChartValueFormatter.ConvertMotorLabel(record.getFineMotorNDominant());
                 break;
-            case StringConstants.COL_FINE_HOLD: x = record.getFineMotorHold();
+            case StringConstants.COL_FINE_HOLD: x = LineChartValueFormatter.ConvertMotorLabel(record.getFineMotorHold());
                 break;
         }
 

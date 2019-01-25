@@ -400,12 +400,21 @@ public class LineChartValueFormatter  {
 //            }
 //        };
 //    }
-
-    private static String ConvertMotor(float v) {
-        String result = "N/A";
+    public static float ConvertMotorLabel(float v) {
+        float result = 0;
         if(v == 0) {
-            result = "Pass";
+            result = 1;
         } else if (v == 1) {
+            result = 0;
+        }
+        return result;
+    }
+    private static String ConvertMotor(float v) {
+        String result = "";
+        int value = (int) v;
+        if(value == 1) {
+            result = "Pass";
+        } else if (value == 0) {
             result = "Fail";
         }
         return result;
