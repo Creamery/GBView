@@ -914,11 +914,12 @@ public class ViewPatientActivity extends AppCompatActivity {
         // add data to line chart
         lineChart.setData(lineData);
 
-        /* dataset containing values from patient, index 0 */
+        /* dataset containing values from patient, index 1 */
         LineDataSet patientDataset = createLineDataSet(recordValue, 1);
         lineData.addDataSet(patientDataset);
         /* add dataset containing average record values from patients with same age */
-        lineData.addDataSet(createLineDataSet(recordValue, 0));
+        LineDataSet averageDataset = createLineDataSet(recordValue, 0);
+        lineData.addDataSet(averageDataset);
 
 
         // TODO chart axis
@@ -936,17 +937,18 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        paint.setShader(linGrad);
 
         YAxis yAxisLeft = lineChart.getAxisLeft();
-        int maxLabelCount = General.getMaxLabelCount(recordValue);
 
 //        yAxisLeft.setLabelCount(maxLabelCount, true);
 //        yAxisLeft.setGranularityEnabled(true);
 //        yAxisLeft.setGranularity(1);
 
+        yAxisLeft.resetAxisMaximum();
+        yAxisLeft.resetAxisMinimum();
         if(recordValue.contains("Visual")) {
+            lineChart.setAutoScaleMinMaxEnabled(false);
+            int maxLabelCount = General.getMaxLabelCount(recordValue);
             yAxisLeft.setAxisMaximum(maxLabelCount+1);
-
 //            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
-
             yAxisLeft.setLabelCount(maxLabelCount);
             yAxisLeft.setAxisMaximum(maxLabelCount+1f);
             yAxisLeft.setAxisMinimum(0-0.5f);
@@ -954,8 +956,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         }
         else {
 //            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
-            yAxisLeft.resetAxisMaximum();
-            yAxisLeft.resetAxisMinimum();
+            lineChart.setAutoScaleMinMaxEnabled(true);
         }
 
 //        yAxisLeft.setDrawZeroLine(true);
@@ -991,10 +992,6 @@ public class ViewPatientActivity extends AppCompatActivity {
 //                lineData.addDataSet(n3Dataset);
 //            }
 //        }
-
-
-
-
 
 
 
@@ -1054,13 +1051,13 @@ public class ViewPatientActivity extends AppCompatActivity {
                 }
             }
         }
-
+        customizeLineChart(recordValue, patientDataset, 1, ColorThemes.cBMI_Normal);
+        customizeLineChart(recordValue, averageDataset, 0, ColorThemes.cCyanAccent);
         setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
         // notify chart data has changed
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
     }
-
     private float getColumnValue(String recordValue, Record record) {
         float x;
         switch (recordValue) {
@@ -1244,7 +1241,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        LineDataSet lineDataset = new LineDataSet(null, "");
         LineDataSet lineDataset = new LineDataSet(null, datasetDescription);
 
-        customizeLineChart(lineDataset, index, lineColor);
+
 
 
 
@@ -1350,7 +1347,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     }
 
-    public void customizeLineChart(LineDataSet lineDataSet, int index, int lineColor) {
+    public void customizeLineChart(String recordValue, LineDataSet lineDataSet, int index, int lineColor) {
 
         lineDataSet.setColor(lineColor);
         lineDataSet.setLineWidth(5f);
@@ -1358,9 +1355,11 @@ public class ViewPatientActivity extends AppCompatActivity {
         if(index == 0 || index == 1) { // Patient
 
 //            lineDataSet.setHighLightColor(Color.rgb(244, 11, 11));
-
             lineDataSet.setCircleRadius(7f);
-            lineDataSet.setCircleColor(lineColor);
+            if(recordValue.contains("Visual"))
+                lineDataSet.setCircleColors(General.getColors(recordValue, lineDataSet.getValues()));
+            else
+                lineDataSet.setCircleColor(lineColor);
 
             lineDataSet.setCircleHoleRadius(3f);
             lineDataSet.setCircleColorHole(Color.WHITE);

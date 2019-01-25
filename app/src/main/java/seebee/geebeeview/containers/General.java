@@ -4,9 +4,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.View;
 
+import com.github.mikephil.charting.data.Entry;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import seebee.geebeeview.R;
@@ -36,6 +40,37 @@ public class General {
         return csGray;
     }
 
+    public static ArrayList<Integer> getColors(String recordValue, List<Entry> entries) {
+        ArrayList<Integer> colors = new ArrayList<>();
+        int colorIndex;
+        int color = -1;
+        for(int i = 0; i < entries.size(); i++) {
+            switch(recordValue) {
+                case StringConstants.COL_VA_LEFT:
+                case StringConstants.COL_VA_RIGHT:
+                    colorIndex = (int) entries.get(i).getY();
+                    // For vision, index 0 is N/A
+                    if(colorIndex > -1) {
+                        if(colorIndex > 0)
+                            color = ColorThemes.csVISION[colorIndex - 1];
+                        else
+                            color = ColorThemes.cGray;
+                    }
+
+                    break;
+                default:
+                    colorIndex = -1;
+                    Log.e("COLORS", "Index not found");
+            }
+
+            if(colorIndex == -1) {
+                color = Color.BLACK;
+            }
+            colors.add(color);
+
+        }
+        return colors;
+    }
     public static int[] getColorSetWhite(int entryCount) {
         if(csWhite.length != entryCount) {
             csWhite = new int[entryCount];
