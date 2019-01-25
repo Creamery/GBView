@@ -752,7 +752,8 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 
 
-        addLimitLineMarker(listAge.indexOf(patient.getAge(spRecordDate.getSelectedItem().toString())));
+        int age = patient.getAge(spRecordDate.getSelectedItem().toString());
+        addLimitLineMarker(listAge.indexOf(age), age);
 //        Log.d("ABOUTLOG", "GradeLevel: "+record.getGradeLevel());
     }
 
@@ -897,8 +898,8 @@ public class ViewPatientActivity extends AppCompatActivity {
                 selectTab(selectedItem);
             default:
         }
-
-        addLimitLineMarker(listAge.indexOf(patient.getAge(spRecordDate.getSelectedItem().toString())));
+        int age = patient.getAge(spRecordDate.getSelectedItem().toString());
+        addLimitLineMarker(listAge.indexOf(age), age);
     }
 
     private void prepareLineChartData(LineChart lineChart, String recordValue) {
@@ -957,6 +958,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         else {
 //            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
             lineChart.setAutoScaleMinMaxEnabled(true);
+            yAxisLeft.setAxisMinimum(0-0.5f);
         }
 
 //        yAxisLeft.setDrawZeroLine(true);
@@ -1240,11 +1242,6 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 //        LineDataSet lineDataset = new LineDataSet(null, "");
         LineDataSet lineDataset = new LineDataSet(null, datasetDescription);
-
-
-
-
-
         return lineDataset;
     }
 
@@ -1349,7 +1346,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     public void customizeLineChart(String recordValue, LineDataSet lineDataSet, int index, int lineColor) {
 
-        lineDataSet.setLineWidth(5f);
+        lineDataSet.setLineWidth(3f);
         lineDataSet.setValueTextSize(10f);
         if(index == 0 || index == 1) { // Average or Patient datasets
 
@@ -1382,19 +1379,30 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 
 
-    public void addLimitLineMarker(int index) {
+    public void addLimitLineMarker(int index, int age) {
         XAxis xAxis;
+        float limitLineWidth = 5f;
+        float limitTextSize = 14f;
+        int limitLineColor = ColorThemes.cTealDefaultDark;
+        int limitLabelColor = ColorThemes.cPrimaryDark;
+        String limitLabel = age+" yr";
+        if(age > 1) {
+            limitLabel += "s";
+        }
+        limitLabel += ".";
         Log.e("MARKER", "Entered add limit line, index "+index);
         if(lineChart1 != null) {
             Log.e("MARKER", "lineChart1");
             xAxis = lineChart1.getXAxis();
             xAxis.removeAllLimitLines();
-            LimitLine limitLine = new LimitLine(index, "");
-            limitLine.setLineColor(ColorThemes.cFail);
-            limitLine.setLineWidth(1f);
+            LimitLine limitLine = new LimitLine(index, limitLabel);
+            limitLine.setTextColor(limitLabelColor);
+            limitLine.setTextSize(limitTextSize);
+            limitLine.setLineColor(limitLineColor);
+            limitLine.setLineWidth(limitLineWidth);
+
             xAxis.addLimitLine(limitLine);
             xAxis.setDrawLimitLinesBehindData(true);
-
             lineChart1.notifyDataSetChanged();
             lineChart1.invalidate();
         }
@@ -1402,9 +1410,11 @@ public class ViewPatientActivity extends AppCompatActivity {
             Log.e("MARKER", "lineChart2");
             xAxis = lineChart2.getXAxis();
             xAxis.removeAllLimitLines();
-            LimitLine limitLine = new LimitLine(index, "");
-            limitLine.setLineColor(ColorThemes.cFail);
-            limitLine.setLineWidth(1f);
+            LimitLine limitLine = new LimitLine(index, limitLabel);
+            limitLine.setTextColor(limitLabelColor);
+            limitLine.setTextSize(limitTextSize);
+            limitLine.setLineColor(limitLineColor);
+            limitLine.setLineWidth(limitLineWidth);
             xAxis.addLimitLine(limitLine);
             xAxis.setDrawLimitLinesBehindData(true);
 
@@ -1415,9 +1425,11 @@ public class ViewPatientActivity extends AppCompatActivity {
             Log.e("MARKER", "lineChart3");
             xAxis = lineChart3.getXAxis();
             xAxis.removeAllLimitLines();
-            LimitLine limitLine = new LimitLine(index, "");
-            limitLine.setLineColor(ColorThemes.cFail);
-            limitLine.setLineWidth(1f);
+            LimitLine limitLine = new LimitLine(index, limitLabel);
+            limitLine.setTextColor(limitLabelColor);
+            limitLine.setTextSize(limitTextSize);
+            limitLine.setLineColor(limitLineColor);
+            limitLine.setLineWidth(limitLineWidth);
             xAxis.addLimitLine(limitLine);
             xAxis.setDrawLimitLinesBehindData(true);
 
