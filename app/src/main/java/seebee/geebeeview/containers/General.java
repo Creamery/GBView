@@ -103,23 +103,23 @@ public class General {
     public static int getMaxLabelCount(String recordValue) {
         switch(recordValue) {
             case StringConstants.COL_BMI:
-                return ValueCounter.lblBMI.length;
+                return ValueCounter.maxLblBMI;
             case StringConstants.COL_VA_LEFT:
             case StringConstants.COL_VA_RIGHT:
-                return ValueCounter.lblVisualAcuity.length;
+                return ValueCounter.maxLblVision;
             case StringConstants.COL_COLOR_VISION:
-                return ValueCounter.lblColorVision.length;
+                return ValueCounter.maxLblColor;
             case StringConstants.COL_HEAR_LEFT:
             case StringConstants.COL_HEAR_RIGHT:
-                return ValueCounter.lblHearing.length;
+                return ValueCounter.maxLblHearing;
             case StringConstants.COL_GROSS_MOTOR:
-                return ValueCounter.lblGrossMotor.length;
+                return ValueCounter.maxLblGrossMotor;
             case StringConstants.COL_FINE_DOMINANT:
             case StringConstants.COL_FINE_NON_DOMINANT:
             case StringConstants.COL_FINE_HOLD:
-                return ValueCounter.lblFineMotor.length;
+                return ValueCounter.maxLblFineMotor;
         }
-        return 10;
+        return 5;
     }
     // Used for uniform colors in a stacked bar chart
     public static int[] getColorSetLightGray(int entryCount) {

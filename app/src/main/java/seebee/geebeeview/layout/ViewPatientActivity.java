@@ -960,26 +960,28 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         yAxisLeft.resetAxisMaximum();
         yAxisLeft.resetAxisMinimum();
-        if(recordValue.contains("Visual")) {
-            lineChart.setAutoScaleMinMaxEnabled(false);
-            int maxLabelCount = General.getMaxLabelCount(recordValue);
-            yAxisLeft.setAxisMaximum(maxLabelCount+1);
-            yAxisLeft.setLabelCount(maxLabelCount);
-            yAxisLeft.setAxisMaximum(maxLabelCount+1f);
-            yAxisLeft.setAxisMinimum(0-0.5f);
 
-        }
-        else if (recordValue == StringConstants.COL_BMI){
+        if (recordValue.contains("BMI")) {
 //            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
             lineChart.setAutoScaleMinMaxEnabled(true);
             yAxisLeft.setAxisMaximum(30f);
             yAxisLeft.setAxisMinimum(0-0.5f);
         }
-        else {
+        else if (recordValue.contains("Height") || recordValue.contains("Weight")){
 //            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
             lineChart.setAutoScaleMinMaxEnabled(true);
             yAxisLeft.setAxisMinimum(0-0.5f);
         }
+        else {
+            lineChart.setAutoScaleMinMaxEnabled(false);
+            int maxLabelCount = General.getMaxLabelCount(recordValue);
+            yAxisLeft.setLabelCount(maxLabelCount);
+            Log.e("LBL", maxLabelCount+"");
+            yAxisLeft.setAxisMaximum(maxLabelCount+1);
+            yAxisLeft.setAxisMinimum(-1);
+
+        }
+
 
 //        yAxisLeft.setDrawZeroLine(true);
         XAxis xAxis = lineChart.getXAxis();
@@ -1111,7 +1113,9 @@ public class ViewPatientActivity extends AppCompatActivity {
             case StringConstants.COL_HEAR_RIGHT:
                 x = LineChartValueFormatter.ConvertHearing(record.getHearingRight());
                 break;
-            case StringConstants.COL_GROSS_MOTOR: x = record.getGrossMotor();
+            case StringConstants.COL_GROSS_MOTOR:
+//                x = record.getGrossMotor();
+                x = LineChartValueFormatter.ConvertGrossMotor(record.getGrossMotorString());
                 break;
             case StringConstants.COL_FINE_DOMINANT: x = record.getFineMotorDominant();
                 break;
@@ -1141,7 +1145,12 @@ public class ViewPatientActivity extends AppCompatActivity {
         } else if(recordValue.contains("Hearing")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterHearing());
             axisLabel.setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterHearing());
-        } else if(recordValue.contains("Motor")) {
+        }
+        else if(recordValue.contains("Gross")) {
+            lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterMotor());
+            axisLabel.setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterGrossMotor());
+        }
+        else if(recordValue.contains("Motor")) {
             lineData.setValueFormatter(LineChartValueFormatter.getValueFormatterMotor());
             axisLabel.setValueFormatter(LineChartValueFormatter.getYAxisValueFormatterMotor());
         } else {

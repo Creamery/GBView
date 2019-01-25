@@ -40,6 +40,12 @@ public class ValueCounter {
     private int[] valBMI = {0, 0, 0, 0, 0};
     private ArrayList<PatientRecord> patientRecords;
 
+    public static int maxLblBMI = lblBMI.length;
+    public static int maxLblVision = lblVisualAcuity.length;
+    public static int maxLblColor = lblColorVision.length;
+    public static int maxLblHearing = lblHearing.length;
+    public static int maxLblGrossMotor = 2;
+    public static int maxLblFineMotor = lblFineMotor.length;
 
 
     // BMI, VA_L, VA_R, COLOR, HEAR_L, HEAR_R, GM, FM_D, FM_NON, FM_H

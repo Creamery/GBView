@@ -280,44 +280,89 @@ public class LineChartValueFormatter  {
 //    }
 
     public static float ConvertHearing(String hearing) {
-        float result = 0;
-        int lowestValue = StringConstants.HEARING_LOWEST_VALUE;
+        float result;
         switch (hearing) {
-            case "Normal Hearing": result = lowestValue+1;
+            case "Normal Hearing": result = 6;
                 break;
-            case "Mild Hearing Loss": result = lowestValue-1;
+            case "Mild Hearing Loss": result = 5;
                 break;
-            case "Moderate Hearing Loss": result = lowestValue-2;
+            case "Moderate Hearing Loss": result = 4;
                 break;
-            case "Moderately-Servere Hearing Loss": result = lowestValue-3;
+            case "Moderately-Servere Hearing Loss": result = 3;
                 break;
-            case "Severe Hearing Loss": result = lowestValue-4;
+            case "Severe Hearing Loss": result = 2;
                 break;
-            case "Profound Hearing Loss": result = lowestValue-5;
+            case "Profound Hearing Loss": result = 1;
                 break;
+            default:
+                result = 0;
+                break;
+        }
+        Log.e("GMRESULT", hearing+" "+result);
+        return result;
+    }
+
+    public static String ConvertGrossMotor(float grossMotor) {
+        String result = "";
+        int value = (int) grossMotor;
+        switch (value) {
+            case 2: result = "Pass";
+                break;
+            case 1: result = "Fail";
+                break;
+            case 0:
+                result = "N/A";
+                break;
+        }
+        Log.e("GMRESULT", value+" "+result);
+        return result;
+    }
+
+    // (0​ ​-​ ​Pass;​ ​1​ ​-​ ​N/A;​ ​2​ ​-​ ​Fail)
+    public static int ConvertGrossMotor(String grossMotor) {
+        int result;
+        switch (grossMotor) {
+            case "Pass": result = 2;// = "Pass";
+                break;
+            case "Fail": result = 1; // "Fail";
+                break;
+            case "N/A": result = 0;// "N/A";
+                break;
+            default:
+                result = 0;
         }
         return result;
     }
 
     private static String ConvertHearing(float value) {
-        String result = "N/A";
-        int lowestValue = StringConstants.HEARING_LOWEST_VALUE;
-        if(value >= lowestValue+1) {
+        String result = "";
+        if(value == 6) {
             result = "Normal Hearing";
-        } else if(value >= lowestValue-1) {
+        } else if(value == 5) {
             result = "Mild Hearing Loss";
-        } else if(value >= lowestValue-2) {
+        } else if(value == 4) {
             result = "Moderate Hearing Loss";
-        } else if(value >= lowestValue-3) {
+        } else if(value == 3) {
             result = "Moderately-Servere Hearing Loss";
-        } else if(value >= lowestValue-4) {
+        } else if(value == 2) {
             result = "Severe Hearing Loss";
-        } else if(value >= lowestValue-5){
+        } else if(value == 1){
             result = "Profound Hearing Loss";
+        }
+        else if(value == 0){
+            result = "N/A";
         }
         return result;
     }
 
+    public static IAxisValueFormatter getYAxisValueFormatterGrossMotor() {
+        return new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float v, AxisBase axisBase) {
+                return ConvertGrossMotor(v);
+            }
+        };
+    }
 
     public static IAxisValueFormatter getYAxisValueFormatterHearing() {
         return new IAxisValueFormatter() {
