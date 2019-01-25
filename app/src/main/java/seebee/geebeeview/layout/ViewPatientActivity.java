@@ -303,7 +303,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         getAverageRecords();
 
         /* set up spinner selector */
-        ArrayAdapter<String> spRecordAdapter = new ArrayAdapter<>(this, R.layout.custom_spinner,
+        ArrayAdapter<String> spRecordAdapter = new ArrayAdapter<>(this, R.layout.custom_spinner_bold_auto,
                 getResources().getStringArray(R.array.record_column_array_num_tabs));
 //                getResources().getStringArray(R.array.record_column_array_num));
         spRecordColumn.setAdapter(spRecordAdapter);

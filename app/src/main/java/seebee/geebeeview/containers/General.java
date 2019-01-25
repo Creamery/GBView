@@ -75,7 +75,7 @@ public class General {
             }
 
             if(colorIndex == -1) {
-                color = Color.BLACK;
+                color = ColorThemes.cTealDefaultDark;
             }
             colors.add(color);
 

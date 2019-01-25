@@ -24,10 +24,11 @@
             android:id="@+id/sp_vp_record_column"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.1"
-            android:background="@color/white"
+            android:layout_weight="0.05"
+            android:background="@color/colorPrimaryDark"
             android:entries="@array/record_column_array_num"
             android:gravity="center"
+            android:popupBackground="@color/colorPrimaryDark"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +54,6 @@
                     android:id="@+id/graph_item1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_marginTop="1dp"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -157,7 +157,6 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="1dp"
-                    android:layout_marginTop="1dp"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -265,7 +264,6 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="1dp"
-                    android:layout_marginTop="1dp"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -358,7 +356,6 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="1dp"
-                    android:layout_marginTop="1dp"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -439,7 +436,6 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="1dp"
-                    android:layout_marginTop="1dp"
                     android:layout_marginBottom="1dp"
                     android:background="@color/white"
                     android:orientation="vertical"
@@ -542,13 +538,26 @@
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.constraint.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:contentDescription="@string/cd_blank"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@color/lightGrey" />
+
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/cont_patient_graph"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.75">
+            android:layout_weight="0.8">
 
             <ScrollView
                 android:id="@+id/scroll_patient_graphs"
@@ -674,8 +683,8 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintVertical_weight="9"
-                                app:layout_constraintTop_toBottomOf="@id/cont_patient_chart_title2" />
+                                app:layout_constraintTop_toBottomOf="@id/cont_patient_chart_title2"
+                                app:layout_constraintVertical_weight="9" />
 
                             <ImageView
                                 android:id="@+id/imageView10"
