@@ -62,27 +62,27 @@ public class LineChartValueFormatter  {
         float value;
         int lowestValue = StringConstants.VA_LOWEST_VALUE;
         switch (visualAcuity) {
-            case "20/200": value = 11;
+            case "20/200": value = 1;
                 break;
-            case "20/100": value = 10;
+            case "20/100": value = 2;
                 break;
-            case "20/70": value = 9;
+            case "20/70": value = 3;
                 break;
-            case "20/50": value = 8;
+            case "20/50": value = 4;
                 break;
-            case "20/40": value = 7;
+            case "20/40": value = 5;
                 break;
             case "20/30": value = 6;
                 break;
-            case "20/25": value = 5;
+            case "20/25": value = 7;
                 break;
-            case "20/20": value = 4;
+            case "20/20": value = 8;
                 break;
-            case "20/15": value = 3;
+            case "20/15": value = 9;
                 break;
-            case "20/10": value = 2;
+            case "20/10": value = 10;
                 break;
-            case "20/5": value = 1;
+            case "20/5": value = 11;
                 break;
 
             default:
@@ -145,27 +145,27 @@ public class LineChartValueFormatter  {
     private static String ConvertVisualAcuity(float v) {
 
         String result = "";
-        if(v == 11) {
+        if(v == 1) {
             result = "20/200";
-        } else if(v == 10) {
+        } else if(v == 2) {
             result = "20/100";
-        } else if(v == 9) {
+        } else if(v == 3) {
             result = "20/70";
-        } else if(v == 8) {
+        } else if(v == 4) {
             result = "20/50";
-        } else if(v == 7) {
+        } else if(v == 5) {
             result = "20/40";
         } else if(v == 6) {
             result = "20/30";
-        } else if(v == 5) {
+        } else if(v == 7) {
             result = "20/25";
-        } else if(v == 4) {
+        } else if(v == 8) {
             result = "20/20";
-        } else if(v == 3) {
+        } else if(v == 9) {
             result = "20/15";
-        } else if(v == 2) {
+        } else if(v == 10) {
             result = "20/10";
-        } else if(v == 1) {
+        } else if(v == 11) {
             result = "20/5";
         } else if (v == 0){
             result = "N/A";

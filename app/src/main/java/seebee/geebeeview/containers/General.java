@@ -82,6 +82,14 @@ public class General {
         }
         return colors;
     }
+
+    public static float roundFloat(float number, int decimalPlaces) {
+        if(decimalPlaces <= 0)
+            return number;
+
+        int places = 10*decimalPlaces;
+        return (float)Math.round(number * places) / places;
+    }
     public static int[] getColorSetWhite(int entryCount) {
         if(csWhite.length != entryCount) {
             csWhite = new int[entryCount];

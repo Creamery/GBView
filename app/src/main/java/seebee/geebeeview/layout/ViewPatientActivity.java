@@ -710,10 +710,11 @@ public class ViewPatientActivity extends AppCompatActivity {
         if(patient.getGender() != 1) {
             isGirl = false;
         }
+        float bmiValue =  BMICalculator.computeBMIMetric(Double.valueOf(record.getHeight()).intValue(),
+                Double.valueOf(record.getWeight()).intValue());
         String bmi = BMICalculator.getBMIResultString(isGirl,
                 AgeCalculator.calculateAge(patient.getBirthday(), recordDate),
-                BMICalculator.computeBMIMetric(Double.valueOf(record.getHeight()).intValue(),
-                        Double.valueOf(record.getWeight()).intValue()));
+               bmiValue);
         if(record.getPatientPicture() != null) {
             Bitmap bmp = BitmapFactory.decodeByteArray(record.getPatientPicture(), 0, record.getPatientPicture().length);
 
@@ -726,7 +727,9 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         }
 
-        tvBMI.setText(getBMIText(bmi));
+        tvBMI.setText(General.roundFloat(bmiValue, 2)+"");
+        Log.e("BMI", bmi);
+//        tvBMI.setText(getBMIText(bmi));
         ivBMIColor.setImageDrawable(getBMIColor(bmi));
         tvHeight.setText(record.getHeight()+" cm");
         tvWeight.setText(record.getWeight()+" kg");
