@@ -84,6 +84,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     private ArrayList<Drawable> tabIconsSelect;
     private ArrayList<Drawable> tabIconsDeselect;
     ArrayList<Integer> listAge;
+    private int genderColor;
 
     // ImageViews for the colors on the tabs
     private ImageView
@@ -282,8 +283,8 @@ public class ViewPatientActivity extends AppCompatActivity {
             ivPatient.setImageDrawable(getDefaultImage(patient.getGender())); // TODO added default image
             ivGender.setImageDrawable(getGenderImage(patient.getGender()));
             tvName.setText(patient.getLastName()+", "+patient.getFirstName());
-
-            tvName.setTextColor(General.getColorByGender(this, patient.getGender()));
+            genderColor = General.getColorByGender(this, patient.getGender());
+            tvName.setTextColor(genderColor);
             tvBirthday.setText(patient.getBirthday());
             tvDominantHand.setText(patient.getHandednessString());
             tvPatientRemark.setText(patient.getRemarksString());
@@ -964,7 +965,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         if (recordValue.contains("BMI")) {
 //            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
             lineChart.setAutoScaleMinMaxEnabled(true);
-            yAxisLeft.setAxisMaximum(30f);
+//            yAxisLeft.setAxisMaximum(40f);
             yAxisLeft.setAxisMinimum(0-0.5f);
         }
         else if (recordValue.contains("Height") || recordValue.contains("Weight")){
@@ -1089,8 +1090,9 @@ public class ViewPatientActivity extends AppCompatActivity {
         }
         Log.e("PATIENTRECORDS", recordValue+" "+patientDataset.getEntryCount()+"");
         customizeLineChart(recordValue, patientDataset, 1, ColorThemes.cPrimaryDark);
-        customizeLineChart(recordValue, averageDataset, 0, ColorThemes.cTealDefaultDark);
+        customizeLineChart(recordValue, averageDataset, 0, genderColor);
         setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
+        
         // notify chart data has changed
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
@@ -1397,18 +1399,20 @@ public class ViewPatientActivity extends AppCompatActivity {
 
             if(index == 0) { // if Patient only, change line & circle colors
 
-                ArrayList<Integer> colors = General.getColors(recordValue, lineDataSet.getValues());
+                ArrayList<Integer> colors = General.getColors(recordValue, lineDataSet.getValues(), genderColor);
                 lineDataSet.setCircleColors(colors);
+//                lineDataSet.setCircleColor(lineColor);
+                lineDataSet.setCircleColorHole(Color.WHITE);
                 lineDataSet.setColors(colors.subList(1, colors.size()));
             }
 
             else {
                 lineDataSet.setColor(lineColor);
                 lineDataSet.setCircleColor(lineColor);
+                lineDataSet.setCircleColorHole(Color.WHITE);
             }
 
             lineDataSet.setCircleHoleRadius(3f);
-            lineDataSet.setCircleColorHole(Color.WHITE);
 
         } else { // Ideal Values
             lineDataSet.setDrawCircles(false);

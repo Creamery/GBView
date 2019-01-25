@@ -40,7 +40,7 @@ public class General {
         return csGray;
     }
 
-    public static ArrayList<Integer> getColors(String recordValue, List<Entry> entries) {
+    public static ArrayList<Integer> getColors(String recordValue, List<Entry> entries, int defaultColor) {
         ArrayList<Integer> colors = new ArrayList<>();
         int colorIndex;
         int color = -1;
@@ -75,7 +75,7 @@ public class General {
             }
 
             if(colorIndex == -1) {
-                color = ColorThemes.cTealDefaultDark;
+                color = defaultColor;
             }
             colors.add(color);
 
