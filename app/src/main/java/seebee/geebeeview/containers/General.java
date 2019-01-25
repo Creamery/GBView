@@ -62,9 +62,32 @@ public class General {
                     }
 
                     break;
+                case StringConstants.COL_HEAR_LEFT:
+                case StringConstants.COL_HEAR_RIGHT:
+                    colorIndex = (int) entries.get(i).getY();
+                    colorReference = ColorThemes.csHEARING_GRAPH;
+                    // For vision, index 0 is N/A
+                    if(colorIndex > 0)
+                        color = colorReference[colorIndex - 1];
+                    else if(colorIndex > -1 && colorIndex < colorReference.length) {
+                        color = ColorThemes.cGray;
+                    }
+
+                    break;
                 case StringConstants.COL_COLOR_VISION:
+                case StringConstants.COL_FINE_DOMINANT:
+                case StringConstants.COL_FINE_NON_DOMINANT:
+                case StringConstants.COL_FINE_HOLD:
                     colorIndex = (int) entries.get(i).getY();
                     colorReference = ColorThemes.csBINARY_GRAPH;
+                    if(colorIndex > -1 && colorIndex < colorReference.length) {
+                        color = colorReference[colorIndex];
+                    }
+                    break;
+
+                case StringConstants.COL_GROSS_MOTOR:
+                    colorIndex = (int) entries.get(i).getY();
+                    colorReference = ColorThemes.csTERNARY_GRAPH;
                     if(colorIndex > -1 && colorIndex < colorReference.length) {
                         color = colorReference[colorIndex];
                     }
@@ -282,6 +305,17 @@ public class General {
         else {
 
             return ContextCompat.getColor(context, R.color.view_patient_name_color_female);
+        }
+    }
+
+    public static int getColorByGenderDark(Context context, int gender) {
+        if(gender == 0) {
+            return ContextCompat.getColor(context, R.color.view_patient_name_color_male_dark);
+//            return getResources().getDrawable(R.drawable.img_gender_circle_fill_male);
+        }
+        else {
+
+            return ContextCompat.getColor(context, R.color.view_patient_name_color_female_dark);
         }
     }
 

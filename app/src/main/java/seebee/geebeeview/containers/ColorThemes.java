@@ -71,6 +71,13 @@ public class ColorThemes {
 
     // Normal Hearing, Mild Hearing Loss, Moderate Hearing Loss, Moderately Severe Hearing Loss, Severe Hearing Loss, Profound Hearing Loss
     public static int[] csHEARING = new int[] {cHEARING_Normal, cHEARING_Mild, cHEARING_Moderate, cHEARING_ModSevere, cHEARING_Severe, cHEARING_Profound};
+    public static int[] csHEARING_GRAPH = new int[] {
+            cHEARING_Profound,
+            cHEARING_Severe,
+            cHEARING_ModSevere,
+            cHEARING_Moderate,
+            cHEARING_Mild,
+            cHEARING_Normal};
 
 
     // Visual Acuity (11 items)
@@ -89,6 +96,7 @@ public class ColorThemes {
 
     // Gross Motor (3 items = Pass, Fail, N/A)
     public static int[] csTERNARY = new int[] {cPass, cFail, cBMI_NA};
+    public static int[] csTERNARY_GRAPH = new int[] {cLightGray, cFail, cPass};
 
     // Color Vision (2 items = Normal, Abnormal)
     // Fine Motor Dominant & Non (2 items = Pass, Fail)

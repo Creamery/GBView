@@ -251,10 +251,10 @@ public class LineChartValueFormatter  {
 //    }
 
     private static String ConvertColorVision(float v) {
-        String result;
+        String result = "";
         if(v == 1) {
             result = "Normal";
-        } else {
+        } else if (v == 0) {
             result = "Abnormal";
         }
         return result;
@@ -288,7 +288,7 @@ public class LineChartValueFormatter  {
                 break;
             case "Moderate Hearing Loss": result = 4;
                 break;
-            case "Moderately-Servere Hearing Loss": result = 3;
+            case "Moderately-Severe Hearing Loss": result = 3;
                 break;
             case "Severe Hearing Loss": result = 2;
                 break;
@@ -343,7 +343,7 @@ public class LineChartValueFormatter  {
         } else if(value == 4) {
             result = "Moderate Hearing Loss";
         } else if(value == 3) {
-            result = "Moderately-Servere Hearing Loss";
+            result = "Moderately-Severe Hearing Loss";
         } else if(value == 2) {
             result = "Severe Hearing Loss";
         } else if(value == 1){

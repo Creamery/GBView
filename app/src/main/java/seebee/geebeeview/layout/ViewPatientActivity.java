@@ -85,7 +85,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     private ArrayList<Drawable> tabIconsSelect;
     private ArrayList<Drawable> tabIconsDeselect;
     ArrayList<Integer> listAge;
-    private int genderColor;
+    private int genderColor, genderColorDark;
 
     // ImageViews for the colors on the tabs
     private ImageView
@@ -285,6 +285,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             ivGender.setImageDrawable(getGenderImage(patient.getGender()));
             tvName.setText(patient.getLastName()+", "+patient.getFirstName());
             genderColor = General.getColorByGender(this, patient.getGender());
+            genderColorDark = General.getColorByGenderDark(this, patient.getGender());
             tvName.setTextColor(genderColor);
             tvBirthday.setText(patient.getBirthday());
             tvDominantHand.setText(patient.getHandednessString());
@@ -1091,11 +1092,11 @@ public class ViewPatientActivity extends AppCompatActivity {
         }
         Log.e("PATIENTRECORDS", recordValue+" "+patientDataset.getEntryCount()+"");
         customizeLineChart(recordValue, patientDataset, 1, ColorThemes.cPrimaryDark);
-        customizeLineChart(recordValue, averageDataset, 0, genderColor);
+        customizeLineChart(recordValue, averageDataset, 0, ColorThemes.cTealDefaultDark);
         setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
 
         lineChart.getLegend().setCustom(createLegendEntries());
-        lineChart.getAxisLeft().setDrawLabels(false); // TODO
+        lineChart.getAxisLeft().setDrawLabels(true); // TODO labels
 
 
         lineChart.getXAxis().setTextSize(14f);
@@ -1112,6 +1113,15 @@ public class ViewPatientActivity extends AppCompatActivity {
         line.setLineWidth(0.1f);
         yAxisLeft.addLimitLine(line);
 
+//        record = patientRecords.get(0);
+//        yVal = getColumnValue(recordValue, record);
+//        line = new LimitLine(yVal+0.1f, " Patient");
+//        line.setTextSize(14f);
+//        line.setTextColor(genderColorDark);
+//        line.setLineColor(Color.TRANSPARENT);
+//        line.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
+//        line.setLineWidth(0.1f);
+//        yAxisLeft.addLimitLine(line);
 
         // notify chart data has changed
         lineChart.notifyDataSetChanged();
@@ -1437,17 +1447,20 @@ public class ViewPatientActivity extends AppCompatActivity {
 
             if(index == 0) { // if Patient only, change line & circle colors
 
-                ArrayList<Integer> colors = General.getColors(recordValue, lineDataSet.getValues(), genderColor);
+                ArrayList<Integer> colors = General.getColors(recordValue, lineDataSet.getValues(), lineColor);
                 lineDataSet.setCircleColors(colors);
+//                lineDataSet.setCircleColor(ColorThemes.cPrimaryDark);
 //                lineDataSet.setCircleColor(lineColor);
                 lineDataSet.setCircleColorHole(Color.WHITE);
                 lineDataSet.setColors(colors.subList(1, colors.size()));
+//                lineDataSet.setColor(lineColor);
             }
 
             else {
                 lineDataSet.setColor(lineColor);
                 lineDataSet.setCircleColor(lineColor);
                 lineDataSet.setCircleColorHole(Color.WHITE);
+//                lineDataSet.setDrawCircles(false);
             }
 
             lineDataSet.setCircleHoleRadius(3f);
@@ -1468,7 +1481,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         XAxis xAxis;
         float limitLineWidth = 5f;
         float limitTextSize = 14f;
-        int limitLineColor = ColorThemes.cTealDefaultDark;
+        int limitLineColor = ColorThemes.cPrimaryDark;
         int limitLabelColor = ColorThemes.cPrimaryDark;
         String limitLabel = age+" yr";
         if(age > 1) {
