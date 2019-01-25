@@ -36,6 +36,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -943,7 +944,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         // Get the paint renderer to create the line shading.
         Paint paint = lineChart.getRenderer().getPaintRender();
         int height = lineChart.getHeight();
-
+        int maxLabelCount = 0;
 
         // Gradient TODO
 //        LinearGradient linGrad = new LinearGradient(0, 0, 0, height, ColorThemes.csBMI, new float[] {0, 1, 2, 3, 4}, Shader.TileMode.REPEAT);
@@ -975,7 +976,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         }
         else {
             lineChart.setAutoScaleMinMaxEnabled(false);
-            int maxLabelCount = General.getMaxLabelCount(recordValue);
+            maxLabelCount = General.getMaxLabelCount(recordValue);
             yAxisLeft.setLabelCount(maxLabelCount);
             Log.e("LBL", maxLabelCount+"");
 
@@ -1092,10 +1093,48 @@ public class ViewPatientActivity extends AppCompatActivity {
         customizeLineChart(recordValue, patientDataset, 1, ColorThemes.cPrimaryDark);
         customizeLineChart(recordValue, averageDataset, 0, genderColor);
         setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
-        
+
+        lineChart.getLegend().setCustom(createLegendEntries());
+        lineChart.getAxisLeft().setDrawLabels(false); // TODO
+
+
+        lineChart.getXAxis().setTextSize(14f);
+        lineChart.getXAxis().setTextColor(ColorThemes.cPrimaryDark);
+
+        yAxisLeft.removeAllLimitLines();
+        LimitLine line = new LimitLine(yAxisLeft.getAxisMinimum());
+        line.setLineColor(ColorThemes.cGray);
+        line.setLineWidth(0.1f);
+        yAxisLeft.addLimitLine(line);
+
+        line = new LimitLine(yAxisLeft.getAxisMaximum());
+        line.setLineColor(ColorThemes.cGray);
+        line.setLineWidth(0.1f);
+        yAxisLeft.addLimitLine(line);
+
+
         // notify chart data has changed
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
+    }
+
+    public List<LegendEntry> createLegendEntries() {
+        List<LegendEntry> entries;
+        entries = new ArrayList<>();
+
+        LegendEntry entry;
+
+        entry = new LegendEntry();
+        entry.label = "Average";
+        entry.formColor = ColorThemes.cPrimaryDark;
+        entries.add(entry);
+
+        entry = new LegendEntry();
+        entry.label = "Patient";
+        entry.formColor = genderColor;
+        entries.add(entry);
+
+        return entries;
     }
     private float getColumnValue(String recordValue, Record record) {
         float x;
@@ -1297,15 +1336,8 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         chart.setNoDataText("No data for the moment");
 
-//        chart.setNoDataTextDescription("No data for the moment"); TODO deprecated
-//        chart.setDescriptionTextSize(20f); TODO deprecated
-
-//        Description description = new Description();
-//        description.setText("");
-//        description.setTextSize(20f);
-//        chart.setDescription(description);
         // enable value highlighting
-        chart.setHighlightPerTapEnabled(true);
+        chart.setHighlightPerTapEnabled(false);
         // enable touch gestures
         chart.setTouchEnabled(true);
         // alternative background color
@@ -1365,18 +1397,24 @@ public class ViewPatientActivity extends AppCompatActivity {
         xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
         xAxis.setTextSize(10);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        xAxis.setDrawGridLines(true);
+
+
+
         YAxis yAxisRight = lineChart.getAxisRight();
 //        yAxisRight.setLabelCount(yAxisRight.getLabelCount());
         yAxisRight.setTextColor(Color.TRANSPARENT);
         yAxisRight.setDrawGridLines(false);
 
         YAxis yAxisLeft = lineChart.getAxisLeft();
-        yAxisLeft.setDrawGridLines(true);
+        yAxisLeft.setDrawGridLines(false); // TODO set to true
         yAxisLeft.setEnabled(true);
 //        yAxisLeft.setAxisMinimum(-2.5f);
         yAxisLeft.setGranularity(1);
 //        yAxisLeft.setLabelCount(3, true);
 //        yAxisLeft.setXOffset(7f);
+
 
 
         xAxis.setAvoidFirstLastClipping(true);
@@ -1391,7 +1429,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     public void customizeLineChart(String recordValue, LineDataSet lineDataSet, int index, int lineColor) {
 
-        lineDataSet.setLineWidth(3f);
+        lineDataSet.setLineWidth(3.5f);
         lineDataSet.setValueTextSize(10f);
         if(index == 0 || index == 1) { // Average or Patient datasets
 
