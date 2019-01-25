@@ -17,12 +17,13 @@ public class ColorThemes {
     public static int cGray = Color.rgb(105, 105, 105);
     public static int cLightGray = Color.rgb(240, 240, 240);
     public static int cTealDefault = Color.rgb(29, 233, 182);
+    public static int cTealDefaultDark = 0xFF00c7a9;
     public static int cNA = Color.rgb(212, 212, 212);
     public static int cCyanAccent = Color.rgb(0, 229, 255);
 
 
     public static int cTabDeselect = Color.WHITE;
-    public static int cTabSelect = 0xFF00c7a9;
+    public static int cTabSelect = cTealDefaultDark;
 
 
     // BMI (5 items = Underweight, Normal, Overweight, Obese, N/A)
@@ -94,6 +95,8 @@ public class ColorThemes {
     // Fine Motor Hold (2 items = Hold, Not Hold)
     public static int[] csBINARY = new int[] {cPass, cFail};
 
+
+    public static int[] csBINARY_GRAPH = new int[] {cFail, cPass};
 
     public static int getColor(String recordColumn, String recordValue) {
         switch (recordColumn) {

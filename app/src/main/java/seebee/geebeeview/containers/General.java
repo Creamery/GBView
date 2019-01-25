@@ -44,19 +44,30 @@ public class General {
         ArrayList<Integer> colors = new ArrayList<>();
         int colorIndex;
         int color = -1;
+
+        int[] colorReference;
+
         for(int i = 0; i < entries.size(); i++) {
+            Log.e("COLORS", recordValue+" y Entry "+entries.get(i).getY());
             switch(recordValue) {
                 case StringConstants.COL_VA_LEFT:
                 case StringConstants.COL_VA_RIGHT:
                     colorIndex = (int) entries.get(i).getY();
+                    colorReference = ColorThemes.csVISION;
                     // For vision, index 0 is N/A
-                    if(colorIndex > -1) {
-                        if(colorIndex > 0)
-                            color = ColorThemes.csVISION[colorIndex - 1];
-                        else
-                            color = ColorThemes.cGray;
+                    if(colorIndex > 0)
+                        color = colorReference[colorIndex - 1];
+                    else if(colorIndex > -1 && colorIndex < colorReference.length) {
+                        color = ColorThemes.cGray;
                     }
 
+                    break;
+                case StringConstants.COL_COLOR_VISION:
+                    colorIndex = (int) entries.get(i).getY();
+                    colorReference = ColorThemes.csBINARY_GRAPH;
+                    if(colorIndex > -1 && colorIndex < colorReference.length) {
+                        color = colorReference[colorIndex];
+                    }
                     break;
                 default:
                     colorIndex = -1;

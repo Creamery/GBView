@@ -1051,8 +1051,8 @@ public class ViewPatientActivity extends AppCompatActivity {
                 }
             }
         }
-        customizeLineChart(recordValue, patientDataset, 1, ColorThemes.cBMI_Normal);
-        customizeLineChart(recordValue, averageDataset, 0, ColorThemes.cCyanAccent);
+        customizeLineChart(recordValue, patientDataset, 1, ColorThemes.cPrimaryDark);
+        customizeLineChart(recordValue, averageDataset, 0, ColorThemes.cTealDefaultDark);
         setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
         // notify chart data has changed
         lineChart.notifyDataSetChanged();
@@ -1349,23 +1349,27 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     public void customizeLineChart(String recordValue, LineDataSet lineDataSet, int index, int lineColor) {
 
-        lineDataSet.setColor(lineColor);
         lineDataSet.setLineWidth(5f);
         lineDataSet.setValueTextSize(10f);
-        if(index == 0 || index == 1) { // Patient
+        if(index == 0 || index == 1) { // Average or Patient datasets
 
-//            lineDataSet.setHighLightColor(Color.rgb(244, 11, 11));
             lineDataSet.setCircleRadius(7f);
-            if(recordValue.contains("Visual"))
-                lineDataSet.setCircleColors(General.getColors(recordValue, lineDataSet.getValues()));
-            else
+
+            if(index == 0) { // if Patient only, change line & circle colors
+
+                ArrayList<Integer> colors = General.getColors(recordValue, lineDataSet.getValues());
+                lineDataSet.setCircleColors(colors);
+                lineDataSet.setColors(colors.subList(1, colors.size()));
+            }
+
+            else {
+                lineDataSet.setColor(lineColor);
                 lineDataSet.setCircleColor(lineColor);
+            }
 
             lineDataSet.setCircleHoleRadius(3f);
             lineDataSet.setCircleColorHole(Color.WHITE);
 
-//            lineDataSet.setFillAlpha(4);
-//            lineDataSet.setFillColor(Color.RED);
         } else { // Ideal Values
             lineDataSet.setDrawCircles(false);
             lineDataSet.setLineWidth(2f);
@@ -1374,31 +1378,6 @@ public class ViewPatientActivity extends AppCompatActivity {
 //            lineDataSet.setDrawFilled(true);
 //            lineDataSet.setFillColor(Color.GREEN);
         }
-
-
-//        int datasetSize = chart.getLineData().getDataSets().size();
-//
-//        for(int i = 0; i < datasetSize; i++) {
-//            lineDataSet = chart.getLineData().getDataSets().get(i);
-//            lineDataSet.color.setCircleHoleRadius(4f);
-//            lineDataSet.setCircleColor(ColorThemes.cTabSelect);
-////        int[] colors = General.getColorSetByCount(lineDataset.getEntryCount(), ColorThemes.cTabSelect);
-////        if(listAge != null) {
-////            colors[listAge.indexOf(patientRecords.get(spRecordDate.getSelectedItemPosition()))] = ColorThemes.cTabDeselect;
-////        }
-////        lineDataset.setCircleColors(colors);
-//        chart.setCircleColorHole(Color.WHITE);
-//        lineDataset.setDrawCircleHole(true);
-//        }
-//        chart.setCircleHoleRadius(4f);
-//        chart.setCircleColor(ColorThemes.cTabSelect);
-////        int[] colors = General.getColorSetByCount(lineDataset.getEntryCount(), ColorThemes.cTabSelect);
-////        if(listAge != null) {
-////            colors[listAge.indexOf(patientRecords.get(spRecordDate.getSelectedItemPosition()))] = ColorThemes.cTabDeselect;
-////        }
-////        lineDataset.setCircleColors(colors);
-//        chart.setCircleColorHole(Color.WHITE);
-//        lineDataset.setDrawCircleHole(true);
     }
 
 
