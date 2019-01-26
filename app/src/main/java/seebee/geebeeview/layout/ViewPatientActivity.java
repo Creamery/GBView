@@ -701,7 +701,22 @@ public class ViewPatientActivity extends AppCompatActivity {
     }
 
 
-
+    public void refreshCharts() {
+        if(lineChart1 != null) {
+//            contGraphLayout1.setVisibility(View.INVISIBLE);
+            lineChart1.notifyDataSetChanged();
+            lineChart1.invalidate();
+//            contGraphLayout1.setVisibility(View.VISIBLE);
+        }
+        if(lineChart2 != null) {
+            lineChart2.notifyDataSetChanged();
+            lineChart2.invalidate();
+        }
+        if(lineChart3 != null) {
+            lineChart3.notifyDataSetChanged();
+            lineChart3.invalidate();
+        }
+    }
     private void displayRecord(Record record) {
         String recordDate = record.getDateCreated();
 
@@ -1132,7 +1147,6 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         lineChart.getXAxis().setTextSize(12f);
         lineChart.getXAxis().setTextColor(ColorThemes.cPrimaryDark);
-
         yAxisLeft.removeAllLimitLines();
         LimitLine line = new LimitLine(yAxisLeft.getAxisMinimum());
         line.setLineColor(ColorThemes.cGray);
@@ -1155,6 +1169,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        yAxisLeft.addLimitLine(line);
 
         // notify chart data has changed
+//        lineChart.refreshDrawableState();
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
     }
@@ -1866,10 +1881,12 @@ public class ViewPatientActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Record record = patientRecords.get(position);
                 displayRecord(record);
+                refreshCharts();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+//                refreshCharts();
 //                Record lastRecord = patientRecords.get(patientRecords.size()-1);
 //                displayRecord(lastRecord);
             }

@@ -16,6 +16,7 @@ public class ColorThemes {
 
     public static int cGray = Color.rgb(105, 105, 105);
     public static int cLightGray = Color.rgb(240, 240, 240);
+    public static int cLightGrayAlt = Color.rgb(215, 215, 215);
     public static int cTealDefault = Color.rgb(29, 233, 182);
     public static int cTealDefaultDark = 0xFF00c7a9;
     public static int cNA = Color.rgb(212, 212, 212);
@@ -54,7 +55,7 @@ public class ColorThemes {
 
 
     // BMI for graphs
-    public static int cBMI_Graph_NA = cBMI_NA;
+    public static int cBMI_Graph_NA = cLightGrayAlt;
     public static int cBMI_Graph_SevereThinness = 0xfffdf900;
     public static int cBMI_Graph_Thinness = 0xffe5f500;
     public static int cBMI_Graph_Underweight = 0xffafda01;
@@ -62,7 +63,7 @@ public class ColorThemes {
     public static int cBMI_Graph_Overweight = 0xfffd8b00;
     public static int cBMI_Graph_Obese = 0xfffd3600;
     public static int[] csBMI_Graph = new int[] {
-            cLightGray,
+            cBMI_Graph_NA,
             cBMI_Graph_SevereThinness,
             cBMI_Graph_Thinness,
             cBMI_Graph_Underweight,
@@ -119,7 +120,7 @@ public class ColorThemes {
 
     // Gross Motor (3 items = Pass, Fail, N/A)
     public static int[] csTERNARY = new int[] {cPass, cFail, cBMI_NA};
-    public static int[] csTERNARY_GRAPH = new int[] {cLightGray, cFail, cPass};
+    public static int[] csTERNARY_GRAPH = new int[] {cLightGrayAlt, cFail, cPass};
 
     // Color Vision (2 items = Normal, Abnormal)
     // Fine Motor Dominant & Non (2 items = Pass, Fail)
@@ -142,7 +143,7 @@ public class ColorThemes {
                     case "Obese":
                         return csBMI[3];
                     default:
-                        return cLightGray;
+                        return cLightGrayAlt;
                 }
 //            case StringConstants.COL_HEIGHT:
 //                break;
@@ -171,7 +172,7 @@ public class ColorThemes {
                     return cstackVISION[3];
                 }
                 else {
-                    return cLightGray;
+                    return cLightGrayAlt;
                 }
 
             case StringConstants.COL_COLOR_VISION:
@@ -182,7 +183,7 @@ public class ColorThemes {
                     case "Abnormal":
                         return csBINARY[1];
                     default:
-                        return cLightGray;
+                        return cLightGrayAlt;
                 }
 
             case StringConstants.COL_HEAR_LEFT:
@@ -206,7 +207,7 @@ public class ColorThemes {
                     return csHEARING[5];
                 }
                 else {
-                    return cLightGray;
+                    return cLightGrayAlt;
                 }
 
 
@@ -221,11 +222,11 @@ public class ColorThemes {
                     case "Fail":
                         return csBINARY[1];
                     default:
-                        return cLightGray;
+                        return cLightGrayAlt;
                 }
         }
 //        Log.e("TAB", "DEFAULT "+recordColumn+" "+recordValue);
-        return cLightGray;
+        return cLightGrayAlt;
     }
 
     public static int[] getMergedStackedColorSet(String recordColumn) {
