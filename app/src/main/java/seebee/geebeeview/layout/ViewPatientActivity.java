@@ -1525,9 +1525,10 @@ public class ViewPatientActivity extends AppCompatActivity {
             lineDataSet.setCircleHoleRadius(3f);
 
         } else { // Ideal Values
-            lineDataSet.setDrawCircles(false);
-            lineDataSet.setLineWidth(2f);
-            lineDataSet.setColor(lineColor);
+//            lineDataSet.setDrawCircles(false);
+//            lineDataSet.setLineWidth(2f);
+//            lineDataSet.setColor(lineColor);
+            lineDataSet.setVisible(false);
             lineDataSet.setDrawValues(false);
 //            lineDataSet.setValueTextColor(Color.BLUE);
 //            lineDataSet.setDrawValues(true);
