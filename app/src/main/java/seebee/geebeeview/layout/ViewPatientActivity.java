@@ -68,6 +68,7 @@ import seebee.geebeeview.model.monitoring.IdealValue;
 import seebee.geebeeview.model.monitoring.LineChartValueFormatter;
 import seebee.geebeeview.model.monitoring.Record;
 import seebee.geebeeview.containers.General;
+import seebee.geebeeview.model.monitoring.ValueCounter;
 import seebee.geebeeview.sidebar.PatientSidebar;
 
 public class ViewPatientActivity extends AppCompatActivity {
@@ -963,39 +964,45 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         yAxisLeft.resetAxisMaximum();
         yAxisLeft.resetAxisMinimum();
+        yAxisLeft.setXOffset(10f);
 
-        if (recordValue.contains("BMI")) {
-//            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
-            lineChart.setAutoScaleMinMaxEnabled(true);
-//            yAxisLeft.setAxisMaximum(40f);
-            yAxisLeft.setAxisMinimum(0-0.5f);
+//        if (recordValue.equals(StringConstants.COL_BMI)) {
+////            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
+//            lineChart.setAutoScaleMinMaxEnabled(true);
+////            yAxisLeft.setAxisMaximum(40f);
+//            yAxisLeft.setAxisMinimum(0-0.5f);
+//        }
+//        else {
+        lineChart.setAutoScaleMinMaxEnabled(false);
+        maxLabelCount = General.getMaxLabelCount(recordValue);
+        yAxisLeft.setLabelCount(maxLabelCount);
+        Log.e("LBL", maxLabelCount+"");
+
+        yAxisLeft.setAxisMinimum(-1);
+
+        if(recordValue.equals(StringConstants.COL_BMI)) {
+            yAxisLeft.setLabelCount(maxLabelCount+1);
+            yAxisLeft.setAxisMaximum(ValueCounter.maxBMI);
         }
-        else if (recordValue.contains("Height") || recordValue.contains("Weight")){
-//            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
-            lineChart.setAutoScaleMinMaxEnabled(true);
-            yAxisLeft.setAxisMinimum(0-0.5f);
+        else if(recordValue.equals(StringConstants.COL_HEIGHT)) {
+            yAxisLeft.setLabelCount(maxLabelCount+1);
+            yAxisLeft.setAxisMaximum(ValueCounter.maxHeight);
+        }
+        else if(recordValue.equals(StringConstants.COL_WEIGHT)) {
+            yAxisLeft.setLabelCount(maxLabelCount+1);
+            yAxisLeft.setAxisMaximum(ValueCounter.maxWeight);
+        }
+        else if(maxLabelCount == 3) {
+            yAxisLeft.setAxisMaximum(maxLabelCount);
+        }
+        else if(maxLabelCount == 2) {
+            yAxisLeft.setLabelCount(maxLabelCount+2);
+            yAxisLeft.setAxisMaximum(maxLabelCount);
         }
         else {
-            lineChart.setAutoScaleMinMaxEnabled(false);
-            maxLabelCount = General.getMaxLabelCount(recordValue);
-            yAxisLeft.setLabelCount(maxLabelCount);
-            Log.e("LBL", maxLabelCount+"");
-
-            if(maxLabelCount == 3) {
-                yAxisLeft.setAxisMaximum(maxLabelCount);
-                yAxisLeft.setAxisMinimum(-1);
-            }
-            else if(maxLabelCount == 2) {
-                yAxisLeft.setLabelCount(maxLabelCount+2);
-                yAxisLeft.setAxisMaximum(maxLabelCount);
-                yAxisLeft.setAxisMinimum(-1);
-            }
-            else {
-                yAxisLeft.setAxisMaximum(maxLabelCount+1);
-                yAxisLeft.setAxisMinimum(-1);
-            }
-
+            yAxisLeft.setAxisMaximum(maxLabelCount+1);
         }
+//        }
 
 
 //        yAxisLeft.setDrawZeroLine(true);
@@ -1099,7 +1106,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         lineChart.getAxisLeft().setDrawLabels(true); // TODO labels
 
 
-        lineChart.getXAxis().setTextSize(14f);
+        lineChart.getXAxis().setTextSize(12f);
         lineChart.getXAxis().setTextColor(ColorThemes.cPrimaryDark);
 
         yAxisLeft.removeAllLimitLines();
@@ -1112,7 +1119,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         line.setLineColor(ColorThemes.cGray);
         line.setLineWidth(0.1f);
         yAxisLeft.addLimitLine(line);
-
+        lineChart.getLegend().setEnabled(false);
 //        record = patientRecords.get(0);
 //        yVal = getColumnValue(recordValue, record);
 //        line = new LimitLine(yVal+0.1f, " Patient");

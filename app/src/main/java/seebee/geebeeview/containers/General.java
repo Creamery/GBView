@@ -125,6 +125,10 @@ public class General {
 
     public static int getMaxLabelCount(String recordValue) {
         switch(recordValue) {
+            case StringConstants.COL_WEIGHT:
+                return ValueCounter.maxLblWeight;
+            case StringConstants.COL_HEIGHT:
+                return ValueCounter.maxLblHeight;
             case StringConstants.COL_BMI:
                 return ValueCounter.maxLblBMI;
             case StringConstants.COL_VA_LEFT:

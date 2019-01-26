@@ -40,7 +40,13 @@ public class ValueCounter {
     private int[] valBMI = {0, 0, 0, 0, 0};
     private ArrayList<PatientRecord> patientRecords;
 
-    public static int maxLblBMI = lblBMI.length;
+    public static int maxHeight = 200;
+    public static int maxWeight = 70;
+    public static int maxBMI = 30;
+    public static int maxLblBMI = 10;
+    public static int maxLblHeight = 10;
+    public static int maxLblWeight = 7;
+//    public static int maxLblBMI = lblBMI.length;
     public static int maxLblVision = lblVisualAcuity.length;
     public static int maxLblColor = lblColorVision.length;
     public static int maxLblHearing = lblHearing.length;
