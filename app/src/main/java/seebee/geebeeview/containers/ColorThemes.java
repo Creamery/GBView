@@ -35,7 +35,6 @@ public class ColorThemes {
 
 
 
-
     // Hearing Left & Right (6 items = Normal Hearing, Mild Hearing Loss, Moderate Hearing Loss, Moderately Severe Hearing Loss, Severe Hearing Loss, Profound Hearing Loss)
     public static int cHEARING_Normal = cBMI_Normal;
     public static int cHEARING_Mild = Color.rgb(200, 227, 4);// cBMI_Underweight;
@@ -53,6 +52,30 @@ public class ColorThemes {
     public static int cVISION_Moderate = cBMI_Overweight; // [1, 2] = 20/100, 20/70  // Moderate Low Vision
     public static int cVISION_Severe = cBMI_Obese; // [0] = 20/200 // Severe Low Vision
 
+
+    // BMI for graphs
+    public static int cBMI_Graph_NA = cBMI_NA;
+    public static int cBMI_Graph_SevereThinness = 0xfffdf900;
+    public static int cBMI_Graph_Thinness = 0xffe5f500;
+    public static int cBMI_Graph_Underweight = 0xffafda01;
+    public static int cBMI_Graph_Normal = 0xff74e304;
+    public static int cBMI_Graph_Overweight = 0xfffd8b00;
+    public static int cBMI_Graph_Obese = 0xfffd3600;
+    public static int[] csBMI_Graph = new int[] {
+            cLightGray,
+            cBMI_Graph_SevereThinness,
+            cBMI_Graph_Thinness,
+            cBMI_Graph_Underweight,
+            cBMI_Graph_Normal,
+            cBMI_Graph_Overweight,
+            cBMI_Graph_Obese};
+
+//    <color name="obese">#fd3600</color>
+//    <color name="overweight">#fd8b00</color>
+//    <color name="normal">#74e304</color>
+//    <color name="underweight">#afda01</color>
+//    <color name="thinness">#e5f500</color>
+//    <color name="severe_thinness">#fdf900</color>
 
     // Color Vision (2 items = Normal, Abnormal)
     // Gross Motor (3 items = Pass, Fail, N/A)

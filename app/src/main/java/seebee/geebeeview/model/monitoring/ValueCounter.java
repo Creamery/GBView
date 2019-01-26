@@ -42,7 +42,7 @@ public class ValueCounter {
 
     public static int maxHeight = 200;
     public static int maxWeight = 70;
-    public static int maxBMI = 30;
+    public static int maxBMI = 40;
     public static int maxLblBMI = 10;
     public static int maxLblHeight = 10;
     public static int maxLblWeight = 7;

@@ -18,6 +18,13 @@
     <color name="brightGreenHighlight">#21c700</color>
 
 
+    <color name="obese">#fd3600</color>
+    <color name="overweight">#fd8b00</color>
+    <color name="normal">#74e304</color>
+    <color name="underweight">#afda01</color>
+    <color name="thinness">#e5f500</color>
+    <color name="severe_thinness">#fdf900</color>
+
     <color name="view_patient_name_color_female">#ea3571</color>
     <color name="view_patient_name_color_male">#3348d2</color>
 
