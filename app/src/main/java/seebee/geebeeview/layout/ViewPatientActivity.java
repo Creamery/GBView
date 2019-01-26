@@ -87,7 +87,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     private ArrayList<Drawable> tabIconsDeselect;
     ArrayList<Integer> listAge;
     private int genderColor, genderColorDark;
-
+    private float generalFontSize;
     // ImageViews for the colors on the tabs
     private ImageView
             ivColorBMI, ivColorHeight, ivColorWeight,
@@ -164,9 +164,11 @@ public class ViewPatientActivity extends AppCompatActivity {
     public void adjustDetailFontSize() {
         if(tvWeight.getTextSize() > tvHeight.getTextSize()) {
             tvWeight.setTextSize(tvHeight.getTextSize());
+            generalFontSize = tvHeight.getTextSize();
         }
         else {
             tvHeight.setTextSize(tvWeight.getTextSize());
+            generalFontSize = tvWeight.getTextSize();
         }
     }
 

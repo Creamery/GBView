@@ -41,22 +41,21 @@
 
                     <ImageView
                         android:id="@+id/img_about_item0"
-                        android:layout_width="0dp"
+                        android:layout_width="5dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="false"
+                        android:background="@color/theme_menu_button"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         android:scaleType="fitCenter"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/tv_about_title0"
-                        app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_about_title0"
@@ -75,7 +74,6 @@
                         app:autoSizePresetSizes="@array/autosize_text_sizes"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="9"
                         app:layout_constraintStart_toEndOf="@+id/img_about_item0"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -256,22 +254,21 @@
 
                     <ImageView
                         android:id="@+id/img_about_item1"
-                        android:layout_width="0dp"
+                        android:layout_width="5dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="false"
+                        android:background="@color/theme_menu_button"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         android:scaleType="fitCenter"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/tv_about_title1"
-                        app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_about_title1"
@@ -290,7 +287,6 @@
                         app:autoSizePresetSizes="@array/autosize_text_sizes"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="9"
                         app:layout_constraintStart_toEndOf="@+id/img_about_item1"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -473,22 +469,21 @@
 
                     <ImageView
                         android:id="@+id/img_about_item2"
-                        android:layout_width="0dp"
+                        android:layout_width="5dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
+                        android:background="@color/theme_menu_button"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         android:scaleType="fitCenter"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/tv_about_title2"
-                        app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_about_title2"
@@ -507,7 +502,6 @@
                         app:autoSizePresetSizes="@array/autosize_text_sizes"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="9"
                         app:layout_constraintStart_toEndOf="@+id/img_about_item2"
                         app:layout_constraintTop_toTopOf="parent" />
                 </android.support.constraint.ConstraintLayout>
@@ -642,22 +636,21 @@
 
                     <ImageView
                         android:id="@+id/img_about_item3"
-                        android:layout_width="0dp"
+                        android:layout_width="5dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
+                        android:background="@color/theme_menu_button"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         android:scaleType="fitCenter"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/tv_about_title3"
-                        app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_about_title3"
@@ -677,7 +670,6 @@
                         app:autoSizePresetSizes="@array/autosize_text_sizes"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="9"
                         app:layout_constraintStart_toEndOf="@+id/img_about_item3"
                         app:layout_constraintTop_toTopOf="parent" />
                 </android.support.constraint.ConstraintLayout>
@@ -937,22 +929,21 @@
 
                     <ImageView
                         android:id="@+id/img_about_item4"
-                        android:layout_width="0dp"
+                        android:layout_width="5dp"
                         android:layout_height="0dp"
                         android:layout_marginStart="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="5dp"
                         android:adjustViewBounds="true"
+                        android:background="@color/theme_menu_button"
                         android:contentDescription="@string/cd_blank"
                         android:cropToPadding="false"
                         android:scaleType="fitCenter"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/tv_about_title4"
-                        app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/img_circle_trans_greenhighlight" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/tv_about_title4"
@@ -972,7 +963,6 @@
                         app:autoSizePresetSizes="@array/autosize_text_sizes"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_weight="9"
                         app:layout_constraintStart_toEndOf="@+id/img_about_item4"
                         app:layout_constraintTop_toTopOf="parent" />
                 </android.support.constraint.ConstraintLayout>

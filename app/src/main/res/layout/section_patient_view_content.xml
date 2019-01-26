@@ -601,6 +601,7 @@
                                 android:id="@+id/tv_patient_chart_title1"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:background="@color/colorPrimaryDark"
                                 android:text="@string/cd_blank"
                                 android:textColor="@color/colorPrimaryDark"
                                 android:textStyle="bold"
