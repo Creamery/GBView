@@ -370,18 +370,18 @@ public class ViewPatientActivity extends AppCompatActivity {
     private void clearAllGraphs() {
         if(lineChart1 != null) {
             lineChart1.clear();
-            lineChart1.notifyDataSetChanged();
-            lineChart1.invalidate();
+//            lineChart1.notifyDataSetChanged();
+//            lineChart1.invalidate();
         }
         if(lineChart2 != null) {
             lineChart2.clear();
-            lineChart2.notifyDataSetChanged();
-            lineChart2.invalidate();
+//            lineChart2.notifyDataSetChanged();
+//            lineChart2.invalidate();
         }
         if(lineChart3 != null) {
             lineChart3.clear();
-            lineChart3.notifyDataSetChanged();
-            lineChart3.invalidate();
+//            lineChart3.notifyDataSetChanged();
+//            lineChart3.invalidate();
         }
     }
 
@@ -939,9 +939,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         LineData lineData = new LineData();
         lineData.setValueTextColor(Color.WHITE);
 
-//        Description desc = new Description();
-//        desc.setText("");
-//        lineChart.setDescription(desc);
         lineChart.getDescription().setEnabled(false);
 
         // add data to line chart
@@ -961,13 +958,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         int height = lineChart.getHeight();
         int maxLabelCount = 0;
 
-        // Gradient TODO
-//        LinearGradient linGrad = new LinearGradient(0, 0, 0, height, ColorThemes.csBMI, new float[] {0, 1, 2, 3, 4}, Shader.TileMode.REPEAT);
-////        LinearGradient linGrad = new LinearGradient(0, 0, 0, height,
-////                getResources().getColor(R.color.greenHighlight),
-////                getResources().getColor(R.color.theme_red50_sidebar_extend_item1),
-////                Shader.TileMode.REPEAT);
-//        paint.setShader(linGrad);
 
         YAxis yAxisLeft = lineChart.getAxisLeft();
 
@@ -979,13 +969,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         yAxisLeft.resetAxisMinimum();
         yAxisLeft.setXOffset(10f);
 
-//        if (recordValue.equals(StringConstants.COL_BMI)) {
-////            lineChart.setVisibleYRange(0, maxLabelCount+1, YAxis.AxisDependency.LEFT);
-//            lineChart.setAutoScaleMinMaxEnabled(true);
-////            yAxisLeft.setAxisMaximum(40f);
-//            yAxisLeft.setAxisMinimum(0-0.5f);
-//        }
-//        else {
         lineChart.setAutoScaleMinMaxEnabled(false);
         maxLabelCount = General.getMaxLabelCount(recordValue);
         yAxisLeft.setLabelCount(maxLabelCount);
@@ -1015,12 +998,9 @@ public class ViewPatientActivity extends AppCompatActivity {
         else {
             yAxisLeft.setAxisMaximum(maxLabelCount+1);
         }
-//        }
 
 
-//        yAxisLeft.setDrawZeroLine(true);
         XAxis xAxis = lineChart.getXAxis();
-//        lineChart.setAutoScaleMinMaxEnabled(false);
         xAxis.setDrawAxisLine(false);
         lineChart.getLineData().setDrawValues(false);
 
@@ -1065,7 +1045,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         ArrayList<Entry> n3Entries = new ArrayList<>();
         ArrayList<Integer> listAge = new ArrayList<>();
 
-        getAverageRecords(patientRecords);
+//        getAverageRecords(patientRecords);
         for(int i = 0; i < patientRecords.size(); i++) {
             record = patientRecords.get(i);
             yVal = getColumnValue(recordValue, record);
