@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import seebee.geebeeview.containers.StringConstants;
+
 /**
  * Created by Joy on 6/27/2017.
  */
@@ -23,20 +25,19 @@ public class ValueCounter {
     Map<Integer, int[]> countBMIPerAge;
     private int[] valVisualAcuityLeft = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     private int[] valVisualAcuityRight = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-    public static String[] lblColorVision = {"Normal", "Abnormal"};
+    public static String[] lblColorVision = StringConstants.strCOLOR_VISION;
     private int[] valColorVision = {0, 0};
-    public static String[] lblHearing = {"Normal", "Mild Loss", "Moderate Loss",
-            "Moderately-Severe Loss", "Severe Loss", "Profound Loss"};
+    public static String[] lblHearing = StringConstants.strHEARING_MERGED;
     private int[] valHearingLeft = {0, 0, 0, 0, 0, 0};
     private int[] valHearingRight = {0, 0, 0, 0, 0, 0};
-    public static String[] lblGrossMotor = {"Pass", "Fail", "N/A"};
+    public static String[] lblGrossMotor = StringConstants.strGROSS_MOTOR;
     private int[] valGrossMotor = {0, 0, 0};
-    public static String[] lblFineMotor = {"Pass", "Fail"};
+    public static String[] lblFineMotor = StringConstants.strFINE_MOTOR;
     private int[] valFineMotorDom = {0, 0};
     private int[] valFineMotorNonDom = {0, 0};
-    private String[] lblFineMotorHold = {"Hold", "Not Hold"};
+    private String[] lblFineMotorHold = StringConstants.strFINE_MOTOR_HOLD;
     private int[] valFineMotorHold = {0, 0};
-    public static String[] lblBMI = {"Underweight", "Normal", "Overweight", "Obese", "N/A"};
+    public static String[] lblBMI = StringConstants.strBMI;
     private int[] valBMI = {0, 0, 0, 0, 0};
     private ArrayList<PatientRecord> patientRecords;
 

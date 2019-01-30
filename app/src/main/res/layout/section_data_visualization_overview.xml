@@ -16,27 +16,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_weight="8.25">
 
-        <Space
-            android:id="@+id/space_overview_start"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/cont_scroll_graph"
-            app:layout_constraintHorizontal_weight="0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Space
-            android:id="@+id/space_overview_end"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/graph_container_center"
-            app:layout_constraintHorizontal_weight="4.5"
-            app:layout_constraintStart_toEndOf="@+id/cont_scroll_graph"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
         <LinearLayout
             android:id="@+id/cont_right_items"
             android:layout_width="0dp"
@@ -652,9 +631,8 @@
             android:layout_marginBottom="5dp"
             android:background="@color/lightGrey"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/space_overview_end"
-            app:layout_constraintHorizontal_weight="5"
-            app:layout_constraintStart_toEndOf="@+id/space_overview_start"
+            app:layout_constraintEnd_toStartOf="@+id/cont_right_items"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
@@ -1001,53 +979,6 @@
             </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
-
-        <RelativeLayout
-            android:id="@+id/graph_container_center"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_weight="6">
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/cont_graph_container"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:baselineAligned="false"
-            android:orientation="horizontal"
-            android:weightSum="1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="6"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <RelativeLayout
-                android:id="@+id/graph_container_left"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:gravity="top">
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/graph_container_right"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:clipToPadding="false"
-                android:gravity="top">
-
-            </RelativeLayout>
-
-        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

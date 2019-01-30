@@ -3,6 +3,8 @@ package seebee.geebeeview.containers;
 import android.graphics.Color;
 import android.util.Log;
 
+import java.util.HashMap;
+
 import seebee.geebeeview.model.monitoring.ValueCounter;
 
 /**
@@ -117,6 +119,7 @@ public class ColorThemes {
             cVISION_Mild,
             cVISION_Normal};
 
+    public static int[] csCOLOR_VISION = new int[] {cPass, cFail, cLightGrayAlt};
 
     // Gross Motor (3 items = Pass, Fail, N/A)
     public static int[] csTERNARY = new int[] {cPass, cFail, cBMI_NA};
@@ -129,6 +132,52 @@ public class ColorThemes {
 
 
     public static int[] csBINARY_GRAPH = new int[] {cFail, cPass};
+
+
+
+    public static HashMap<String, Integer> mapBMI = new HashMap<String, Integer>() {{
+        put(StringConstants.strBMI[0], csBMI[0]);
+        put(StringConstants.strBMI[1], csBMI[1]);
+        put(StringConstants.strBMI[2], csBMI[2]);
+        put(StringConstants.strBMI[3], csBMI[3]);
+        put(StringConstants.strBMI[4], csBMI[4]);
+    }};
+    public static HashMap<String, Integer> mapVISION = new HashMap<String, Integer>() {{
+        put(StringConstants.strVISION_MERGED[0], cstackVISION[0]);
+        put(StringConstants.strVISION_MERGED[1], cstackVISION[1]);
+        put(StringConstants.strVISION_MERGED[2], cstackVISION[2]);
+        put(StringConstants.strVISION_MERGED[3], cstackVISION[3]);
+    }};
+
+    public static HashMap<String, Integer> mapHEARING = new HashMap<String, Integer>() {{
+        put(StringConstants.strHEARING_MERGED[0], csHEARING[0]);
+        put(StringConstants.strHEARING_MERGED[1], csHEARING[1]);
+        put(StringConstants.strHEARING_MERGED[2], csHEARING[2]);
+        put(StringConstants.strHEARING_MERGED[3], csHEARING[3]);
+        put(StringConstants.strHEARING_MERGED[4], csHEARING[4]);
+        put(StringConstants.strHEARING_MERGED[5], csHEARING[5]);
+    }};
+
+    public static HashMap<String, Integer> mapCOLOR_VISION = new HashMap<String, Integer>() {{
+        put(StringConstants.strCOLOR_VISION[0], csCOLOR_VISION[0]);
+        put(StringConstants.strCOLOR_VISION[1], csCOLOR_VISION[1]);
+        put("N/A", csCOLOR_VISION[2]);
+        put("", csCOLOR_VISION[2]);
+    }};
+    public static HashMap<String, Integer> mapFINE_MOTOR = new HashMap<String, Integer>() {{
+        put(StringConstants.strFINE_MOTOR[0], csBINARY[0]);
+        put(StringConstants.strFINE_MOTOR[1], csBINARY[1]);
+    }};
+    public static HashMap<String, Integer> mapFINE_MOTOR_HOLD = new HashMap<String, Integer>() {{
+        put(StringConstants.strFINE_MOTOR_HOLD[0], csBINARY[0]);
+        put(StringConstants.strFINE_MOTOR_HOLD[1], csBINARY[1]);
+    }};
+
+    public static HashMap<String, Integer> mapGROSS_MOTOR = new HashMap<String, Integer>() {{
+        put(StringConstants.strGROSS_MOTOR[0], csTERNARY[0]);
+        put(StringConstants.strGROSS_MOTOR[1], csTERNARY[1]);
+        put(StringConstants.strGROSS_MOTOR[2], csTERNARY[2]);
+    }};
 
     public static int getColor(String recordColumn, String recordValue) {
         switch (recordColumn) {
@@ -240,6 +289,61 @@ public class ColorThemes {
                 return getStackedColorSet(recordColumn);
         }
     }
+
+
+
+    public static int getMergedStackedColor(String recordColumn, String targetLabel) {
+        Log.e("mapLabels", recordColumn+" "+targetLabel);
+        switch (recordColumn) {
+
+            case "Visual Acuity Left":
+            case "Visual Acuity Right":
+                if(mapVISION.containsKey(targetLabel))
+                    return mapVISION.get(targetLabel);
+                else
+                    return ColorThemes.cTealDefault;
+
+            case "BMI":
+                if(mapBMI.containsKey(targetLabel))
+                    return mapBMI.get(targetLabel);
+                else
+                    return ColorThemes.cTealDefault;
+
+
+            case "Hearing Left":
+            case "Hearing Right":
+                if(mapHEARING.containsKey(targetLabel))
+                    return mapHEARING.get(targetLabel);
+                else
+                    return ColorThemes.cTealDefault;
+
+            case "Gross Motor":
+                if(mapGROSS_MOTOR.containsKey(targetLabel))
+                    return mapGROSS_MOTOR.get(targetLabel);
+                else
+                    return ColorThemes.cTealDefault;
+
+            case "Color Vision":
+                if(mapCOLOR_VISION.containsKey(targetLabel))
+                    return mapCOLOR_VISION.get(targetLabel);
+                else
+                    return ColorThemes.cTealDefault;
+            case "Fine Motor (Dominant Hand)":
+            case "Fine Motor (Non-Dominant Hand)":
+                if(mapFINE_MOTOR.containsKey(targetLabel))
+                    return mapFINE_MOTOR.get(targetLabel);
+                else
+                    return ColorThemes.cTealDefault;
+            case "Fine Motor (Hold)":
+                if(mapFINE_MOTOR_HOLD.containsKey(targetLabel))
+                    return mapFINE_MOTOR_HOLD.get(targetLabel);
+                else
+                    return ColorThemes.cTealDefault;
+            default:
+                return ColorThemes.cTealDefault;
+        }
+    }
+
 
 
     // TODO change switch cases to constants defined by StringConstants

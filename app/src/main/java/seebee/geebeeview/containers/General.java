@@ -239,7 +239,14 @@ public class General {
 
         return floatData;
     }
+    public static ArrayList<Float> convertToFloat(float[] floatData) {
+        ArrayList<Float> listFloat = new ArrayList<>();
+        for(int i = 0; i < floatData.length; i++) {
+            listFloat.add(floatData[i]);
+        }
 
+        return listFloat;
+    }
     public static String[] convertToString(ArrayList<String> listString) {
         String[] stringData = new String[listString.size()];
 

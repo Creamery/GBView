@@ -1,5 +1,7 @@
 package seebee.geebeeview.containers;
 
+import java.util.HashMap;
+
 public class StringConstants {
 
     // For tabs in patient view
@@ -50,25 +52,35 @@ public class StringConstants {
             "Moderate Loss", "Moderate Loss",
             "Near-normal", "Near-normal", "Near-normal",
             "Normal", "Normal", "Normal", "Normal", "Normal"};
-    private static String[] strBMI = {
+
+    public static String[] strBMI = {
             "Underweight",
             "Normal",
-            "Moderate Loss",
-            "Moderately-Severe Loss",
-            "Severe Loss",
-            "Profound Loss"};
+            "Overweight",
+            "Obese",
+            "N/A"};
+
     public static String[] strVISION_MERGED = new String[] {
             "Severe Loss",
             "Moderate Loss",
             "Near-normal",
             "Normal"};
-    private static String[] strHEARING_MERGED = {
+
+    public static String[] strHEARING_MERGED = {
             "Normal",
             "Mild Loss",
             "Moderate Loss",
             "Moderately-Severe Loss",
             "Severe Loss",
             "Profound Loss"};
+
+    public static String[] strCOLOR_VISION = {"Normal", "Abnormal"};
+
+    public static String[] strGROSS_MOTOR = {"Pass", "Fail", "N/A"};
+    public static String[] strFINE_MOTOR = {"Pass", "Fail"};
+    public static String[] strFINE_MOTOR_HOLD = {"Hold", "Not Hold"};
+
+
     public enum MergeType {
         START, CONT, END, NONE
     }
