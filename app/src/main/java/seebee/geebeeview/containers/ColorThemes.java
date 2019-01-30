@@ -1,6 +1,7 @@
 package seebee.geebeeview.containers;
 
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -35,7 +36,6 @@ public class ColorThemes {
     public static int cBMI_Overweight = Color.rgb(253, 139, 0);
     public static int cBMI_Obese = Color.rgb(253, 54, 0);
     public static int cBMI_NA = cCyanAccent;
-
 
 
     // Hearing Left & Right (6 items = Normal Hearing, Mild Hearing Loss, Moderate Hearing Loss, Moderately Severe Hearing Loss, Severe Hearing Loss, Profound Hearing Loss)
@@ -88,9 +88,8 @@ public class ColorThemes {
     public static int cPass = Color.rgb(116, 227, 4);
     public static int cFail = Color.rgb(253, 54, 0);
 
-
-
-
+    public static int cSubtitleHighest = cTealDefaultDark;
+    public static int cSubtitleTarget = 0xFFFFD600;
 
     // Underweight, Normal, Overweight, Obese, N/A
     public static int[] csBMI = new int[] {cBMI_Underweight, cBMI_Normal, cBMI_Overweight, cBMI_Obese, cBMI_NA};
@@ -129,10 +128,7 @@ public class ColorThemes {
     // Fine Motor Dominant & Non (2 items = Pass, Fail)
     // Fine Motor Hold (2 items = Hold, Not Hold)
     public static int[] csBINARY = new int[] {cPass, cFail};
-
-
     public static int[] csBINARY_GRAPH = new int[] {cFail, cPass};
-
 
 
     public static HashMap<String, Integer> mapBMI = new HashMap<String, Integer>() {{

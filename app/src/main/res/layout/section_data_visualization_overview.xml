@@ -142,20 +142,20 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/imageView11"
+                            android:id="@+id/iv_subtitle_color"
                             android:layout_width="0dp"
                             android:layout_height="0dp"
                             android:adjustViewBounds="false"
                             android:background="@color/theme_menu_button"
                             android:contentDescription="@string/cd_blank"
                             android:cropToPadding="false"
-                            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-                            app:layout_constraintEnd_toEndOf="@+id/imageView10"
-                            app:layout_constraintStart_toStartOf="@+id/imageView10"
-                            app:layout_constraintTop_toTopOf="@+id/imageView10" />
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_subtitle_image"
+                            app:layout_constraintEnd_toEndOf="@+id/iv_subtitle_image"
+                            app:layout_constraintStart_toStartOf="@+id/iv_subtitle_image"
+                            app:layout_constraintTop_toTopOf="@+id/iv_subtitle_image" />
 
                         <ImageView
-                            android:id="@+id/imageView10"
+                            android:id="@+id/iv_subtitle_image"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:contentDescription="@string/cd_blank"

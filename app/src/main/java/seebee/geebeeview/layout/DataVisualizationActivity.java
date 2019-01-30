@@ -1,6 +1,5 @@
 package seebee.geebeeview.layout;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -38,7 +37,6 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -50,17 +48,13 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.data.ScatterData;
-import com.github.mikephil.charting.data.ScatterDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
-import com.github.mikephil.charting.interfaces.datasets.IScatterDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.sql.Array;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -159,6 +153,9 @@ public class DataVisualizationActivity extends AppCompatActivity
             stackedFineMotorDominant, stackedFineMotorNon, stackedFineMotorHold;
 
     TextView tvRightScrollTitle, tvRightSubtitle, tvFilterPrompt;
+    ImageView ivRightSubtitleImage, ivRightSubtitleColor;
+    Drawable imgRightSubtitleHighest, imgRightSubtitleTarget;
+
     RelativeLayout graphSpecificBarSingle;
     BarChart barSpecific;
 
@@ -186,7 +183,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     private String recordColumn = "BMI", rightChartContent = "National Profile";
 
     private String chartType = "Overview";
-    private String titleScrollRightOverview, titleScrollRightNational, subtitleRightOverview, subtitleRightNational;
+    private String titleScrollRightOverview, titleScrollRightNational, subtitleHighest, subtitleTarget;
 
     private ViewGroup.LayoutParams paramsLeft, paramsRight, paramsCenter, paramsStacked;
     private ArrayList<ViewGroup.LayoutParams> paramsOverview;
@@ -200,6 +197,10 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     private DataVisualizationSidebar sidebarManager;
 
+    private enum SubtitleMode {
+        SHOW_HIGHEST,
+        SHOW_TARGET;
+    }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -380,11 +381,17 @@ public class DataVisualizationActivity extends AppCompatActivity
         tvRightScrollTitle = findViewById(R.id.tv_name_r);
         tvRightSubtitle = findViewById(R.id.tv_subtitle);
 
+        ivRightSubtitleImage = findViewById(R.id.iv_subtitle_image);
+        ivRightSubtitleColor = findViewById(R.id.iv_subtitle_color);
+
+        imgRightSubtitleHighest = ContextCompat.getDrawable(this, R.drawable.img_visualize_icon);
+        imgRightSubtitleTarget = ContextCompat.getDrawable(this, R.drawable.img_star_icon);
+
         titleScrollRightOverview = getResources().getString(R.string.overview_title);
         titleScrollRightNational = getResources().getString(R.string.national_title);
 
-        subtitleRightOverview = getResources().getString(R.string.highlight_highest);
-        subtitleRightNational = getResources().getString(R.string.highlight_target);
+        subtitleHighest = getResources().getString(R.string.highlight_highest);
+        subtitleTarget = getResources().getString(R.string.highlight_target);
 
         strFilterTemplate = getResources().getString(R.string.filter_template)+" ";
         strRemove = getResources().getString(R.string.click_to_remove);
@@ -512,6 +519,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         createCharts();
 
 
+
         String[] charts = getResources().getStringArray(R.array.chart_type_array);
 
         // Image spinner
@@ -536,26 +544,12 @@ public class DataVisualizationActivity extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //                chartType = ((CustomSpinnerAdapter)parent.getAdapter()).getItem(position);
                 chartType = ((CustomSpinnerItem)(parent.getItemAtPosition(position))).getText();
-//                Log.e("CHART", chartType);
-
 
                 // TODO Remove all views
                 removeGraphViews();
                 hideGraphOverview();
                 spinnerSelect();
 
-
-                // hide control of right chart for scatter and bubble plot
-                // **edited, only show on Pie
-//                if(position == INDEX_PIE) {
-//                    spRightChart.setVisibility(View.VISIBLE);
-//                    tvRightChart.setVisibility(View.VISIBLE);
-//                } else {
-//                    spRightChart.setVisibility(View.GONE);
-//                    tvRightChart.setVisibility(View.GONE);
-//                } // TODO commented out
-
-//                refreshChartParams();
                 addDataSet();
             }
 
@@ -575,24 +569,6 @@ public class DataVisualizationActivity extends AppCompatActivity
             }
         });
 
-//        ArrayAdapter<String> spRightChartAdapter = new ArrayAdapter<>(this, // TODO commented out
-//                R.layout.custom_spinner, getResources().getStringArray(R.array.right_chart_content_array));
-//        spRightChart.setAdapter(spRightChartAdapter);
-//        spRightChart.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                rightChartContent = parent.getItemAtPosition(position).toString();
-//                Log.v(TAG, "Right Chart Content: "+rightChartContent);
-//                prepareRightChartRecords();
-//                refreshCharts();
-//                // todo: add code here
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//                rightChartContent = parent.getItemAtPosition(0).toString();
-//            }
-//        });
 
         tvDataHeader.setText(schoolName);
         tvDataHeaderYear.setText("Record Date: "+date);
@@ -703,9 +679,8 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        addDatasetRefresh();
 //        refreshCharts();
 //        Log.e("RESUME", "resumed");
-
-
     }
+
     private void spinnerRefresh() {
         removeGraphViews();
         hideGraphOverview();
@@ -721,9 +696,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         getSpinnerFunction(position);
     }
     private void spinnerOverview() {
-        // TODO place overview setup here if necessary)
         showGraphOverview();
-//        graphLayoutCenter.setVisibility(General.getVisibility(false));
         if(spRecordColumn != null) {
             spRecordColumn.setVisibility(General.getVisibility(false));
         }
@@ -738,15 +711,10 @@ public class DataVisualizationActivity extends AppCompatActivity
 
             case INDEX_MUNICIPAL:
                 spinnerMunicipal();
-//                spinnerPie();
                 break;
 
             case INDEX_NATIONAL:
                 spinnerNational();
-                break;
-
-            case INDEX_SCATTER:
-//                spinnerScatter();
                 break;
         }
     }
@@ -756,20 +724,11 @@ public class DataVisualizationActivity extends AppCompatActivity
         refreshCharts();
     }
 
-
-//    private void spinnerPie() {
-//        preparePieChart();
-//    }
-
     private void spinnerNational() {
         spinnerOverview();
         prepareRightChartRecords(INDEX_NATIONAL);
         refreshCharts();
     }
-
-//    private void spinnerScatter() {
-//        prepareScatterChart();
-//    }
 
     public void hideGraphOverview() {
         scrollGraphOverview.setVisibility(General.getVisibility(false));
@@ -785,71 +744,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
     }
 
-//    public void preparePieChart() {
-//
-//        spRecordColumn.setVisibility(General.getVisibility(true));
-//        graphLayoutCenter.setVisibility(General.getVisibility(true));
-//
-//        graphLayoutLeft.addView(pieChartLeft);
-//        graphLayoutRight.addView(pieChartRight);
-//        // adjust size of layout
-//        paramsLeft = pieChartLeft.getLayoutParams();
-//        pieChartLeft.setX(computePercentHalf(graphLayoutLeft.getWidth(), offsetPercent));
-//        pieChartLeft.setY(computePercentHalf(graphLayoutLeft.getHeight(), offsetPercent)/offsetYDivider);
-//
-//        paramsRight = pieChartRight.getLayoutParams();
-//        pieChartRight.setX(computePercentHalf(graphLayoutRight.getWidth(), offsetPercent));
-//        pieChartRight.setY(computePercentHalf(graphLayoutRight.getHeight(), offsetPercent)/offsetYDivider);
-//    }
-
-//    public void prepareBarChart() {
-//        spRecordColumn.setVisibility(General.getVisibility(true));
-//        graphLayoutCenter.setVisibility(General.getVisibility(true));
-//        /* add bar chart to layout */
-//        graphLayoutCenter.addView(barChart); // TODO edited
-//        /* adjust the size of the bar chart */
-//        paramsCenter = barChart.getLayoutParams();
-//        barChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
-//        barChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-//    }
-
-//    public void prepareSpecificBarChart() { // TODO Implement specific bar chart resizing
-//        /* adjust the size of the bar chart */
-//
-////        paramsCenter = barChart.getLayoutParams();
-////        barChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
-////        barChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-//    }
-
-
-//    public void prepareScatterChart() {
-//
-//        spRecordColumn.setVisibility(General.getVisibility(true));
-//        graphLayoutCenter.setVisibility(General.getVisibility(true));
-//        graphLayoutCenter.addView(scatterChart); // TODO edited
-//        // adjust the size of the bar chart
-//        paramsCenter = scatterChart.getLayoutParams();
-//        scatterChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
-//        scatterChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-//
-//    }
-
-//    public void prepareBubbleChart() {
-//        spRecordColumn.setVisibility(General.getVisibility(true));
-//        graphLayoutCenter.setVisibility(General.getVisibility(true));
-//        graphLayoutCenter.addView(bubbleChart); // TODO edited
-//
-//        /* adjust the size of the bar chart */
-//        paramsCenter = bubbleChart.getLayoutParams();
-//        bubbleChart.setX(computePercentHalf(graphLayoutCenter.getWidth(), offsetPercent));
-//        bubbleChart.setY(computePercentHalf(graphLayoutCenter.getHeight(), offsetPercent)/offsetYDivider);
-//    }
-
     public void removeGraphViews() {
-
-//        graphLayoutLeft.removeAllViews();
-//        graphLayoutRight.removeAllViews();
-//        graphLayoutCenter.removeAllViews();
 
         // TODO add all graphs
         graphBMI.removeAllViews();
@@ -2263,11 +2158,38 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        this.barSpecific.setBackgroundColor(Color.TRANSPARENT); // TODO Remove or make White
     }
 
+    private void switchSubtitleMode(SubtitleMode mode) {
+        switch (mode) {
+            case SHOW_HIGHEST:
+                highlightHighestValue();
+                break;
+            case SHOW_TARGET:
+                highlightTargetValue();
+                break;
+            default:
+                highlightHighestValue();
+        }
+    }
+
+    private void highlightHighestValue() {
+        tvRightSubtitle.setText(subtitleHighest);
+        tvRightSubtitle.setTextColor(ColorThemes.cSubtitleHighest);
+        ivRightSubtitleColor.setBackgroundColor(ColorThemes.cSubtitleHighest);
+        ivRightSubtitleImage.setImageDrawable(imgRightSubtitleHighest);
+    }
+
+    private void highlightTargetValue() {
+        tvRightSubtitle.setText(subtitleTarget);
+        tvRightSubtitle.setTextColor(ColorThemes.cSubtitleTarget);
+        ivRightSubtitleColor.setBackgroundColor(ColorThemes.cSubtitleTarget);
+        ivRightSubtitleImage.setImageDrawable(imgRightSubtitleTarget);
+    }
+
     private HorizontalBarChart prepareStackedOverview(String recordType, OverviewEntry overviewEntry) {
         HorizontalBarChart chart;
 
         tvRightScrollTitle.setText(titleScrollRightOverview);
-        tvRightSubtitle.setText(subtitleRightOverview);
+        switchSubtitleMode(SubtitleMode.SHOW_HIGHEST);
 
         ChartDataValue chartDataValue = prepareChartData(recordType);
 //        Log.e("RECORD", recordType);
@@ -2342,7 +2264,8 @@ public class DataVisualizationActivity extends AppCompatActivity
     private HorizontalBarChart prepareNationalOverview(String recordType, OverviewEntry overviewEntry) {
         HorizontalBarChart chart;
         tvRightScrollTitle.setText(titleScrollRightNational);
-        tvRightSubtitle.setText(subtitleRightNational);
+        switchSubtitleMode(SubtitleMode.SHOW_TARGET);
+
         ChartDataValue chartDataValue = prepareChartData(recordType);
 //        Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
