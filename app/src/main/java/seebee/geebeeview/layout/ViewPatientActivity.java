@@ -143,8 +143,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         contAboutTitle4 = (ConstraintLayout) findViewById(R.id.cont_about_item4_image);
 
 
-        tvMedicalRecordTitle = (TextView) findViewById(R.id.tv_scrollbar_title);
-        tvRecordDateTitle = (TextView) findViewById(R.id.tv_vp_date);
+        tvMedicalRecordTitle = findViewById(R.id.tv_scrollbar_title);
+        tvRecordDateTitle = findViewById(R.id.tv_vp_date);
 
         TextView titleSizeReference = tvMedicalRecordTitle;
         TextView sizeReference = tvRecordDateTitle;
@@ -716,7 +716,8 @@ public class ViewPatientActivity extends AppCompatActivity {
     }
     private void displayRecord(Record record) {
         String recordDate = record.getDateCreated();
-
+        String[] dateCreated = spRecordDate.getSelectedItem().toString().split("/");
+//        tvMedicalRecordTitle.setText("Medical Record "+dateCreated[dateCreated.length-1]);
         boolean isGirl = true;
         if(patient.getGender() != 1) {
             isGirl = false;

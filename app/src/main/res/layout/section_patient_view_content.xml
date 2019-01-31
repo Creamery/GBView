@@ -20,20 +20,179 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
-        <Spinner
-            android:id="@+id/sp_vp_record_column"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/cont_header_and_record"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.05"
-            android:background="@color/colorPrimaryDark"
-            android:entries="@array/record_column_array_num"
-            android:gravity="center"
-            android:popupBackground="@color/colorPrimaryDark"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></Spinner>
+            android:layout_weight="0.1">
+
+            <Spinner
+                android:id="@+id/sp_vp_record_column"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:background="@color/colorPrimaryDark"
+                android:entries="@array/record_column_array_num"
+                android:gravity="center"
+                android:popupBackground="@color/colorPrimaryDark"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></Spinner>
+
+            <TextView
+                android:id="@+id/tv_scrollbar_title"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginTop="1dp"
+                android:layout_marginEnd="1dp"
+                android:layout_marginBottom="2dp"
+                android:background="@color/white"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/patient_medical_record"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                app:autoSizePresetSizes="@array/autosize_text_sizes"
+                app:layout_constraintBottom_toBottomOf="@+id/sp_vp_record_column"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cont_scrollbar_title"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/cont_record_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginBottom="1dp"
+                    android:clipToPadding="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/cont_record_date_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_margin="0dp"
+                        android:clipToPadding="false"
+                        android:padding="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/tv_vp_date"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <Spinner
+                            android:id="@+id/sp_record_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="1dp"
+                            android:background="@color/white"
+                            android:clipToPadding="false"
+                            android:gravity="center"
+                            android:padding="0dp"
+                            android:popupBackground="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/relativeLayout2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"></Spinner>
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/relativeLayout2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="3dp"
+                            android:layout_marginBottom="8dp"
+                            android:clipToPadding="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/sp_record_date"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <ImageView
+                                android:id="@+id/iv_record_date_arrow_color"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:adjustViewBounds="true"
+                                android:contentDescription="@string/cd_blank"
+                                android:cropToPadding="false"
+                                android:scaleType="fitCenter"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/img_scroll_greenhighlight" />
+
+                            <ImageView
+                                android:id="@+id/iv_record_date_arrow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:adjustViewBounds="true"
+                                android:clickable="true"
+                                android:contentDescription="@string/cd_blank"
+                                android:cropToPadding="false"
+                                android:focusable="true"
+                                android:scaleType="fitCenter"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/btn_scrolldown" />
+
+                        </android.support.constraint.ConstraintLayout>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <TextView
+                        android:id="@+id/tv_vp_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical|end"
+                        android:includeFontPadding="false"
+                        android:padding="0dp"
+                        android:text="@string/record_as_of"
+                        android:textColor="@color/grey"
+                        android:visibility="gone"
+                        app:autoSizePresetSizes="@array/autosize_text_sizes"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/cont_record_date_spinner"
+                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imageView14"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:contentDescription="@string/cd_blank"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0"
+                app:srcCompat="@color/lightGrey" />
+
+        </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -67,6 +226,7 @@
                         android:id="@+id/constraintLayout23"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:background="@color/white"
                         android:clickable="true"
                         android:focusable="true"
                         app:layout_constraintBottom_toTopOf="@id/cont_item1_color"
@@ -170,6 +330,7 @@
                         android:id="@+id/constraintLayout24"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:background="@color/white"
                         android:clickable="true"
                         android:focusable="true"
                         app:layout_constraintBottom_toTopOf="@id/cont_item2_color"
@@ -277,6 +438,7 @@
                         android:id="@+id/constraintLayout25"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:background="@color/white"
                         android:clickable="true"
                         android:focusable="true"
                         app:layout_constraintBottom_toTopOf="@id/cont_item3_color"
@@ -369,6 +531,7 @@
                         android:id="@+id/constraintLayout26"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:background="@color/white"
                         android:clickable="true"
                         android:focusable="true"
                         app:layout_constraintBottom_toTopOf="@id/cont_item4_color"
@@ -449,6 +612,7 @@
                         android:id="@+id/constraintLayout27"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:background="@color/white"
                         android:clickable="true"
                         android:focusable="true"
                         app:layout_constraintBottom_toTopOf="@id/cont_item5_color"
