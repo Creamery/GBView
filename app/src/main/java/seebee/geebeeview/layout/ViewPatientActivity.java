@@ -1607,7 +1607,18 @@ public class ViewPatientActivity extends AppCompatActivity {
     }
 
     public void addLimitLineMarker(int index, int age) {
-        XAxis xAxis;
+        if(lineChart1 != null) {
+            customizeTimelineLimitLine(lineChart1, index, age);
+        }
+        if(lineChart2 != null) {
+            customizeTimelineLimitLine(lineChart2, index, age);
+        }
+        if(lineChart3 != null) {
+            customizeTimelineLimitLine(lineChart3, index, age);
+        }
+    }
+
+    public void customizeTimelineLimitLine(LineChart lineChart, int index, int age) {
         float limitLineWidth = 5f;
         float limitTextSize = 14f;
         int limitLineColor = ColorThemes.cPrimaryDark;
@@ -1617,54 +1628,28 @@ public class ViewPatientActivity extends AppCompatActivity {
             limitLabel += "s";
         }
         limitLabel += ".";
-//        Log.e("MARKER", "Entered add limit line, index "+index);
-        if(lineChart1 != null) {
-//            Log.e("MARKER", "lineChart1");
-            xAxis = lineChart1.getXAxis();
-            xAxis.removeAllLimitLines();
-            LimitLine limitLine = new LimitLine(index, limitLabel);
-            limitLine.setTextColor(limitLabelColor);
-            limitLine.setTextSize(limitTextSize);
-            limitLine.setLineColor(limitLineColor);
-            limitLine.setLineWidth(limitLineWidth);
 
-            xAxis.addLimitLine(limitLine);
-            xAxis.setDrawLimitLinesBehindData(true);
-            lineChart1.notifyDataSetChanged();
-            lineChart1.invalidate();
+        XAxis xAxis = lineChart.getXAxis();
+        xAxis.removeAllLimitLines();
+
+        LimitLine limitLine = new LimitLine(index, limitLabel);
+        limitLine.setTextColor(limitLabelColor);
+        limitLine.setTextSize(limitTextSize);
+        limitLine.setLineColor(limitLineColor);
+        limitLine.setLineWidth(limitLineWidth);
+        Log.e("TIMELINE", ""+index+" "+(spRecordDate.getAdapter().getCount()-1));
+        if(index == spRecordDate.getAdapter().getCount()-1) {
+            limitLine.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
         }
-        if(lineChart2 != null) {
-//            Log.e("MARKER", "lineChart2");
-            xAxis = lineChart2.getXAxis();
-            xAxis.removeAllLimitLines();
-            LimitLine limitLine = new LimitLine(index, limitLabel);
-            limitLine.setTextColor(limitLabelColor);
-            limitLine.setTextSize(limitTextSize);
-            limitLine.setLineColor(limitLineColor);
-            limitLine.setLineWidth(limitLineWidth);
-            xAxis.addLimitLine(limitLine);
-            xAxis.setDrawLimitLinesBehindData(true);
-
-            lineChart2.notifyDataSetChanged();
-            lineChart2.invalidate();
-        }
-        if(lineChart3 != null) {
-//            Log.e("MARKER", "lineChart3");
-            xAxis = lineChart3.getXAxis();
-            xAxis.removeAllLimitLines();
-            LimitLine limitLine = new LimitLine(index, limitLabel);
-            limitLine.setTextColor(limitLabelColor);
-            limitLine.setTextSize(limitTextSize);
-            limitLine.setLineColor(limitLineColor);
-            limitLine.setLineWidth(limitLineWidth);
-            xAxis.addLimitLine(limitLine);
-            xAxis.setDrawLimitLinesBehindData(true);
-
-            lineChart3.notifyDataSetChanged();
-            lineChart3.invalidate();
+        else {
+            limitLine.setLabelPosition(LimitLine.LimitLabelPosition.RIGHT_TOP);
         }
 
+        xAxis.addLimitLine(limitLine);
+        xAxis.setDrawLimitLinesBehindData(true);
 
+        lineChart.notifyDataSetChanged();
+        lineChart.invalidate();
     }
 
     private void createCharts() {
