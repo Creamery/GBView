@@ -266,6 +266,13 @@ public class ColorThemes {
                         return csBINARY[0];
                     case "Fail":
                         return csBINARY[1];
+
+                }
+                switch (recordValue) {
+                    case "Hold":
+                        return csBINARY[0];
+                    case "Not Hold":
+                        return csBINARY[1];
                     default:
                         return cLightGrayAlt;
                 }

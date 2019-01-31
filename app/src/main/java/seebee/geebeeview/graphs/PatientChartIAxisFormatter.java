@@ -13,6 +13,10 @@ public class PatientChartIAxisFormatter implements IAxisValueFormatter {
 
     @Override
     public String getFormattedValue(float value, AxisBase axis) {
-        return mValues[(int) value];
+        if(value == -1)
+            return "No data";
+        else {
+            return mValues[(int) value];
+        }
     }
 }

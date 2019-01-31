@@ -1,5 +1,6 @@
 package seebee.geebeeview.containers;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class StringConstants {
@@ -86,6 +87,32 @@ public class StringConstants {
     }
 
 
+    public static float getLabelIndexOf(String recordType, String label) {
+        switch(recordType) {
+
+            case COL_BMI:
+                return Arrays.asList(strBMI).indexOf(label);
+            case COL_VA_LEFT:
+            case COL_VA_RIGHT:
+                return Arrays.asList(strVISION_MERGED).indexOf(label);
+            case COL_COLOR_VISION:
+                return Arrays.asList(strCOLOR_VISION).indexOf(label);
+
+            case StringConstants.COL_HEAR_LEFT:
+            case StringConstants.COL_HEAR_RIGHT:
+                return Arrays.asList(strHEARING_MERGED).indexOf(label);
+
+            case StringConstants.COL_GROSS_MOTOR:
+                return Arrays.asList(strGROSS_MOTOR).indexOf(label);
+            case StringConstants.COL_FINE_DOMINANT:
+                return Arrays.asList(strFINE_MOTOR).indexOf(label);
+            case StringConstants.COL_FINE_NON_DOMINANT:
+                return Arrays.asList(strFINE_MOTOR).indexOf(label);
+            case StringConstants.COL_FINE_HOLD:
+                return Arrays.asList(strFINE_MOTOR_HOLD).indexOf(label);
+        }
+        return 0;
+    }
     public static String getTargetLabel(String recordColumn) {
         switch(recordColumn) {
 

@@ -41,6 +41,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 //import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.File;
@@ -56,6 +57,7 @@ import seebee.geebeeview.containers.ColorThemes;
 import seebee.geebeeview.containers.StringConstants;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.graphs.PatientChartIAxisFormatter;
+import seebee.geebeeview.graphs.ProtectedLineChartRenderer;
 import seebee.geebeeview.model.consultation.Patient;
 import seebee.geebeeview.model.monitoring.AgeCalculator;
 import seebee.geebeeview.model.monitoring.BMICalculator;
@@ -1150,6 +1152,8 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         // notify chart data has changed
 //        lineChart.refreshDrawableState();
+        if(patientRecords.size() == 1)
+            lineChart.clear();
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
     }
@@ -1491,6 +1495,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 //                lineDataSet.setCircleColor(ColorThemes.cPrimaryDark);
 //                lineDataSet.setCircleColor(lineColor);
                 lineDataSet.setCircleColorHole(Color.WHITE);
+
                 lineDataSet.setColors(colors.subList(1, colors.size()));
 //                lineDataSet.setColor(lineColor);
             }

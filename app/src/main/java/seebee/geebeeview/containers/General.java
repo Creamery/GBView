@@ -106,6 +106,7 @@ public class General {
         return colors;
     }
 
+
     public static float roundFloat(float number, int decimalPlaces) {
         if(decimalPlaces <= 0)
             return number;

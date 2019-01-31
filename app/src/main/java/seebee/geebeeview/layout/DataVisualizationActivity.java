@@ -2217,7 +2217,8 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 
         String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
-        HashMap<Float, String> mapLabels = mapValuesToLabels(mDataSchool, barLabels);
+//        HashMap<Float, String> mapLabels = mapValuesToLabels(mDataSchool, barLabels);
+        HashMap<Float, String> mapLabels = mapValuesToLabels(mDataSchool, barLabels); // protects against labels with the same value
         HashMap<String, Float> mapValues = mapLabelsToValues(barLabels, mDataSchool);
 
         mDataSchool = adjustToHighlightMode(recordType, mDataSchool, mapValues, barLabels);
@@ -2253,6 +2254,13 @@ public class DataVisualizationActivity extends AppCompatActivity
         HashMap<Float, String> map = new HashMap<>();
         for(int i = 0; i < listValues.size(); i++) {
             map.put(listValues.get(i), listLabels[i]);
+        }
+        return map;
+    }
+    private HashMap<Float, String> mapValuesToLabelsProtected(String recordType, ArrayList<Float> listValues, String[] listLabels) {
+        HashMap<Float, String> map = new HashMap<>();
+        for(int i = 0; i < listValues.size(); i++) {
+            map.put(listValues.get(i)+StringConstants.getLabelIndexOf(recordType, listLabels[i]), listLabels[i]);
         }
         return map;
     }
@@ -2558,7 +2566,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 
         formatStackedBarAxis(chart);
-        Log.e("mapLabels", "percentData "+mapLabels.get(percentData.get(0))+" ");
+//        Log.e("mapLabels", "percentData "+mapLabels.get(percentData.get(0))+" ");
         int highlightColor = ColorThemes.getMergedStackedColor(recordName, mapLabels.get(percentData.get(0))); // Assumes sorted
         // TODO length check for color
         barData.getColors().set(0, highlightColor);
