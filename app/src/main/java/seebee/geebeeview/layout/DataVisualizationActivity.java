@@ -90,7 +90,6 @@ public class DataVisualizationActivity extends AppCompatActivity
     private final int INDEX_OVERVIEW = 0;
     private final int INDEX_NATIONAL = 1;
     private final int INDEX_MUNICIPAL = 2;
-//    private final int INDEX_PIE = 2;
     private final int INDEX_SCATTER = 3;
 
     private static final String FILTER_EQUALS = "=";
@@ -2460,12 +2459,9 @@ public class DataVisualizationActivity extends AppCompatActivity
         chartFocus.setText(targetValueLabel);
 
         formatNationalBarAxis(chart);
-        // TODO length check for color
-//        barData.getColors().set(0, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
 
 
         // Set school value to green
-//        barData.getColors().set(0, ColorThemes.getMergedStackedColorSet(recordName)[targetValueIndex]);
         barData.getColors().set(0, ColorThemes.getMergedStackedColor(recordName, targetValueLabel));
         // Set national value to teal
         barData.getColors().set(1, ColorThemes.cNational);
@@ -2475,31 +2471,16 @@ public class DataVisualizationActivity extends AppCompatActivity
         if(pDataSchool > pDataNational) {
             // Set focus value to school value
             chartFocusValue.setText(""+roundedPercentValueSchool+"%");
-
-//            // Set school value to green
-//            barData.getColors().set(0, ColorThemes.getStackedColorSet(recordName)[targetValueIndex]);
-//            // Set national value to grey
-//            barData.getColors().set(1, ColorThemes.cLightGray);
-
             chartFocusValue.setTextColor(barData.getColors().get(0));
         }
         else {
             // Set focus value to national value
             chartFocusValue.setText(""+roundedPercentValueNational+"%");
-
-//            // Set school value to green
-//            barData.getColors().set(0, ColorThemes.cLightGray);
-//            // Set national value to grey
-//            barData.getColors().set(1, ColorThemes.cFail);
-
             chartFocusValue.setTextColor(ColorThemes.cNational);
         }
         chart.setBackgroundColor(Color.TRANSPARENT);
     }
 
-    private int getRecordColumn(String recordName) {
-        return recordColumns.indexOf(recordName);
-    }
 
     private void formatNationalBarAxis(HorizontalBarChart chart) {
         chart.getDescription().setEnabled(false);
