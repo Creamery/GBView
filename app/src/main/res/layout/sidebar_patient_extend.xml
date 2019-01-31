@@ -97,7 +97,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="9"
                 android:animateLayoutChanges="true"
-                android:visibility="invisible">
+                android:visibility="visible">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="0dp"
@@ -143,6 +143,7 @@
                         android:animateLayoutChanges="true"
                         android:background="@color/white"
                         android:clickable="false"
+                        android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/item1"
@@ -480,11 +481,11 @@
                     android:id="@+id/cont_item1_icons"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toTopOf="@+id/cont_item2_icons"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_weight="1">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
                         android:id="@+id/iv_item1_color"
@@ -617,7 +618,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/cont_item3_icons"
-                    app:layout_constraintVertical_weight="6" />
+                    app:layout_constraintVertical_weight="7" />
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/cont_item_back"
