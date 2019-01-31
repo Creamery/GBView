@@ -2360,11 +2360,11 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         chart.setDrawGridBackground(true);
         chart.setGridBackgroundColor(ColorThemes.cLightGray);
-        chart.getXAxis().setDrawGridLines(true);
+        chart.getXAxis().setDrawGridLines(false);
         chart.getXAxis().setGridColor(Color.WHITE);
 
 
-        chart.getXAxis().setLabelCount(2, true);
+//        chart.getXAxis().setLabelCount(2, true);
 
         chart.setBorderColor(Color.WHITE);
         chart.notifyDataSetChanged(); // Call this to reflect chart data changes
@@ -2554,7 +2554,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 //            }
         }
 
-//        int roundedPercentValue = Math.round(percentData[highestValueIndex]);
         int roundedPercentValue = Math.round(percentData.get(0)); // Percent data is sorted in descending (on the function that called this)
 
         // Set focus value to highest value

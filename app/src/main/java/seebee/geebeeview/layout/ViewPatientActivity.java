@@ -41,7 +41,6 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 //import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.File;
@@ -57,7 +56,6 @@ import seebee.geebeeview.containers.ColorThemes;
 import seebee.geebeeview.containers.StringConstants;
 import seebee.geebeeview.database.DatabaseAdapter;
 import seebee.geebeeview.graphs.PatientChartIAxisFormatter;
-import seebee.geebeeview.graphs.ProtectedLineChartRenderer;
 import seebee.geebeeview.model.consultation.Patient;
 import seebee.geebeeview.model.monitoring.AgeCalculator;
 import seebee.geebeeview.model.monitoring.BMICalculator;
@@ -315,9 +313,9 @@ public class ViewPatientActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 recordColumn = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(),
-                        "Displayed Data: " + parent.getItemAtPosition(position).toString(),
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(parent.getContext(),
+//                        "Displayed Data: " + parent.getItemAtPosition(position).toString(),
+//                        Toast.LENGTH_SHORT).show();
                 /* change the contents of the chart */
                 prepareLineChartData(position);
             }
@@ -337,16 +335,13 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        }
 
         createCharts();
-//        Log.e("DEBUG", "Entering addChartToView");
         addChartToView();
-//        Log.e("DEBUG", "Entering prepareLineChart");
 
         prepareLineCharts();
-//        Log.e("DEBUG", "Entering prepareLineChartData");
         prepareLineChartData(spRecordColumn.getSelectedItemPosition()); // TODO
 
 
-        Log.e("DEBUG", "Record List");
+//        Log.e("DEBUG", "Record List");
 
         // Record list
         ImageView ivRecordButton = (ImageView) findViewById(R.id.iv_record_date_arrow);
@@ -366,7 +361,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         });
 
-        Log.e("DEBUG", "Exiting OnCreate");
+//        Log.e("DEBUG", "Exiting OnCreate");
     }
 
     private void clearAllGraphs() {
@@ -744,7 +739,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         }
 
         tvBMI.setText(General.roundFloat(bmiValue, 2)+"");
-        Log.e("BMI", bmi);
+//        Log.e("BMI", bmi);
 //        tvBMI.setText(getBMIText(bmi));
         ivBMIColor.setImageDrawable(getBMIColor(bmi));
         tvHeight.setText(record.getHeight()+" cm");
@@ -878,18 +873,18 @@ public class ViewPatientActivity extends AppCompatActivity {
     private void prepareLineChartData(int selectedItem) {
         clearAllGraphs();
         hideAllGraphs();
-        Log.e("SELECT", selectedItem+"");
+//        Log.e("SELECT", selectedItem+"");
         switch(selectedItem) {
 
             case StringConstants.INDEX_EAR:
-                Log.e("SELECT", "EAR");
+//                Log.e("SELECT", "EAR");
                 prepareLineChartData(lineChart1, StringConstants.COL_HEAR_LEFT);
                 prepareLineChartData(lineChart2, StringConstants.COL_HEAR_RIGHT);
                 showGraphs(2);
                 selectTab(selectedItem);
                 break;
             case StringConstants.INDEX_EYE:
-                Log.e("SELECT", "EYE");
+//                Log.e("SELECT", "EYE");
                 prepareLineChartData(lineChart1, StringConstants.COL_VA_LEFT);
                 prepareLineChartData(lineChart2, StringConstants.COL_VA_RIGHT);
                 prepareLineChartData(lineChart3, StringConstants.COL_COLOR_VISION);
@@ -910,7 +905,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 break;
 
             case StringConstants.INDEX_HEART:
-                Log.e("SELECT", "HEART");
+//                Log.e("SELECT", "HEART");
                 prepareLineChartData(lineChart1, StringConstants.COL_BMI);
                 prepareLineChartData(lineChart2, StringConstants.COL_HEIGHT);
                 prepareLineChartData(lineChart3, StringConstants.COL_WEIGHT);
@@ -974,7 +969,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         lineChart.setAutoScaleMinMaxEnabled(false);
         maxLabelCount = General.getMaxLabelCount(recordValue);
         yAxisLeft.setLabelCount(maxLabelCount);
-        Log.e("LBL", maxLabelCount+"");
+//        Log.e("LBL", maxLabelCount+"");
 
         yAxisLeft.setAxisMinimum(-1);
 
@@ -1055,12 +1050,12 @@ public class ViewPatientActivity extends AppCompatActivity {
             /* add patient data to patient entry, index 0 */
 //            lineData.addEntry(new Entry(yVal, i), 0); TODO edited
             lineData.addEntry(new Entry(i, yVal), 1);
-            Log.e("RECORD", "patient "+recordValue+" : "+yVal);
+//            Log.e("RECORD", "patient "+recordValue+" : "+yVal);
             /* add average record values of patients of the same age, index 1 */
 
             yVal = getColumnValue(recordValue, averageRecords.get(i));
-            if(recordValue.contains("Visual"))
-              Log.e("VAVG", averageRecords.get(i).getVisualAcuityLeft()+" "+getColumnValue(recordValue, averageRecords.get(i)));
+//            if(recordValue.contains("Visual"))
+//              Log.e("VAVG", averageRecords.get(i).getVisualAcuityLeft()+" "+getColumnValue(recordValue, averageRecords.get(i)));
             lineData.addEntry(new Entry(i, yVal), 0);
 //            lineData.addEntry(new Entry(yVal, i), 1); TODO edited
 
@@ -1077,8 +1072,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 idealRecordValues = getIdealValues(recordValue, age);
                 if(idealRecordValues != null) {
                     idealRecordValues.printIdealValue();
-                    Log.e("IDEAL", idealRecordValues.getP2SD()+" "+idealRecordValues.getYear());
-
+//                    Log.e("IDEAL", idealRecordValues.getP2SD()+" "+idealRecordValues.getYear());
                 }
 
                 if(idealRecordValues != null) {
@@ -1101,7 +1095,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         }
 
-        Log.e("PATIENTRECORDS", recordValue+" "+patientDataset.getEntryCount()+"");
+//        Log.e("PATIENTRECORDS", recordValue+" "+patientDataset.getEntryCount()+"");
         customizeLineChart(listAge, recordValue, patientDataset, 1, ColorThemes.cPrimaryDark);
         customizeLineChart(listAge, recordValue, averageDataset, 0, ColorThemes.cTealDefaultDark);
 
@@ -1201,7 +1195,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 break;
             case StringConstants.COL_VA_LEFT:
                 x = LineChartValueFormatter.ConvertVisualAcuity(record.getVisualAcuityLeft());
-                Log.e("VA", "x is "+x);
+//                Log.e("VA", "x is "+x);
                 break;
             case StringConstants.COL_VA_RIGHT:
                 x = LineChartValueFormatter.ConvertVisualAcuity(record.getVisualAcuityRight());
@@ -1299,7 +1293,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         do {
             ageCount = listAge.get(0)+i;
             strAgeList[i] = ageCount+"";
-            Log.e("AGE", strAgeList[i]);
+//            Log.e("AGE", strAgeList[i]);
             i++;
         } while(ageCount < 19);
 
@@ -1560,7 +1554,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
                 for(int i = 0; i < entries.size(); i++) {
                     yVal = entries.get(i).getY();
-                    Log.e("ENTRIES", "entries yval "+yVal);
+//                    Log.e("ENTRIES", "entries yval "+yVal);
                     age = listAge.get(i);
                     if(age >= 5 && age <= 19) {
 //                        Log.e("ENTRIES", "n3Dataset_severeThinness yval "+n3Dataset_severeThinness.getEntryCount()+" "+n3Dataset_severeThinness.getValues().size());
@@ -1570,18 +1564,18 @@ public class ViewPatientActivity extends AppCompatActivity {
                                 index < n3Dataset_severeThinness.getEntryCount() &&
                                 yVal <= n3Dataset_severeThinness.getEntryForIndex(index).getY()) {
                             idealColors.add(ColorThemes.csBMI_Graph[1]);
-                            Log.e("ENTRIES", "sv thinness "+n3Dataset_severeThinness.getEntryForIndex(index).getY());
+//                            Log.e("ENTRIES", "sv thinness "+n3Dataset_severeThinness.getEntryForIndex(index).getY());
 
                         }
                         else if(index < n2Dataset_thinness.getEntryCount() &&
                                 yVal <= n2Dataset_thinness.getEntryForIndex(index).getY()) {
                             idealColors.add(ColorThemes.csBMI_Graph[2]);
-                            Log.e("ENTRIES", "thinness "+n2Dataset_thinness.getEntryForIndex(index).getY());
+//                            Log.e("ENTRIES", "thinness "+n2Dataset_thinness.getEntryForIndex(index).getY());
                         }
                         else if(index < n1Dataset_underweight.getEntryCount() &&
                                 yVal <= n1Dataset_underweight.getEntryForIndex(index).getY()) {
                             idealColors.add(ColorThemes.csBMI_Graph[3]);
-                            Log.e("ENTRIES", "underweight "+n1Dataset_underweight.getEntryForIndex(index).getY());
+//                            Log.e("ENTRIES", "underweight "+n1Dataset_underweight.getEntryForIndex(index).getY());
                         }
 //                        else if(yVal <= medianDataset_normal.getValues().get(i).getY()) {
 //                            idealColors.add(ColorThemes.csBMI_Graph[4]);
@@ -1589,12 +1583,12 @@ public class ViewPatientActivity extends AppCompatActivity {
                         else if(index < p1Dataset_overweight.getEntryCount() &&
                                 yVal <= p1Dataset_overweight.getEntryForIndex(index).getY()) {
                             idealColors.add(ColorThemes.csBMI_Graph[4]); // Normal if less than overweight
-                            Log.e("ENTRIES", "normal "+p1Dataset_overweight.getEntryForIndex(index).getY());
+//                            Log.e("ENTRIES", "normal "+p1Dataset_overweight.getEntryForIndex(index).getY());
                         }
                         else if(index < p2Dataset_obesity.getEntryCount() &&
                                 yVal <= p2Dataset_obesity.getEntryForIndex(index).getY()) {
                             idealColors.add(ColorThemes.csBMI_Graph[5]);
-                            Log.e("ENTRIES", "overweight "+p2Dataset_obesity.getEntryForIndex(index).getY());
+//                            Log.e("ENTRIES", "overweight "+p2Dataset_obesity.getEntryForIndex(index).getY());
                         }
                         else { // else, above obesity line
                             idealColors.add(ColorThemes.csBMI_Graph[6]);
@@ -1623,9 +1617,9 @@ public class ViewPatientActivity extends AppCompatActivity {
             limitLabel += "s";
         }
         limitLabel += ".";
-        Log.e("MARKER", "Entered add limit line, index "+index);
+//        Log.e("MARKER", "Entered add limit line, index "+index);
         if(lineChart1 != null) {
-            Log.e("MARKER", "lineChart1");
+//            Log.e("MARKER", "lineChart1");
             xAxis = lineChart1.getXAxis();
             xAxis.removeAllLimitLines();
             LimitLine limitLine = new LimitLine(index, limitLabel);
@@ -1640,7 +1634,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             lineChart1.invalidate();
         }
         if(lineChart2 != null) {
-            Log.e("MARKER", "lineChart2");
+//            Log.e("MARKER", "lineChart2");
             xAxis = lineChart2.getXAxis();
             xAxis.removeAllLimitLines();
             LimitLine limitLine = new LimitLine(index, limitLabel);
@@ -1655,7 +1649,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             lineChart2.invalidate();
         }
         if(lineChart3 != null) {
-            Log.e("MARKER", "lineChart3");
+//            Log.e("MARKER", "lineChart3");
             xAxis = lineChart3.getXAxis();
             xAxis.removeAllLimitLines();
             LimitLine limitLine = new LimitLine(index, limitLabel);
@@ -1683,22 +1677,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         lineChart3 = new LineChart(this);
         customizeChart(lineChart3);
-        /* create radar chart */
-//        radarChart = new RadarChart(this);
-//        customizeChart(radarChart);
     }
-
-//    private Chart getCurrentChart(){
-//        Chart chart;
-//        switch (chartType) {
-//            default:
-//            case "Line Chart": chart = lineChart;
-//                break;
-////            case "Radar Chart": chart = radarChart;
-////                break;
-//        }
-//        return chart;
-//    }
 
     private void addChartToView() {
 
