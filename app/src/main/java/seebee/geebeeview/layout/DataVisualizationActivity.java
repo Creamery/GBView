@@ -122,6 +122,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     private String strFilterTemplate;
     private String strRemove;
 
+    private SubtitleMode subtitleMode;
     private boolean isFilterEnabled;
 
     ArrayList<String> datasetList, filterList;
@@ -380,7 +381,12 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         tvRightScrollTitle = findViewById(R.id.tv_name_r);
         tvRightSubtitle = findViewById(R.id.tv_subtitle);
-
+        tvRightSubtitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchSubtitleMode();
+            }
+        });
         ivRightSubtitleImage = findViewById(R.id.iv_subtitle_image);
         ivRightSubtitleColor = findViewById(R.id.iv_subtitle_color);
 
@@ -392,6 +398,7 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         subtitleHighest = getResources().getString(R.string.highlight_highest);
         subtitleTarget = getResources().getString(R.string.highlight_target);
+        this.subtitleMode = SubtitleMode.SHOW_HIGHEST;
 
         strFilterTemplate = getResources().getString(R.string.filter_template)+" ";
         strRemove = getResources().getString(R.string.click_to_remove);
@@ -542,15 +549,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         spChartType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                chartType = ((CustomSpinnerAdapter)parent.getAdapter()).getItem(position);
                 chartType = ((CustomSpinnerItem)(parent.getItemAtPosition(position))).getText();
-
-                // TODO Remove all views
-                removeGraphViews();
-                hideGraphOverview();
-                spinnerSelect();
-
-                addDataSet();
+                clickChartType();
             }
 
             @Override
@@ -580,6 +580,15 @@ public class DataVisualizationActivity extends AppCompatActivity
         removeAllFilters();
         hideFilterPrompt();
         spinnerRefresh();
+    }
+
+    public void clickChartType() {
+        // TODO Remove all views
+        removeGraphViews();
+        hideGraphOverview();
+        loadSubtitleMode();
+        spinnerSelect();
+        addDataSet();
     }
     public void initializeStackGraphOnClickListener() {
         // recordIndex order based on spRecordColumn order
@@ -909,8 +918,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         pieChartRight = createPieChart();
 
 //        createBarChart();
-        createScatterChart();
-        createBubbleChart();
+//        createScatterChart();
 
         addDataSet();
     }
@@ -1111,38 +1119,6 @@ public class DataVisualizationActivity extends AppCompatActivity
         };
     }
 
-    private void createBubbleChart() {
-        bubbleChart = new BubbleChart(this);
-
-/*      bubbleChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
-            @Override
-            public void onValueSelected(Entry entry, int i, Highlight highlight) {
-                if(!recordColumn.contains("BMI")) {
-                    BubbleEntry bubbleEntry = (BubbleEntry) entry;
-                    Toast.makeText(DataVisualizationActivity.this,
-                            xData[entry.getXIndex()] + " = " + bubbleEntry.getSize() + " children",
-                            Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, xData[entry.getXIndex()] + " = " + bubbleEntry.getSize() + " children");
-                } else {
-                    BubbleEntry bubbleEntry = (BubbleEntry) entry;
-                    Toast.makeText(DataVisualizationActivity.this,
-                            "Average BMI of children " + bubbleEntry.getXIndex() + " years old = " + bubbleEntry.getSize(),
-                            Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, "Average BMI of children " + bubbleEntry.getXIndex() + " years old = " + bubbleEntry.getSize());
-                }
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        }); */
-    }
-
-    private void createScatterChart() {
-        scatterChart = new ScatterChart(this);
-        scatterChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
-    }
 
     private ArrayList<HorizontalBarChart> createOverviewCharts(ArrayList<HorizontalBarChart> charts) {
         for (HorizontalBarChart chart: charts) {
@@ -1158,13 +1134,6 @@ public class DataVisualizationActivity extends AppCompatActivity
         // set a chart value selected listener
         stackedBarChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
     }
-
-//    private void createBarChart() {
-//        /* create bar chart */
-//        barChart = new BarChart(this);
-//        // set a chart value selected listener
-//        barChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
-//    }
 
 
     /* prepare values specifically for piechart only */
@@ -1626,17 +1595,11 @@ public class DataVisualizationActivity extends AppCompatActivity
      */
     private void prepareOverviewChartData() {
         for(int i = 0; i < overviewEntries.size(); i++) {
-//            stackedBarCharts.set(i, prepareStackedOverview(recordColumns[i], stackedBarCharts.get(i)));
-//            graphStackedBarCharts.get(i).addView(stackedBarCharts.get(i));
-
             // Initialize the stackedBarChart variable of the overviewEntry
             overviewEntries.get(i).setStackedBarChart(prepareStackedOverview(recordColumns.get(i), overviewEntries.get(i)));
 
             // Then add the initialized entry to graphStackedBarCharts so that it will appear on screen
             graphStackedBarCharts.get(i).addView(overviewEntries.get(i).getStackedBarChart());
-
-//            graphStackedBarCharts.get(i).setX(computePercentHalf(graphStackedBarCharts.get(i).getWidth(), offsetPercent));
-//            graphStackedBarCharts.get(i).setY(computePercentHalf(graphStackedBarCharts.get(i).getHeight(), offsetPercent)/offsetYDivider);
         }
         // Then adjust the graph container's size
         computeOverviewParams(overviewEntries, paramsOverview);
@@ -2158,8 +2121,23 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        this.barSpecific.setBackgroundColor(Color.TRANSPARENT); // TODO Remove or make White
     }
 
-    private void switchSubtitleMode(SubtitleMode mode) {
-        switch (mode) {
+    private void switchSubtitleMode() {
+        switch (this.subtitleMode) {
+            case SHOW_HIGHEST:
+                this.subtitleMode = SubtitleMode.SHOW_TARGET;
+                break;
+            case SHOW_TARGET:
+                this.subtitleMode = SubtitleMode.SHOW_HIGHEST;
+                break;
+            default:
+                this.subtitleMode = SubtitleMode.SHOW_TARGET;
+        }
+        clickChartType();
+//        spChartType.setSelection(spChartType.getSelectedItemPosition());
+//        refreshCharts();
+    }
+    private void loadSubtitleMode() {
+        switch (this.subtitleMode) {
             case SHOW_HIGHEST:
                 highlightHighestValue();
                 break;
@@ -2172,6 +2150,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
 
     private void highlightHighestValue() {
+        this.subtitleMode = SubtitleMode.SHOW_HIGHEST;
         tvRightSubtitle.setText(subtitleHighest);
         tvRightSubtitle.setTextColor(ColorThemes.cSubtitleHighest);
         ivRightSubtitleColor.setBackgroundColor(ColorThemes.cSubtitleHighest);
@@ -2179,17 +2158,40 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
 
     private void highlightTargetValue() {
+        this.subtitleMode = SubtitleMode.SHOW_TARGET;
         tvRightSubtitle.setText(subtitleTarget);
         tvRightSubtitle.setTextColor(ColorThemes.cSubtitleTarget);
         ivRightSubtitleColor.setBackgroundColor(ColorThemes.cSubtitleTarget);
         ivRightSubtitleImage.setImageDrawable(imgRightSubtitleTarget);
     }
 
+    private ArrayList<Float> adjustToHighlightMode(String recordType, ArrayList<Float> mData, HashMap<String, Float> mapValues, String[] barLabels) {
+
+        switch (this.subtitleMode) {
+            case SHOW_HIGHEST: // Do nothing
+                Collections.sort(mData); // Sort ascending
+                Collections.reverse(mData); // Reverse to get descending
+                break;
+            case SHOW_TARGET: // Move target value to index 0
+                String targetLabel = StringConstants.getTargetLabel(recordType);
+
+                int targetIndex = Arrays.asList(barLabels).indexOf(targetLabel); // mData.indexOf(targetValue);
+                Collections.swap(mData, 0, targetIndex);
+
+                Collections.sort(mData); // Sort ascending
+                Collections.reverse(mData); // Reverse to get descending
+                Float targetValue = mapValues.get(targetLabel);
+                targetIndex = mData.indexOf(targetValue);
+                Collections.swap(mData, 0, targetIndex);
+                break;
+        }
+        return mData;
+    }
+
     private HorizontalBarChart prepareStackedOverview(String recordType, OverviewEntry overviewEntry) {
         HorizontalBarChart chart;
 
         tvRightScrollTitle.setText(titleScrollRightOverview);
-        switchSubtitleMode(SubtitleMode.SHOW_HIGHEST);
 
         ChartDataValue chartDataValue = prepareChartData(recordType);
 //        Log.e("RECORD", recordType);
@@ -2216,9 +2218,10 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
         HashMap<Float, String> mapLabels = mapValuesToLabels(mDataSchool, barLabels);
+        HashMap<String, Float> mapValues = mapLabelsToValues(barLabels, mDataSchool);
 
-        Collections.sort(mDataSchool); // Sort ascending
-        Collections.reverse(mDataSchool); // Reverse to get descending
+        mDataSchool = adjustToHighlightMode(recordType, mDataSchool, mapValues, barLabels);
+
 
         // Stacked bar entries. xIndex 0 is the bottom
         List<BarEntry> entries = new ArrayList<>();
@@ -2253,7 +2256,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
         return map;
     }
-    private HashMap<String, Float> mapLabelToValues(String[] listLabels, ArrayList<Float> listValues) {
+    private HashMap<String, Float> mapLabelsToValues(String[] listLabels, ArrayList<Float> listValues) {
         HashMap<String, Float> map = new HashMap<>();
         for(int i = 0; i < listValues.size(); i++) {
             map.put(listLabels[i], listValues.get(i));
@@ -2264,7 +2267,6 @@ public class DataVisualizationActivity extends AppCompatActivity
     private HorizontalBarChart prepareNationalOverview(String recordType, OverviewEntry overviewEntry) {
         HorizontalBarChart chart;
         tvRightScrollTitle.setText(titleScrollRightNational);
-        switchSubtitleMode(SubtitleMode.SHOW_TARGET);
 
         ChartDataValue chartDataValue = prepareChartData(recordType);
 //        Log.e("RECORD", recordType);
@@ -2308,8 +2310,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         mapSchoolValues = mapValuesToLabels(mDataSchool, barLabels);
         mapNationalValues = mapValuesToLabels(mDataNational, barLabels);
 
-        mapSchoolLabels = mapLabelToValues(barLabels, mDataSchool);
-        mapNationalLabels = mapLabelToValues(barLabels, mDataNational);
+        mapSchoolLabels = mapLabelsToValues(barLabels, mDataSchool);
+        mapNationalLabels = mapLabelsToValues(barLabels, mDataNational);
 
 
 
@@ -3092,90 +3094,4 @@ public class DataVisualizationActivity extends AppCompatActivity
         prepareRecord();
         refreshCharts();
     }
-
-
-// TODO delete when done (old graph code)
-//    private void prepareBubbleChartData() {
-//        ArrayList<BubbleEntry> yVals1 = new ArrayList<>();
-//        ArrayList<BubbleEntry> yVals2 = new ArrayList<>();
-//        ArrayList<Integer> colors = getColorPalette();
-//        List<IBubbleDataSet> bubbleDataSetList = new ArrayList<>();
-//        BubbleData bubbleData;
-////        String year = date.substring(date.length() - 4);
-//        if(!recordColumn.contains("BMI")) {
-//            for (int i = 0; i < yDataLeft.length; i++) {
-//            /* BubbleEntry(xpos, ypos, size)  */
-//                yVals1.add(new BubbleEntry(i, 1, yDataLeft[i]));
-//            }
-//            for (int i = 0; i < yDataRight.length; i++) {
-//            /* BubbleEntry(xpos, ypos, size)  */
-//                yVals2.add(new BubbleEntry(i, 0, yDataRight[i]));
-//            }
-//
-//            BubbleDataSet bubbleDataSet = new BubbleDataSet(yVals1, "Chart Left");
-//            BubbleDataSet bubbleDataSet2 = new BubbleDataSet(yVals2, rightChartContent);
-//            bubbleDataSet.setColor(colors.get(0));
-//            bubbleDataSet2.setColor(colors.get(1));
-//            bubbleDataSet.setDrawValues(true);
-//            bubbleDataSet2.setDrawValues(true);
-//
-//            bubbleDataSetList.add(bubbleDataSet2);
-//            bubbleDataSetList.add(bubbleDataSet);
-//
-//            // TODO deprecated
-////            bubbleData = new BubbleData(xData, bubbleDataSetList);
-//            bubbleData = new BubbleData(bubbleDataSetList);
-//
-//            bubbleChart.getLegend().resetCustom();
-//        } else {
-//            ValueCounter valueCounter = new ValueCounter(recordsLeft);
-//            ArrayList<ValueCounter.BMICounter> bmiCounters = valueCounter.getBMISpecial();
-//            int category, age;
-//            ValueCounter.BMICounter counter;
-//            BubbleDataSet bubbleDataSet;
-//            for(int i = 0; i < bmiCounters.size(); i++) {
-//                counter = bmiCounters.get(i);
-//                yVals1 = new ArrayList<>();
-//                for(int j = 0; j < possibleAge.length; j++) {
-//                    age = Integer.valueOf(possibleAge[j]);
-//                    if(age == counter.getAge()) {
-//                        category = ValueCounter.getBMICategoryIndex(counter.getCategory());
-//                        Log.v(TAG, "Bubble Entry: "+age+"\t"+bmiCounters.get(i).getBMI()+"\t"+bmiCounters.get(i).getCount()+"\t"+category);
-//                        yVals1.add(new BubbleEntry(j, bmiCounters.get(i).getBMI(), bmiCounters.get(i).getCount()));
-//                        bubbleDataSet = new BubbleDataSet(yVals1, xData[category]);
-//                        bubbleDataSet.setColor(colors.get(category));
-//                        bubbleDataSetList.add(bubbleDataSet);
-//                    }
-//                }
-//            }
-//            Log.v(TAG, "Bubble List Size: "+bubbleDataSetList.size());
-//
-//            // TODO deprecated
-////            bubbleData = new BubbleData(possibleAge, bubbleDataSetList);
-//            bubbleData = new BubbleData(bubbleDataSetList);
-//
-//
-//            // customize legend
-//            Legend legend = bubbleChart.getLegend();
-//            int color[] = new int[xData.length];
-//            for(int k = 0; k < xData.length; k++) {
-//                color[k] = colors.get(k);
-//            }
-//
-//
-////            legend.setCustom(color, xData); TODO deprecated
-//            LegendEntry entry;
-//            ArrayList<LegendEntry> entries = new ArrayList<LegendEntry>();
-//            for(int i = 0; i < color.length; i++) {
-//                entry = new LegendEntry();
-//                entry.formColor = color[i];
-//                entry.label = xData[i];
-//                entries.add(entry);
-//            }
-//        }
-//
-//        bubbleChart.setData(bubbleData);
-//        bubbleChart.getAxisLeft().setEnabled(false);
-//        customizeChart(bubbleChart, bubbleChart.getAxisRight());
-//    }
 }
