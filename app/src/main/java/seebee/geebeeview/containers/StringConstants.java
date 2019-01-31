@@ -87,7 +87,7 @@ public class StringConstants {
     }
 
 
-    public static float getLabelIndexOf(String recordType, String label) {
+    public static int getLabelIndexOf(String recordType, String label) {
         switch(recordType) {
 
             case COL_BMI:

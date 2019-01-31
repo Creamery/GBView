@@ -2188,6 +2188,52 @@ public class DataVisualizationActivity extends AppCompatActivity
         return mData;
     }
 
+    /**
+     * For multi-value sorting (national/municipal). Sort and get highest value of mData then sort mDataNational accordingly.
+     * @param recordType
+     * @param mData
+     * @param mapValues
+     * @param mDataNational
+     * @param mapValuesNational
+     * @param barLabels
+     * @return
+     */
+    private void adjustToHighlightMode(String recordType,
+                                       ArrayList<Float> mData,
+                                       HashMap<String, Float> mapValues,
+                                       HashMap<Float, String> mapLabels,
+                                       ArrayList<Float> mDataNational,
+                                       HashMap<String, Float> mapValuesNational,
+                                       HashMap<Float, String> mapNationalLabels,
+                                       String[] barLabels) {
+
+        switch (this.subtitleMode) {
+            case SHOW_HIGHEST: // Do nothing
+                Collections.sort(mData); // Sort ascending
+                Collections.reverse(mData); // Reverse to get descending
+
+                int highestindex = StringConstants.getLabelIndexOf(recordType, mapLabels.get(mData.get(0)));
+                Collections.swap(mDataNational, 0, highestindex);
+                break;
+            case SHOW_TARGET: // Move target value to index 0
+                String targetLabel = StringConstants.getTargetLabel(recordType);
+
+                int targetIndex = Arrays.asList(barLabels).indexOf(targetLabel); // mData.indexOf(targetValue);
+                Collections.swap(mData, 0, targetIndex);
+                Collections.swap(mDataNational, 0, targetIndex);
+
+
+//                Collections.sort(mData); // Sort ascending
+//                Collections.reverse(mData); // Reverse to get descending
+//                Float targetValue = mapValues.get(targetLabel);
+//                targetIndex = mData.indexOf(targetValue);
+//                Collections.swap(mData, 0, targetIndex);
+
+
+                break;
+        }
+    }
+
     private HorizontalBarChart prepareStackedOverview(String recordType, OverviewEntry overviewEntry) {
         HorizontalBarChart chart;
 
@@ -2301,19 +2347,13 @@ public class DataVisualizationActivity extends AppCompatActivity
         pDataNational = General.computePercentEquivalent(fDataNational, fSumNational);
 
 
-//        int targetValueIndex = 0;
-//        int targetNameIndex = getRecordColumn(recordType);
-        String targetValueLabel;
+//        String targetValueLabel;
         String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
-//        targetValueIndex = Arrays.asList(barLabels).indexOf(StringConstants.getTargetLabel(recordType));
-        targetValueLabel = StringConstants.getTargetLabel(recordType);
-        overviewEntry.getTvFocusTitle().setText(targetValueLabel);
-//        overviewEntry.getTvFocusTitle().setText(barLabels[targetValueIndex]);
 
         mDataSchool = getMergedFloatValues(pDataSchool, recordType);
         mDataNational = getMergedFloatValues(pDataNational, recordType);
 
-        HashMap<Float, String> mapSchoolValues, mapNationalValues;
+        HashMap<Float, String> mapSchoolValues, mapNationalValues; // TODO do something about same-valued entries (i.e. Normal and Abnormal are both 50)
         HashMap<String, Float> mapSchoolLabels, mapNationalLabels;
         mapSchoolValues = mapValuesToLabels(mDataSchool, barLabels);
         mapNationalValues = mapValuesToLabels(mDataNational, barLabels);
@@ -2322,22 +2362,30 @@ public class DataVisualizationActivity extends AppCompatActivity
         mapNationalLabels = mapLabelsToValues(barLabels, mDataNational);
 
 
-
+        Log.e("Adjust", "1 "+mDataSchool.get(0)+" "+mDataNational.get(0));
         // Sort collections to descending order
-        Collections.sort(mDataSchool);
-        Collections.reverse(mDataSchool);
+        adjustToHighlightMode(recordType, mDataSchool, mapSchoolLabels, mapSchoolValues, mDataNational, mapNationalLabels, mapNationalValues, barLabels);
+        Log.e("Adjust", "2 "+mDataSchool.get(0)+" "+mDataNational.get(0));
 
-        Collections.sort(mDataNational);
-        Collections.reverse(mDataNational);
+        String targetValueLabel = mapSchoolValues.get(mDataSchool.get(0)); // StringConstants.getTargetLabel(recordType);
+        overviewEntry.getTvFocusTitle().setText(targetValueLabel);
+
+
+//        Collections.sort(mDataSchool);
+//        Collections.reverse(mDataSchool);
+//        Collections.sort(mDataNational);
+//        Collections.reverse(mDataNational);
 
         // Stacked bar entries. xIndex 0 is the bottom
         List<BarEntry> entries = new ArrayList<>();
 
-        BarEntry schoolData = new BarEntry(1f, mapSchoolLabels.get(targetValueLabel));
+//        BarEntry schoolData = new BarEntry(1f, mapSchoolLabels.get(targetValueLabel));
+        BarEntry schoolData = new BarEntry(1f, mDataSchool.get(0)); // Assumes sorted
 //        BarEntry schoolData = new BarEntry(1f, mDataSchool[targetValueIndex]);
         entries.add(schoolData); // School
 
-        BarEntry nationalData = new BarEntry(0f, mapNationalLabels.get(targetValueLabel));
+        BarEntry nationalData = new BarEntry(0f, mDataNational.get(0)); // Assumes sorted
+//        BarEntry nationalData = new BarEntry(0f, mapNationalLabels.get(targetValueLabel));
         entries.add(nationalData); // National
 
 
@@ -2351,12 +2399,18 @@ public class DataVisualizationActivity extends AppCompatActivity
         chart.setData(data);
         overviewEntry.setStackedBarChart(chart);
 
+//        formatNationalBarAppearance(
+//                recordType,
+//                targetValueLabel,
+//                overviewEntry,
+//                barLabels,
+//                set, mapSchoolLabels.get(targetValueLabel), mapNationalLabels.get(targetValueLabel)); // Edit stack bar appearance
+
         formatNationalBarAppearance(
                 recordType,
                 targetValueLabel,
                 overviewEntry,
-                barLabels,
-                set, mapSchoolLabels.get(targetValueLabel), mapNationalLabels.get(targetValueLabel)); // Edit stack bar appearance
+                set, mDataSchool.get(0), mDataNational.get(0)); // Edit stack bar appearance, assume sorted
 
         chart.setDrawGridBackground(true);
         chart.setGridBackgroundColor(ColorThemes.cLightGray);
@@ -2375,7 +2429,6 @@ public class DataVisualizationActivity extends AppCompatActivity
     private void formatNationalBarAppearance(String recordName,
                                              String targetValueLabel,
                                              OverviewEntry overviewEntry,
-                                             String[] xLabels,
                                              BarDataSet barData,
                                              float pDataSchool,
                                              float pDataNational) {
