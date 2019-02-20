@@ -932,6 +932,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     private void prepareLineChartData(LineChart lineChart, String recordValue) {
         prepareLineChartTitle(lineChart, recordValue);
+        lineChart.clear();
 
         IdealValue idealRecordValues = null;
         LineData lineData = new LineData();
@@ -941,15 +942,29 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         // add data to line chart
         lineChart.setData(lineData);
+        boolean addIdealValues = recordValue.contains(StringConstants.COL_HEIGHT) ||
+                recordValue.contains(StringConstants.COL_WEIGHT) ||
+                recordValue.contains(StringConstants.COL_BMI);
+
+        if(addIdealValues) {
+            StringConstants.INDEX_DATASET_AVERAGE = 6;
+            StringConstants.INDEX_DATASET_PATIENT = 7;
+        }
+        else {
+            StringConstants.INDEX_DATASET_AVERAGE = 0;
+            StringConstants.INDEX_DATASET_PATIENT = 1;
+        }
+
+
 
 
         /* add dataset containing average record values from patients with same age */
-        LineDataSet averageDataset = createLineDataSet(recordValue, 0);
+        LineDataSet averageDataset = createLineDataSet(recordValue, StringConstants.INDEX_DATASET_AVERAGE);
         lineData.addDataSet(averageDataset);
 
 
         /* dataset containing values from patient, index 1 */
-        LineDataSet patientDataset = createLineDataSet(recordValue, 1);
+        LineDataSet patientDataset = createLineDataSet(recordValue, StringConstants.INDEX_DATASET_PATIENT);
         lineData.addDataSet(patientDataset);
 
 
@@ -959,7 +974,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         // Get the paint renderer to create the line shading.
         Paint paint = lineChart.getRenderer().getPaintRender();
         int height = lineChart.getHeight();
-        int maxLabelCount = 0;
+        int maxLabelCount;
 
 
         YAxis yAxisLeft = lineChart.getAxisLeft();
@@ -1005,24 +1020,24 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setDrawAxisLine(false);
-        lineChart.getLineData().setDrawValues(false);
 
 //        lineChart.setViewPortOffsets(100, 100, 100, 100);
         /* add ideal values only if record */
-        boolean addIdealValues = recordValue.contains(StringConstants.COL_HEIGHT) ||
-                recordValue.contains(StringConstants.COL_WEIGHT) ||
-                recordValue.contains(StringConstants.COL_BMI);
+//        boolean addIdealValues = recordValue.contains(StringConstants.COL_HEIGHT) ||
+//                recordValue.contains(StringConstants.COL_WEIGHT) ||
+//                recordValue.contains(StringConstants.COL_BMI);
 
 
         resetIdealDatasets();
         int highestAge = patient.getAge(spRecordDate.getItemAtPosition(spRecordDate.getCount()-1).toString());
         // TODO Ideal values, comment out
-        if(highestAge > 5 && addIdealValues) {
+        // if(highestAge > 5 && addIdealValues) {
+        if(highestAge >= 5 && addIdealValues) {
             /* dataset containing values from 2SD */
-            p2Dataset_obesity = createLineDataSet(recordValue, 7);
+            p2Dataset_obesity = createLineDataSet(recordValue, StringConstants.INDEX_OBESE);
             lineData.addDataSet(p2Dataset_obesity);
             /* dataset containing values from 1SD */
-            p1Dataset_overweight = createLineDataSet(recordValue, 6);
+            p1Dataset_overweight = createLineDataSet(recordValue, StringConstants.INDEX_OVERWEIGHT);
             lineData.addDataSet(p1Dataset_overweight);
             /* dataset containing values from median */
             medianDataset_normal = createLineDataSet(recordValue, 5);
@@ -1052,14 +1067,14 @@ public class ViewPatientActivity extends AppCompatActivity {
             //Log.v(TAG, recordValue+": "+yVal);
             /* add patient data to patient entry, index 0 */
 //            lineData.addEntry(new Entry(yVal, i), 0); TODO edited
-            lineData.addEntry(new Entry(i, yVal), 1);
+            lineData.addEntry(new Entry(i, yVal), StringConstants.INDEX_DATASET_PATIENT);
 //            Log.e("RECORD", "patient "+recordValue+" : "+yVal);
             /* add average record values of patients of the same age, index 1 */
 
             yVal = getColumnValue(recordValue, averageRecords.get(i));
 //            if(recordValue.contains("Visual"))
 //              Log.e("VAVG", averageRecords.get(i).getVisualAcuityLeft()+" "+getColumnValue(recordValue, averageRecords.get(i)));
-            lineData.addEntry(new Entry(i, yVal), 0);
+            lineData.addEntry(new Entry(i, yVal), StringConstants.INDEX_DATASET_AVERAGE);
 //            lineData.addEntry(new Entry(yVal, i), 1); TODO edited
 
 
@@ -1071,13 +1086,15 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 
             /* addIdealValues if column is either height, weight, or BMI */
-            if(addIdealValues && age >= 5 && age <= 19) {
+            // if(addIdealValues && age >= 5 && age <= 19) {
+            if(highestAge >= 5 && addIdealValues) {
                 idealRecordValues = getIdealValues(recordValue, age);
                 if(idealRecordValues != null) {
                     idealRecordValues.printIdealValue();
 //                    Log.e("IDEAL", idealRecordValues.getP2SD()+" "+idealRecordValues.getYear());
                 }
 
+                // if(addIdealValues) {
                 if(idealRecordValues != null) {
                     /* add -2SD from ideal value data to patient entry, index 3 */
                     lineData.addEntry(new Entry(i, idealRecordValues.getP2SD()), 2); // Severe Thinness
@@ -1088,9 +1105,9 @@ public class ViewPatientActivity extends AppCompatActivity {
                     /* add 1SD from ideal value data to patient entry, index 6 */
                     lineData.addEntry(new Entry(i, idealRecordValues.getN1SD()), 5); // 50th/Normal
                     /* add 2SD from ideal value data to patient entry, index 7 */
-                    lineData.addEntry(new Entry(i, idealRecordValues.getN2SD()), 6); // 85th/Overweight
+                    lineData.addEntry(new Entry(i, idealRecordValues.getN2SD()), StringConstants.INDEX_OVERWEIGHT); // 85th/Overweight
                     /* add -3SD from ideal value data to patient entry, index 2 */
-                    lineData.addEntry(new Entry(i, idealRecordValues.getN3SD()), 7); // 97th/Obesity
+                    lineData.addEntry(new Entry(i, idealRecordValues.getN3SD()), StringConstants.INDEX_OBESE); // 97th/Obesity
                 }
                 else {
                     Log.e("IDEAL", "idealRecordValues is null");
@@ -1099,7 +1116,15 @@ public class ViewPatientActivity extends AppCompatActivity {
         }
 
         // Draw ideal value lines
-        if(addIdealValues) {
+//        if(addIdealValues) {
+//        if(highestAge >= 5 && addIdealValues) {
+        if(idealRecordValues != null) {
+            if(p2Dataset_obesity != null)
+                customizeLineChart(listAge, recordValue, p2Dataset_obesity, StringConstants.INDEX_OBESE, ColorThemes.cBMI_Graph_Obese); // 7
+
+            if(p1Dataset_overweight != null)
+                customizeLineChart(listAge, recordValue, p1Dataset_overweight, StringConstants.INDEX_OVERWEIGHT, ColorThemes.cBMI_Graph_Overweight); // 6
+
             if(n3Dataset_severeThinness != null)
                 customizeLineChart(listAge, recordValue, n3Dataset_severeThinness, 2, ColorThemes.cBMI_Graph_SevereThinness);
             if(n2Dataset_thinness != null)
@@ -1108,16 +1133,16 @@ public class ViewPatientActivity extends AppCompatActivity {
                 customizeLineChart(listAge, recordValue, n1Dataset_underweight, 4, ColorThemes.cBMI_Graph_Underweight);
             if(medianDataset_normal != null)
                 customizeLineChart(listAge, recordValue, medianDataset_normal, 5, ColorThemes.cBMI_Graph_Normal);
-            if(p1Dataset_overweight != null)
-                customizeLineChart(listAge, recordValue, p1Dataset_overweight, 6, ColorThemes.cBMI_Graph_Overweight);
-            if(p2Dataset_obesity != null)
-                customizeLineChart(listAge, recordValue, p2Dataset_obesity, 7, ColorThemes.cBMI_Graph_Obese);
+//            if(p1Dataset_overweight != null)
+//                customizeLineChart(listAge, recordValue, p1Dataset_overweight, StringConstants.INDEX_OVERWEIGHT, ColorThemes.cBMI_Graph_Overweight); // 6
+//            if(p2Dataset_obesity != null)
+//                customizeLineChart(listAge, recordValue, p2Dataset_obesity, StringConstants.INDEX_OBESE, ColorThemes.cBMI_Graph_Obese); // 7
         }
 
 
 //        Log.e("PATIENTRECORDS", recordValue+" "+patientDataset.getEntryCount()+"");
-        customizeLineChart(listAge, recordValue, patientDataset, 1, ColorThemes.cTealDefaultDark); // Patient
-        customizeLineChart(listAge, recordValue, averageDataset, 0, ColorThemes.cPrimaryDark); // Average
+        customizeLineChart(listAge, recordValue, patientDataset, StringConstants.INDEX_DATASET_PATIENT, ColorThemes.cTealDefaultDark); // Patient
+        customizeLineChart(listAge, recordValue, averageDataset, StringConstants.INDEX_DATASET_AVERAGE, ColorThemes.cPrimaryDark); // Average
 
 
 
@@ -1152,10 +1177,14 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         // notify chart data has changed
 //        lineChart.refreshDrawableState();
-        if(patientRecords.size() == 1)
-            lineChart.clear();
+
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
+        if(lineChart.isEmpty()) {
+            lineChart.clear();
+            lineChart.notifyDataSetChanged();
+            lineChart.invalidate();
+        }
     }
 
     public List<LegendEntry> createLegendEntries() {
@@ -1312,44 +1341,52 @@ public class ViewPatientActivity extends AppCompatActivity {
     }
     private LineDataSet createLineDataSet(String recordValue, int index) {
         String datasetDescription;
-
-
-        switch(index) {
-            default:
-            case 1: datasetDescription = "Patient";
-                break;
-            case 0: datasetDescription = "Average";
-                break;
-            case 2: datasetDescription = "Severe Thinness";
-                break;
-            case 3: datasetDescription = "3rd";
-                if(recordValue.equals("BMI")) {
-                    datasetDescription = "Thinness";
-                }
-                break;
-            case 4: datasetDescription = "15th";
-                if(recordValue.equals("BMI")) {
-                    datasetDescription = "";
-                }
-                break;
-            case 5: datasetDescription = "50th";
-                if(recordValue.equals("BMI")) {
-                    datasetDescription = "Normal";
-                }
-                break;
-            case 6: datasetDescription = "85th";
-                if(recordValue.equals("BMI")) {
-                    datasetDescription = "Overweight";
-                }
-                break;
-            case 7: datasetDescription = "97th";
-                if(recordValue.equals("BMI")) {
-                    datasetDescription = "Obesity";
-                }
-                break;
+        boolean isFilled = false;
+        if(index == StringConstants.INDEX_DATASET_PATIENT) {
+            datasetDescription = "Patient";
+        }
+        else if(index == StringConstants.INDEX_DATASET_AVERAGE) {
+            datasetDescription = "Average";
+        }
+        else {
+            switch(index) {
+                default:
+                case 2: datasetDescription = "Severe Thinness";
+                    break;
+                case 3: datasetDescription = "3rd";
+                    if(recordValue.equals("BMI")) {
+                        datasetDescription = "Thinness";
+                    }
+                    break;
+                case 4: datasetDescription = "15th";
+                    if(recordValue.equals("BMI")) {
+                        datasetDescription = "";
+                    }
+                    break;
+                case 5: datasetDescription = "50th";
+                    if(recordValue.equals("BMI")) {
+                        datasetDescription = "Normal";
+                    }
+                    break;
+                case StringConstants.INDEX_OVERWEIGHT: datasetDescription = "85th"; // 6
+                    if(recordValue.equals("BMI")) {
+                        datasetDescription = "Overweight";
+                    }
+                    isFilled = true;
+                    break;
+                case StringConstants.INDEX_OBESE: datasetDescription = "97th"; // 7
+                    if(recordValue.equals("BMI")) {
+                        datasetDescription = "Obesity";
+                    }
+                    isFilled = true;
+                    break;
+            }
         }
 
+
         LineDataSet lineDataset = new LineDataSet(null, datasetDescription);
+        lineDataset.setDrawFilled(isFilled);
+
         return lineDataset;
     }
 
@@ -1442,6 +1479,9 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 
         xAxis.setAvoidFirstLastClipping(true);
+
+
+
         lineChart.invalidate();
 //        lineChart.setExtraOffsets(10,10,10,10);
 //        lineChart.offsetTopAndBottom(50);
@@ -1459,19 +1499,24 @@ public class ViewPatientActivity extends AppCompatActivity {
         lineDataSet.setCircleHoleRadius(3f);
         lineDataSet.setCircleColorHole(Color.WHITE);
 
-        if(index == 0 || index == 1) { // Average or Patient datasets
-            if(index == 1) { // if Patient only, change line & circle colors
+        if(index == StringConstants.INDEX_DATASET_AVERAGE || index == StringConstants.INDEX_DATASET_PATIENT) { // Average or Patient datasets
+            if(index == StringConstants.INDEX_DATASET_PATIENT) { // if Patient only, change line & circle colors
 
 //                ArrayList<Integer> colors = General.getColors(recordValue, lineDataSet.getValues(), lineColor);
                 ArrayList<Integer> colors = getColorsByIdeal(listAge, recordValue, lineDataSet.getValues(), lineColor);
                 if(colors == null || colors.size() == 0) {
                     colors = General.getColors(recordValue, lineDataSet.getValues(), lineColor);
                 }
-                lineDataSet.setCircleColors(colors);
+                if(colors.size() > 0) {
+
+                    lineDataSet.setCircleColors(colors);
+                    lineDataSet.setColors(colors.subList(0, colors.size()));
+                }
+//                lineDataSet.setCircleColors(colors);
 //                lineDataSet.setCircleColor(ColorThemes.cPrimaryDark);
 //                lineDataSet.setCircleColor(lineColor);
 
-                lineDataSet.setColors(colors.subList(1, colors.size()));
+//                lineDataSet.setColors(colors.subList(1, colors.size()));
 //                lineDataSet.setColor(lineColor);
                 lineDataSet.setDrawValues(true);
             }
@@ -1499,10 +1544,11 @@ public class ViewPatientActivity extends AppCompatActivity {
             lineDataSet.setDrawValues(false);
             lineDataSet.setDrawCircles(false);
 
-            if(index == 7) {
+            // if(index == 7) {
+            if(lineColor == ColorThemes.cBMI_Graph_Obese) {
                 lineDataSet.setFillColor(lineColor);
                 lineDataSet.setFillAlpha(120);
-                lineDataSet.setDrawFilled(true);
+//                lineDataSet.setDrawFilled(true);
                 lineDataSet.setDrawCircles(true);
             }
             else {
@@ -1638,6 +1684,9 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         xAxis.addLimitLine(limitLine);
         xAxis.setDrawLimitLinesBehindData(true);
+
+        if(lineChart.isEmpty())
+            lineChart.clear();
 
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();

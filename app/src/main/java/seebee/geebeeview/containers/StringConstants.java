@@ -44,6 +44,12 @@ public class StringConstants {
     public static final int INDEX_BODY = 3;
     public static final int INDEX_HAND = 4;
 
+    public static int INDEX_DATASET_PATIENT = 7;
+    public static int INDEX_DATASET_AVERAGE = 6;
+    public static final int INDEX_OVERWEIGHT = 1;
+    public static final int INDEX_OBESE = 0;
+
+
     public static int VA_LOWEST_VALUE = 200; // 5 is for padding purposes
     public static int HEARING_LOWEST_VALUE = 5; // 5 is for padding purposes
 
