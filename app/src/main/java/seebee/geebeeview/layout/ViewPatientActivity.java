@@ -1040,12 +1040,8 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         }
 
-
-
-        Record record, average;
+        Record record;
         float yVal; int age;
-        ArrayList<Entry> patientEntries = new ArrayList<>();
-        ArrayList<Entry> n3Entries = new ArrayList<>();
         ArrayList<Integer> listAge = new ArrayList<>();
 
 //        getAverageRecords(patientRecords);
@@ -1120,8 +1116,8 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 
 //        Log.e("PATIENTRECORDS", recordValue+" "+patientDataset.getEntryCount()+"");
-        customizeLineChart(listAge, recordValue, patientDataset, 1, ColorThemes.cTealDefaultDark); // Average
-        customizeLineChart(listAge, recordValue, averageDataset, 0, ColorThemes.cPrimaryDark); // Patient
+        customizeLineChart(listAge, recordValue, patientDataset, 1, ColorThemes.cTealDefaultDark); // Patient
+        customizeLineChart(listAge, recordValue, averageDataset, 0, ColorThemes.cPrimaryDark); // Average
 
 
 
@@ -1316,68 +1312,43 @@ public class ViewPatientActivity extends AppCompatActivity {
     }
     private LineDataSet createLineDataSet(String recordValue, int index) {
         String datasetDescription;
-        int lineColor;
-        float lineWidth = 3f;
-        boolean drawFilled = false;
-        int fillColor = Color.TRANSPARENT;
-//        int valueTextColor = Color.BLACK;
+
+
         switch(index) {
             default:
             case 1: datasetDescription = "Patient";
-                lineColor = Color.BLUE;
-                lineWidth = 5f;
                 break;
             case 0: datasetDescription = "Average";
-                lineColor = ColorTemplate.getHoloBlue();
-                lineWidth = 4f;
                 break;
             case 2: datasetDescription = "Severe Thinness";
-                lineColor = Color.BLACK;
-                fillColor = Color.BLACK;
-                drawFilled = true;
                 break;
             case 3: datasetDescription = "3rd";
-                lineColor = Color.RED;
-//                fillColor = Color.BLACK;
                 if(recordValue.equals("BMI")) {
                     datasetDescription = "Thinness";
-                    fillColor = Color.MAGENTA;
-                    drawFilled = true;
                 }
                 break;
             case 4: datasetDescription = "15th";
-                lineColor = Color.YELLOW;
                 if(recordValue.equals("BMI")) {
                     datasetDescription = "";
-                    lineColor = Color.TRANSPARENT;
-//                    valueTextColor = Color.TRANSPARENT;
                 }
                 break;
             case 5: datasetDescription = "50th";
-                lineColor = Color.GREEN;
                 if(recordValue.equals("BMI")) {
                     datasetDescription = "Normal";
                 }
                 break;
             case 6: datasetDescription = "85th";
-                lineColor = Color.YELLOW;
                 if(recordValue.equals("BMI")) {
                     datasetDescription = "Overweight";
-                    fillColor = Color.GREEN;
-                    drawFilled = true;
                 }
                 break;
             case 7: datasetDescription = "97th";
-                lineColor = Color.RED;
                 if(recordValue.equals("BMI")) {
                     datasetDescription = "Obesity";
-                    fillColor = Color.YELLOW;
-                    drawFilled = true;
                 }
                 break;
         }
 
-//        LineDataSet lineDataset = new LineDataSet(null, "");
         LineDataSet lineDataset = new LineDataSet(null, datasetDescription);
         return lineDataset;
     }
@@ -1484,10 +1455,11 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         lineDataSet.setLineWidth(3.5f);
         lineDataSet.setValueTextSize(10f);
+        lineDataSet.setCircleRadius(7f);
+        lineDataSet.setCircleHoleRadius(3f);
+        lineDataSet.setCircleColorHole(Color.WHITE);
+
         if(index == 0 || index == 1) { // Average or Patient datasets
-
-            lineDataSet.setCircleRadius(7f);
-
             if(index == 1) { // if Patient only, change line & circle colors
 
 //                ArrayList<Integer> colors = General.getColors(recordValue, lineDataSet.getValues(), lineColor);
@@ -1498,7 +1470,6 @@ public class ViewPatientActivity extends AppCompatActivity {
                 lineDataSet.setCircleColors(colors);
 //                lineDataSet.setCircleColor(ColorThemes.cPrimaryDark);
 //                lineDataSet.setCircleColor(lineColor);
-                lineDataSet.setCircleColorHole(Color.WHITE);
 
                 lineDataSet.setColors(colors.subList(1, colors.size()));
 //                lineDataSet.setColor(lineColor);
@@ -1508,12 +1479,8 @@ public class ViewPatientActivity extends AppCompatActivity {
             else {
                 lineDataSet.setColor(lineColor);
                 lineDataSet.setCircleColor(lineColor);
-                lineDataSet.setCircleColorHole(Color.WHITE);
 //                lineDataSet.setDrawCircles(false);
             }
-
-            lineDataSet.setCircleHoleRadius(3f);
-
         } else { // Ideal Values
 //            lineDataSet.setDrawCircles(false);
 //            lineDataSet.setLineWidth(2f);
@@ -1525,20 +1492,22 @@ public class ViewPatientActivity extends AppCompatActivity {
 //            lineDataSet.setDrawFilled(true);
 //            lineDataSet.setFillColor(Color.GREEN);
 
-            lineColor = ColorThemes.cTealDefaultDark; // TODO remove this
-            lineDataSet.setLineWidth(1.5f);
+            // lineColor = ColorThemes.cTealDefaultDark; // TODO remove this
 
             lineDataSet.setColor(lineColor);
             lineDataSet.setCircleColor(lineColor);
-            lineDataSet.setCircleColorHole(Color.WHITE);
             lineDataSet.setDrawValues(false);
             lineDataSet.setDrawCircles(false);
 
-//            if(index == 4 || index == 5 || index == 6) {
-//            }
-//            else {
-//                lineDataSet.setVisible(false);
-//            }
+            if(index == 7) {
+                lineDataSet.setFillColor(lineColor);
+                lineDataSet.setFillAlpha(120);
+                lineDataSet.setDrawFilled(true);
+                lineDataSet.setDrawCircles(true);
+            }
+            else {
+                lineDataSet.setVisible(false);
+            }
         }
     }
 
@@ -1580,18 +1549,15 @@ public class ViewPatientActivity extends AppCompatActivity {
 
                 for(int i = 0; i < entries.size(); i++) {
                     yVal = entries.get(i).getY();
-//                    Log.e("ENTRIES", "entries yval "+yVal);
                     age = listAge.get(i);
+
                     if(age >= 5 && age <= 19) {
-//                        Log.e("ENTRIES", "n3Dataset_severeThinness yval "+n3Dataset_severeThinness.getEntryCount()+" "+n3Dataset_severeThinness.getValues().size());
-
-
+                        // This part of the code is from the original.
                         if(recordValue.equals(StringConstants.COL_BMI) &&
                                 index < n3Dataset_severeThinness.getEntryCount() &&
                                 yVal <= n3Dataset_severeThinness.getEntryForIndex(index).getY()) {
                             idealColors.add(ColorThemes.csBMI_Graph[1]);
 //                            Log.e("ENTRIES", "sv thinness "+n3Dataset_severeThinness.getEntryForIndex(index).getY());
-
                         }
                         else if(index < n2Dataset_thinness.getEntryCount() &&
                                 yVal <= n2Dataset_thinness.getEntryForIndex(index).getY()) {
@@ -1624,7 +1590,6 @@ public class ViewPatientActivity extends AppCompatActivity {
                     else {
                         idealColors.add(ColorThemes.csBMI_Graph[0]);
                     }
-
                 }
             }
 
