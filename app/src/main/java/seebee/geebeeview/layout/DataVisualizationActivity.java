@@ -1,5 +1,6 @@
 package seebee.geebeeview.layout;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -30,30 +31,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.BubbleChart;
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.HorizontalBarChart;
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.charts.ScatterChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.ChartData;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.interfaces.datasets.IDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -90,7 +75,7 @@ public class DataVisualizationActivity extends AppCompatActivity
     private final int INDEX_OVERVIEW = 0;
     private final int INDEX_NATIONAL = 1;
     private final int INDEX_MUNICIPAL = 2;
-    private final int INDEX_SCATTER = 3;
+    // private final int INDEX_SCATTER = 3;
 
     private static final String FILTER_EQUALS = "=";
     private static final String FILTER_LESS_THAN = "<";
@@ -102,18 +87,8 @@ public class DataVisualizationActivity extends AppCompatActivity
     private static float WEIGHT_GRAPH_OVERVIEW_FULL = 0.85f;
     private static float WEIGHT_GRAPH_OVERVIEW_SHRINK = WEIGHT_GRAPH_OVERVIEW_FULL-WEIGHT_FILTER_PROMPT;
 
-    private float overviewHeightIncrease = 0f;
-    private float highlightPercentThreshold = 60f; // In Overview, highlight percent greater than 60f
     private static final String TAG = "DataVisualActivity";
     public static final float VALUE_TEXT_SIZE = 14f;
-    public static final float DESCRIPTION_TEXT_SIZE = 16f;
-    public static final float AXIS_TEXT_SIZE = 14f;
-    public static final float LEGEND_TEXT_SIZE = 16f;
-
-    public static final int CHART_AXIS_TEXT_COLOR = Color.GRAY;
-    public static final int CHART_LEGEND_TEXT_COLOR = Color.GRAY;
-    public static final int CHART_DESC_TEXT_COLOR = Color.GRAY;
-    public static final int CHART_VALUE_TEXT_COLOR = Color.GRAY;
     private int currentRecordColumn = 0;
 
     private String ageEquator, ageValue, genderValue, gradeLevelValue; // For filtering
@@ -129,9 +104,6 @@ public class DataVisualizationActivity extends AppCompatActivity
     FilterAdapter filterAdapter;
     RecyclerView rvDataset, rvFilter;
     Button btnAddDataset, btnAddFilter, btnViewPatientList, btnViewHPIList;
-    // RelativeLayout graphLayoutLeft, graphLayoutRight; /* space where graph will be set on */
-    // RelativeLayout graphLayoutCenter; // added
-
     ImageView ivBMIRef, ivVALRef, ivVARRef, ivCOLORRef, ivHEARLRef, ivHEARRRef, ivGMRef, ivFMDRef, ivFMNRef, ivFMHRef;
 
     ScrollView scrollGraphOverview;
@@ -161,45 +133,33 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     int schoolID;
     String schoolName, date;
-    PieChart pieChartLeft, pieChartRight;
-    HorizontalBarChart stackedBarChart;
     ArrayList<OverviewEntry> overviewEntries;
     ArrayList<RelativeLayout> graphStackedBarCharts;
 
     ArrayList<String> recordColumns;
-    private String[] xDataContainer; // Only to be used by specific bar chart
 
-    ScatterChart scatterChart;
-    BubbleChart bubbleChart;
     ArrayList<PatientRecord> recordsLeft, recordsRight;
     String[] xData, possibleAge;
     int[] yDataLeft, yDataRight;
 
     ArrayList<Dataset> datasets;
+
     /* attributes for addFilterDialog */
     ArrayList<String> gradeLevels;
-    private TextView tvDataset, tvFilter, tvChart, tvRightChart, tvDataHeader, tvDataHeaderYear, tvSpecificTitle;
+    private TextView tvSpecificTitle;
     private Spinner spRecordColumn, spChartType, spRightChart;
-    private String recordColumn = "BMI", rightChartContent = "National Profile";
+    private String recordColumn = "BMI";
 
-    private String chartType = "Overview";
     private String titleScrollRightOverview, titleScrollRightNational, subtitleHighest, subtitleTarget;
 
-    private ViewGroup.LayoutParams paramsLeft, paramsRight, paramsCenter, paramsStacked;
-    private ArrayList<ViewGroup.LayoutParams> paramsOverview;
 
-    private int offsetTopBottom;
-    private int offsetLeftRight;
-    private float offsetPercent = 0.0f;
-
-    private float offsetYDivider = 8f;
-    private String provinceName, municipalityName;
+    // private String provinceName, municipalityName;
 
     private DataVisualizationSidebar sidebarManager;
 
     private enum SubtitleMode {
         SHOW_HIGHEST,
-        SHOW_TARGET;
+        SHOW_TARGET
     }
 
     @Override
@@ -222,19 +182,11 @@ public class DataVisualizationActivity extends AppCompatActivity
         adjustGraphOverviewAppearance();
 
         addDatasetRefresh();
-//        if(spChartType != null && spChartType.getSelectedItemPosition() == 0) {
-//            showGraphOverview(); // Remember to make scroll view visible (set invisible in onCreate)
-//        }
         if (spChartType != null) {
-//            ((CustomSpinnerAdapter) spChartType.getAdapter()).adjustFontSize(100); // TODO font size
             spinnerRefresh();
         }
 
     }
-    private void showFilterPrompt() {
-        this.showFilterPrompt("");
-    }
-
     private void showFilterPrompt(String strFilter) {
         this.contFilterPrompt.setVisibility(View.VISIBLE);
 
@@ -244,7 +196,8 @@ public class DataVisualizationActivity extends AppCompatActivity
                 WEIGHT_GRAPH_OVERVIEW_SHRINK
         );
         this.contGraphOverviewParent.setLayoutParams(param);
-        tvFilterPrompt.setText(strFilterTemplate+strFilter+strRemove);
+        String filterPrompt = strFilterTemplate+strFilter+strRemove;
+        tvFilterPrompt.setText(filterPrompt);
     }
     private void hideFilterPrompt() {
         this.contFilterPrompt.setVisibility(View.GONE);
@@ -258,39 +211,6 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
 
 
-
-    private int computePercent(float value, float percent) {
-        return Math.round(value*percent);
-    }
-
-    private int computePercentHalf(float value, float percent) {
-        return Math.round(value*percent/2f);
-    }
-//    private void refreshChartParams() {
-//        if(paramsLeft != null) {
-//            offsetTopBottom = computePercent(graphLayoutLeft.getHeight(), offsetPercent);
-//            offsetLeftRight = computePercent(graphLayoutLeft.getWidth(), offsetPercent);
-//
-//            paramsLeft.height = graphLayoutLeft.getHeight()-offsetTopBottom; // ViewGroup.LayoutParams.MATCH_PARENT;
-//            paramsLeft.width = graphLayoutLeft.getWidth()-offsetLeftRight; // ViewGroup.LayoutParams.MATCH_PARENT;
-//        }
-//        if(paramsRight != null) {
-//            offsetTopBottom = computePercent(graphLayoutRight.getHeight(), offsetPercent);
-//            offsetLeftRight = computePercent(graphLayoutRight.getWidth(), offsetPercent);
-//
-//            paramsRight.height = graphLayoutRight.getHeight()-offsetTopBottom; // ViewGroup.LayoutParams.MATCH_PARENT;
-//            paramsRight.width = graphLayoutRight.getWidth()-offsetLeftRight; // ViewGroup.LayoutParams.MATCH_PARENT;
-//        }
-//        if(paramsCenter != null) {
-//            offsetTopBottom = computePercent(graphLayoutCenter.getHeight(), offsetPercent);
-//            offsetLeftRight = computePercent(graphLayoutCenter.getWidth(), offsetPercent);
-//
-////            paramsCenter.height = Math.round(height+(height/4f)); // ViewGroup.LayoutParams.MATCH_PARENT;
-//            paramsCenter.height = graphLayoutCenter.getHeight()-offsetTopBottom; // ViewGroup.LayoutParams.MATCH_PARENT;
-//            paramsCenter.width = graphLayoutCenter.getWidth()-offsetLeftRight; //ViewGroup.LayoutParams.MATCH_PARENT;
-//        }
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -303,63 +223,55 @@ public class DataVisualizationActivity extends AppCompatActivity
         schoolID = getIntent().getIntExtra(School.C_SCHOOL_ID, 0);
         date = getIntent().getStringExtra(Record.C_DATE_CREATED);
 
-//        tvTitle = (TextView) findViewById(R.id.tv_data_visualization_title);
-        tvDataset = (TextView) findViewById(R.id.tv_dv_dataset);
-        tvFilter = (TextView) findViewById(R.id.tv_dv_filter);
-        tvRightChart = (TextView) findViewById(R.id.tv_dv_right_chart);
-        btnAddDataset = (Button) findViewById(R.id.btn_add_dataset);
-        btnAddFilter = (Button) findViewById(R.id.btn_add_filter);
-        btnViewPatientList = (Button) findViewById(R.id.btn_view_patient_list);
-        btnViewHPIList = (Button) findViewById(R.id.btn_view_hpi_list);
-        rvDataset = (RecyclerView) findViewById(R.id.rv_dv_dataset);
-        rvFilter = (RecyclerView) findViewById(R.id.rv_dv_filter);
-//        graphLayoutLeft = (RelativeLayout) findViewById(R.id.graph_container_left);
-//        graphLayoutRight = (RelativeLayout) findViewById(R.id.graph_container_right);
-//        graphLayoutCenter = (RelativeLayout) findViewById(R.id.graph_container_center); // Added
+        btnAddDataset = findViewById(R.id.btn_add_dataset);
+        btnAddFilter = findViewById(R.id.btn_add_filter);
+        btnViewPatientList = findViewById(R.id.btn_view_patient_list);
+        btnViewHPIList = findViewById(R.id.btn_view_hpi_list);
+        rvDataset = findViewById(R.id.rv_dv_dataset);
+        rvFilter = findViewById(R.id.rv_dv_filter);
 
-        scrollGraphOverview = (ScrollView) findViewById(R.id.scroll_graph_overview);
-        contGraphOverviewParent = (ConstraintLayout) findViewById(R.id.cont_graph_overview_spacing);
-        contFilterPrompt = (ConstraintLayout) findViewById(R.id.cont_right_items_prompt);
+        scrollGraphOverview = findViewById(R.id.scroll_graph_overview);
+        contGraphOverviewParent = findViewById(R.id.cont_graph_overview_spacing);
+        contFilterPrompt = findViewById(R.id.cont_right_items_prompt);
         hideGraphOverview(); // Initially make invisible
 
-        // TODO Add Here
-        graphBMI = (RelativeLayout) findViewById(R.id.graph_container_bmi);
-        graphVisualAcuityLeft = (RelativeLayout) findViewById(R.id.graph_container_va_left);
-        graphVisualAcuityRight = (RelativeLayout) findViewById(R.id.graph_container_va_right);
-        graphColorBlindness = (RelativeLayout) findViewById(R.id.graph_container_va_color);
+        graphBMI = findViewById(R.id.graph_container_bmi);
+        graphVisualAcuityLeft = findViewById(R.id.graph_container_va_left);
+        graphVisualAcuityRight = findViewById(R.id.graph_container_va_right);
+        graphColorBlindness = findViewById(R.id.graph_container_va_color);
 
-        graphHearingLeft = (RelativeLayout) findViewById(R.id.graph_container_hearing_left);
-        graphHearingRight = (RelativeLayout) findViewById(R.id.graph_container_hearing_right);
+        graphHearingLeft = findViewById(R.id.graph_container_hearing_left);
+        graphHearingRight = findViewById(R.id.graph_container_hearing_right);
 
-        graphGrossMotor = (RelativeLayout) findViewById(R.id.graph_container_gross_motor); // TODO new graph
-        graphFineMotorDominant = (RelativeLayout) findViewById(R.id.graph_container_fine_dominant);
-        graphFineMotorNon = (RelativeLayout) findViewById(R.id.graph_container_fine_non);
-        graphFineMotorHold = (RelativeLayout) findViewById(R.id.graph_container_fine_hold);
+        graphGrossMotor = findViewById(R.id.graph_container_gross_motor);
+        graphFineMotorDominant = findViewById(R.id.graph_container_fine_dominant);
+        graphFineMotorNon = findViewById(R.id.graph_container_fine_non);
+        graphFineMotorHold = findViewById(R.id.graph_container_fine_hold);
 
-        graphSpecificBarSingle = (RelativeLayout) findViewById(R.id.graph_specific_bar_single);
+        graphSpecificBarSingle = findViewById(R.id.graph_specific_bar_single);
 
-        spRecordColumn = (Spinner) findViewById(R.id.sp_record_column);
-        spChartType = (Spinner) findViewById(R.id.sp_chart_type);
-        spRightChart = (Spinner) findViewById(R.id.sp_right_chart_content);
+        spRecordColumn = findViewById(R.id.sp_record_column);
+        spChartType = findViewById(R.id.sp_chart_type);
+        spRightChart = findViewById(R.id.sp_right_chart_content);
 
-        tvDataHeader = (TextView) findViewById(R.id.tv_data_header);
-        tvDataHeaderYear = (TextView) findViewById(R.id.tv_data_header_year);
+        TextView tvDataHeader = findViewById(R.id.tv_data_header);
+        TextView tvDataHeaderYear = findViewById(R.id.tv_data_header_year);
 
-        ivBMIRef = (ImageView) findViewById(R.id.iv_bmi_size_ref);
+        ivBMIRef = findViewById(R.id.iv_bmi_size_ref);
 
-        ivVALRef = (ImageView) findViewById(R.id.iv_va_left_size_ref);
-        ivVARRef = (ImageView) findViewById(R.id.iv_va_right_size_ref);
-        ivCOLORRef = (ImageView) findViewById(R.id.iv_va_color_size_ref);
+        ivVALRef = findViewById(R.id.iv_va_left_size_ref);
+        ivVARRef = findViewById(R.id.iv_va_right_size_ref);
+        ivCOLORRef = findViewById(R.id.iv_va_color_size_ref);
 
-        ivHEARLRef = (ImageView) findViewById(R.id.iv_hearing_left_size_ref);
-        ivHEARRRef = (ImageView) findViewById(R.id.iv_hearing_right_size_ref);
-        ivGMRef = (ImageView) findViewById(R.id.iv_gross_motor_size_ref); // TODO new graphs
+        ivHEARLRef = findViewById(R.id.iv_hearing_left_size_ref);
+        ivHEARRRef = findViewById(R.id.iv_hearing_right_size_ref);
+        ivGMRef = findViewById(R.id.iv_gross_motor_size_ref);
 
-        ivFMDRef = (ImageView) findViewById(R.id.iv_fine_dominant_size_ref);
-        ivFMNRef = (ImageView) findViewById(R.id.iv_fine_non_size_ref);
-        ivFMHRef = (ImageView) findViewById(R.id.iv_fine_hold_size_ref);
+        ivFMDRef = findViewById(R.id.iv_fine_dominant_size_ref);
+        ivFMNRef = findViewById(R.id.iv_fine_non_size_ref);
+        ivFMHRef = findViewById(R.id.iv_fine_hold_size_ref);
 
-        tvSpecificTitle = (TextView) findViewById(R.id.tv_specific_title);
+        tvSpecificTitle = findViewById(R.id.tv_specific_title);
 
         llBarSpecificLabels = new ArrayList<>();
         llBarSpecificLabels.add((ConstraintLayout) findViewById(R.id.cl_item_1_1));
@@ -516,13 +428,11 @@ public class DataVisualizationActivity extends AppCompatActivity
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-//                recordColumn = "BMI";
             }
         });
 
         /* prepare record so that it can be plotted immediately */
         prepareChartData();
-        createCharts();
 
 
 
@@ -548,29 +458,20 @@ public class DataVisualizationActivity extends AppCompatActivity
         spChartType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                chartType = ((CustomSpinnerItem)(parent.getItemAtPosition(position))).getText();
+                // chartType = ((CustomSpinnerItem)(parent.getItemAtPosition(position))).getText();
                 clickChartType();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                /* Default chart is pie chart */
-                // ** Edited, default chart is Overview
-//                chartType = "Overview";
-//                chartType = ((CustomSpinnerItem)(parent.getItemAtPosition(0))).getText(); // On nothing selected, show Overview (first item)
-//                showGraphOverview();
 
-//                graphLayoutLeft.addView(pieChartLeft);
-//                // adjust size of layout
-//                ViewGroup.LayoutParams params = pieChartLeft.getLayoutParams();
-//                params.height = ViewGroup.LayoutParams.MATCH_PARENT;
-//                params.width = ViewGroup.LayoutParams.MATCH_PARENT;
             }
         });
 
 
         tvDataHeader.setText(schoolName);
-        tvDataHeaderYear.setText("Record Date: "+date);
+        String strDate = "Record Date: "+date;
+        tvDataHeaderYear.setText(strDate);
         setupSidebarFunctionality();
         hideFilterPrompt();
     }
@@ -582,7 +483,6 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
 
     public void clickChartType() {
-        // TODO Remove all views
         removeGraphViews();
         hideGraphOverview();
         loadSubtitleMode();
@@ -748,20 +648,18 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     public void adjustGraphOverviewAppearance() {
         if(overviewEntries != null && overviewEntries.get(0).getStackedBarChart() != null) {
-            computeOverviewParams(overviewEntries, paramsOverview);
+            computeOverviewParams(overviewEntries);
         }
     }
 
     public void removeGraphViews() {
-
-        // TODO add all graphs
         graphBMI.removeAllViews();
         graphVisualAcuityLeft.removeAllViews();
         graphVisualAcuityRight.removeAllViews();
         graphColorBlindness.removeAllViews();
         graphHearingLeft.removeAllViews();
         graphHearingRight.removeAllViews();
-        graphGrossMotor.removeAllViews(); // TODO new graph
+        graphGrossMotor.removeAllViews();
         graphFineMotorDominant.removeAllViews();
         graphFineMotorNon.removeAllViews();
         graphFineMotorHold.removeAllViews();
@@ -769,32 +667,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         graphSpecificBarSingle.removeAllViews();
     }
 
-    // TODO EDIT
-    public ArrayList<Drawable> getChartIcons(String[] chartTypes) {
 
-//        ArrayList<CustomSpinnerItem> allList = new ArrayList<CustomSpinnerItem>();
-//        CustomSpinnerItem item = new CustomSpinnerItem();
-        ArrayList<Drawable> iconList = new ArrayList<Drawable>();
-
-        for(int i = 0; i < chartTypes.length; i++) {
-            iconList.add(ContextCompat.getDrawable(this, R.drawable.img_circle_trans_greenhighlight));
-        }
-//        item.setData(getResources().getStringArray(R.array.chart_type_array)[0],R.drawable.img_templogo);
-//        allList.add(item);
-//        item = new CustomSpinnerItem();
-//        item.setData(getResources().getStringArray(R.array.chart_type_array)[1], R.drawable.img_templogo);
-//        allList.add(item);
-//        item = new CustomSpinnerItem();
-//        item.setData(getResources().getStringArray(R.array.chart_type_array)[2], R.drawable.img_templogo);
-//        allList.add(item);
-//        item = new CustomSpinnerItem();
-//        item.setData(getResources().getStringArray(R.array.chart_type_array)[3], R.drawable.img_templogo);
-//        allList.add(item);
-
-        return iconList;
-    }
     public void setupSidebarFunctionality () {
-        // TODO About, Immun, HPI functionality
         sidebarManager = new DataVisualizationSidebar(
                 (Button) findViewById(R.id.btn_show_sidebar_icons),
                 (Button) findViewById(R.id.btn_sidebar_open_extend),
@@ -878,26 +752,9 @@ public class DataVisualizationActivity extends AppCompatActivity
                 clearOverviewCharts();
             } else if(position == INDEX_MUNICIPAL || position == INDEX_NATIONAL) {
                 clearNationalCharts();
-            } else if (position == INDEX_SCATTER) {
-                scatterChart.clear();
             }
             addDataSet();
         }
-
-
-//        if(pieChartLeft != null) { // TODO check this condition
-//            prepareChartData();
-//            if(position == INDEX_OVERVIEW) {
-//                clearOverviewCharts();
-//            } else if(position == INDEX_PIE) {
-//                pieChartLeft.clear();
-//            } else if(position == INDEX_NATIONAL) {
-//                clearNationalCharts();
-//            } else if (position == INDEX_SCATTER) {
-//                scatterChart.clear();
-//            }
-//            addDataSet();
-//        }
     }
 
     // Clear all overview charts
@@ -908,19 +765,10 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
 
     // Clear all overview charts
-    private void clearNationalCharts() { // TODO
+    private void clearNationalCharts() {
         clearOverviewCharts();
     }
 
-    private void createCharts() {
-        pieChartLeft = createPieChart();
-        pieChartRight = createPieChart();
-
-//        createBarChart();
-//        createScatterChart();
-
-        addDataSet();
-    }
 
     /* change the contents of xData and yDataLeft */
     private void prepareChartData() {
@@ -1054,122 +902,6 @@ public class DataVisualizationActivity extends AppCompatActivity
         return chartDataValue;
     }
 
-
-    // TODO implement onvalue select for overview
-    private OnChartValueSelectedListener getOverviewOnChartValueSelectedListener() {
-        return new OnChartValueSelectedListener() {
-
-            @Override
-            public void onValueSelected(Entry entry, Highlight highlight) {
-
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        };
-    }
-    private OnChartValueSelectedListener getOnChartValueSelectedListener() {
-        return new OnChartValueSelectedListener() {
-//            @Override TODO Deprecated
-//            public void onValueSelected(Entry entry, int i, Highlight highlight) {
-//                // display msg when value selected
-//                if(entry == null)
-//                    return;
-//                if(chartType.contains("Scatter") && recordColumn.contains("BMI")) {
-//                    Toast.makeText(DataVisualizationActivity.this,
-//                            "BMI of a child " + possibleAge[entry.getXIndex()] + " years old = " + entry.getVal(),
-//                            Toast.LENGTH_SHORT).show();
-//                    Log.v(TAG, "BMI of a child " + possibleAge[entry.getXIndex()] + " years old = " + entry.getVal());
-//                } else {
-//                    // TODO EDIT TOAST
-//                    Toast.makeText(DataVisualizationActivity.this,
-//                            xData[entry.getXIndex()] + " = " + entry.getVal() + " children",
-//                            Toast.LENGTH_SHORT).show();
-//                    Log.v(TAG, xData[entry.getXIndex()] + " = " + entry.getVal() + " children");
-//                }
-//            }
-
-            @Override
-            public void onValueSelected(Entry entry, Highlight highlight) {
-                // display msg when value selected
-                // TODO Retrieve age
-                if(entry == null)
-                    return;
-                if(chartType.contains("Scatter") && recordColumn.contains("BMI")) {
-                    Toast.makeText(DataVisualizationActivity.this,
-                            "BMI of a child "/* + possibleAge[entry.getXIndex()]*/ + " years old = " + entry.getData(),
-                            Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, "BMI of a child "/* + possibleAge[entry.getXIndex()]*/ + " years old = " + entry.getData());
-                } else {
-                    // TODO EDIT TOAST
-                    Toast.makeText(DataVisualizationActivity.this,
-                            /*xData[entry.getXIndex()] + */" = " + entry.getData() + " children",
-                            Toast.LENGTH_SHORT).show();
-                    Log.v(TAG, /*xData[entry.getXIndex()] + */" = " + entry.getData() + " children");
-                }
-            }
-
-            @Override
-            public void onNothingSelected() {
-
-            }
-        };
-    }
-
-
-    private ArrayList<HorizontalBarChart> createOverviewCharts(ArrayList<HorizontalBarChart> charts) {
-        for (HorizontalBarChart chart: charts) {
-            chart = new HorizontalBarChart(this);
-            chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener());
-        }
-        return charts;
-    }
-
-    private void createStackedBarChart() {
-        /* create bar chart */
-        stackedBarChart = new HorizontalBarChart(this);
-        // set a chart value selected listener
-        stackedBarChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
-    }
-
-
-    /* prepare values specifically for piechart only */
-    private PieChart createPieChart() {
-        /* add pie chart */
-        PieChart pieChart = new PieChart(this);
-
-        // configure pie chart
-        pieChart.setUsePercentValues(true);
-
-        // enable hole and configure
-        pieChart.setDrawHoleEnabled(true);
-        pieChart.setHoleColor(Color.TRANSPARENT);
-        pieChart.setHoleRadius(7);
-        pieChart.setTransparentCircleRadius(100);
-
-        // enable rotation of the chart by touch
-        pieChart.setRotationAngle(0);
-        pieChart.setRotationEnabled(true);
-        // set a chart value selected listener
-        pieChart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
-
-        // customize legends
-        Legend l = pieChart.getLegend();
-//        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-        l.setWordWrapEnabled(true);
-        l.setTextSize(R.dimen.context_text_size); // TODO Dynamic Font
-        l.setTextColor(CHART_LEGEND_TEXT_COLOR);
-        l.setXEntrySpace(7);
-        l.setYEntrySpace(5);
-//        pieChart.getLegend().setEntries(); // TODO Set stack entry text
-
-        pieChart.getLegend().setEnabled(true); // TODO Temporarily removed legends
-        pieChart.setBackgroundColor(Color.WHITE);
-        return pieChart;
-    }
-
     private void prepareFilterList(String filter) {
         /* specify the filters used for this visualization */
         if(filter == null) {
@@ -1212,41 +944,9 @@ public class DataVisualizationActivity extends AppCompatActivity
         prepareRecord(recordsRight);
     }
 
-    public void addDatasetRefresh() { // TODO spinner dynamic
+    public void addDatasetRefresh() {
         hideGraphOverview();
         removeGraphViews();
-        int position = spChartType.getSelectedItemPosition();
-
-        // NOTE: DO NOT UNCOMMENT the code below.
-//        if(position == 0){ // Overview
-//            showGraphOverview();
-//            graphLayoutCenter.setVisibility(General.getVisibility(false));
-//            if(spRecordColumn != null) {
-//                spRecordColumn.setVisibility(General.getVisibility(false));
-//            }
-//        } else
-//        if(position == INDEX_PIE || position == INDEX_SCATTER) { // Pie Chart TODO commented out
-////            preparePieChart();
-//            getSpinnerFunction(position);
-//        }
-//        else if (position == 2) { // Bar Chart
-//            prepareBarChart();
-//        }
-//        else if (position == 3) { // Scatter Chart TODO Remove?
-//            prepareScatterChart();
-//        }
-
-        // hide control of right chart for scatter and bubble plot
-        // **edited, only show on Pie
-//        if(position == INDEX_PIE) { // TODO commented out
-//            spRightChart.setVisibility(View.VISIBLE);
-//            tvRightChart.setVisibility(View.VISIBLE);
-//        } else {
-//            spRightChart.setVisibility(View.GONE);
-//            tvRightChart.setVisibility(View.GONE);
-//        }
-
-//        refreshChartParams();
         refreshCharts();
     }
 
@@ -1274,38 +974,10 @@ public class DataVisualizationActivity extends AppCompatActivity
             }
         }
 
-        // TODO records right equivalent
-//        if(recordsRight == null) {
-//            prepareRightChartRecords(INDEX_NATIONAL);
-//        }
 
         /* close database after query */
         getBetterDb.closeDatabase();
     }
-
-//    private void prepareRightChartRecords() {
-//        DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
-//        /* ready database for reading */
-//        try {
-//            getBetterDb.openDatabaseForRead();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        /* get patient records from database */
-//        String year = date.substring(date.length()-4);
-//        if(rightChartContent.contains("National")) {
-//            recordsRight = getBetterDb.getAllRecordsOnYear(year);
-//        } else if(rightChartContent.contains("Region")){
-//            recordsRight = getBetterDb.getRecordsFromRegionOnYear(schoolID, year);
-//        } else if(rightChartContent.contains("Province")) {
-//            recordsRight = getBetterDb.getRecordsFromProvinceOnYear(schoolID, year);
-//        } else { // same municipality
-//            recordsRight = getBetterDb.getRecordsFromMunicipalityOnYear(schoolID, year);
-//        }
-//        Log.v(TAG, "right records size: "+recordsRight.size());
-//        /* close database after query */
-//        getBetterDb.closeDatabase();
-//    }
 
     private void prepareRightChartRecords(int comparisonType) {
         DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
@@ -1410,42 +1082,14 @@ public class DataVisualizationActivity extends AppCompatActivity
         getBetterDb.closeDatabase();
     }
 
-    private ArrayList<Integer> getColorPalette() {
-        ArrayList<Integer> colors = new ArrayList<>();
-
-        for(int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-
-        for(int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-
-        for(int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for(int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
-        for(int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        colors.add(ColorTemplate.getHoloBlue());
-
-        return colors;
-    }
-
     private void initializeStackedGraphOverview() {
-//        recordColumn = spRecordColumn.getItemAtPosition(0).toString();
-        recordColumns = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.record_column_array))); // Initialize columns to appear
-//        listRecordColumns = new ArrayList<String>(Arrays.asList(recordColumns));
+        recordColumns = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.record_column_array))); // Initialize columns to appear
 
-        // TODO add additional overviews here + corresponding params
-//        stackedBarCharts = new ArrayList<>();
         overviewEntries = new ArrayList<>();
         graphStackedBarCharts = new ArrayList<>();
 
         TextView title, focusTitle, focusValue;
 
-        // TODO Add new graph here
         // BMI
         title = findViewById(R.id.tv_bmi_graph_focus_title); // Note: R.id. naming was inverted, but this is correct (_focus_title is title)
         focusTitle = findViewById(R.id.tv_bmi_graph_title);
@@ -1521,17 +1165,18 @@ public class DataVisualizationActivity extends AppCompatActivity
         graphStackedBarCharts.add(graphFineMotorHold);
     }
 
-    private void computeOverviewParams(ArrayList<OverviewEntry> chartsEntries, ArrayList<ViewGroup.LayoutParams> params) {
-        params = new ArrayList<>();
+    private void computeOverviewParams(ArrayList<OverviewEntry> chartsEntries) {
+        ArrayList<ViewGroup.LayoutParams> params = new ArrayList<>();
         HorizontalBarChart chart;
         for(int i = 0; i < chartsEntries.size(); i++) {
             chart = chartsEntries.get(i).getStackedBarChart();
             params.add(chart.getLayoutParams());
 
-            params.get(i).height = graphStackedBarCharts.get(i).getHeight()+(int)overviewHeightIncrease; // ViewGroup.LayoutParams.MATCH_PARENT; TODO ADD CHART HEIGHT
+            float overviewHeightIncrease = 0f;
+            params.get(i).height = graphStackedBarCharts.get(i).getHeight()+(int) overviewHeightIncrease;
 
             params.get(i).width = ViewGroup.LayoutParams.MATCH_PARENT;
-            chart.setY(chart.getY()-(overviewHeightIncrease/2f));
+            chart.setY(chart.getY()-(overviewHeightIncrease /2f));
 
 //            chart.setX(computePercentHalf(chart.getWidth(), offsetPercent));
 //            chart.setY(computePercentHalf(chart.getHeight(), offsetPercent)/offsetYDivider);
@@ -1556,38 +1201,9 @@ public class DataVisualizationActivity extends AppCompatActivity
                     prepareNationalChartData();
                     loadSpecificBarChart(this.currentRecordColumn);
                     break;
-//                case INDEX_PIE:
-//                    preparePieChartData(pieChartLeft, yDataLeft);
-//                    preparePieChartData(pieChartRight, yDataRight);
-//                    break;
-                case INDEX_SCATTER:
-//                    prepareScatterChartData();
-                    break;
             }
         }
     }
-
-    private ArrayList<PieEntry> createPieEntries(int[] yData) {
-        ArrayList<PieEntry> yVals1 = new ArrayList<>();
-
-        for(int i = 0; i < yData.length; i++) {
-            yVals1.add(new PieEntry(yData[i], i));
-        }
-
-        return yVals1;
-    }
-
-    private ArrayList<Entry> createEntries(int[] yData) {
-        ArrayList<Entry> yVals1 = new ArrayList<>();
-
-        for(int i = 0; i < yData.length; i++) {
-            yVals1.add(new Entry(i, yData[i]));
-//            yVals1.add(new Entry(yData[i], i)); TODO edited
-        }
-
-        return yVals1;
-    }
-
 
     /**
      * Create a stacked bar graph for each entry in overviewEntries.
@@ -1601,7 +1217,7 @@ public class DataVisualizationActivity extends AppCompatActivity
             graphStackedBarCharts.get(i).addView(overviewEntries.get(i).getStackedBarChart());
         }
         // Then adjust the graph container's size
-        computeOverviewParams(overviewEntries, paramsOverview);
+        computeOverviewParams(overviewEntries);
     }
     private void prepareNationalChartData() {
         for(int i = 0; i < overviewEntries.size(); i++) {
@@ -1612,9 +1228,9 @@ public class DataVisualizationActivity extends AppCompatActivity
             graphStackedBarCharts.get(i).addView(overviewEntries.get(i).getStackedBarChart());
         }
         // Then adjust the graph container's size
-        computeOverviewParams(overviewEntries, paramsOverview);
+        computeOverviewParams(overviewEntries);
     }
-    private void loadSpecificBarChart(int recordIndex) { // TODO Implement
+    private void loadSpecificBarChart(int recordIndex) {
         this.currentRecordColumn = recordIndex;
         if(this.barSpecific != null) {
             this.barSpecific.clear();
@@ -1644,7 +1260,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         ChartDataValue chartDataValue = prepareChartData(recordType);
 
         this.barSpecific = new BarChart(this);
-        this.barSpecific.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Remove (?)
+        // this.barSpecific.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener());
         this.graphSpecificBarSingle.addView(this.barSpecific);
 
 
@@ -1669,11 +1285,6 @@ public class DataVisualizationActivity extends AppCompatActivity
         ArrayList<BarEntry> yValues1 = getMergedBarValues(pDataSchool, recordType);
         ArrayList<BarEntry> yValues2 = getMergedBarValues(pDataNational, recordType);
 
-        // TODO Use this for unmerged bar graphs
-//        ArrayList<BarEntry> yValues1 = getUnmergedBarValues(pDataSchool);
-//        ArrayList<BarEntry> yValues2 = getUnmergedBarValues(pDataNational);
-
-
 
         /* create bar chart dataset */
         BarDataSet barDataSetSchool = new BarDataSet(yValues1, "");
@@ -1681,20 +1292,15 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         // Set colors
         barDataSetSchool.setColors(ColorThemes.getMergedStackedColorSet(recordType));
-//        barDataSetNational.setColors(ColorThemes.getMergedStackedColorSet(recordType));
         barDataSetNational.setColors(General.getColorSetByCount(barDataSetNational.getEntryCount(), ColorThemes.cNational));
-//        barDataSetSchool.setColors(ColorThemes.getStackedColorSet(recordType));
-//        barDataSetNational.setColors(ColorThemes.getStackedColorSet(recordType));
 
 
         BarData barData = new BarData(barDataSetSchool, barDataSetNational);
-//        BarData barData = new BarData(barDataSetList);
-        //BarData barData = new BarData(xData, barDataSet);
         this.barSpecific.setData(barData);
         this.barSpecific.getAxisLeft().setEnabled(true);
         adjustSpecificBarChartParams();
 
-        formatBarSpecificAppearanceNational(barDataSetSchool, barDataSetNational, chartDataValue.getxData());
+        formatBarSpecificAppearanceNational(barDataSetSchool, barDataSetNational);
 
 
         // Adds "National Equivalent" in legend
@@ -1717,10 +1323,10 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         int[] legendColors = ColorThemes.getMergedStackedColorSet(recordType);
         ArrayList<Integer> colorList = General.convertToInteger(legendColors);
-        colorList.add(ColorThemes.cNational); // TODO change national color
+        colorList.add(ColorThemes.cNational);
         int[] legendColorsWithNational = General.convertToInteger(colorList);
 
-        prepareBarSpecificLegend(this.barSpecific, barLabelWithNational, legendColorsWithNational);
+        prepareBarSpecificLegend(barLabelWithNational, legendColorsWithNational);
 
 
         float groupSpace = 0.06f; // TODO declare properly somewhere, maybe make constant
@@ -1729,51 +1335,33 @@ public class DataVisualizationActivity extends AppCompatActivity
         barData.setBarWidth(barWidth); // (0.02 + 0.45) * 2 + 0.06 = 1.00 -> interval per "group"
 
         barSpecific.groupBars(-0.5f, groupSpace, barSpace); // perform the "explicit" grouping
-
-//        barSpecific.invalidate(); // refresh
-//        barSpecific.setTouchEnabled(true);
-
-// TODO color change on click
-//        int targetValueIndex = 0;
-//        int targetNameIndex = getRecordColumn(recordType);
-//        for(int i = 0; i < chartDataValue.getxData().length; i++) {
-//            if(chartDataValue.getxData()[i].equals(ValueCounter.targetValueIndices[targetNameIndex])) { // Find target value to be highlighted later
-//                targetValueIndex = i;
-//            }
-//        }
-//        int targetColor = ColorThemes.getStackedColorSet(recordType)[targetValueIndex];
-//        barSpecific.getData().getDataSets().get(0).getColors().set(targetValueIndex, targetColor);
-//        barSpecific.getData().getDataSets().get(1).getColors().set(targetValueIndex, targetColor);
         this.barSpecific.notifyDataSetChanged();
     }
 
     /**
      * Returns a list of BarEntries that merge certain values (e.g. in Visual Acuity, instead of the 20/200, 20/100 <...> it merges values so that it
      * will be Normal, Near-normal, Moderate Loss <...>
-     * @param pData
-     * @param recordType
-     * @return
      */
     public ArrayList<BarEntry> getMergedBarValues(float[] pData, String recordType) {
         ArrayList<BarEntry> yBarValues = new ArrayList<>();
-        ArrayList<Float> mergeContainer = new ArrayList<>();
+        // ArrayList<Float> mergeContainer = new ArrayList<>();
 
         float mergeSum = 0f;
         int index = 0;
         for(int i = 0; i < pData.length; i++) {
 
             if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.START) { // Check if value has to be merged (stacked, i.e. 20/25 to 20/5 in vision)
-                mergeContainer = new ArrayList<>();
-                mergeContainer.add(pData[i]);
+                // mergeContainer = new ArrayList<>();
+                // mergeContainer.add(pData[i]);
                 mergeSum = pData[i];
             }
             else if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.CONT) {
-                mergeContainer.add(pData[i]);
+                // mergeContainer.add(pData[i]);
                 mergeSum += pData[i];
             }
             else if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.END) {
 
-                mergeContainer.add(pData[i]);
+                // mergeContainer.add(pData[i]);
                 mergeSum += pData[i];
                 yBarValues.add(new BarEntry(index, mergeSum));
                 mergeSum = 0f;
@@ -1787,54 +1375,43 @@ public class DataVisualizationActivity extends AppCompatActivity
         return yBarValues;
     }
     public ArrayList<Float> getMergedFloatValues(float[] pData, String recordType) {
-        ArrayList<BarEntry> yBarValues = new ArrayList<>();
+        // ArrayList<BarEntry> yBarValues = new ArrayList<>();
         ArrayList<Float> mergeContainer = new ArrayList<>();
 
         float mergeSum = 0f;
-        int index = 0;
+        // int index = 0;
         for(int i = 0; i < pData.length; i++) {
 
             if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.START) { // Check if value has to be merged (stacked, i.e. 20/25 to 20/5 in vision)
-//                mergeContainer.add(pData[i]);
+
                 mergeSum = pData[i];
             }
             else if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.CONT) {
-//                mergeContainer.add(pData[i]);
                 mergeSum += pData[i];
             }
             else if(StringConstants.isMergeStartingIndex(recordType, i) == StringConstants.MergeType.END) {
 
-//                mergeContainer.add(pData[i]);
                 mergeSum += pData[i];
                 mergeContainer.add(mergeSum);
-                yBarValues.add(new BarEntry(index, mergeSum));
+                // yBarValues.add(new BarEntry(index, mergeSum));
                 mergeSum = 0f;
-                index ++;
+                // index ++;
             }
             else {
                 mergeContainer.add(pData[i]);
-                yBarValues.add(new BarEntry(index, pData[i]));
-                index ++;
+                // yBarValues.add(new BarEntry(index, pData[i]));
+                // index ++;
             }
         }
         return mergeContainer;
     }
-    public ArrayList<BarEntry> getUnmergedBarValues(float[] pData) {
-        ArrayList<BarEntry> yBarValues = new ArrayList<>();
-
-        for(int i = 0; i < pData.length; i++) {
-            yBarValues.add(new BarEntry(i, pData[i]));
-        }
-
-        return yBarValues;
-    }
 
     // Plug values into specific bar chart
-    private void prepareSpecificBarChartDataOverview(String recordType) { // TODO Implement
+    private void prepareSpecificBarChartDataOverview(String recordType) {
         ChartDataValue chartDataValue = prepareChartData(recordType);
 
         this.barSpecific = new BarChart(this);
-        this.barSpecific.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Remove (?)
+        // this.barSpecific.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener());
         this.graphSpecificBarSingle.addView(this.barSpecific);
 
 
@@ -1845,7 +1422,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 
         // Convert yData to float
         fDataSchool = General.convertToFloat(chartDataValue.getyDataLeft());
-//        fDataNational = General.convertToFloat(chartDataValue.getyDataRight());
 
         // Get yData sum
         fSumSchool = General.getArraySum(fDataSchool);
@@ -1872,25 +1448,23 @@ public class DataVisualizationActivity extends AppCompatActivity
         barDataSetList.add(barDataSet);
 
         BarData barData = new BarData(barDataSetList);
-        //BarData barData = new BarData(xData, barDataSet);
         this.barSpecific.setData(barData);
         this.barSpecific.getAxisLeft().setEnabled(true);
         this.barSpecific.getAxisRight().setEnabled(false);
-//        this.barSpecific.getAxisRight().setDrawAxisLine(true);
         adjustSpecificBarChartParams();
-        formatBarSpecificAppearance(barDataSet, chartDataValue.getxData());
+        formatBarSpecificAppearance(barDataSet);
 
 
-//        YAxis rightAxis = barSpecific.getAxisRight();
-//        YAxis leftAxis = barSpecific.getAxisLeft();
-        XAxis xAxis = barSpecific.getXAxis();
-        LimitLine limitLine = new LimitLine(barSpecific.getBarData().getEntryCount()-0.5f, ""); // TODO label
+        XAxis xAxis;
+        xAxis = barSpecific.getXAxis();
+        LimitLine limitLine;
+        limitLine = new LimitLine(barSpecific.getBarData().getEntryCount()-0.5f, "");
         limitLine.setLineColor(ColorThemes.cGray);
         limitLine.setLineWidth(0.1f);
         xAxis.addLimitLine(limitLine);
 
         String[] barLabels = StringConstants.getMergedLabels(recordType, chartDataValue.getxData());
-        prepareBarSpecificLegend(this.barSpecific, barLabels, ColorThemes.getMergedStackedColorSet(recordType));
+        prepareBarSpecificLegend(barLabels, ColorThemes.getMergedStackedColorSet(recordType));
         this.barSpecific.notifyDataSetChanged();
     }
 
@@ -1900,7 +1474,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
     }
 
-    private void prepareBarSpecificLegend(BarChart chart, String[] legendText, int[] colorThemes) {
+    @SuppressLint("InflateParams")
+    private void prepareBarSpecificLegend(String[] legendText, int[] colorThemes) {
         barSpecific.getLegend().setEnabled(false); // Show/hide color legends
 
         // Remove old legend contents
@@ -1912,6 +1487,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         for(int i = 0; i < legendText.length; i++) {
+            assert inflater != null;
             entry = (LinearLayout) inflater.inflate(R.layout.item_bar_specific_legend, null);
             entryText = entry.findViewById(R.id.tv_legend_text);
             entryColor = entry.findViewById(R.id.iv_legend_color);
@@ -1919,35 +1495,22 @@ public class DataVisualizationActivity extends AppCompatActivity
             entryColor.setBackgroundColor(colorThemes[i]);
             (this.llBarSpecificLabels.get(i)).addView(entry);
         }
-//        List<LegendEntry> entries = new ArrayList<LegendEntry>();
-//        LegendEntry entry;
-//        for(int i = 0; i < legendText.length; i++) {
-//            entry = new LegendEntry();
-//            entry.label = legendText[i];
-//            entry.formColor = colorThemes[i];
-//            entries.add(entry);
-//            Log.e("LEGEND", ": "+legendText[i]);
-//
-//        }
-//        Legend legend = chart.getLegend();
-//        legend.setCustom(entries);
-//        barSpecific.getLegend().setWordWrapEnabled(true);
     }
-    private void formatBarSpecificAppearanceNational(BarDataSet setSchool, BarDataSet setNational, String[] xLabels) {
+    private void formatBarSpecificAppearanceNational(BarDataSet setSchool, BarDataSet setNational) {
         setSchool.setBarBorderWidth(0.5f);
         setSchool.setBarBorderColor(ColorThemes.cLightGray);
 
         setNational.setBarBorderWidth(0.5f);
         setNational.setBarBorderColor(ColorThemes.cLightGray);
 
-        formatBarSpecificNationalAxis(this.barSpecific, xLabels);
+        formatBarSpecificNationalAxis(this.barSpecific);
     }
-    private void formatBarSpecificAppearance(BarDataSet set, String[] xLabels) {
+    private void formatBarSpecificAppearance(BarDataSet set) {
         set.setBarBorderWidth(0.5f);
         set.setBarBorderColor(ColorThemes.cLightGray);
-        formatBarSpecificAxis(this.barSpecific, xLabels);
+        formatBarSpecificAxis(this.barSpecific);
     }
-    private void formatBarSpecificNationalAxis(BarChart chart, String[] xLabels) {
+    private void formatBarSpecificNationalAxis(BarChart chart) {
 
         chart.getDescription().setEnabled(false);
 
@@ -1998,7 +1561,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         int barCount = (chart.getBarData().getEntryCount()/2)+1;
         int index = -1;
         for(int i = 0; i < barCount; i++) {
-            limitLine = new LimitLine(index*linePosition, ""); // TODO label
+            limitLine = new LimitLine(index*linePosition, "");
             index += 2;
             limitLine.setLineColor(ColorThemes.cGray);
             limitLine.setLineWidth(0.1f);
@@ -2016,11 +1579,10 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        chart.setVisibleYRangeMaximum(100f, YAxis.AxisDependency.LEFT);
 //        chart.getAxisLeft().setAxisMaximum(100f);
 //        chart.getAxisLeft().setAxisMinimum(0f);
-
     }
 
 
-    private void formatBarSpecificAxis(BarChart chart, String[] xLabels) {
+    private void formatBarSpecificAxis(BarChart chart) {
 
         chart.getDescription().setEnabled(false);
 
@@ -2061,39 +1623,6 @@ public class DataVisualizationActivity extends AppCompatActivity
         // xAXIS LABELS
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
-//        xDataContainer = xLabels;
-//        xAxis.setValueFormatter(new IAxisValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float v, AxisBase axisBase) {
-//                return xDataContainer[(int) v];
-//            }
-//        });
-
-
-//        chart.setViewPortOffsets(0f, 0f,0f,0f);
-//        xAxis.setValueFormatter(new StackedBarChartIAxisFormatter(values));
-//        xAxis.setLabelCount(1, true);
-
-
-        // Y Axis
-//        LimitLine llStart, llEnd;
-//        llStart = new LimitLine(100, "100"); // TODO label
-//        llStart.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
-//        llStart.setLineColor(ColorThemes.cLightGray);
-//        llStart.setLineWidth(1f);
-//        llStart.setTextColor(Color.BLACK);
-//        llStart.setTextSize(VALUE_TEXT_SIZE);
-//        leftAxis.addLimitLine(llStart);
-
-//        llEnd = new LimitLine(100f, ""); // TODO Label
-//        llEnd.setLineColor(llStart.getLineColor());
-//        llEnd.setLineWidth(1f);
-//        llEnd.setTextColor(llStart.getTextColor());
-//        llEnd.setTextSize(VALUE_TEXT_SIZE);
-//        leftAxis.addLimitLine(llEnd);
-
-
 
         chart.setScaleEnabled(false);
         chart.setDoubleTapToZoomEnabled(false);
@@ -2104,7 +1633,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 //        chart.setVisibleYRangeMaximum(100f, YAxis.AxisDependency.LEFT);
 //        chart.getAxisLeft().setAxisMaximum(100f);
 //        chart.getAxisLeft().setAxisMinimum(0f);
-
     }
 
 
@@ -2112,12 +1640,9 @@ public class DataVisualizationActivity extends AppCompatActivity
     private void adjustSpecificBarChartParams() {
         ViewGroup.LayoutParams params = this.barSpecific.getLayoutParams();
 
-        params.height = ViewGroup.LayoutParams.MATCH_PARENT;//this.graphSpecificBarSingle.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
+        params.height = ViewGroup.LayoutParams.MATCH_PARENT; // this.graphSpecificBarSingle.getHeight(); // ViewGroup.LayoutParams.MATCH_PARENT;
         params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-//            chart.setMinimumHeight(graphStackedBarCharts.get(i).getLayoutParams().height);
-//            chart.setMinimumWidth(graphStackedBarCharts.get(i).getLayoutParams().width);
-//        this.barSpecific.setY(this.barSpecific.getY()-(overviewHeightIncrease/2f));
-//        this.barSpecific.setBackgroundColor(Color.TRANSPARENT); // TODO Remove or make White
+//        this.barSpecific.setBackgroundColor(Color.TRANSPARENT);
     }
 
     private void switchSubtitleMode() {
@@ -2189,21 +1714,11 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     /**
      * For multi-value sorting (national/municipal). Sort and get highest value of mData then sort mDataNational accordingly.
-     * @param recordType
-     * @param mData
-     * @param mapValues
-     * @param mDataNational
-     * @param mapValuesNational
-     * @param barLabels
-     * @return
      */
     private void adjustToHighlightMode(String recordType,
                                        ArrayList<Float> mData,
-                                       HashMap<String, Float> mapValues,
                                        HashMap<Float, String> mapLabels,
                                        ArrayList<Float> mDataNational,
-                                       HashMap<String, Float> mapValuesNational,
-                                       HashMap<Float, String> mapNationalLabels,
                                        String[] barLabels) {
 
         switch (this.subtitleMode) {
@@ -2211,7 +1726,8 @@ public class DataVisualizationActivity extends AppCompatActivity
                 Collections.sort(mData); // Sort ascending
                 Collections.reverse(mData); // Reverse to get descending
 
-                int highestindex = StringConstants.getLabelIndexOf(recordType, mapLabels.get(mData.get(0)));
+                int highestindex;
+                highestindex = StringConstants.getLabelIndexOf(recordType, mapLabels.get(mData.get(0)));
                 Collections.swap(mDataNational, 0, highestindex);
                 break;
             case SHOW_TARGET: // Move target value to index 0
@@ -2241,9 +1757,11 @@ public class DataVisualizationActivity extends AppCompatActivity
         ChartDataValue chartDataValue = prepareChartData(recordType);
 //        Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
-        chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Removed
-        // Variables to hold the converted yData (from int to float) and sum
-        float[] fDataSchool, fDataNational, pDataSchool;
+        /*
+        chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener());
+        Variables to hold the converted yData (from int to float) and sum
+        */
+        float[] fDataSchool, pDataSchool;
         ArrayList<Float> mDataSchool;
         float fSumSchool;
 
@@ -2279,7 +1797,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         List<IBarDataSet> barDataSetList = new ArrayList<>();
 
         barDataSetList.add(set);
-        BarData data = new BarData(barDataSetList); // TODO X Values
+        BarData data = new BarData(barDataSetList);
         chart.setData(data);
 
         overviewEntry.setStackedBarChart(chart);
@@ -2289,7 +1807,7 @@ public class DataVisualizationActivity extends AppCompatActivity
                 recordType,
                 overviewEntry,
                 mapLabels,
-                set, fDataSchool, mDataSchool); // Edit stack bar appearance
+                set, mDataSchool); // Edit stack bar appearance
 
         chart.notifyDataSetChanged(); // Call this to reflect chart data changes
 
@@ -2302,13 +1820,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         }
         return map;
     }
-    private HashMap<Float, String> mapValuesToLabelsProtected(String recordType, ArrayList<Float> listValues, String[] listLabels) {
-        HashMap<Float, String> map = new HashMap<>();
-        for(int i = 0; i < listValues.size(); i++) {
-            map.put(listValues.get(i)+StringConstants.getLabelIndexOf(recordType, listLabels[i]), listLabels[i]);
-        }
-        return map;
-    }
+
     private HashMap<String, Float> mapLabelsToValues(String[] listLabels, ArrayList<Float> listValues) {
         HashMap<String, Float> map = new HashMap<>();
         for(int i = 0; i < listValues.size(); i++) {
@@ -2324,7 +1836,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         ChartDataValue chartDataValue = prepareChartData(recordType);
 //        Log.e("RECORD", recordType);
         chart = new HorizontalBarChart(this);
-        chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener()); // TODO Removed
+        // chart.setOnChartValueSelectedListener(getOverviewOnChartValueSelectedListener());
 
         // Variables to hold the converted yData (from int to float) and sum
         float[] fDataSchool, fDataNational,
@@ -2352,35 +1864,35 @@ public class DataVisualizationActivity extends AppCompatActivity
         mDataSchool = getMergedFloatValues(pDataSchool, recordType);
         mDataNational = getMergedFloatValues(pDataNational, recordType);
 
-        HashMap<Float, String> mapSchoolValues, mapNationalValues; // TODO do something about same-valued entries (i.e. Normal and Abnormal are both 50)
-        HashMap<String, Float> mapSchoolLabels, mapNationalLabels;
+        HashMap<Float, String> mapSchoolValues; // TODO do something about same-valued entries (i.e. Normal and Abnormal are both 50)
+        // HashMap<String, Float> mapSchoolLabels, mapNationalLabels;
         mapSchoolValues = mapValuesToLabels(mDataSchool, barLabels);
-        mapNationalValues = mapValuesToLabels(mDataNational, barLabels);
+        // mapNationalValues = mapValuesToLabels(mDataNational, barLabels);
 
-        mapSchoolLabels = mapLabelsToValues(barLabels, mDataSchool);
-        mapNationalLabels = mapLabelsToValues(barLabels, mDataNational);
+        // mapSchoolLabels = mapLabelsToValues(barLabels, mDataSchool);
+        // mapNationalLabels = mapLabelsToValues(barLabels, mDataNational);
 
 
         Log.e("Adjust", "1 "+mDataSchool.get(0)+" "+mDataNational.get(0));
         // Sort collections to descending order
-        adjustToHighlightMode(recordType, mDataSchool, mapSchoolLabels, mapSchoolValues, mDataNational, mapNationalLabels, mapNationalValues, barLabels);
-        Log.e("Adjust", "2 "+mDataSchool.get(0)+" "+mDataNational.get(0));
+        adjustToHighlightMode(recordType, mDataSchool, mapSchoolValues, mDataNational, barLabels);
 
-        String targetValueLabel = mapSchoolValues.get(mDataSchool.get(0)); // StringConstants.getTargetLabel(recordType);
+        Log.e("Adjust", "2 "+mDataSchool.get(0)+" "+mDataNational.get(0));
+        String targetValueLabel;
+        if(this.subtitleMode == SubtitleMode.SHOW_TARGET) {
+            targetValueLabel = StringConstants.getTargetLabel(recordType);
+        }
+        else {
+            targetValueLabel = mapSchoolValues.get(mDataSchool.get(0)); // StringConstants.getTargetLabel(recordType);
+        }
         overviewEntry.getTvFocusTitle().setText(targetValueLabel);
 
-
-//        Collections.sort(mDataSchool);
-//        Collections.reverse(mDataSchool);
-//        Collections.sort(mDataNational);
-//        Collections.reverse(mDataNational);
 
         // Stacked bar entries. xIndex 0 is the bottom
         List<BarEntry> entries = new ArrayList<>();
 
 //        BarEntry schoolData = new BarEntry(1f, mapSchoolLabels.get(targetValueLabel));
         BarEntry schoolData = new BarEntry(1f, mDataSchool.get(0)); // Assumes sorted
-//        BarEntry schoolData = new BarEntry(1f, mDataSchool[targetValueIndex]);
         entries.add(schoolData); // School
 
         BarEntry nationalData = new BarEntry(0f, mDataNational.get(0)); // Assumes sorted
@@ -2394,16 +1906,9 @@ public class DataVisualizationActivity extends AppCompatActivity
         List<IBarDataSet> barDataSetList = new ArrayList<>();
 
         barDataSetList.add(set);
-        BarData data = new BarData(barDataSetList); // TODO X Values
+        BarData data = new BarData(barDataSetList);
         chart.setData(data);
         overviewEntry.setStackedBarChart(chart);
-
-//        formatNationalBarAppearance(
-//                recordType,
-//                targetValueLabel,
-//                overviewEntry,
-//                barLabels,
-//                set, mapSchoolLabels.get(targetValueLabel), mapNationalLabels.get(targetValueLabel)); // Edit stack bar appearance
 
         formatNationalBarAppearance(
                 recordType,
@@ -2416,12 +1921,8 @@ public class DataVisualizationActivity extends AppCompatActivity
         chart.getXAxis().setDrawGridLines(false);
         chart.getXAxis().setGridColor(Color.WHITE);
 
-
-//        chart.getXAxis().setLabelCount(2, true);
-
         chart.setBorderColor(Color.WHITE);
         chart.notifyDataSetChanged(); // Call this to reflect chart data changes
-
 
         return chart;
     }
@@ -2440,7 +1941,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         barData.setValueFormatter(new StackedBarChartValueFormatter()); // Format values to ###.##% as specified i the passed parameter class
 
         // Set stack colors here
-        barData.setColors(General.getColorSetLightGray(2)); // TODO Dynamic colors
+        barData.setColors(General.getColorSetLightGray(2));
 
         barData.setStackLabels(xData);
         YAxis leftAxis = chart.getAxisLeft();
@@ -2470,12 +1971,14 @@ public class DataVisualizationActivity extends AppCompatActivity
         // Highlight % text if school > national
         if(pDataSchool > pDataNational) {
             // Set focus value to school value
-            chartFocusValue.setText(""+roundedPercentValueSchool+"%");
+            String chartText = ""+roundedPercentValueSchool+"%";
+            chartFocusValue.setText(chartText);
             chartFocusValue.setTextColor(barData.getColors().get(0));
         }
         else {
             // Set focus value to national value
-            chartFocusValue.setText(""+roundedPercentValueNational+"%");
+            String chartText = ""+roundedPercentValueNational+"%";
+            chartFocusValue.setText(chartText);
             chartFocusValue.setTextColor(ColorThemes.cNational);
         }
         chart.setBackgroundColor(Color.TRANSPARENT);
@@ -2505,13 +2008,10 @@ public class DataVisualizationActivity extends AppCompatActivity
         xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
 
 
-//        xAxis.setValueFormatter(new StackedBarChartIAxisFormatter(values));
-//        xAxis.setLabelCount(1, true);
-
         // Y Axis
         YAxis leftAxis = chart.getAxisLeft();
         LimitLine llStart, llEnd;
-        llStart = new LimitLine(0f, ""); // TODO label
+        llStart = new LimitLine(0f, "");
         llStart.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
         llStart.setLineColor(Color.GRAY);
         llStart.setLineWidth(1f);
@@ -2519,7 +2019,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         llStart.setTextSize(VALUE_TEXT_SIZE);
         leftAxis.addLimitLine(llStart);
 
-        llEnd = new LimitLine(100f, ""); // TODO Label
+        llEnd = new LimitLine(100f, "");
         llEnd.setLineColor(llStart.getLineColor());
         llEnd.setLineWidth(1f);
         llEnd.setTextColor(llStart.getTextColor());
@@ -2529,28 +2029,17 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 
         chart.setViewPortOffsets(0f, 0f,0f,0f);
-//        chart.setScaleEnabled(false);
-//        chart.setDoubleTapToZoomEnabled(false);
-//        chart.setPinchZoom(false);
-//        chart.setAutoScaleMinMaxEnabled(false);
         chart.setTouchEnabled(false);
 
         chart.getAxisLeft().setAxisMaximum(100f);
         chart.getAxisLeft().setAxisMinimum(0f);
-//        chart.fitScreen();
 
     }
 
     /**
      * Formats the stacked bar chart appearance (for overview). Calls formatStackedBarAxis.
-     * @param recordName
-     * @param overviewEntry
-     * @param mapLabels
-     * @param barData
-     * @param rawData
-     * @param percentData
      */
-    private void formatStackBarAppearance(String recordName, OverviewEntry overviewEntry, HashMap<Float, String> mapLabels, BarDataSet barData, float[] rawData, ArrayList<Float> percentData) {
+    private void formatStackBarAppearance(String recordName, OverviewEntry overviewEntry, HashMap<Float, String> mapLabels, BarDataSet barData, ArrayList<Float> percentData) {
         HorizontalBarChart chart = overviewEntry.getStackedBarChart();
         TextView chartFocus = overviewEntry.getTvFocusTitle();
         TextView chartFocusValue = overviewEntry.getTvFocusValue();
@@ -2560,7 +2049,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         barData.setValueFormatter(new StackedBarChartValueFormatter()); // Format values to ###.##% as specified i the passed parameter class
 
         // Set stack colors here
-        barData.setColors(General.getColorSetLightGray(percentData.size())); // TODO Dynamic colors
+        barData.setColors(General.getColorSetLightGray(percentData.size()));
 
         barData.setStackLabels(xData);
         YAxis leftAxis = chart.getAxisLeft();
@@ -2582,41 +2071,40 @@ public class DataVisualizationActivity extends AppCompatActivity
                 line.setLineColor(Color.WHITE);
                 leftAxis.addLimitLine(line);
             }
-
-//            if(percentData.get(highestValueIndex) < percentData.get(i)) { // Find highest value to be highlighted later
-//                highestValueIndex = i;
-//            }
         }
 
         int roundedPercentValue = Math.round(percentData.get(0)); // Percent data is sorted in descending (on the function that called this)
 
         // Set focus value to highest value
-        chartFocusValue.setText(""+roundedPercentValue+"%");
-//        chartFocus.setText(StringConstants.getEditedFocusLabel(recordName, mapLabels.get(percentData.get(0)), highestValueIndex)); // Assume sorted
-        chartFocus.setText(mapLabels.get(percentData.get(0))); // Assume sorted
-//        chartFocus.setText(StringConstants.getEditedFocusLabel(recordName, mapLabels.get(percentData[highestValueIndex]), highestValueIndex));
-//        chartFocus.setText(xLabels[highestValueIndex]);
-
+        String strPercent = ""+roundedPercentValue+"%";
+        String targetLabel;
+        chartFocusValue.setText(strPercent);
+        if(this.subtitleMode == SubtitleMode.SHOW_TARGET) {
+            targetLabel = StringConstants.getTargetLabel(recordName);
+        }
+        else {
+            targetLabel = mapLabels.get(percentData.get(0));
+        }
+        chartFocus.setText(targetLabel); // Assume sorted
 
         formatStackedBarAxis(chart);
-//        Log.e("mapLabels", "percentData "+mapLabels.get(percentData.get(0))+" ");
-        int highlightColor = ColorThemes.getMergedStackedColor(recordName, mapLabels.get(percentData.get(0))); // Assumes sorted
-        // TODO length check for color
+        // int highlightColor = ColorThemes.getMergedStackedColor(recordName, mapLabels.get(percentData.get(0))); // Assumes sorted
+        int highlightColor = ColorThemes.getMergedStackedColor(recordName, targetLabel); // Assumes sorted
         barData.getColors().set(0, highlightColor);
+
+        // In Overview, highlight percent greater than 60f
+        float highlightPercentThreshold = 60f;
         if(roundedPercentValue > highlightPercentThreshold) {
             chartFocusValue.setTextColor(highlightColor);
         }
         else {
             chartFocusValue.setTextColor(ColorThemes.cPrimaryDark);
         }
-
-
         chart.setBackgroundColor(Color.TRANSPARENT);
     }
 
     /**
      * Edits (hides) the grid and axis of the stacked bar chart. Called by formatStackBarAppearance.
-     * @param chart
      */
     private void formatStackedBarAxis(HorizontalBarChart chart) {
         chart.getDescription().setEnabled(false);
@@ -2635,19 +2123,15 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 
         // X Axis
-//        String[] values = new String[] {"School"};
         XAxis xAxis = chart.getXAxis();
         xAxis.setDrawLabels(false);
         xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
 
 
-//        xAxis.setValueFormatter(new StackedBarChartIAxisFormatter(values));
-//        xAxis.setLabelCount(1, true);
-
         // Y Axis
         YAxis leftAxis = chart.getAxisLeft();
         LimitLine llStart, llEnd;
-        llStart = new LimitLine(0f, ""); // TODO label
+        llStart = new LimitLine(0f, "");
         llStart.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
         llStart.setLineColor(Color.GRAY);
         llStart.setLineWidth(1f);
@@ -2655,7 +2139,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         llStart.setTextSize(VALUE_TEXT_SIZE);
         leftAxis.addLimitLine(llStart);
 
-        llEnd = new LimitLine(100f, ""); // TODO Label
+        llEnd = new LimitLine(100f, "");
         llEnd.setLineColor(llStart.getLineColor());
         llEnd.setLineWidth(1f);
         llEnd.setTextColor(llStart.getTextColor());
@@ -2677,93 +2161,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     }
 
-    private void preparePieChartData(PieChart pieChart, int[] yData) {
-//        ArrayList<Entry> yVals1 = createEntries(yData); TODO deprecated
-        List<PieEntry> yVals1 = createPieEntries(yData);
-
-        // create pie data set
-//        PieDataSet dataSet = new PieDataSet(yVals1, ""); TODO deprecated
-        PieDataSet dataSet = new PieDataSet(yVals1, "");
-        dataSet.setSliceSpace(3);
-        dataSet.setSelectionShift(5);
-        /* add colors to chart */
-        dataSet.setColors(getColorPalette());
-
-        // instantiate pie data object now
-//        PieData data = new PieData(xData, dataSet); // TODO deprecated
-        PieData data = new PieData(dataSet);
-
-        data.setValueFormatter(new PercentFormatter());
-        data.setValueTextSize(VALUE_TEXT_SIZE); // TODO Pie chart label size
-
-        data.setValueTextColor(Color.GRAY);
-
-        pieChart.setData(data);
-
-//        pieChart.setDescription(recordColumn); TODO deprecated
-//        pieChart.setDescriptionTextSize(DESCRIPTION_TEXT_SIZE);
-//        pieChart.setDescriptionColor(CHART_DESC_TEXT_COLOR);
-
-        Description description = new Description();
-        description.setText(recordColumn);
-        description.setTextSize(DESCRIPTION_TEXT_SIZE);
-        description.setTextColor(CHART_DESC_TEXT_COLOR);
-        pieChart.setDescription(description);
-
-
-        // undo all highlights
-        pieChart.highlightValues(null);
-
-        // update pie chart
-        pieChart.invalidate();
-    }
-
-    private void customizeChart(Chart chart, YAxis yAxis) {
-//        Description description = new Description();
-//        description.setText(recordColumn);
-//        description.setTextSize(20f);
-//        description.setTextColor(Color.WHITE);
-//        chart.setDescription(description);
-
-
-        Description description = new Description();
-        description.setText(recordColumn);
-        description.setTextSize(DESCRIPTION_TEXT_SIZE);
-        description.setTextColor(CHART_DESC_TEXT_COLOR);
-        chart.setDescription(description);
-
-//        chart.setDescription(recordColumn); TODO deprecated
-//        chart.setDescriptionTextSize(DESCRIPTION_TEXT_SIZE);
-//        chart.setDescriptionColor(CHART_DESC_TEXT_COLOR);
-
-
-        chart.setOnChartValueSelectedListener(getOnChartValueSelectedListener());
-
-        ChartData chartData = chart.getData();
-        List<IDataSet> iDataSetList = chartData.getDataSets();
-        /* customize value lable for each dataset */
-        for(int i = 0; i < iDataSetList.size(); i++) {
-            iDataSetList.get(i).setValueTextSize(VALUE_TEXT_SIZE); // TODO Value text size
-            iDataSetList.get(i).setValueTextColor(CHART_VALUE_TEXT_COLOR);
-        }
-        /* customize axis labels */
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setTextSize(AXIS_TEXT_SIZE);
-        xAxis.setTextColor(CHART_AXIS_TEXT_COLOR);
-//        xAxis.setValueFormatter(new IAxisValueFormatter() {
-//            @Override
-//            public String getFormattedValue(float v, AxisBase axisBase) {
-//                Log.v(TAG, "Float Value: "+v);
-//                return xData[(int) v];
-//            }
-//        });
-        yAxis.setTextSize(AXIS_TEXT_SIZE);
-        yAxis.setTextColor(CHART_AXIS_TEXT_COLOR);
-        /* customize legend */
-        Legend legend = chart.getLegend();
-        legend.setTextSize(LEGEND_TEXT_SIZE);
-        legend.setTextColor(CHART_LEGEND_TEXT_COLOR);
-    }
     public void removeAllFilters() {
         resetFilterParameters();
         clearAllFilters();
@@ -2815,10 +2212,6 @@ public class DataVisualizationActivity extends AppCompatActivity
 
     /**
      * Filter records as specified by filter dialog.
-     * @param ageEquator
-     * @param ageValue
-     * @param genderValue
-     * @param gradeLevelValue
      */
     public void filterRecords(String ageEquator, String ageValue, String genderValue, String gradeLevelValue) {
         //Log.d(AddFilterDialogFragment.TAG, "Filter: age "+ageEquator+" "+ageValue);
@@ -2841,7 +2234,7 @@ public class DataVisualizationActivity extends AppCompatActivity
             filterRecordsByAge(recordsRight, ageEquator, ageValue);
 
             prepareFilterList("age "+ageEquator+" "+ageValue);
-            strFilter += "age "+ageEquator.toString()+" "+ageValue;
+            strFilter += "age "+ageEquator+" "+ageValue;
             filterCount ++;
         }
         if(!genderValue.trim().contentEquals("N/A")) {
@@ -2895,11 +2288,8 @@ public class DataVisualizationActivity extends AppCompatActivity
 
 
     public void filterRightRecords(String ageEquator, String ageValue, String genderValue, String gradeLevelValue) {
-        //Log.d(AddFilterDialogFragment.TAG, "Filter: age "+ageEquator+" "+ageValue);
-        Log.v(TAG, "grade level value = "+gradeLevelValue +"(before filtering)");
+        // Log.v(TAG, "grade level value = "+gradeLevelValue +"(before filtering)");
 
-        String strFilter = "";
-        int filterCount = 0;
         /* filter records*/
         if(!ageValue.trim().contentEquals("")) {
             filterRecordsByAge(recordsRight, ageEquator, ageValue);
@@ -2928,9 +2318,6 @@ public class DataVisualizationActivity extends AppCompatActivity
                 i--;
             }
         }
-//        for(int i = 0; i < records.size(); i++) {
-//            Log.d(TAG, "Filtered Gender = "+records.get(i).getGender());
-//        }
     }
 
     private void filterRecordsByAge(ArrayList<PatientRecord> records, String filterEquator, String filterValue) {
@@ -2951,13 +2338,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         int endIndex;
         ArrayList<PatientRecord> tempArray = new ArrayList<>();
 
-//        if(index != -1) {
-//            int endIndex = getIndexByProperty(records,value+1, FILTER_EQUALS); // TODO uncomment?
-//        int endIndex = getIndexByProperty(records,value+1, FILTER_EQUALS); // For equals
-//            if(filterEquator.trim().contains(FILTER_EQUALS) && endIndex == -1) {
-//                tempArray.addAll(records.subList(index, records.size()-1));
-//            } else {
-        Log.d(TAG, "Index operator: "+ filterEquator.trim());
+        // Log.d(TAG, "Index operator: "+ filterEquator.trim());
             switch(filterEquator.trim()) {
                 case FILTER_EQUALS:
                     index = getIndexByProperty(records, value, FILTER_EQUALS);
@@ -2965,9 +2346,9 @@ public class DataVisualizationActivity extends AppCompatActivity
                     endIndex = getIndexByProperty(records,value+1, FILTER_EQUALS);
                     if(index != -1 && endIndex != -1) {
                         tempArray.addAll(records.subList(index, endIndex));
-//                        tempArray.addAll(records.subList(index, records.size()-1));
+                        // tempArray.addAll(records.subList(index, records.size()-1));
                     }
-                    else if(index != -1 && endIndex == -1){
+                    else if(index != -1){ // && endIndex == -1
                         tempArray.addAll(records.subList(index, records.size()-1));
                     }
                     else {
@@ -3000,46 +2381,11 @@ public class DataVisualizationActivity extends AppCompatActivity
                     else {
                         Toast.makeText(this, "There is no one with that age!", Toast.LENGTH_SHORT).show();
                     }
-
-//                    tempArray.addAll(records.subList(index, records.size() - 1)); // ">"
-//                        tempArray.addAll(records.subList(index, records.size() - 1)); // ">"
                     break;
             }
-//                tempArray.addAll(records.subList(index, endIndex));
-//            }
 
-            // TODO uncomment?
-//            if(filterEquator.contains(FILTER_EQUALS)) { // "="
-//                int endIndex = getIndexByProperty(records,value+1, FILTER_EQUALS);
-//                if(endIndex == -1) {
-//                    tempArray.addAll(records.subList(index, records.size()-1));
-//                } else {
-//                    tempArray.addAll(records.subList(index, endIndex));
-//                }
-//            }
-//            if(filterEquator.contains(FILTER_LESS_THAN)) { // "<"
-//                tempArray.addAll(records.subList(0, index));
-//            } else if(filterEquator.contains(FILTER_GREATER_THAN)) { // ">"
-//                tempArray.addAll(records.subList(index, records.size() - 1));
-//            }
-//        if(tempArray.size() == 0) {
-//            Toast.makeText(this, "There is no one with that age!", Toast.LENGTH_SHORT).show();
-//        }
         records.clear();
         records.addAll(tempArray);
-//            for(int i = 0; i < records.size(); i++) {
-//                Log.d(TAG, "Age: "+ records.get(i).getAge());
-//            }
-//        }
-//        else {
-            // TODO test only, remove
-//            records.clear();
-//            records.addAll(tempArray);
-//            Toast.makeText(this, "There is no one with that age!", Toast.LENGTH_SHORT).show();
-//        }
-
-        // Also filter comparison equivalent
-//        filterRecordsByAgeComparison(filterEquator, filterValue);
     }
 
     /* Get index of the first record with the specified age value*/
@@ -3052,9 +2398,6 @@ public class DataVisualizationActivity extends AppCompatActivity
             if(condition) {
                 return i;
             }
-//            if(records.get(i).getAge() == value) {
-//                return i;
-//            }
         }
         return -1;
     }
@@ -3097,12 +2440,9 @@ public class DataVisualizationActivity extends AppCompatActivity
     }
     @Override
     public void removeFilter(ArrayList<PatientRecord> records, String filter) {
-//        prepareRecord();
-//        Log.d(TAG, "Removed Filter: "+filter);
-//        filterList.remove(filter);
 
         if(filterList.size() > 0) {
-            String filterLeft = filterList.get(0);
+            String filterLeft;
             for(int i = 0; i < filterList.size(); i++) {
                 filterLeft = filterList.get(i);
                 Log.d(TAG, "Filter Left: "+filterLeft);
@@ -3115,8 +2455,7 @@ public class DataVisualizationActivity extends AppCompatActivity
                 }
             }
         }
-        Log.d(TAG, "Displayed records: "+ records.size());
-
+        // Log.d(TAG, "Displayed records: "+ records.size());
         refreshCharts();
     }
 
@@ -3125,7 +2464,7 @@ public class DataVisualizationActivity extends AppCompatActivity
         clickRemoveFilter();
         int selectedDatasetIndex = dialog.getSelectedDatasetIndex();
         Dataset dataset = datasets.get(selectedDatasetIndex);
-        //dataset.printDataset();
+        // dataset.printDataset();
         addDatasetToList(dataset.getSchoolName(), dataset.getDateCreated());
     }
 

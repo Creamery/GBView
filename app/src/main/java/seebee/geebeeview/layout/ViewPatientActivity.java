@@ -1096,24 +1096,27 @@ public class ViewPatientActivity extends AppCompatActivity {
             }
         }
 
+        // Draw ideal value lines
+        if(addIdealValues) {
+            if(n3Dataset_severeThinness != null)
+                customizeLineChart(listAge, recordValue, n3Dataset_severeThinness, 2, ColorThemes.cBMI_Graph_SevereThinness);
+            if(n2Dataset_thinness != null)
+                customizeLineChart(listAge, recordValue, n2Dataset_thinness, 3, ColorThemes.cBMI_Graph_Thinness);
+            if(n1Dataset_underweight != null)
+                customizeLineChart(listAge, recordValue, n1Dataset_underweight, 4, ColorThemes.cBMI_Graph_Underweight);
+            if(medianDataset_normal != null)
+                customizeLineChart(listAge, recordValue, medianDataset_normal, 5, ColorThemes.cBMI_Graph_Normal);
+            if(p1Dataset_overweight != null)
+                customizeLineChart(listAge, recordValue, p1Dataset_overweight, 6, ColorThemes.cBMI_Graph_Overweight);
+            if(p2Dataset_obesity != null)
+                customizeLineChart(listAge, recordValue, p2Dataset_obesity, 7, ColorThemes.cBMI_Graph_Obese);
+        }
+
+
 //        Log.e("PATIENTRECORDS", recordValue+" "+patientDataset.getEntryCount()+"");
         customizeLineChart(listAge, recordValue, patientDataset, 1, ColorThemes.cPrimaryDark);
         customizeLineChart(listAge, recordValue, averageDataset, 0, ColorThemes.cTealDefaultDark);
 
-        if(addIdealValues) {
-            if(n3Dataset_severeThinness != null)
-                customizeLineChart(listAge, recordValue, n3Dataset_severeThinness, 2, Color.TRANSPARENT);
-            if(n2Dataset_thinness != null)
-                customizeLineChart(listAge, recordValue, n2Dataset_thinness, 3, Color.TRANSPARENT);
-            if(n1Dataset_underweight != null)
-                customizeLineChart(listAge, recordValue, n1Dataset_underweight, 4, Color.TRANSPARENT);
-            if(medianDataset_normal != null)
-                customizeLineChart(listAge, recordValue, medianDataset_normal, 5, Color.TRANSPARENT);
-            if(p1Dataset_overweight != null)
-                customizeLineChart(listAge, recordValue, p1Dataset_overweight, 6, Color.TRANSPARENT);
-            if(p2Dataset_obesity != null)
-                customizeLineChart(listAge, recordValue, p2Dataset_obesity, 7, Color.TRANSPARENT);
-        }
 
 
         setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
@@ -1508,12 +1511,27 @@ public class ViewPatientActivity extends AppCompatActivity {
 //            lineDataSet.setDrawCircles(false);
 //            lineDataSet.setLineWidth(2f);
 //            lineDataSet.setColor(lineColor);
-            lineDataSet.setVisible(false);
-            lineDataSet.setDrawValues(false);
+//            lineDataSet.setVisible(false);
+//            lineDataSet.setDrawValues(false);
 //            lineDataSet.setValueTextColor(Color.BLUE);
 //            lineDataSet.setDrawValues(true);
 //            lineDataSet.setDrawFilled(true);
 //            lineDataSet.setFillColor(Color.GREEN);
+
+            lineColor = ColorThemes.cTealDefaultDark; // TODO remove this
+            lineDataSet.setLineWidth(1.5f);
+
+            lineDataSet.setColor(lineColor);
+            lineDataSet.setCircleColor(lineColor);
+            lineDataSet.setCircleColorHole(Color.WHITE);
+            lineDataSet.setDrawValues(false);
+            lineDataSet.setDrawCircles(false);
+
+//            if(index == 4 || index == 5 || index == 6) {
+//            }
+//            else {
+//                lineDataSet.setVisible(false);
+//            }
         }
     }
 
@@ -1724,28 +1742,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         getBetterDb.closeDatabase();
         Log.v(TAG, "number of records: "+patientRecords.size());
     }
-
-//    private void getIdealValues(int age) {
-//        String column;
-//        DatabaseAdapter getBetterDb = new DatabaseAdapter(this);
-//        /* ready database for reading */
-//        try {
-//            getBetterDb.openDatabaseForRead();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        /* get ideal value from database */
-//        if(recordColumn.contains("Height")) {
-//            column = Record.C_HEIGHT;
-//        } else if(recordColumn.contains("Weight")) {
-//            column = Record.C_WEIGHT;
-//        } else {
-//            column = "bmi";
-//        }
-//        idealValue = getBetterDb.getIdealValue(column, patient.getGender(), age);
-//        /* close database after retrieval */
-//        getBetterDb.closeDatabase();
-//    }
 
     private IdealValue getIdealValues(String recordType, int age) {
         IdealValue idealRecordValue = null;
