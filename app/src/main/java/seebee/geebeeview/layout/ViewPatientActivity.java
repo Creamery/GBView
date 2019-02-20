@@ -1032,6 +1032,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         int highestAge = patient.getAge(spRecordDate.getItemAtPosition(spRecordDate.getCount()-1).toString());
         // TODO Ideal values, comment out
         // if(highestAge > 5 && addIdealValues) {
+        // if(highestAge >= 5 && addIdealValues) {
         if(highestAge >= 5 && addIdealValues) {
             /* dataset containing values from 2SD */
             p2Dataset_obesity = createLineDataSet(recordValue, StringConstants.INDEX_OBESE);
@@ -1087,6 +1088,8 @@ public class ViewPatientActivity extends AppCompatActivity {
 
             /* addIdealValues if column is either height, weight, or BMI */
             // if(addIdealValues && age >= 5 && age <= 19) {
+            // if(highestAge >= 5 && addIdealValues) {
+            // if(age >= 5 && addIdealValues) {
             if(highestAge >= 5 && addIdealValues) {
                 idealRecordValues = getIdealValues(recordValue, age);
                 if(idealRecordValues != null) {
