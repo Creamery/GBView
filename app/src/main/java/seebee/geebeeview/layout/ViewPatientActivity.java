@@ -942,12 +942,17 @@ public class ViewPatientActivity extends AppCompatActivity {
         // add data to line chart
         lineChart.setData(lineData);
 
-        /* dataset containing values from patient, index 1 */
-        LineDataSet patientDataset = createLineDataSet(recordValue, 1);
-        lineData.addDataSet(patientDataset);
+
         /* add dataset containing average record values from patients with same age */
         LineDataSet averageDataset = createLineDataSet(recordValue, 0);
         lineData.addDataSet(averageDataset);
+
+
+        /* dataset containing values from patient, index 1 */
+        LineDataSet patientDataset = createLineDataSet(recordValue, 1);
+        lineData.addDataSet(patientDataset);
+
+
 
 
         // TODO chart axis
@@ -1047,6 +1052,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         for(int i = 0; i < patientRecords.size(); i++) {
             record = patientRecords.get(i);
             yVal = getColumnValue(recordValue, record);
+
             //Log.v(TAG, recordValue+": "+yVal);
             /* add patient data to patient entry, index 0 */
 //            lineData.addEntry(new Entry(yVal, i), 0); TODO edited
@@ -1114,8 +1120,8 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 
 //        Log.e("PATIENTRECORDS", recordValue+" "+patientDataset.getEntryCount()+"");
-        customizeLineChart(listAge, recordValue, patientDataset, 1, ColorThemes.cPrimaryDark);
-        customizeLineChart(listAge, recordValue, averageDataset, 0, ColorThemes.cTealDefaultDark);
+        customizeLineChart(listAge, recordValue, patientDataset, 1, ColorThemes.cTealDefaultDark); // Average
+        customizeLineChart(listAge, recordValue, averageDataset, 0, ColorThemes.cPrimaryDark); // Patient
 
 
 
@@ -1317,11 +1323,11 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        int valueTextColor = Color.BLACK;
         switch(index) {
             default:
-            case 0: datasetDescription = "Patient";
+            case 1: datasetDescription = "Patient";
                 lineColor = Color.BLUE;
                 lineWidth = 5f;
                 break;
-            case 1: datasetDescription = "Average";
+            case 0: datasetDescription = "Average";
                 lineColor = ColorTemplate.getHoloBlue();
                 lineWidth = 4f;
                 break;
@@ -1482,7 +1488,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
             lineDataSet.setCircleRadius(7f);
 
-            if(index == 0) { // if Patient only, change line & circle colors
+            if(index == 1) { // if Patient only, change line & circle colors
 
 //                ArrayList<Integer> colors = General.getColors(recordValue, lineDataSet.getValues(), lineColor);
                 ArrayList<Integer> colors = getColorsByIdeal(listAge, recordValue, lineDataSet.getValues(), lineColor);
@@ -1496,6 +1502,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
                 lineDataSet.setColors(colors.subList(1, colors.size()));
 //                lineDataSet.setColor(lineColor);
+                lineDataSet.setDrawValues(true);
             }
 
             else {

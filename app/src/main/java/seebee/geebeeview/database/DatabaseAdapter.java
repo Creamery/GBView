@@ -567,7 +567,9 @@ public class DatabaseAdapter {
      */
     public ArrayList<Record> getRecords(int patientId){
         ArrayList<Record> records = new ArrayList<Record>();
-        Cursor c = getBetterDb.query(Record.TABLE_NAME, null, Record.C_PATIENT_ID + " = " + patientId, null, null, null, null, null);
+        // Cursor c = getBetterDb.query(Record.TABLE_NAME, null, Record.C_PATIENT_ID + " = " + patientId, null, null, null, null, null);
+        String strOrderBy = Record.C_DATE_CREATED + " ASC";
+        Cursor c = getBetterDb.query(Record.TABLE_NAME, null, Record.C_PATIENT_ID + " = " + patientId, null, null, null, strOrderBy, null);
 
         if(c.moveToFirst()){
             do{
