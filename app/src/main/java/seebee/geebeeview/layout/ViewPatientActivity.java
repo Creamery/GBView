@@ -1535,7 +1535,8 @@ public class ViewPatientActivity extends AppCompatActivity {
 //                lineDataSet.setCircleColor(lineColor);
 
 //                lineDataSet.setColors(colors.subList(1, colors.size()));
-//                lineDataSet.setColor(Color.BLUE);
+                lineDataSet.setColor(lineColor);
+                lineDataSet.setCircleColors(lineColor);
                 Log.e("COLORINDEX", ""+index+" avg_patient: "+StringConstants.INDEX_DATASET_AVERAGE+"_"+StringConstants.INDEX_DATASET_PATIENT);
 //                lineDataSet.setDrawValues(true);
             }
