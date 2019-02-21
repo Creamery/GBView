@@ -660,15 +660,25 @@ public class Record implements Parcelable {
      * */
     public String getGrossMotorString(){
         String result;
+
         switch (grossMotor) {
             case 0: result = "Pass";
                 break;
-            case 1: result = "Fail";
+            case 2: result = "Fail";
                 break;
-            case 2:
-            default: result = "N/A";
+            default:
+            case 1: result = "N/A";
                 break;
         }
+//        switch (grossMotor) {
+//            case 0: result = "Pass";
+//                break;
+//            case 1: result = "Fail";
+//                break;
+//            case 2:
+//            default: result = "N/A";
+//                break;
+//        }
         return result;
     }
 
