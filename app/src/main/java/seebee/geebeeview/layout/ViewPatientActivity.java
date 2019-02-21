@@ -1044,14 +1044,12 @@ public class ViewPatientActivity extends AppCompatActivity {
                 lineData.addDataSet(medianDataset_normal); // 5
                 lineData.addDataSet(n1Dataset_underweight); // 4
             }
-
             else {
-
                 lineData.addDataSet(n2Dataset_thinness); // 3
+                lineData.addDataSet(n1Dataset_underweight); // 4
                 lineData.addDataSet(p2Dataset_obesity); // TODO 0
                 lineData.addDataSet(p1Dataset_overweight); // TODO 1
                 lineData.addDataSet(medianDataset_normal); // 5
-                lineData.addDataSet(n1Dataset_underweight); // 4
             }
 //            lineData.addDataSet(p2Dataset_obesity); // TODO 0
 //            lineData.addDataSet(p1Dataset_overweight); // TODO 1
