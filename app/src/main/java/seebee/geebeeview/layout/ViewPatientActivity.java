@@ -1532,6 +1532,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
             lineDataSet.setColor(lineColor);
             lineDataSet.setCircleColor(lineColor);
+            lineDataSet.setCircleColorHole(lineColor);
             lineDataSet.setFillColor(lineColor);
             lineDataSet.setDrawValues(false);
             lineDataSet.setDrawCircles(false);
@@ -1652,7 +1653,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.removeAllLimitLines();
-        // xAxis.setDrawLimitLinesBehindData(false); // TODO edit
+        xAxis.setDrawLimitLinesBehindData(true); // TODO edit
 
         LimitLine limitLine = new LimitLine(index, limitLabel);
         limitLine.setTextColor(limitLabelColor);
