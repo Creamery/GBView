@@ -1025,31 +1025,42 @@ public class ViewPatientActivity extends AppCompatActivity {
             /* dataset containing values from 1SD */
             p1Dataset_overweight = createLineDataSet(recordValue, StringConstants.INDEX_OVERWEIGHT);
             /* dataset containing values from median */
-            medianDataset_normal = createLineDataSet(recordValue, 5);
+            medianDataset_normal = createLineDataSet(recordValue, StringConstants.INDEX_NORMAL);
             /* dataset containing values from -1SD, index 3 */
-            n1Dataset_underweight = createLineDataSet(recordValue, 4);
+            n1Dataset_underweight = createLineDataSet(recordValue, StringConstants.INDEX_UNDERWEIGHT);
             /* dataset containing values from -2SD, index 2 */
-            n2Dataset_thinness = createLineDataSet(recordValue, 3);
+            n2Dataset_thinness = createLineDataSet(recordValue, StringConstants.INDEX_THINNESS);
             if(recordValue.equals(StringConstants.COL_BMI)) {
                 /* dataset containing values from -3SD, index 7 */
-                n3Dataset_severeThinness = createLineDataSet(recordValue, 2);
+                n3Dataset_severeThinness = createLineDataSet(recordValue, StringConstants.INDEX_SEVERE_THINNESS);
             }
-
-
             if(recordValue.equals(StringConstants.COL_BMI)) {
-                lineData.addDataSet(n3Dataset_severeThinness); // 2
-                lineData.addDataSet(n2Dataset_thinness); // 3
+
                 lineData.addDataSet(p2Dataset_obesity); // TODO 0
                 lineData.addDataSet(p1Dataset_overweight); // TODO 1
-                lineData.addDataSet(medianDataset_normal); // 5
-                lineData.addDataSet(n1Dataset_underweight); // 4
+                lineData.addDataSet(medianDataset_normal); // 2
+                lineData.addDataSet(n1Dataset_underweight); // 3
+                lineData.addDataSet(n2Dataset_thinness); // 4
+                lineData.addDataSet(n3Dataset_severeThinness); // 5
+//                lineData.addDataSet(n3Dataset_severeThinness); // 2
+//                lineData.addDataSet(n2Dataset_thinness); // 3
+//                lineData.addDataSet(p2Dataset_obesity); // TODO 0
+//                lineData.addDataSet(p1Dataset_overweight); // TODO 1
+//                lineData.addDataSet(medianDataset_normal); // 5
+//                lineData.addDataSet(n1Dataset_underweight); // 4
             }
             else {
-                lineData.addDataSet(n2Dataset_thinness); // 3
-                lineData.addDataSet(n1Dataset_underweight); // 4
                 lineData.addDataSet(p2Dataset_obesity); // TODO 0
                 lineData.addDataSet(p1Dataset_overweight); // TODO 1
-                lineData.addDataSet(medianDataset_normal); // 5
+                lineData.addDataSet(medianDataset_normal); // 2
+                lineData.addDataSet(n1Dataset_underweight); // 3
+                lineData.addDataSet(n2Dataset_thinness); // 4
+
+//                lineData.addDataSet(n2Dataset_thinness); // 3
+//                lineData.addDataSet(n1Dataset_underweight); // 4
+//                lineData.addDataSet(p2Dataset_obesity); // TODO 0
+//                lineData.addDataSet(p1Dataset_overweight); // TODO 1
+//                lineData.addDataSet(medianDataset_normal); // 5
             }
 //            lineData.addDataSet(p2Dataset_obesity); // TODO 0
 //            lineData.addDataSet(p1Dataset_overweight); // TODO 1
@@ -1096,17 +1107,48 @@ public class ViewPatientActivity extends AppCompatActivity {
                 // if(addIdealValues) {
                 if(idealRecordValues != null) {
                     /* add -3SD from ideal value data to patient entry, index 2 */
-                    lineData.addEntry(new Entry(i, idealRecordValues.getN3SD()), StringConstants.INDEX_OBESE); // 97th/Obesity
+                    lineData.addEntry(new Entry(i, idealRecordValues.getP2SD()), StringConstants.INDEX_OBESE); // 97th/Obesity
                     /* add 2SD from ideal value data to patient entry, index 7 */
-                    lineData.addEntry(new Entry(i, idealRecordValues.getN2SD()), StringConstants.INDEX_OVERWEIGHT); // 85th/Overweight
-                    /* add -2SD from ideal value data to patient entry, index 3 */
-                    lineData.addEntry(new Entry(i, idealRecordValues.getP2SD()), 2); // Severe Thinness
-                    /* add -1SD from ideal value data to patient entry, index 4 */
-                    lineData.addEntry(new Entry(i, idealRecordValues.getP1SD()), 3); // 3rd/Thinness
-                    /* add median of ideal value data to patient entry, index 5 */
-                    lineData.addEntry(new Entry(i, idealRecordValues.getMedian()), 4); // 15th
+                    lineData.addEntry(new Entry(i, idealRecordValues.getP1SD()), StringConstants.INDEX_OVERWEIGHT); // 85th/Overweight
+
                     /* add 1SD from ideal value data to patient entry, index 6 */
-                    lineData.addEntry(new Entry(i, idealRecordValues.getN1SD()), 5); // 50th/Normal
+                    lineData.addEntry(new Entry(i, idealRecordValues.getMedian()), StringConstants.INDEX_NORMAL); // 50th/Normal
+
+                    /* add median of ideal value data to patient entry, index 5 */
+                    lineData.addEntry(new Entry(i, idealRecordValues.getN1SD()), StringConstants.INDEX_UNDERWEIGHT); // 15th
+
+                    /* add -1SD from ideal value data to patient entry, index 4 */
+                    lineData.addEntry(new Entry(i, idealRecordValues.getN2SD()), StringConstants.INDEX_THINNESS); // 3rd/Thinness
+
+                    /* add -2SD from ideal value data to patient entry, index 3 */
+                    lineData.addEntry(new Entry(i, idealRecordValues.getN3SD()), StringConstants.INDEX_SEVERE_THINNESS); // Severe Thinness
+
+
+//                    /* add -3SD from ideal value data to patient entry, index 2 */
+//                    lineData.addEntry(new Entry(i, idealRecordValues.getN3SD()), StringConstants.INDEX_OBESE); // 97th/Obesity
+//                    /* add 2SD from ideal value data to patient entry, index 7 */
+//                    lineData.addEntry(new Entry(i, idealRecordValues.getN2SD()), StringConstants.INDEX_OVERWEIGHT); // 85th/Overweight
+//                    /* add -2SD from ideal value data to patient entry, index 3 */
+//                    lineData.addEntry(new Entry(i, idealRecordValues.getP2SD()), StringConstants.INDEX_SEVERE_THINNESS); // Severe Thinness
+//                    /* add -1SD from ideal value data to patient entry, index 4 */
+//                    lineData.addEntry(new Entry(i, idealRecordValues.getP1SD()), StringConstants.INDEX_THINNESS); // 3rd/Thinness
+//                    /* add median of ideal value data to patient entry, index 5 */
+//                    lineData.addEntry(new Entry(i, idealRecordValues.getMedian()), StringConstants.INDEX_UNDERWEIGHT); // 15th
+//                    /* add 1SD from ideal value data to patient entry, index 6 */
+//                    lineData.addEntry(new Entry(i, idealRecordValues.getN1SD()), StringConstants.INDEX_NORMAL); // 50th/Normal
+
+//                    /* add -3SD from ideal value data to patient entry, index 2 */
+//                    lineData.addEntry(new Entry(i, idealRecordValues.getN3SD()), StringConstants.INDEX_OBESE); // 97th/Obesity
+//                    /* add 2SD from ideal value data to patient entry, index 7 */
+//                    lineData.addEntry(new Entry(i, idealRecordValues.getN2SD()), StringConstants.INDEX_OVERWEIGHT); // 85th/Overweight
+//                    /* add -2SD from ideal value data to patient entry, index 3 */
+//                    lineData.addEntry(new Entry(i, idealRecordValues.getP2SD()), 2); // Severe Thinness
+//                    /* add -1SD from ideal value data to patient entry, index 4 */
+//                    lineData.addEntry(new Entry(i, idealRecordValues.getP1SD()), 3); // 3rd/Thinness
+//                    /* add median of ideal value data to patient entry, index 5 */
+//                    lineData.addEntry(new Entry(i, idealRecordValues.getMedian()), 4); // 15th
+//                    /* add 1SD from ideal value data to patient entry, index 6 */
+//                    lineData.addEntry(new Entry(i, idealRecordValues.getN1SD()), 5); // 50th/Normal
                 }
                 else {
                     Log.e("IDEAL", "idealRecordValues is null");
@@ -1115,13 +1157,13 @@ public class ViewPatientActivity extends AppCompatActivity {
                     /* add 2SD from ideal value data to patient entry, index 7 */
                     lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_OVERWEIGHT); // 85th/Overweight
                     /* add -2SD from ideal value data to patient entry, index 3 */
-                    lineData.addEntry(new Entry(i, 0), 2); // Severe Thinness
+                    lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_SEVERE_THINNESS); // Severe Thinness
                     /* add -1SD from ideal value data to patient entry, index 4 */
-                    lineData.addEntry(new Entry(i, 0), 3); // 3rd/Thinness
+                    lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_THINNESS); // 3rd/Thinness
                     /* add median of ideal value data to patient entry, index 5 */
-                    lineData.addEntry(new Entry(i, 0), 4); // 15th
+                    lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_UNDERWEIGHT); // 15th
                     /* add 1SD from ideal value data to patient entry, index 6 */
-                    lineData.addEntry(new Entry(i, 0), 5); // 50th/Normal
+                    lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_NORMAL); // 50th/Normal
                 }
              }
             yVal = getColumnValue(recordValue, averageRecords.get(i));
@@ -1146,19 +1188,18 @@ public class ViewPatientActivity extends AppCompatActivity {
 //        if(idealRecordValues != null) {
             if(p2Dataset_obesity != null)
                 customizeLineChart(listAge, recordValue, p2Dataset_obesity, StringConstants.INDEX_OBESE, ColorThemes.cBMI_Graph_Obese); // 7
-
             if(p1Dataset_overweight != null)
                 customizeLineChart(listAge, recordValue, p1Dataset_overweight, StringConstants.INDEX_OVERWEIGHT, ColorThemes.cBMI_Graph_Overweight); // 6
-
-            if(n3Dataset_severeThinness != null)
-                customizeLineChart(listAge, recordValue, n3Dataset_severeThinness, 2, ColorThemes.cBMI_Graph_SevereThinness);
-            if(n2Dataset_thinness != null)
-                customizeLineChart(listAge, recordValue, n2Dataset_thinness, 3, ColorThemes.cBMI_Graph_Thinness);
-            if(n1Dataset_underweight != null)
-                customizeLineChart(listAge, recordValue, n1Dataset_underweight, 4, ColorThemes.cBMI_Graph_Underweight);
             if(medianDataset_normal != null)
-                customizeLineChart(listAge, recordValue, medianDataset_normal, 5, ColorThemes.cBMI_Graph_Normal);
-//            if(p1Dataset_overweight != null)
+                customizeLineChart(listAge, recordValue, medianDataset_normal, StringConstants.INDEX_NORMAL, ColorThemes.cBMI_Graph_Normal);
+            if(n1Dataset_underweight != null)
+                customizeLineChart(listAge, recordValue, n1Dataset_underweight, StringConstants.INDEX_UNDERWEIGHT, ColorThemes.cBMI_Graph_Underweight);
+             if(n2Dataset_thinness != null)
+                customizeLineChart(listAge, recordValue, n2Dataset_thinness, StringConstants.INDEX_THINNESS, ColorThemes.cBMI_Graph_Thinness);
+             if(n3Dataset_severeThinness != null)
+                customizeLineChart(listAge, recordValue, n3Dataset_severeThinness, StringConstants.INDEX_SEVERE_THINNESS, ColorThemes.cBMI_Graph_SevereThinness);
+
+           //            if(p1Dataset_overweight != null)
 //                customizeLineChart(listAge, recordValue, p1Dataset_overweight, StringConstants.INDEX_OVERWEIGHT, ColorThemes.cBMI_Graph_Overweight); // 6
 //            if(p2Dataset_obesity != null)
 //                customizeLineChart(listAge, recordValue, p2Dataset_obesity, StringConstants.INDEX_OBESE, ColorThemes.cBMI_Graph_Obese); // 7
@@ -1363,41 +1404,43 @@ public class ViewPatientActivity extends AppCompatActivity {
         else if(index == StringConstants.INDEX_DATASET_AVERAGE) {
             datasetDescription = "Average";
         }
-        else {
-            switch(index) {
-                case 2: datasetDescription = "Severe Thinness";
-                    break;
-                case 3: datasetDescription = "3rd";
-                    if(recordValue.equals("BMI")) {
-                        datasetDescription = "Thinness";
-                    }
-                    break;
-                case 4: datasetDescription = "15th";
-                    if(recordValue.equals("BMI")) {
-                        datasetDescription = "";
-                    }
-                    break;
-                case 5: datasetDescription = "50th";
-                    if(recordValue.equals("BMI")) {
-                        datasetDescription = "Normal";
-                    }
-                    break;
-                case StringConstants.INDEX_OVERWEIGHT: datasetDescription = "85th"; // 6
-                    if(recordValue.equals("BMI")) {
-                        datasetDescription = "Overweight";
-                    }
-                    isFilled = true;
-                    break;
-                case StringConstants.INDEX_OBESE: datasetDescription = "97th"; // 7
-                    if(recordValue.equals("BMI")) {
-                        datasetDescription = "Obesity";
-                    }
-                    isFilled = true;
-                    break;
-
-                default:
-                    datasetDescription = "Empty";
+        else if(index == StringConstants.INDEX_SEVERE_THINNESS) {
+            datasetDescription = "Severe Thinness";
+        }
+        else if(index == StringConstants.INDEX_THINNESS) {
+            datasetDescription = "3rd";
+            if(recordValue.equals(StringConstants.COL_BMI)) {
+                datasetDescription = "Thinness";
             }
+        }
+        else if(index == StringConstants.INDEX_UNDERWEIGHT) {
+            datasetDescription = "15th";
+            if(recordValue.equals(StringConstants.COL_BMI)) {
+                datasetDescription = "";
+            }
+        }
+        else if(index == StringConstants.INDEX_NORMAL) {
+            datasetDescription = "50th";
+            if(recordValue.equals(StringConstants.COL_BMI)) {
+                datasetDescription = "Normal";
+            }
+        }
+        else if(index == StringConstants.INDEX_OVERWEIGHT) {
+            datasetDescription = "85th"; // 6
+            if(recordValue.equals(StringConstants.COL_BMI)) {
+                datasetDescription = "Overweight";
+            }
+            isFilled = true;
+        }
+        else if(index == StringConstants.INDEX_OBESE) {
+            datasetDescription = "97th"; // 7
+            if(recordValue.equals(StringConstants.COL_BMI)) {
+                datasetDescription = "Obesity";
+            }
+            isFilled = true;
+        }
+        else {
+            datasetDescription = "Empty";
         }
 
 
@@ -1619,7 +1662,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                     yVal = entries.get(i).getY();
                     age = listAge.get(i);
 
-                    if(age >= 5 && age <= 19) { // TODO return
+                    if(age >= 5 && age <= 19) { // TODO return TODO graph colors
                         // This part of the code is from the original.
                         if(recordValue.equals(StringConstants.COL_BMI) &&
                                 index < n3Dataset_severeThinness.getEntryCount() &&
