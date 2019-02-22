@@ -5,7 +5,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -41,6 +40,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 //import com.github.mikephil.charting.formatter.YAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
+import com.github.mikephil.charting.renderer.LineChartRenderer;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.io.File;
@@ -1176,6 +1176,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         yAxisLeft.addLimitLine(line);
         lineChart.getLegend().setEnabled(false);
 
+
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
         if(lineChart.isEmpty()) {
@@ -1411,7 +1412,6 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         // customize content of legend
         int color[] = {Color.BLUE, ColorTemplate.getHoloBlue()};
-        String label[] = {"Patient", "Average"};
 
 //        l.setCustom(color, label); TODO deprecated
 
