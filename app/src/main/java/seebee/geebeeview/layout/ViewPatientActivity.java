@@ -108,6 +108,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
     private LineDataSet n3Dataset_severeThinness, n2Dataset_thinness, n1Dataset_underweight,
             medianDataset_normal, p1Dataset_overweight, p2Dataset_obesity;
+    private LineDataSet timelineDataset;
     private int patientID;
     private Patient patient;
     private ArrayList<Record> patientRecords, averageRecords;
@@ -116,7 +117,7 @@ public class ViewPatientActivity extends AppCompatActivity {
     private RelativeLayout graphLayout1, graphLayout2, graphLayout3;
     private ConstraintLayout contGraphLayout1, contGraphLayout2, contGraphLayout3;
     private LineChart lineChart1, lineChart2, lineChart3;
-//    private RadarChart radarChart;
+
     private Spinner spRecordColumn;
     private String recordColumn = "BMI";
     private String chartType = "Line Chart";
@@ -767,8 +768,8 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 
 
-        int age = patient.getAge(spRecordDate.getSelectedItem().toString());
-        addLimitLineMarker(listAge.indexOf(age), age);
+//        int age = patient.getAge(spRecordDate.getSelectedItem().toString());
+//        addLimitLineMarker(listAge.indexOf(age), age);
 //        Log.d("ABOUTLOG", "GradeLevel: "+record.getGradeLevel());
     }
 
@@ -875,6 +876,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         clearAllGraphs();
         hideAllGraphs();
 //        Log.e("SELECT", selectedItem+"");
+
+
         switch(selectedItem) {
 
             case StringConstants.INDEX_EAR:
@@ -913,8 +916,9 @@ public class ViewPatientActivity extends AppCompatActivity {
                 showGraphs(3);
                 selectTab(selectedItem);
         }
-        int age = patient.getAge(spRecordDate.getSelectedItem().toString());
-        addLimitLineMarker(listAge.indexOf(age), age);
+         int age = patient.getAge(spRecordDate.getSelectedItem().toString());
+         addLimitLineMarker(listAge.indexOf(age), age);
+
     }
 
     private void prepareLineChartTitle(LineChart lineChart, String recordValue) {
@@ -947,16 +951,15 @@ public class ViewPatientActivity extends AppCompatActivity {
                 recordValue.contains(StringConstants.COL_BMI);
 
         if(addIdealValues) {
-            StringConstants.INDEX_DATASET_AVERAGE = 6;
-            StringConstants.INDEX_DATASET_PATIENT = 7;
+            StringConstants.INDEX_DATASET_TIMELINE = 6;
+            StringConstants.INDEX_DATASET_AVERAGE = 7;
+            StringConstants.INDEX_DATASET_PATIENT = 8;
         }
         else {
-            StringConstants.INDEX_DATASET_AVERAGE = 0;
-            StringConstants.INDEX_DATASET_PATIENT = 1;
+            StringConstants.INDEX_DATASET_TIMELINE = 0;
+            StringConstants.INDEX_DATASET_AVERAGE = 1;
+            StringConstants.INDEX_DATASET_PATIENT = 2;
         }
-
-
-
 
 //        /* add dataset containing average record values from patients with same age */
 //        LineDataSet averageDataset = createLineDataSet(recordValue, StringConstants.INDEX_DATASET_AVERAGE);
@@ -1008,7 +1011,6 @@ public class ViewPatientActivity extends AppCompatActivity {
 
 
 
-
         // Prepare ideal values
         resetIdealDatasets();
         int highestAge = patient.getAge(spRecordDate.getItemAtPosition(spRecordDate.getCount()-1).toString());
@@ -1044,12 +1046,19 @@ public class ViewPatientActivity extends AppCompatActivity {
                 lineData.addDataSet(n2Dataset_thinness); // 4
             }
         }
+        // Add timeline dataset
+        resetTimelineDataset();
+        timelineDataset = createLineDataSet(recordValue, StringConstants.INDEX_DATASET_TIMELINE); // TODO added
+        lineData.addDataSet(timelineDataset); // TODO 6
+
         /* add dataset containing average record values from patients with same age */
         LineDataSet averageDataset = createLineDataSet(recordValue, StringConstants.INDEX_DATASET_AVERAGE);
-        lineData.addDataSet(averageDataset); // TODO 6
-        /* dataset containing values from patient, index 1 */
+        lineData.addDataSet(averageDataset); // TODO 7
+
+        /* dataset containing values from patient */
         LineDataSet patientDataset = createLineDataSet(recordValue, StringConstants.INDEX_DATASET_PATIENT);
-        lineData.addDataSet(patientDataset); // TODO 7
+        lineData.addDataSet(patientDataset); // TODO 8
+
         Record record;
         float yVal; int age;
         ArrayList<Integer> listAge = new ArrayList<>();
@@ -1062,7 +1071,6 @@ public class ViewPatientActivity extends AppCompatActivity {
             age = patient.getAge(record.getDateCreated());
             listAge.add(age);
 //            lineData.addXValue(Integer.toString(age)); // TODO deprecated, FIND replacement
-
 
 
             /* addIdealValues if column is either height, weight, or BMI */
@@ -1145,16 +1153,11 @@ public class ViewPatientActivity extends AppCompatActivity {
                 customizeLineChart(listAge, recordValue, n2Dataset_thinness, StringConstants.INDEX_THINNESS, ColorThemes.cBMI_Graph_Thinness);
              if(n3Dataset_severeThinness != null)
                 customizeLineChart(listAge, recordValue, n3Dataset_severeThinness, StringConstants.INDEX_SEVERE_THINNESS, ColorThemes.cBMI_Graph_SevereThinness);
-
-
        }
 
-//        Log.e("PATIENTRECORDS", recordValue+" "+patientDataset.getEntryCount()+"");
 
         customizeLineChart(listAge, recordValue, patientDataset, StringConstants.INDEX_DATASET_PATIENT, ColorThemes.cTealDefaultDark); // Patient
         customizeLineChart(listAge, recordValue, averageDataset, StringConstants.INDEX_DATASET_AVERAGE, ColorThemes.cPrimaryDark); // Average
-
-
 
         setLineChartValueFormatter(recordValue, lineChart, lineData, idealRecordValues);
 
@@ -1176,6 +1179,13 @@ public class ViewPatientActivity extends AppCompatActivity {
         yAxisLeft.addLimitLine(line);
         lineChart.getLegend().setEnabled(false);
 
+        // TODO added timeline
+        int timelineAge = listAge.indexOf(patient.getAge(spRecordDate.getSelectedItem().toString()));
+        lineData.addEntry(new Entry(timelineAge, lineChart.getAxisLeft().getAxisMinimum()), StringConstants.INDEX_DATASET_TIMELINE);
+        lineData.addEntry(new Entry(timelineAge, lineChart.getAxisLeft().getAxisMaximum()), StringConstants.INDEX_DATASET_TIMELINE);
+        // TODO added timeline
+        customizeLineChart(listAge, recordValue, timelineDataset, StringConstants.INDEX_DATASET_TIMELINE, ColorThemes.cPrimaryDark);
+
 
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
@@ -1184,6 +1194,10 @@ public class ViewPatientActivity extends AppCompatActivity {
             lineChart.notifyDataSetChanged();
             lineChart.invalidate();
         }
+    }
+
+    public void resetTimelineDataset() {
+        this.timelineDataset = null;
     }
 
     public List<LegendEntry> createLegendEntries() {
@@ -1380,6 +1394,9 @@ public class ViewPatientActivity extends AppCompatActivity {
                 datasetDescription = "Obesity";
             }
         }
+        else if(index == StringConstants.INDEX_DATASET_TIMELINE) {
+            datasetDescription = "Timeline";
+        }
         else {
             datasetDescription = "Empty";
         }
@@ -1528,11 +1545,21 @@ public class ViewPatientActivity extends AppCompatActivity {
                 lineDataSet.setCircleColor(lineColor);
 //                lineDataSet.setDrawCircles(false);
             }
-        } else { // Ideal Values
+        }
+        else if(index == StringConstants.INDEX_DATASET_TIMELINE) {
+            lineDataSet.setColor(lineColor);
+            lineDataSet.setCircleColor(lineColor);
+            lineDataSet.setDrawCircles(false);
+            // Thicken line if at start or end (since it is cut off by the viewport)
+            if(spRecordDate.getSelectedItemPosition()== 0 ||
+                    spRecordDate.getSelectedItemPosition() == spRecordDate.getChildCount()-1) {
+                lineDataSet.setLineWidth(3.5f*2);
+            }
+        }
+        else { // Ideal Values
 
             lineDataSet.setColor(lineColor);
             lineDataSet.setCircleColor(lineColor);
-            lineDataSet.setCircleColorHole(lineColor);
             lineDataSet.setFillColor(lineColor);
             lineDataSet.setDrawValues(false);
             lineDataSet.setDrawCircles(false);
@@ -1643,7 +1670,8 @@ public class ViewPatientActivity extends AppCompatActivity {
     public void customizeTimelineLimitLine(LineChart lineChart, int index, int age) {
         float limitLineWidth = 5f;
         float limitTextSize = 14f;
-        int limitLineColor = ColorThemes.cPrimaryDark;
+        int limitLineColor = Color.TRANSPARENT;
+//        int limitLineColor = ColorThemes.cPrimaryDark;
         int limitLabelColor = ColorThemes.cPrimaryDark;
         String limitLabel = age+" yr";
         if(age > 1) {
@@ -1832,6 +1860,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         spRecordDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                prepareLineChartData(spRecordDate.getSelectedItemPosition());
+
                 Record record = patientRecords.get(position);
                 displayRecord(record);
                 refreshCharts();

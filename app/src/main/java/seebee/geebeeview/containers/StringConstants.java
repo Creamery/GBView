@@ -44,9 +44,9 @@ public class StringConstants {
     public static final int INDEX_BODY = 3;
     public static final int INDEX_HAND = 4;
 
-    public static int INDEX_DATASET_PATIENT = 7;
-    public static int INDEX_DATASET_AVERAGE = 6;
-
+    public static int INDEX_DATASET_PATIENT = 8;
+    public static int INDEX_DATASET_AVERAGE = 7;
+    public static int INDEX_DATASET_TIMELINE = 6;
 
     public static final int INDEX_OBESE = 0;
     public static final int INDEX_OVERWEIGHT = 1;
