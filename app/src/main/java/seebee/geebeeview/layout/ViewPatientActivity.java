@@ -1027,24 +1027,24 @@ public class ViewPatientActivity extends AppCompatActivity {
             medianDataset_normal = createLineDataSet(recordValue, StringConstants.INDEX_NORMAL);
             n1Dataset_underweight = createLineDataSet(recordValue, StringConstants.INDEX_UNDERWEIGHT);
             n2Dataset_thinness = createLineDataSet(recordValue, StringConstants.INDEX_THINNESS);
-            if(recordValue.equals(StringConstants.COL_BMI)) {
+//            if(recordValue.equals(StringConstants.COL_BMI)) {
                 n3Dataset_severeThinness = createLineDataSet(recordValue, StringConstants.INDEX_SEVERE_THINNESS);
-            }
-            if(recordValue.equals(StringConstants.COL_BMI)) {
+//            }
+            // if(recordValue.equals(StringConstants.COL_BMI)) {
                 lineData.addDataSet(p2Dataset_obesity); // TODO 0
                 lineData.addDataSet(p1Dataset_overweight); // TODO 1
                 lineData.addDataSet(medianDataset_normal); // 2
                 lineData.addDataSet(n1Dataset_underweight); // 3
                 lineData.addDataSet(n2Dataset_thinness); // 4
                 lineData.addDataSet(n3Dataset_severeThinness); // 5
-            }
-            else {
-                lineData.addDataSet(p2Dataset_obesity); // TODO 0
-                lineData.addDataSet(p1Dataset_overweight); // TODO 1
-                lineData.addDataSet(medianDataset_normal); // 2
-                lineData.addDataSet(n1Dataset_underweight); // 3
-                lineData.addDataSet(n2Dataset_thinness); // 4
-            }
+//            }
+//            else {
+//                lineData.addDataSet(p2Dataset_obesity); // TODO 0
+//                lineData.addDataSet(p1Dataset_overweight); // TODO 1
+//                lineData.addDataSet(medianDataset_normal); // 2
+//                lineData.addDataSet(n1Dataset_underweight); // 3
+//                lineData.addDataSet(n2Dataset_thinness); // 4
+            // }
         }
         // Add timeline dataset
         resetTimelineDataset();
@@ -1181,6 +1181,7 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         // TODO added timeline
         int timelineAge = listAge.indexOf(patient.getAge(spRecordDate.getSelectedItem().toString()));
+        Log.e("TIMELINEAGE", timelineAge+" "+lineChart.getAxisLeft().getAxisMinimum()+" "+lineChart.getAxisLeft().getAxisMaximum());
         lineData.addEntry(new Entry(timelineAge, lineChart.getAxisLeft().getAxisMinimum()), StringConstants.INDEX_DATASET_TIMELINE);
         lineData.addEntry(new Entry(timelineAge, lineChart.getAxisLeft().getAxisMaximum()), StringConstants.INDEX_DATASET_TIMELINE);
         // TODO added timeline
@@ -1860,7 +1861,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         spRecordDate.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                prepareLineChartData(spRecordDate.getSelectedItemPosition());
+                prepareLineChartData(spRecordColumn.getSelectedItemPosition());
 
                 Record record = patientRecords.get(position);
                 displayRecord(record);
