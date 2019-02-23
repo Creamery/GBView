@@ -1075,31 +1075,6 @@ public class DatabaseAdapter {
                 idealValue.printIdealValue();
             }
             c.close();
-//        }
-//        else { // Added
-//            Cursor c = getBetterDb.query(IdealValue.TABLE_NAME, null,
-//                    IdealValue.C_RECORD_COLUMN + " LIKE '" + recordColumn
-//                            + "' AND " + IdealValue.C_GENDER + " = " + gender
-//                            + " AND " + IdealValue.C_YEAR + " = " + age, null, null, null, null);
-//            if (c.moveToFirst()) {
-//                //do{
-//                idealValue = new IdealValue(c.getInt(c.getColumnIndex(IdealValue.C_GROWTH_ID)),
-//                        c.getString(c.getColumnIndex(IdealValue.C_RECORD_COLUMN)),
-//                        c.getInt(c.getColumnIndex(IdealValue.C_GENDER)),
-//                        0,
-//                        0,
-//                        0,
-//                        0,
-//                        0,
-//                        0,
-//                        0,
-//                        0,
-//                        0);
-//                //}while(c.moveToNext());
-//                idealValue.printIdealValue();
-//            }
-//            c.close();
-//        }
         return idealValue;
     }
 
