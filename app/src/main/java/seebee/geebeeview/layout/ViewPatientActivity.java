@@ -1014,8 +1014,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         // Prepare ideal values
         resetIdealDatasets();
         int highestAge = patient.getAge(spRecordDate.getItemAtPosition(spRecordDate.getCount()-1).toString());
-        Log.e("IDEALVAL", "highest age = "+highestAge);
-        Log.e("IDEALVAL", "addIdealValue = "+addIdealValues+" rec: "+recordColumn);
+//        Log.e("IDEALVAL", "highest age = "+highestAge);
+//        Log.e("IDEALVAL", "addIdealValue = "+addIdealValues+" rec: "+recordColumn);
 
         // TODO Ideal values, comment out
         // if(highestAge > 5 && addIdealValues) {
@@ -1078,11 +1078,11 @@ public class ViewPatientActivity extends AppCompatActivity {
             // if(highestAge >= 5 && addIdealValues) {
             // if(age >= 5 && addIdealValues) {
             // if(age >= 5 && addIdealValues) { // TODO return
-             if(addIdealValues) { // TODO return
+             if(addIdealValues && ( (age >= 5 && age <= 19 ) || i == patientRecords.size()-1)) { // TODO return
                 idealRecordValues = getIdealValues(recordValue, age);
                 if(idealRecordValues != null) {
                     idealRecordValues.printIdealValue();
-//                    Log.e("IDEAL", idealRecordValues.getP2SD()+" "+idealRecordValues.getYear());
+                    Log.e("IDEAL", idealRecordValues.getP2SD()+" "+idealRecordValues.getYear());
                 }
 
                 // if(addIdealValues) {
@@ -1107,19 +1107,19 @@ public class ViewPatientActivity extends AppCompatActivity {
                 }
                 else {
                     Log.e("IDEAL", "idealRecordValues is null");
-                    /* add -3SD from ideal value data to patient entry, index 2 */
-                    lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_OBESE); // 97th/Obesity
-                    /* add 2SD from ideal value data to patient entry, index 7 */
-                    lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_OVERWEIGHT); // 85th/Overweight
-                    /* add -2SD from ideal value data to patient entry, index 3 */
-                    lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_SEVERE_THINNESS); // Severe Thinness
-                    /* add -1SD from ideal value data to patient entry, index 4 */
-                    lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_THINNESS); // 3rd/Thinness
-                    /* add median of ideal value data to patient entry, index 5 */
-                    lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_UNDERWEIGHT); // 15th
-                    /* add 1SD from ideal value data to patient entry, index 6 */
-                    lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_NORMAL); // 50th/Normal
-                }
+                     /* add -3SD from ideal value data to patient entry, index 2 */
+                     lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_OBESE); // 97th/Obesity
+                     /* add 2SD from ideal value data to patient entry, index 7 */
+                     lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_OVERWEIGHT); // 85th/Overweight
+                     /* add -2SD from ideal value data to patient entry, index 3 */
+                     lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_SEVERE_THINNESS); // Severe Thinness
+                     /* add -1SD from ideal value data to patient entry, index 4 */
+                     lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_THINNESS); // 3rd/Thinness
+                     /* add median of ideal value data to patient entry, index 5 */
+                     lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_UNDERWEIGHT); // 15th
+                     /* add 1SD from ideal value data to patient entry, index 6 */
+                     lineData.addEntry(new Entry(i, 0), StringConstants.INDEX_NORMAL); // 50th/Normal
+                 }
              }
             yVal = getColumnValue(recordValue, averageRecords.get(i));
 //            if(recordValue.contains("Visual"))
@@ -1186,7 +1186,6 @@ public class ViewPatientActivity extends AppCompatActivity {
         lineData.addEntry(new Entry(timelineAge, lineChart.getAxisLeft().getAxisMaximum()), StringConstants.INDEX_DATASET_TIMELINE);
         // TODO added timeline
         customizeLineChart(listAge, recordValue, timelineDataset, StringConstants.INDEX_DATASET_TIMELINE, ColorThemes.cPrimaryDark);
-
 
         lineChart.notifyDataSetChanged();
         lineChart.invalidate();
@@ -1515,8 +1514,8 @@ public class ViewPatientActivity extends AppCompatActivity {
         lineDataSet.setCircleRadius(7f);
         lineDataSet.setCircleHoleRadius(3f);
         lineDataSet.setCircleColorHole(Color.WHITE);
-
         lineDataSet.setDrawValues(false);
+
         if(index == StringConstants.INDEX_DATASET_AVERAGE || index == StringConstants.INDEX_DATASET_PATIENT) { // Average or Patient datasets
             if(index == StringConstants.INDEX_DATASET_PATIENT) { // if Patient only, change line & circle colors
 
@@ -1537,7 +1536,7 @@ public class ViewPatientActivity extends AppCompatActivity {
                 lineDataSet.setColor(lineColor);
                 lineDataSet.setCircleColors(lineColor);
 
-                Log.e("COLORINDEX", ""+index+" avg_patient: "+StringConstants.INDEX_DATASET_AVERAGE+"_"+StringConstants.INDEX_DATASET_PATIENT);
+//                Log.e("COLORINDEX", ""+index+" avg_patient: "+StringConstants.INDEX_DATASET_AVERAGE+"_"+StringConstants.INDEX_DATASET_PATIENT);
 //                lineDataSet.setDrawValues(true);
             }
 
@@ -1551,6 +1550,7 @@ public class ViewPatientActivity extends AppCompatActivity {
             lineDataSet.setColor(lineColor);
             lineDataSet.setCircleColor(lineColor);
             lineDataSet.setDrawCircles(false);
+            lineDataSet.setVisible(true);
             // Thicken line if at start or end (since it is cut off by the viewport)
             if(spRecordDate.getSelectedItemPosition()== 0 ||
                     spRecordDate.getSelectedItemPosition() == spRecordDate.getChildCount()-1) {
@@ -1559,6 +1559,7 @@ public class ViewPatientActivity extends AppCompatActivity {
         }
         else { // Ideal Values
 
+            lineDataSet.setLineWidth(0.0f);
             lineDataSet.setColor(lineColor);
             lineDataSet.setCircleColor(lineColor);
             lineDataSet.setFillColor(lineColor);
@@ -1682,14 +1683,14 @@ public class ViewPatientActivity extends AppCompatActivity {
 
         XAxis xAxis = lineChart.getXAxis();
         xAxis.removeAllLimitLines();
-        xAxis.setDrawLimitLinesBehindData(true); // TODO edit
+        xAxis.setDrawLimitLinesBehindData(false); // TODO edit
 
         LimitLine limitLine = new LimitLine(index, limitLabel);
         limitLine.setTextColor(limitLabelColor);
         limitLine.setTextSize(limitTextSize);
         limitLine.setLineColor(limitLineColor);
         limitLine.setLineWidth(limitLineWidth);
-        Log.e("TIMELINE", ""+index+" "+(spRecordDate.getAdapter().getCount()-1));
+//        Log.e("TIMELINE", ""+index+" "+(spRecordDate.getAdapter().getCount()-1));
         if(index == spRecordDate.getAdapter().getCount()-1) {
             limitLine.setLabelPosition(LimitLine.LimitLabelPosition.LEFT_TOP);
         }
